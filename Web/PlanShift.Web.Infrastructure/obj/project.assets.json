@@ -1,0 +1,125 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETStandard,Version=v2.1": {
+      "StyleCop.Analyzers/1.2.0-beta.205": {
+        "type": "package",
+        "dependencies": {
+          "StyleCop.Analyzers.Unstable": "1.2.0.205"
+        }
+      },
+      "StyleCop.Analyzers.Unstable/1.2.0.205": {
+        "type": "package"
+      }
+    }
+  },
+  "libraries": {
+    "StyleCop.Analyzers/1.2.0-beta.205": {
+      "sha512": "ORvUXKlJRqAWstZiSH9LgEuM5hBye8mUDDSpMoQhiKLFUtFEGesfr88Qa8jC0KKVaBTUZzdo4fNZM4oHeV/JsQ==",
+      "type": "package",
+      "path": "stylecop.analyzers/1.2.0-beta.205",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "THIRD-PARTY-NOTICES.txt",
+        "stylecop.analyzers.1.2.0-beta.205.nupkg.sha512",
+        "stylecop.analyzers.nuspec"
+      ]
+    },
+    "StyleCop.Analyzers.Unstable/1.2.0.205": {
+      "sha512": "YiRjba3yBp2mCvtsOeQf8XU1tPaOZFTKxcsj44tTpGrhRchmtuKtgyMCV9kkOFdfKISnHk0gzhigITlrrrvMuA==",
+      "type": "package",
+      "path": "stylecop.analyzers.unstable/1.2.0.205",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "THIRD-PARTY-NOTICES.txt",
+        "analyzers/dotnet/cs/StyleCop.Analyzers.CodeFixes.dll",
+        "analyzers/dotnet/cs/StyleCop.Analyzers.dll",
+        "analyzers/dotnet/cs/de-DE/StyleCop.Analyzers.resources.dll",
+        "analyzers/dotnet/cs/en-GB/StyleCop.Analyzers.resources.dll",
+        "analyzers/dotnet/cs/es-MX/StyleCop.Analyzers.resources.dll",
+        "analyzers/dotnet/cs/fr-FR/StyleCop.Analyzers.resources.dll",
+        "analyzers/dotnet/cs/pl-PL/StyleCop.Analyzers.resources.dll",
+        "analyzers/dotnet/cs/pt-BR/StyleCop.Analyzers.resources.dll",
+        "analyzers/dotnet/cs/ru-RU/StyleCop.Analyzers.resources.dll",
+        "rulesets/StyleCopAnalyzersDefault.ruleset",
+        "stylecop.analyzers.unstable.1.2.0.205.nupkg.sha512",
+        "stylecop.analyzers.unstable.nuspec",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETStandard,Version=v2.1": [
+      "StyleCop.Analyzers >= 1.2.0-beta.205"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\valni\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Web\\PlanShift.Web.Infrastructure\\PlanShift.Web.Infrastructure.csproj",
+      "projectName": "PlanShift.Web.Infrastructure",
+      "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Web\\PlanShift.Web.Infrastructure\\PlanShift.Web.Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\valni\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Web\\PlanShift.Web.Infrastructure\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\valni\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "netstandard2.1"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netstandard2.1": {
+        "dependencies": {
+          "StyleCop.Analyzers": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[1.2.0-beta.205, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "NETStandard.Library": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

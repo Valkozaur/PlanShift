@@ -1,0 +1,12 @@
+C:\Users\valni\Desktop\PlanShift-main\Data\PlanShift.Data.Models\obj\Debug\netstandard2.1\PlanShift.Data.Models.csprojAssemblyReference.cache
+C:\Users\valni\Desktop\PlanShift-main\Data\PlanShift.Data.Models\obj\Debug\netstandard2.1\PlanShift.Data.Models.AssemblyInfoInputs.cache
+C:\Users\valni\Desktop\PlanShift-main\Data\PlanShift.Data.Models\obj\Debug\netstandard2.1\PlanShift.Data.Models.AssemblyInfo.cs
+C:\Users\valni\Desktop\PlanShift-main\Data\PlanShift.Data.Models\obj\Debug\netstandard2.1\PlanShift.Data.Models.csproj.CoreCompileInputs.cache
+C:\Users\valni\Desktop\PlanShift-main\Data\PlanShift.Data.Models\bin\Debug\netstandard2.1\PlanShift.Data.Models.deps.json
+C:\Users\valni\Desktop\PlanShift-main\Data\PlanShift.Data.Models\bin\Debug\netstandard2.1\PlanShift.Data.Models.dll
+C:\Users\valni\Desktop\PlanShift-main\Data\PlanShift.Data.Models\bin\Debug\netstandard2.1\PlanShift.Data.Models.pdb
+C:\Users\valni\Desktop\PlanShift-main\Data\PlanShift.Data.Models\bin\Debug\netstandard2.1\PlanShift.Data.Common.dll
+C:\Users\valni\Desktop\PlanShift-main\Data\PlanShift.Data.Models\bin\Debug\netstandard2.1\PlanShift.Data.Common.pdb
+C:\Users\valni\Desktop\PlanShift-main\Data\PlanShift.Data.Models\obj\Debug\netstandard2.1\PlanShift.Data.Models.csproj.CopyComplete
+C:\Users\valni\Desktop\PlanShift-main\Data\PlanShift.Data.Models\obj\Debug\netstandard2.1\PlanShift.Data.Models.dll
+C:\Users\valni\Desktop\PlanShift-main\Data\PlanShift.Data.Models\obj\Debug\netstandard2.1\PlanShift.Data.Models.pdb

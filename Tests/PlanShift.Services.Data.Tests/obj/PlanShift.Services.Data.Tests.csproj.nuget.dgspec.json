@@ -1,0 +1,520 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Tests\\PlanShift.Services.Data.Tests\\PlanShift.Services.Data.Tests.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Common\\PlanShift.Data.Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Common\\PlanShift.Data.Common.csproj",
+        "projectName": "PlanShift.Data.Common",
+        "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Common\\PlanShift.Data.Common.csproj",
+        "packagesPath": "C:\\Users\\valni\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\valni\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.2.0-beta.205, )"
+            },
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Models\\PlanShift.Data.Models.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Models\\PlanShift.Data.Models.csproj",
+        "projectName": "PlanShift.Data.Models",
+        "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Models\\PlanShift.Data.Models.csproj",
+        "packagesPath": "C:\\Users\\valni\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Models\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\valni\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {
+              "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Common\\PlanShift.Data.Common.csproj": {
+                "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Common\\PlanShift.Data.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.2.0-beta.205, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data\\PlanShift.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data\\PlanShift.Data.csproj",
+        "projectName": "PlanShift.Data",
+        "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data\\PlanShift.Data.csproj",
+        "packagesPath": "C:\\Users\\valni\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\valni\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Common\\PlanShift.Data.Common.csproj": {
+                "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Common\\PlanShift.Data.Common.csproj"
+              },
+              "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Models\\PlanShift.Data.Models.csproj": {
+                "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Models\\PlanShift.Data.Models.csproj"
+              },
+              "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\PlanShift.Common\\PlanShift.Common.csproj": {
+                "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\PlanShift.Common\\PlanShift.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
+            "Microsoft.Extensions.Configuration.UserSecrets": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.2.0-beta.205, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\PlanShift.Common\\PlanShift.Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\PlanShift.Common\\PlanShift.Common.csproj",
+        "projectName": "PlanShift.Common",
+        "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\PlanShift.Common\\PlanShift.Common.csproj",
+        "packagesPath": "C:\\Users\\valni\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\PlanShift.Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\valni\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.2.0-beta.205, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Data\\PlanShift.Services.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Data\\PlanShift.Services.Data.csproj",
+        "projectName": "PlanShift.Services.Data",
+        "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Data\\PlanShift.Services.Data.csproj",
+        "packagesPath": "C:\\Users\\valni\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Data\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\valni\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Common\\PlanShift.Data.Common.csproj": {
+                "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Common\\PlanShift.Data.Common.csproj"
+              },
+              "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Models\\PlanShift.Data.Models.csproj": {
+                "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Models\\PlanShift.Data.Models.csproj"
+              },
+              "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data\\PlanShift.Data.csproj": {
+                "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data\\PlanShift.Data.csproj"
+              },
+              "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Mapping\\PlanShift.Services.Mapping.csproj": {
+                "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Mapping\\PlanShift.Services.Mapping.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.2.0-beta.205, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Mapping\\PlanShift.Services.Mapping.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Mapping\\PlanShift.Services.Mapping.csproj",
+        "projectName": "PlanShift.Services.Mapping",
+        "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Mapping\\PlanShift.Services.Mapping.csproj",
+        "packagesPath": "C:\\Users\\valni\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Mapping\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\valni\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[10.1.1, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.2.0-beta.205, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Tests\\PlanShift.Services.Data.Tests\\PlanShift.Services.Data.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Tests\\PlanShift.Services.Data.Tests\\PlanShift.Services.Data.Tests.csproj",
+        "projectName": "PlanShift.Services.Data.Tests",
+        "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Tests\\PlanShift.Services.Data.Tests\\PlanShift.Services.Data.Tests.csproj",
+        "packagesPath": "C:\\Users\\valni\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Tests\\PlanShift.Services.Data.Tests\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\valni\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data\\PlanShift.Data.csproj": {
+                "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data\\PlanShift.Data.csproj"
+              },
+              "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Data\\PlanShift.Services.Data.csproj": {
+                "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Data\\PlanShift.Services.Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.7.1, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.14.7, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.2.0-beta.205, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+﻿namespace PlanShift.Data.Models
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
+    using PlanShift.Data.Common.Models;
+    using PlanShift.Models;
+
+    public class Business : BaseDeletableModel<string>
+    {
+        public Business()
+        {
+            this.Id = Guid.NewGuid().ToString();
+
+            this.Groups = new HashSet<Group>();
+        }
+
+        [Required]
+        [MaxLength(100)]
+        public string Name { get; set; }
+
+        [Required]
+        public string Type { get; set; }
+
+        [Required]
+        public string OwnerId { get; set; }
+
+        public virtual PlanShiftUser Owner { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime UpdatedAt { get; set; }
+
+        public ICollection<Group> Groups { get; set; }
+    }
+}

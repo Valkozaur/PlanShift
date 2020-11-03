@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "drOy+t9LvStMCv+6sZwnmUd01ZxugNN6HKuxlJvN5kMFFDqcHpIIDwtRv9oxABb0soN0Zl8Wjv2oGWxTxAaCXw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\PlanShift.Common\\PlanShift.Common.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\valni\\.nuget\\packages\\stylecop.analyzers\\1.2.0-beta.205\\stylecop.analyzers.1.2.0-beta.205.nupkg.sha512",
+    "C:\\Users\\valni\\.nuget\\packages\\stylecop.analyzers.unstable\\1.2.0.205\\stylecop.analyzers.unstable.1.2.0.205.nupkg.sha512"
+  ],
+  "logs": []
+}

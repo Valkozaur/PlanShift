@@ -1,0 +1,9 @@
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.Infrastructure\bin\Debug\netstandard2.1\PlanShift.Web.Infrastructure.deps.json
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.Infrastructure\bin\Debug\netstandard2.1\PlanShift.Web.Infrastructure.dll
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.Infrastructure\bin\Debug\netstandard2.1\PlanShift.Web.Infrastructure.pdb
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.Infrastructure\obj\Debug\netstandard2.1\PlanShift.Web.Infrastructure.csprojAssemblyReference.cache
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.Infrastructure\obj\Debug\netstandard2.1\PlanShift.Web.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.Infrastructure\obj\Debug\netstandard2.1\PlanShift.Web.Infrastructure.AssemblyInfo.cs
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.Infrastructure\obj\Debug\netstandard2.1\PlanShift.Web.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.Infrastructure\obj\Debug\netstandard2.1\PlanShift.Web.Infrastructure.dll
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.Infrastructure\obj\Debug\netstandard2.1\PlanShift.Web.Infrastructure.pdb

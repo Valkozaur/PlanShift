@@ -1,0 +1,16 @@
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.ViewModels\bin\Debug\netstandard2.1\PlanShift.Web.ViewModels.deps.json
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.ViewModels\bin\Debug\netstandard2.1\PlanShift.Web.ViewModels.dll
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.ViewModels\bin\Debug\netstandard2.1\PlanShift.Web.ViewModels.pdb
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.ViewModels\bin\Debug\netstandard2.1\PlanShift.Data.Common.dll
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.ViewModels\bin\Debug\netstandard2.1\PlanShift.Data.Models.dll
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.ViewModels\bin\Debug\netstandard2.1\PlanShift.Services.Mapping.dll
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.ViewModels\bin\Debug\netstandard2.1\PlanShift.Data.Models.pdb
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.ViewModels\bin\Debug\netstandard2.1\PlanShift.Services.Mapping.pdb
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.ViewModels\bin\Debug\netstandard2.1\PlanShift.Data.Common.pdb
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.ViewModels\obj\Debug\netstandard2.1\PlanShift.Web.ViewModels.csprojAssemblyReference.cache
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.ViewModels\obj\Debug\netstandard2.1\PlanShift.Web.ViewModels.AssemblyInfoInputs.cache
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.ViewModels\obj\Debug\netstandard2.1\PlanShift.Web.ViewModels.AssemblyInfo.cs
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.ViewModels\obj\Debug\netstandard2.1\PlanShift.Web.ViewModels.csproj.CoreCompileInputs.cache
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.ViewModels\obj\Debug\netstandard2.1\PlanShift.Web.ViewModels.csproj.CopyComplete
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.ViewModels\obj\Debug\netstandard2.1\PlanShift.Web.ViewModels.dll
+C:\Users\valni\Desktop\PlanShift-main\Web\PlanShift.Web.ViewModels\obj\Debug\netstandard2.1\PlanShift.Web.ViewModels.pdb

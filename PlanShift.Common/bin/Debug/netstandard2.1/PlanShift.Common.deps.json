@@ -1,0 +1,47 @@
+{
+  "runtimeTarget": {
+    "name": ".NETStandard,Version=v2.1/",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETStandard,Version=v2.1": {},
+    ".NETStandard,Version=v2.1/": {
+      "PlanShift.Common/1.0.0": {
+        "dependencies": {
+          "StyleCop.Analyzers": "1.2.0-beta.205"
+        },
+        "runtime": {
+          "PlanShift.Common.dll": {}
+        }
+      },
+      "StyleCop.Analyzers/1.2.0-beta.205": {
+        "dependencies": {
+          "StyleCop.Analyzers.Unstable": "1.2.0.205"
+        }
+      },
+      "StyleCop.Analyzers.Unstable/1.2.0.205": {}
+    }
+  },
+  "libraries": {
+    "PlanShift.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "StyleCop.Analyzers/1.2.0-beta.205": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ORvUXKlJRqAWstZiSH9LgEuM5hBye8mUDDSpMoQhiKLFUtFEGesfr88Qa8jC0KKVaBTUZzdo4fNZM4oHeV/JsQ==",
+      "path": "stylecop.analyzers/1.2.0-beta.205",
+      "hashPath": "stylecop.analyzers.1.2.0-beta.205.nupkg.sha512"
+    },
+    "StyleCop.Analyzers.Unstable/1.2.0.205": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YiRjba3yBp2mCvtsOeQf8XU1tPaOZFTKxcsj44tTpGrhRchmtuKtgyMCV9kkOFdfKISnHk0gzhigITlrrrvMuA==",
+      "path": "stylecop.analyzers.unstable/1.2.0.205",
+      "hashPath": "stylecop.analyzers.unstable.1.2.0.205.nupkg.sha512"
+    }
+  }
+}

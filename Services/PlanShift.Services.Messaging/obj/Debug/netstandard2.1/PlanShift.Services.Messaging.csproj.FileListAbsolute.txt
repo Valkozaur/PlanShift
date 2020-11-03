@@ -1,0 +1,9 @@
+C:\Users\valni\Desktop\PlanShift-main\Services\PlanShift.Services.Messaging\bin\Debug\netstandard2.1\PlanShift.Services.Messaging.deps.json
+C:\Users\valni\Desktop\PlanShift-main\Services\PlanShift.Services.Messaging\bin\Debug\netstandard2.1\PlanShift.Services.Messaging.dll
+C:\Users\valni\Desktop\PlanShift-main\Services\PlanShift.Services.Messaging\bin\Debug\netstandard2.1\PlanShift.Services.Messaging.pdb
+C:\Users\valni\Desktop\PlanShift-main\Services\PlanShift.Services.Messaging\obj\Debug\netstandard2.1\PlanShift.Services.Messaging.csprojAssemblyReference.cache
+C:\Users\valni\Desktop\PlanShift-main\Services\PlanShift.Services.Messaging\obj\Debug\netstandard2.1\PlanShift.Services.Messaging.AssemblyInfoInputs.cache
+C:\Users\valni\Desktop\PlanShift-main\Services\PlanShift.Services.Messaging\obj\Debug\netstandard2.1\PlanShift.Services.Messaging.AssemblyInfo.cs
+C:\Users\valni\Desktop\PlanShift-main\Services\PlanShift.Services.Messaging\obj\Debug\netstandard2.1\PlanShift.Services.Messaging.csproj.CoreCompileInputs.cache
+C:\Users\valni\Desktop\PlanShift-main\Services\PlanShift.Services.Messaging\obj\Debug\netstandard2.1\PlanShift.Services.Messaging.dll
+C:\Users\valni\Desktop\PlanShift-main\Services\PlanShift.Services.Messaging\obj\Debug\netstandard2.1\PlanShift.Services.Messaging.pdb

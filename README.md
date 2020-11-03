@@ -1,2 +1,2 @@
 # PlanShift
-The repository for my final project for SoftUni's C# Web Developer track.
+This is the repository for my final project for SoftUni's C# web-developer track!
