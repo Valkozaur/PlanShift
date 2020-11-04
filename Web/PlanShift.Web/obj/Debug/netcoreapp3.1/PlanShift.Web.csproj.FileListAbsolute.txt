@@ -898,7 +898,6 @@ C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netc
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
-C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\Settings\Index.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_CookieConsentPartial.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
@@ -914,3 +913,5 @@ C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netc
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\PlanShift.Web.dll
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\PlanShift.Web.pdb
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\PlanShift.Web.genruntimeconfig.cache
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\Business\Register.cshtml.g.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs

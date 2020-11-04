@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PlanShift.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialCreation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,6 +52,21 @@ namespace PlanShift.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BusinessTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(maxLength: 60, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BusinessTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -170,7 +185,7 @@ namespace PlanShift.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
-                    Type = table.Column<string>(nullable: false),
+                    BusinessTypeId = table.Column<int>(nullable: false),
                     OwnerId = table.Column<string>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false)
@@ -178,6 +193,12 @@ namespace PlanShift.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Businesses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Businesses_BusinessTypes_BusinessTypeId",
+                        column: x => x.BusinessTypeId,
+                        principalTable: "BusinessTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Businesses_AspNetUsers_OwnerId",
                         column: x => x.OwnerId,
@@ -382,6 +403,11 @@ namespace PlanShift.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Businesses_BusinessTypeId",
+                table: "Businesses",
+                column: "BusinessTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Businesses_IsDeleted",
                 table: "Businesses",
                 column: "IsDeleted");
@@ -501,6 +527,9 @@ namespace PlanShift.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Businesses");
+
+            migrationBuilder.DropTable(
+                name: "BusinessTypes");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

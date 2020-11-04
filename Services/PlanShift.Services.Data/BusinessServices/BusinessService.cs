@@ -1,4 +1,7 @@
-﻿namespace PlanShift.Services.Data.BusinessServices
+﻿using System.ComponentModel.DataAnnotations;
+using PlanShift.Services.Data.BusinessTypeServices;
+
+namespace PlanShift.Services.Data.BusinessServices
 {
     using System;
     using System.Linq;
@@ -12,19 +15,21 @@
     public class BusinessService : IBusinessService
     {
         private readonly IDeletableEntityRepository<Business> businessRepository;
+        private readonly IBusinessTypeService businessTypeService;
 
-        public BusinessService(IDeletableEntityRepository<Business> businessRepository)
+        public BusinessService(IDeletableEntityRepository<Business> businessRepository, IBusinessTypeService businessTypeService)
         {
             this.businessRepository = businessRepository;
+            this.businessTypeService = businessTypeService;
         }
 
-        public async Task<string> CreateBusinessAsync(string ownerId, string name, string type)
+        public async Task<string> CreateBusinessAsync(string ownerId, string name, string typeName)
         {
             var business = new Business()
             {
                 OwnerId = ownerId,
                 Name = name,
-                Type = type,
+                BusinessTypeId = await this.GetTypeId(typeName),
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
             };
@@ -35,17 +40,21 @@
             return business.Id;
         }
 
-        public async Task<string> UpdateBusinessAsync(string businessId, string ownerId = null, string name = null, string type = null)
+        public async Task<string> UpdateBusinessAsync(string businessId, string ownerId = null, string name = null, string typeName = null)
         {
             var isUpdated = false;
 
             var business = await this.businessRepository.All().FirstOrDefaultAsync(x => x.Id == businessId);
 
-            if (business != null && (ownerId != null || name != null || type != null))
+            if (business != null && (ownerId != null || name != null || typeName != null))
             {
                 business.Name = name ?? business.Name;
                 business.OwnerId = ownerId ?? business.OwnerId;
-                business.Type = type ?? business.Type;
+
+                if (typeName != null)
+                {
+                    business.BusinessTypeId = await this.GetTypeId(typeName);
+                }
 
                 isUpdated = true;
             }
@@ -61,5 +70,8 @@
         }
 
         public T GetBusiness<T>(string id) => this.businessRepository.All().Where(b => b.Id == id).To<T>().FirstOrDefault();
+
+        private async Task<int> GetTypeId(string typeName) 
+            => this.businessTypeService.GetByName<BusinessType>(typeName)?.Id ?? await this.businessTypeService.Create(typeName);
     }
 }

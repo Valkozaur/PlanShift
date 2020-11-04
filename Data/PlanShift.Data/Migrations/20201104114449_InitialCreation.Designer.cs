@@ -10,8 +10,8 @@ using PlanShift.Data;
 namespace PlanShift.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201103224424_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20201104114449_InitialCreation")]
+    partial class InitialCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -171,6 +171,9 @@ namespace PlanShift.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("BusinessTypeId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -195,20 +198,41 @@ namespace PlanShift.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BusinessTypeId");
 
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Businesses");
+                });
+
+            modelBuilder.Entity("PlanShift.Data.Models.BusinessType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(60)")
+                        .HasMaxLength(60);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BusinessTypes");
                 });
 
             modelBuilder.Entity("PlanShift.Data.Models.EmployeeGroup", b =>
@@ -534,6 +558,12 @@ namespace PlanShift.Data.Migrations
 
             modelBuilder.Entity("PlanShift.Data.Models.Business", b =>
                 {
+                    b.HasOne("PlanShift.Data.Models.BusinessType", "BusinessType")
+                        .WithMany("Businesses")
+                        .HasForeignKey("BusinessTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("PlanShift.Data.Models.PlanShiftUser", "Owner")
                         .WithMany("Businesses")
                         .HasForeignKey("OwnerId")

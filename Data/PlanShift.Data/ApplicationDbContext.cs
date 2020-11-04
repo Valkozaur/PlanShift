@@ -25,6 +25,8 @@
 
         public DbSet<Business> Businesses { get; set; }
 
+        public DbSet<BusinessType> BusinessTypes { get; set; }
+
         public DbSet<Group> Groups { get; set; }
 
         public DbSet<Shift> Shifts { get; set; }

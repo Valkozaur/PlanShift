@@ -1,4 +1,11 @@
-﻿namespace PlanShift.Web
+﻿using PlanShift.Services.Data.BusinessServices;
+using PlanShift.Services.Data.BusinessTypeServices;
+using PlanShift.Services.Data.EmployeeGroupServices;
+using PlanShift.Services.Data.GroupServices;
+using PlanShift.Services.Data.ShiftChangeServices;
+using PlanShift.Services.Data.ShiftServices;
+
+namespace PlanShift.Web
 {
     using System.Reflection;
 
@@ -64,7 +71,12 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            //services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<IBusinessService, BusinessService>();
+            services.AddTransient<IBusinessTypeService, BusinessTypeService>();
+            services.AddTransient<IGroupService, GroupService>();
+            services.AddTransient<IShiftService, ShiftService>();
+            services.AddTransient<IShiftChangeService, ShiftChangeService>();
+            services.AddTransient<IEmployeeGroupService, EmployeeGroupService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

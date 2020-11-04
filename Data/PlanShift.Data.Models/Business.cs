@@ -20,8 +20,9 @@
         [MaxLength(100)]
         public string Name { get; set; }
 
-        [Required]
-        public string Type { get; set; }
+        public int BusinessTypeId { get; set; }
+
+        public BusinessType BusinessType { get; set; }
 
         [Required]
         public string OwnerId { get; set; }

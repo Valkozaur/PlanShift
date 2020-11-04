@@ -44,4 +44,8 @@
     <ProjectReference Include="..\PlanShift.Data.Models\PlanShift.Data.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

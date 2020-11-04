@@ -7,3 +7,12 @@ C:\Users\valni\Desktop\PlanShift-main\Data\PlanShift.Data.Common\obj\Debug\netst
 C:\Users\valni\Desktop\PlanShift-main\Data\PlanShift.Data.Common\obj\Debug\netstandard2.1\PlanShift.Data.Common.csproj.CoreCompileInputs.cache
 C:\Users\valni\Desktop\PlanShift-main\Data\PlanShift.Data.Common\obj\Debug\netstandard2.1\PlanShift.Data.Common.dll
 C:\Users\valni\Desktop\PlanShift-main\Data\PlanShift.Data.Common\obj\Debug\netstandard2.1\PlanShift.Data.Common.pdb
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Data\PlanShift.Data.Common\bin\Debug\netstandard2.1\PlanShift.Data.Common.deps.json
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Data\PlanShift.Data.Common\bin\Debug\netstandard2.1\PlanShift.Data.Common.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Data\PlanShift.Data.Common\bin\Debug\netstandard2.1\PlanShift.Data.Common.pdb
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Data\PlanShift.Data.Common\obj\Debug\netstandard2.1\PlanShift.Data.Common.csprojAssemblyReference.cache
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Data\PlanShift.Data.Common\obj\Debug\netstandard2.1\PlanShift.Data.Common.AssemblyInfoInputs.cache
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Data\PlanShift.Data.Common\obj\Debug\netstandard2.1\PlanShift.Data.Common.AssemblyInfo.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Data\PlanShift.Data.Common\obj\Debug\netstandard2.1\PlanShift.Data.Common.csproj.CoreCompileInputs.cache
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Data\PlanShift.Data.Common\obj\Debug\netstandard2.1\PlanShift.Data.Common.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Data\PlanShift.Data.Common\obj\Debug\netstandard2.1\PlanShift.Data.Common.pdb
