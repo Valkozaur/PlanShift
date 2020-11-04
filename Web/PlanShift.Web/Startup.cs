@@ -1,11 +1,4 @@
-﻿using PlanShift.Services.Data.BusinessServices;
-using PlanShift.Services.Data.BusinessTypeServices;
-using PlanShift.Services.Data.EmployeeGroupServices;
-using PlanShift.Services.Data.GroupServices;
-using PlanShift.Services.Data.ShiftChangeServices;
-using PlanShift.Services.Data.ShiftServices;
-
-namespace PlanShift.Web
+﻿namespace PlanShift.Web
 {
     using System.Reflection;
 
@@ -24,6 +17,12 @@ namespace PlanShift.Web
     using PlanShift.Data.Repositories;
     using PlanShift.Data.Seeding;
     using PlanShift.Services.Data;
+    using PlanShift.Services.Data.BusinessServices;
+    using PlanShift.Services.Data.BusinessTypeServices;
+    using PlanShift.Services.Data.EmployeeGroupServices;
+    using PlanShift.Services.Data.GroupServices;
+    using PlanShift.Services.Data.ShiftChangeServices;
+    using PlanShift.Services.Data.ShiftServices;
     using PlanShift.Services.Mapping;
     using PlanShift.Services.Messaging;
     using PlanShift.Web.ViewModels;
@@ -42,8 +41,6 @@ namespace PlanShift.Web
         {
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
-
-            
 
             services.AddDefaultIdentity<PlanShiftUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();

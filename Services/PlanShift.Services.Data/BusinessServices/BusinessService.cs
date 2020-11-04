@@ -1,15 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-using PlanShift.Services.Data.BusinessTypeServices;
-
-namespace PlanShift.Services.Data.BusinessServices
+﻿namespace PlanShift.Services.Data.BusinessServices
 {
-    using System;
+
     using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
+    using PlanShift.Services.Data.BusinessTypeServices;
     using PlanShift.Services.Mapping;
 
     public class BusinessService : IBusinessService
@@ -30,8 +28,6 @@ namespace PlanShift.Services.Data.BusinessServices
                 OwnerId = ownerId,
                 Name = name,
                 BusinessTypeId = await this.GetTypeId(typeName),
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
             };
 
             await this.businessRepository.AddAsync(business);
@@ -59,11 +55,6 @@ namespace PlanShift.Services.Data.BusinessServices
                 isUpdated = true;
             }
 
-            if (isUpdated)
-            {
-                business.UpdatedAt = DateTime.UtcNow;
-            }
-
             await this.businessRepository.SaveChangesAsync();
 
             return business?.Id;
@@ -71,7 +62,17 @@ namespace PlanShift.Services.Data.BusinessServices
 
         public T GetBusiness<T>(string id) => this.businessRepository.All().Where(b => b.Id == id).To<T>().FirstOrDefault();
 
-        private async Task<int> GetTypeId(string typeName) 
-            => this.businessTypeService.GetByName<BusinessType>(typeName)?.Id ?? await this.businessTypeService.Create(typeName);
+        private async Task<int> GetTypeId(string typeName)
+        {
+            var type = await this.businessTypeService.GetByNameAsync<>(typeName);
+
+            if (type != null)
+            {
+                return type.Id;
+            }
+
+            var typeId = await this.businessTypeService.CreateAsync(typeName);
+            return typeId;
+        }
     }
 }

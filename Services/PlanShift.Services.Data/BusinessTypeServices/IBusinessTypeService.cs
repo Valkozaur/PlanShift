@@ -1,13 +1,18 @@
 ﻿namespace PlanShift.Services.Data.BusinessTypeServices
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public interface IBusinessTypeService
     {
-        Task<int> Create(string name);
+        Task<int> CreateAsync(string name);
 
-        Task<TViewModel> GetById<TViewModel>(int id);
+        Task<TViewModel> GetByIdAsync<TViewModel>(int id);
 
-        Task<TViewModel> GetByName<TViewModel>(string name);
+        Task<TViewModel> GetByNameAsync<TViewModel>(string name);
+
+        Task<int> GetIdByName(string name);
+
+        Task<IEnumerable<TViewModel>> GetAllAsync<TViewModel>();
     }
 }

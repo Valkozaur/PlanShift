@@ -3506,7 +3506,8 @@
           "PlanShift.Data": "1.0.0",
           "PlanShift.Data.Common": "1.0.0",
           "PlanShift.Data.Models": "1.0.0",
-          "PlanShift.Services.Mapping": "1.0.0"
+          "PlanShift.Services.Mapping": "1.0.0",
+          "PlanShift.Web.ViewModels": "1.0.0"
         },
         "compile": {
           "bin/placeholder/PlanShift.Services.Data.dll": {}

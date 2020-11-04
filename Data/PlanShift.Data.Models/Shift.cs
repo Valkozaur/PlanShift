@@ -38,7 +38,7 @@ namespace PlanShift.Data.Models
         public string EmployeeId { get; set; }
 
         public virtual EmployeeGroup Employee { get; set; }
-        
+
         [ForeignKey(nameof(EmployeeGroup))]
         public string ManagementId { get; set; }
 

@@ -1687,6 +1687,20 @@
         "runtime": {
           "bin/placeholder/PlanShift.Services.Mapping.dll": {}
         }
+      },
+      "PlanShift.Web.ViewModels/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "PlanShift.Data.Models": "1.0.0",
+          "PlanShift.Services.Mapping": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/PlanShift.Web.ViewModels.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PlanShift.Web.ViewModels.dll": {}
+        }
       }
     }
   },
@@ -6144,6 +6158,11 @@
       "type": "project",
       "path": "../PlanShift.Services.Mapping/PlanShift.Services.Mapping.csproj",
       "msbuildProject": "../PlanShift.Services.Mapping/PlanShift.Services.Mapping.csproj"
+    },
+    "PlanShift.Web.ViewModels/1.0.0": {
+      "type": "project",
+      "path": "../../Web/PlanShift.Web.ViewModels/PlanShift.Web.ViewModels.csproj",
+      "msbuildProject": "../../Web/PlanShift.Web.ViewModels/PlanShift.Web.ViewModels.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -6152,6 +6171,7 @@
       "PlanShift.Data.Common >= 1.0.0",
       "PlanShift.Data.Models >= 1.0.0",
       "PlanShift.Services.Mapping >= 1.0.0",
+      "PlanShift.Web.ViewModels >= 1.0.0",
       "StyleCop.Analyzers >= 1.2.0-beta.205"
     ]
   },
@@ -6192,6 +6212,9 @@
             },
             "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Mapping\\PlanShift.Services.Mapping.csproj": {
               "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Mapping\\PlanShift.Services.Mapping.csproj"
+            },
+            "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Web\\PlanShift.Web.ViewModels\\PlanShift.Web.ViewModels.csproj": {
+              "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Web\\PlanShift.Web.ViewModels\\PlanShift.Web.ViewModels.csproj"
             }
           }
         }

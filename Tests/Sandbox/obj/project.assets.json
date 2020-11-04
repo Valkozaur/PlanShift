@@ -1712,7 +1712,8 @@
           "PlanShift.Data": "1.0.0",
           "PlanShift.Data.Common": "1.0.0",
           "PlanShift.Data.Models": "1.0.0",
-          "PlanShift.Services.Mapping": "1.0.0"
+          "PlanShift.Services.Mapping": "1.0.0",
+          "PlanShift.Web.ViewModels": "1.0.0"
         },
         "compile": {
           "bin/placeholder/PlanShift.Services.Data.dll": {}
@@ -1745,6 +1746,20 @@
         },
         "runtime": {
           "bin/placeholder/PlanShift.Services.Messaging.dll": {}
+        }
+      },
+      "PlanShift.Web.ViewModels/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "PlanShift.Data.Models": "1.0.0",
+          "PlanShift.Services.Mapping": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/PlanShift.Web.ViewModels.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PlanShift.Web.ViewModels.dll": {}
         }
       }
     }
@@ -6175,6 +6190,11 @@
       "type": "project",
       "path": "../../Services/PlanShift.Services.Messaging/PlanShift.Services.Messaging.csproj",
       "msbuildProject": "../../Services/PlanShift.Services.Messaging/PlanShift.Services.Messaging.csproj"
+    },
+    "PlanShift.Web.ViewModels/1.0.0": {
+      "type": "project",
+      "path": "../../Web/PlanShift.Web.ViewModels/PlanShift.Web.ViewModels.csproj",
+      "msbuildProject": "../../Web/PlanShift.Web.ViewModels/PlanShift.Web.ViewModels.csproj"
     }
   },
   "projectFileDependencyGroups": {

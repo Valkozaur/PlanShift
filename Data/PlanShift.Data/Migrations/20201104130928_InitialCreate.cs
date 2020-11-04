@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PlanShift.Data.Migrations
 {
-    public partial class InitialCreation : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -186,9 +186,7 @@ namespace PlanShift.Data.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
                     BusinessTypeId = table.Column<int>(nullable: false),
-                    OwnerId = table.Column<string>(nullable: false),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    UpdatedAt = table.Column<DateTime>(nullable: false)
+                    OwnerId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

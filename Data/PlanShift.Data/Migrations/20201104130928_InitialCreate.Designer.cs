@@ -10,8 +10,8 @@ using PlanShift.Data;
 namespace PlanShift.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201104114449_InitialCreation")]
-    partial class InitialCreation
+    [Migration("20201104130928_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -174,9 +174,6 @@ namespace PlanShift.Data.Migrations
                     b.Property<int>("BusinessTypeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -197,9 +194,6 @@ namespace PlanShift.Data.Migrations
                     b.Property<string>("OwnerId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

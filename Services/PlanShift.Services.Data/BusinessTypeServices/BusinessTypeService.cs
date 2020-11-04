@@ -1,5 +1,6 @@
 ﻿namespace PlanShift.Services.Data.BusinessTypeServices
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -17,7 +18,7 @@
             this.businessTypeRepository = businessTypeRepository;
         }
 
-        public async Task<int> Create(string name)
+        public async Task<int> CreateAsync(string name)
         {
             var businessType = new BusinessType
             {
@@ -30,7 +31,7 @@
             return businessType.Id;
         }
 
-        public async Task<TViewModel> GetById<TViewModel>(int id)
+        public async Task<TViewModel> GetByIdAsync<TViewModel>(int id)
             => await this.businessTypeRepository
                 .All()
                 .Where(x => x.Id == id)
@@ -38,11 +39,26 @@
                 .FirstOrDefaultAsync();
 
 
-        public async Task<TViewModel> GetByName<TViewModel>(string name)
+        public async Task<TViewModel> GetByNameAsync<TViewModel>(string name)
         => await this.businessTypeRepository
             .All()
             .Where(x => x.Name == name)
             .To<TViewModel>()
             .FirstOrDefaultAsync();
+
+        public async Task<int> GetIdByName(string name)
+        {
+            var businessType = await this.businessTypeRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Name == name);
+
+            return businessType.Id;
+        }
+
+        public async Task<IEnumerable<TViewModel>> GetAllAsync<TViewModel>()
+        => await this.businessTypeRepository
+                .All()
+                .To<TViewModel>()
+                .ToArrayAsync();
     }
 }
