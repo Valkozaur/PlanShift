@@ -12,7 +12,7 @@
           "PlanShift.Data.Common": "1.0.0",
           "PlanShift.Data.Models": "1.0.0",
           "PlanShift.Services.Mapping": "1.0.0",
-          "Planshift.Services.Data.Dtos": "1.0.0",
+          "PlanShift.Web.ViewModels": "1.0.0",
           "StyleCop.Analyzers": "1.2.0-beta.205"
         },
         "runtime": {
@@ -1187,21 +1187,21 @@
           "PlanShift.Data.Models.dll": {}
         }
       },
-      "Planshift.Services.Data.Dtos/1.0.0": {
-        "dependencies": {
-          "PlanShift.Data.Models": "1.0.0",
-          "PlanShift.Services.Mapping": "1.0.0"
-        },
-        "runtime": {
-          "Planshift.Services.Data.Dtos.dll": {}
-        }
-      },
       "PlanShift.Services.Mapping/1.0.0": {
         "dependencies": {
           "AutoMapper": "10.1.1"
         },
         "runtime": {
           "PlanShift.Services.Mapping.dll": {}
+        }
+      },
+      "PlanShift.Web.ViewModels/1.0.0": {
+        "dependencies": {
+          "PlanShift.Data.Models": "1.0.0",
+          "PlanShift.Services.Mapping": "1.0.0"
+        },
+        "runtime": {
+          "PlanShift.Web.ViewModels.dll": {}
         }
       }
     }
@@ -2016,12 +2016,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Planshift.Services.Data.Dtos/1.0.0": {
+    "PlanShift.Services.Mapping/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "PlanShift.Services.Mapping/1.0.0": {
+    "PlanShift.Web.ViewModels/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
-using PlanShift.Data.Models;
-
-namespace PlanShift.Services.Data.EmployeeGroupServices
+﻿namespace PlanShift.Services.Data.EmployeeGroupServices
 {
+    using System.Threading.Tasks;
+
+    using PlanShift.Data.Models;
+
     public class EmployeeGroupService : IEmployeeGroupService
     {
         public Task AddEmployeeToGroupAsync(string groupId, string userId, decimal salary, string position, bool isManagement = false)

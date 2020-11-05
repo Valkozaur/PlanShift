@@ -24,19 +24,19 @@
             return this.View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterBusinessInputModel inputModel)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View();
-            }
+        //[HttpPost]
+        //public async Task<IActionResult> Register(RegisterBusinessInputModel inputModel)
+        //{
+        //    //if (!this.ModelState.IsValid)
+        //    //{
+        //    //    return this.View();
+        //    //}
 
-            var userId = await this.userManager.GetUserAsync(this.User);
+        //    //var userId = await this.userManager.GetUserAsync(this.User);
 
-            var businessId = await this.businessService.CreateBusinessAsync(userId.Id, inputModel.Name, inputModel.BusinessType);
+        //    //var businessId = await this.businessService.CreateBusinessAsync(userId.Id, inputModel.Name, inputModel.BusinessType);
 
-            return this.Json(businessId);
-        }
+        //    //return this.Json(businessId);
+        //}
     }
 }

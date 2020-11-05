@@ -39,7 +39,6 @@
           "PlanShift.Services.Messaging": "1.0.0",
           "PlanShift.Web.Infrastructure": "1.0.0",
           "PlanShift.Web.ViewModels": "1.0.0",
-          "Planshift.Services.Data.Dtos": "1.0.0",
           "StyleCop.Analyzers": "1.2.0-beta.205",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
@@ -2562,25 +2561,13 @@
           "PlanShift.Data.Common": "1.0.0",
           "PlanShift.Data.Models": "1.0.0",
           "PlanShift.Services.Mapping": "1.0.0",
-          "Planshift.Services.Data.Dtos": "1.0.0"
+          "PlanShift.Web.ViewModels": "1.0.0"
         },
         "runtime": {
           "PlanShift.Services.Data.dll": {}
         },
         "compile": {
           "PlanShift.Services.Data.dll": {}
-        }
-      },
-      "Planshift.Services.Data.Dtos/1.0.0": {
-        "dependencies": {
-          "PlanShift.Data.Models": "1.0.0",
-          "PlanShift.Services.Mapping": "1.0.0"
-        },
-        "runtime": {
-          "Planshift.Services.Data.Dtos.dll": {}
-        },
-        "compile": {
-          "Planshift.Services.Data.Dtos.dll": {}
         }
       },
       "PlanShift.Services.Mapping/1.0.0": {
@@ -5482,11 +5469,6 @@
       "sha512": ""
     },
     "PlanShift.Services.Data/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Planshift.Services.Data.Dtos/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

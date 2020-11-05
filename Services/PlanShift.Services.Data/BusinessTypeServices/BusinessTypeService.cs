@@ -38,7 +38,6 @@
                 .To<TViewModel>()
                 .FirstOrDefaultAsync();
 
-
         public async Task<TViewModel> GetByNameAsync<TViewModel>(string name)
         => await this.businessTypeRepository
             .All()
@@ -46,13 +45,13 @@
             .To<TViewModel>()
             .FirstOrDefaultAsync();
 
-        public async Task<int> GetIdByName(string name)
+        public async Task<int?> GetIdByName(string name)
         {
             var businessType = await this.businessTypeRepository
                 .All()
                 .FirstOrDefaultAsync(x => x.Name == name);
 
-            return businessType.Id;
+            return businessType?.Id;
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllAsync<TViewModel>()

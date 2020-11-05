@@ -4,9 +4,9 @@
 
     public interface IBusinessService
     {
-        Task<string> CreateBusinessAsync(string ownerId, string name, string typeName);
+        Task<string> CreateBusinessAsync(string ownerId, string name, int typeId);
 
-        Task<string> UpdateBusinessAsync(string businessId, string ownerId, string name = null, string typeName = null);
+        Task<string> UpdateBusinessAsync(string businessId, string ownerId, string name = null, int? typeId = null);
 
         T GetBusiness<T>(string id);
     }

@@ -6,9 +6,9 @@
 
     public class EmployeeGroupConfiguration : IEntityTypeConfiguration<EmployeeGroup>
     {
-        public void Configure(EntityTypeBuilder<EmployeeGroup> appUser)
+        public void Configure(EntityTypeBuilder<EmployeeGroup> builder)
         {
-            appUser
+            builder
                 .HasOne(eg => eg.Group)
                 .WithMany(g => g.Employees)
                 .OnDelete(DeleteBehavior.Restrict);

@@ -6,24 +6,24 @@
 
     public class ShiftChangeConfiguration : IEntityTypeConfiguration<ShiftChange>
     {
-        public void Configure(EntityTypeBuilder<ShiftChange> appUser)
+        public void Configure(EntityTypeBuilder<ShiftChange> builder)
         {
-            appUser
+            builder
                 .HasOne(sc => sc.Shift)
                 .WithMany(s => s.ShiftChanges)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            appUser
+            builder
                 .HasOne(sc => sc.OriginalEmployee)
                 .WithMany(e => e.ChangedShifts)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            appUser
+            builder
                 .HasOne(sc => sc.PendingEmployee)
                 .WithMany(e => e.TakenShifts)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            appUser
+            builder
                 .HasOne(sc => sc.Management)
                 .WithMany(e => e.ManagedShifts)
                 .OnDelete(DeleteBehavior.Restrict);

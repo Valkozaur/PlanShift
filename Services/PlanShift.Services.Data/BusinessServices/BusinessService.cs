@@ -1,6 +1,5 @@
 ﻿namespace PlanShift.Services.Data.BusinessServices
 {
-
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -21,13 +20,13 @@
             this.businessTypeService = businessTypeService;
         }
 
-        public async Task<string> CreateBusinessAsync(string ownerId, string name, string typeName)
+        public async Task<string> CreateBusinessAsync(string ownerId, string name, int typeId)
         {
             var business = new Business()
             {
                 OwnerId = ownerId,
                 Name = name,
-                BusinessTypeId = await this.GetTypeId(typeName),
+                BusinessTypeId = typeId,
             };
 
             await this.businessRepository.AddAsync(business);
@@ -36,23 +35,15 @@
             return business.Id;
         }
 
-        public async Task<string> UpdateBusinessAsync(string businessId, string ownerId = null, string name = null, string typeName = null)
+        public async Task<string> UpdateBusinessAsync(string businessId, string ownerId = null, string name = null, int? typeId = null)
         {
-            var isUpdated = false;
-
             var business = await this.businessRepository.All().FirstOrDefaultAsync(x => x.Id == businessId);
 
-            if (business != null && (ownerId != null || name != null || typeName != null))
+            if (business != null && (ownerId != null || name != null || typeId != null))
             {
                 business.Name = name ?? business.Name;
                 business.OwnerId = ownerId ?? business.OwnerId;
-
-                if (typeName != null)
-                {
-                    business.BusinessTypeId = await this.GetTypeId(typeName);
-                }
-
-                isUpdated = true;
+                business.BusinessTypeId = typeId ?? business.BusinessTypeId;
             }
 
             await this.businessRepository.SaveChangesAsync();
@@ -61,18 +52,5 @@
         }
 
         public T GetBusiness<T>(string id) => this.businessRepository.All().Where(b => b.Id == id).To<T>().FirstOrDefault();
-
-        private async Task<int> GetTypeId(string typeName)
-        {
-            var type = await this.businessTypeService.GetByNameAsync<>(typeName);
-
-            if (type != null)
-            {
-                return type.Id;
-            }
-
-            var typeId = await this.businessTypeService.CreateAsync(typeName);
-            return typeId;
-        }
     }
 }

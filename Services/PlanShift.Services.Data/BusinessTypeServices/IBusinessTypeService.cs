@@ -11,7 +11,7 @@
 
         Task<TViewModel> GetByNameAsync<TViewModel>(string name);
 
-        Task<int> GetIdByName(string name);
+        Task<int?> GetIdByName(string name);
 
         Task<IEnumerable<TViewModel>> GetAllAsync<TViewModel>();
     }
