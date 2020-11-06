@@ -10,7 +10,6 @@
         <th scope="col">Business Name</th>
         <th scope="col">Business Type</th>
         <th scope="col">Groups</th>
-        <th scope="col">Groups</th>
     </tr>
     </thead>
     <tbody>
@@ -19,8 +18,10 @@
         <tr>
             <td>@business.Name</td>
             <td>@business.BusinessTypeName</td>
-            <td><a asp-controller="Group" asp-route-businessId="@business.Id" asp-action="Create" class="btn btn-primary btn-sm">Create</a></td>
-            <td><a asp-controller="Group" asp-action="All" asp-route-businessId="@business.Id" class="btn btn-danger btn-sm">All</a></td>
+            <td>
+                <a asp-controller="Group" asp-action="Create" asp-route-businessId="@business.Id" class="btn btn-primary btn-sm">Create</a>
+                <a asp-controller="Group" asp-action="All" asp-route-businessId="@business.Id" class="btn btn-success btn-sm">All</a>
+            </td>
         </tr>
         }
     </tbody>

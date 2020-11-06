@@ -7,12 +7,12 @@
     {
         Task<int> CreateAsync(string name);
 
-        Task<TViewModel> GetByIdAsync<TViewModel>(int id);
+        Task<T> GetByIdAsync<T>(int id);
 
-        Task<TViewModel> GetByNameAsync<TViewModel>(string name);
+        Task<T> GetByNameAsync<T>(string name);
 
         Task<int?> GetIdByName(string name);
 
-        Task<IEnumerable<TViewModel>> GetAllAsync<TViewModel>();
+        Task<IEnumerable<T>> GetAllAsync<T>();
     }
 }

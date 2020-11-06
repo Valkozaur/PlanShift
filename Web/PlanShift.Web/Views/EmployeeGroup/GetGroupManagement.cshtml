@@ -1,0 +1,27 @@
+﻿@model PlanShift.Web.ViewModels.EmployeeGroup.ManagementListViewModel
+
+@{
+    this.ViewData["Title"] = "Management";
+}
+
+<table class="table table-hover table-dark">
+    <thead>
+    <tr>
+        <th scope="col">Username</th>
+        <th scope="col">Created shifts</th>
+        <th scope="col">Managed shifts</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var manager in Model.Managers)
+    {
+        <tr>
+            <td>@manager.Username</td>
+            <td>@manager.CreatedShiftsCount</td>
+            <td>@manager.ManagedShiftsCount</td>
+            <td></td>
+        </tr>
+    }
+    </tbody>
+</table>

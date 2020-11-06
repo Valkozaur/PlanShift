@@ -1,6 +1,6 @@
 ﻿namespace PlanShift.Services.Data.GroupServices
 {
-    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -63,6 +63,18 @@
             }
         }
 
-        public async Task<T> GetGroupAsync<T>(string id) => await this.groupRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefaultAsync();
+        public async Task<T> GetGroupAsync<T>(string id) 
+            => await this.groupRepository
+                .All()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<T>> GetAllByBusinessIdAsync<T>(string businessId)
+            => await this.groupRepository
+                .AllAsNoTracking()
+                .Where(x => x.BusinessId == businessId)
+                .To<T>()
+                .ToArrayAsync();
     }
 }

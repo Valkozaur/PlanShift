@@ -33,11 +33,11 @@
             return user.Id;
         }
 
-        public async Task<TViewModel> GetUser<TViewModel>(string id)
+        public async Task<T> GetUser<T>(string id)
             => await this.userRepository
                 .All()
                 .Where(x => x.Id == id)
-                .To<TViewModel>()
+                .To<T>()
                 .FirstOrDefaultAsync();
 
         public async Task UpdateUser(string id, string name = null, string password = null, string email = null)

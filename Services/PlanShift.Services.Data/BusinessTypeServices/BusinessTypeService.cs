@@ -31,18 +31,18 @@
             return businessType.Id;
         }
 
-        public async Task<TViewModel> GetByIdAsync<TViewModel>(int id)
+        public async Task<T> GetByIdAsync<T>(int id)
             => await this.businessTypeRepository
                 .All()
                 .Where(x => x.Id == id)
-                .To<TViewModel>()
+                .To<T>()
                 .FirstOrDefaultAsync();
 
-        public async Task<TViewModel> GetByNameAsync<TViewModel>(string name)
+        public async Task<T> GetByNameAsync<T>(string name)
         => await this.businessTypeRepository
             .All()
             .Where(x => x.Name == name)
-            .To<TViewModel>()
+            .To<T>()
             .FirstOrDefaultAsync();
 
         public async Task<int?> GetIdByName(string name)
@@ -54,10 +54,10 @@
             return businessType?.Id;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllAsync<TViewModel>()
+        public async Task<IEnumerable<T>> GetAllAsync<T>()
         => await this.businessTypeRepository
                 .All()
-                .To<TViewModel>()
+                .To<T>()
                 .ToArrayAsync();
     }
 }

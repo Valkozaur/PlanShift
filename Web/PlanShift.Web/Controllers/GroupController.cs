@@ -19,9 +19,16 @@
             this.businessService = businessService;
         }
 
-        public IActionResult All()
+        public async Task<IActionResult> All(string businessId)
         {
-            return this.View();
+            var groups = await this.groupService.GetAllByBusinessIdAsync<GroupAllViewModel>(businessId);
+            var viewModel = new GroupListViewModel()
+            {
+                Groups = groups,
+                BusinessId = businessId,
+            };
+
+            return this.View(viewModel);
         }
 
         public async Task<IActionResult> Create(string businessId)
@@ -39,9 +46,14 @@
         [HttpPost]
         public async Task<IActionResult> Create(GroupInputModel inputModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(inputModel);
+            }
+
             var groupId = await this.groupService.CreateGroupAsync(inputModel.BusinessId, inputModel.Name, inputModel.StandardSalary);
 
-            return this.Json(groupId);
+            return this.RedirectToAction("All", "Business", new { BusinessId = inputModel.BusinessId });
         }
     }
 }

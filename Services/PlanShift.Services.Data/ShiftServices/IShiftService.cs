@@ -13,9 +13,9 @@
 
         Task DeleteShift(string shiftId);
 
-        Task<TViewModel> GetShiftById<TViewModel>(string id);
+        Task<T> GetShiftById<T>(string id);
 
-        Task<ICollection<TViewModel>> GetAllShiftsByGroup<TViewModel>(string shiftId);
+        Task<ICollection<T>> GetAllShiftsByGroup<T>(string shiftId);
 
         Task StatusChange(string id, ShiftStatus newStatus);
 

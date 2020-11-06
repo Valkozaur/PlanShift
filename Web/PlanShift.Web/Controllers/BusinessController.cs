@@ -1,7 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Security.Claims;
-
-namespace PlanShift.Web.Controllers
+﻿namespace PlanShift.Web.Controllers
 {
     using System.Threading.Tasks;
 

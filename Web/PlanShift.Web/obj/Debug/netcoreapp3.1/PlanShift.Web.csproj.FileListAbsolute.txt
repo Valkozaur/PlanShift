@@ -919,3 +919,5 @@ C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netc
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\Business\All.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\Group\All.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\Group\Create.cshtml.g.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\EmployeeGroup\GetGroupManagement.cshtml.g.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\EmployeeGroup\AddEmployeeToGroup.cshtml.g.cs

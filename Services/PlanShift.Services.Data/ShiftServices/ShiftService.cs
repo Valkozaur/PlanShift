@@ -50,18 +50,18 @@
             await this.shiftRepository.SaveChangesAsync();
         }
 
-        public async Task<TViewModel> GetShiftById<TViewModel>(string id)
+        public async Task<T> GetShiftById<T>(string id)
             => await this.shiftRepository
                 .AllAsNoTracking()
                 .Where(x => x.Id == id)
-                .To<TViewModel>()
+                .To<T>()
                 .FirstOrDefaultAsync();
 
-        public async Task<ICollection<TViewModel>> GetAllShiftsByGroup<TViewModel>(string groupId)
+        public async Task<ICollection<T>> GetAllShiftsByGroup<T>(string groupId)
             => await this.shiftRepository
                 .AllAsNoTracking()
                 .Where(x => x.GroupId == groupId)
-                .To<TViewModel>()
+                .To<T>()
                 .ToArrayAsync();
 
         public async Task StatusChange(string id, ShiftStatus newStatus)

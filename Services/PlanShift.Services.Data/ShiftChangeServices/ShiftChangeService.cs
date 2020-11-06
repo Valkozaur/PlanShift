@@ -40,11 +40,11 @@
             return shiftChange.Id;
         }
 
-        public async Task<TViewModel> GetShiftChangeById<TViewModel>(string id)
+        public async Task<T> GetShiftChangeById<T>(string id)
             => await this.shiftChangeRepository
                 .All()
                 .Where(x => x.Id == id)
-                .To<TViewModel>()
+                .To<T>()
                 .FirstOrDefaultAsync();
 
         public async Task ApproveEmployeeForShift(string shiftChangeId, string managerId)

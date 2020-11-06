@@ -1,15 +1,14 @@
 ﻿namespace PlanShift.Services.Data.EmployeeGroupServices
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
-
-    using PlanShift.Data.Models;
 
     public interface IEmployeeGroupService
     {
-        Task AddEmployeeToGroupAsync(string groupId, string userId, decimal salary, string position, bool isManagement = false);
+        Task<string> AddEmployeeToGroupAsync(string groupId, string userId, decimal salary, string position, bool isManagement = false);
 
-        Task<TViewModel> GetEmployeeGroupById<TViewModel>(string groupId, string employeeId);
+        Task<IEnumerable<T>> GetAllEmployeesFromGroup<T>(string groupId, bool isManagement = false);
 
-        EmployeeGroup GetEmployeeGroupByName(string groupName, string employeeId);
+        Task<T> GetEmployeeGroupById<T>(string groupId, string employeeId);
     }
 }

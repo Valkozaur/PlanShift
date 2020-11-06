@@ -52,11 +52,11 @@
             return business?.Id;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllForUserAsync<TViewModel>(string userId) 
+        public async Task<IEnumerable<T>> GetAllForUserAsync<T>(string userId) 
             => await this.businessRepository
                 .AllAsNoTracking()
                 .Where(x => x.OwnerId == userId)
-                .To<TViewModel>()
+                .To<T>()
                 .ToArrayAsync();
 
         public async Task<T> GetBusinessAsync<T>(string id) 

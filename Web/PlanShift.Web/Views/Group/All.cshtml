@@ -1,0 +1,31 @@
+﻿@model PlanShift.Web.ViewModels.Group.GroupListViewModel;
+
+@{
+    this.ViewData["Title"] = "Groups all";
+}
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Group Name</th>
+        <th scope="col">Employee Count</th>
+        <th scope="col">Management</th>
+        <th scope="col">Invite Employee</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var group in Model.Groups)
+    {
+        <tr>
+            <td>@group.Name</td>
+            <td>@group.EmployeesCount</td>
+            <td>
+                <a asp-controller="EmployeeGroup" asp-action="GetGroupManagement" asp-route-businessid="@group.Id" class="btn btn-primary btn-sm">All</a>
+            </td>
+            <td>
+                <a asp-controller="EmployeeGroup" asp-action="AddEmployeeToGroup" asp-route-businessid="@group.Id" class="btn btn-primary btn-sm">Add</a>
+            </td>
+    </tr>
+    }
+    </tbody>
+</table>

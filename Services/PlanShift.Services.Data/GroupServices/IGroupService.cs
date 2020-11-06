@@ -1,8 +1,7 @@
 ﻿namespace PlanShift.Services.Data.GroupServices
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
-
-    using PlanShift.Data.Models;
 
     public interface IGroupService
     {
@@ -17,5 +16,7 @@
         Task DeleteGroupAsync(string id);
 
         Task<T> GetGroupAsync<T>(string id);
+
+        Task<IEnumerable<T>> GetAllByBusinessIdAsync<T>(string businessId);
     }
 }
