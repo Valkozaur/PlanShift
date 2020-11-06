@@ -23,9 +23,6 @@ namespace PlanShift.Data.Models
         [MaxLength(120)]
         public string Name { get; set; }
 
-        [NotMapped]
-        public decimal? AverageSalary { get; set; }
-
         public decimal? StandardSalary { get; set; }
 
         [Required]

@@ -6,6 +6,8 @@
 
     public class BusinessAllViewModel : IMapFrom<Business>, IHaveCustomMappings
     {
+        public string Id { get; set; }
+
         public string Name { get; set; }
 
         public string BusinessTypeName { get; set; }

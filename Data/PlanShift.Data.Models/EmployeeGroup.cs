@@ -34,6 +34,8 @@ namespace PlanShift.Data.Models
 
         public decimal Salary { get; set; }
 
+        public bool IsManagement { get; set; }
+
         public virtual ICollection<Shift> Shifts { get; set; }
 
         public virtual ICollection<Shift> CreatedShifts { get; set; }

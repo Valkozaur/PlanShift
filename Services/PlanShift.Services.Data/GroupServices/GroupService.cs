@@ -18,13 +18,12 @@
             this.groupRepository = groupRepository;
         }
 
-        public async Task<string> CreateGroupAsync(string name, string businessId, decimal? averageSalary = null, decimal? standardSalary = null)
+        public async Task<string> CreateGroupAsync(string businessId, string name, decimal? standardSalary = null)
         {
             var group = new Group()
             {
                 Name = name,
                 BusinessId = businessId,
-                AverageSalary = averageSalary,
                 StandardSalary = standardSalary,
             };
 
@@ -38,16 +37,14 @@
             string groupId,
             string name = null,
             string businessId = null,
-            decimal? averageSalary = null,
             decimal? standardSalary = null)
         {
             var group = await this.groupRepository.All().FirstOrDefaultAsync(x => x.Id == groupId);
 
-            if (group != null && (name != null || averageSalary != null || standardSalary != null))
+            if (group != null && (name != null || standardSalary != null))
             {
                 group.Name = name ?? group.Name;
                 group.BusinessId = businessId;
-                group.AverageSalary = averageSalary ?? group.AverageSalary;
                 group.StandardSalary = standardSalary ?? group.StandardSalary;
             }
 

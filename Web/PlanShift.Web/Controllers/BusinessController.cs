@@ -55,7 +55,9 @@ namespace PlanShift.Web.Controllers
 
         public async Task<IActionResult> All()
         {
-            var businesses = await this.businessService.GetAllForUserAsync<BusinessAllViewModel>(this.userManager.GetUserId(principal: ClaimsPrincipal.Current));
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            var businesses = await this.businessService.GetAllForUserAsync<BusinessAllViewModel>(user.Id);
             var businessesList = new BusinessListViewModel()
             {
                 Businesses = businesses,
