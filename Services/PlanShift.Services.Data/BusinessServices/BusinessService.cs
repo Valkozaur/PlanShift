@@ -1,5 +1,6 @@
 ﻿namespace PlanShift.Services.Data.BusinessServices
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -51,6 +52,18 @@
             return business?.Id;
         }
 
-        public T GetBusiness<T>(string id) => this.businessRepository.All().Where(b => b.Id == id).To<T>().FirstOrDefault();
+        public async Task<IEnumerable<TViewModel>> GetAllForUserAsync<TViewModel>(string userId) 
+            => await this.businessRepository
+                .AllAsNoTracking()
+                .Where(x => x.OwnerId == userId)
+                .To<TViewModel>()
+                .ToArrayAsync();
+
+        public async Task<T> GetBusinessAsync<T>(string id) 
+            => await this.businessRepository
+                .All()
+                .Where(b => b.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
     }
 }

@@ -1,0 +1,13 @@
+﻿@model PlanShift.Web.ViewModels.BusinessType.BusinessTypeInputModel;
+@{
+    this.ViewData["Title"] = "New business type";
+}
+
+<form method="post" asp-action="Create">
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <input type="submit" class="btn btn-primary" />
+</form>

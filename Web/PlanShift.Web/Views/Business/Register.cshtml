@@ -1,9 +1,10 @@
-﻿@model PlanShift.Web.ViewModels.Business.RegisterBusinessInputModel;
+﻿@model PlanShift.Web.ViewModels.Business.BusinessRegisterInputModel;
 
 @{
     ViewData["Title"] = "Register";
-}
 
+    var businessTypes = Model.BusinessTypes.Select(x => new SelectListItem(x.Name, x.Id.ToString(), x.Id == Model.BusinessTypeId));
+}
 <h1>Register</h1>
 
 <h4>Business</h4>
@@ -18,12 +19,19 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="BusinessType" class="control-label"></label>
-                <input asp-for="BusinessType" class="form-control" />
-                <span asp-validation-for="BusinessType" class="text-danger"></span>
+                <label asp-for="BusinessTypeId"></label>
+                <select asp-for="BusinessTypeId" asp-items="businessTypes" class="form-control"></select>
+                <span asp-validation-for="BusinessTypeId" class="text-danger"></span>
             </div>
+            <div>
+                <text>You can't find your business type?</text>
+            </div>
+            <div>
+                <a asp-controller="BusinessType" asp-action="Create" class="btn btn-primary btn-sm">Create</a>
+            </div>
+            <br/>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Register" class="btn btn-primary" />
             </div>
         </form>
     </div>

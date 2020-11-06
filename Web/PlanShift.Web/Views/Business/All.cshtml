@@ -1,0 +1,25 @@
+﻿@model PlanShift.Web.ViewModels.Business.BusinessListViewModel;
+
+@{
+    this.ViewData["Title"] = $"All businesses!";
+}
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Business Name</th>
+        <th scope="col">Business Type</th>
+        <th scope="col">Handle</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var business in Model.Businesses)
+        {
+        <tr>
+            <td>@business.Name</td>
+            <td>@business.BusinessTypeName</td>
+            <a asp-controller="Group" asp-action="Index" class="btn btn-primary btn-lg">Create new forum post</a>
+        </tr>
+        }
+    </tbody>
+</table>
