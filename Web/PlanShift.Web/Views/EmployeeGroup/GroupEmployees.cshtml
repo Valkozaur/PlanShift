@@ -1,0 +1,27 @@
+﻿@model PlanShift.Web.ViewModels.EmployeeGroup.EmployeeGroupAllListViewModel;
+
+@{
+    this.ViewData["Title"] = "All Employees";
+}
+
+<table class="table table-hover table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Position</th>
+            <th scope="col">ActiveShifts</th>
+            <th scope="col">TotalTakenShifts</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model.Employees)
+        {
+            <tr>
+                <td>@employee.Username</td>
+                <td>@employee.Position</td>
+                <td>@employee.ActiveShifts</td>
+                <td>@employee.TotalTakenShifts</td>
+            </tr>
+        }
+    </tbody>
+</table>

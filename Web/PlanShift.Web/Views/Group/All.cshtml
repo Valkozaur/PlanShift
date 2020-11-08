@@ -10,6 +10,7 @@
         <th scope="col">Group Name</th>
         <th scope="col">Employee Count</th>
         <th scope="col">Management</th>
+        <th scope="col">Employees</th>
         <th scope="col">Invite Employee</th>
     </tr>
     </thead>
@@ -20,12 +21,15 @@
             <td>@group.Name</td>
             <td>@group.EmployeesCount</td>
             <td>
-                <a asp-controller="EmployeeGroup" asp-action="GetGroupManagement" asp-route-businessid="@group.Id" class="btn btn-primary btn-sm">All</a>
+                <a asp-controller="EmployeeGroup" asp-action="GroupManagement" asp-route-groupid="@group.Id" class="btn btn-primary btn-sm">All management</a>
             </td>
             <td>
-                <a asp-controller="EmployeeGroup" asp-action="AddEmployeeToGroup" asp-route-businessid="@group.Id" class="btn btn-primary btn-sm">Add</a>
+                <a asp-controller="EmployeeGroup" asp-action="GroupEmployees" asp-route-groupid="@group.Id" class="btn btn-primary btn-sm">All employees</a>
             </td>
-    </tr>
+            <td>
+                <a asp-controller="EmployeeGroup" asp-action="AddEmployeeToGroup" asp-route-groupid="@group.Id" class="btn btn-primary btn-sm">Add</a>
+            </td>
+        </tr>
     }
     </tbody>
 </table>

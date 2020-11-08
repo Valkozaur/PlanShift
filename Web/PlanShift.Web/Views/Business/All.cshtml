@@ -4,25 +4,44 @@
     this.ViewData["Title"] = $"All businesses!";
 }
 
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th scope="col">Business Name</th>
-        <th scope="col">Business Type</th>
-        <th scope="col">Groups</th>
-    </tr>
-    </thead>
-    <tbody>
+<h1 class="text-center">Your businesses!</h1>
+<div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Business Name</th>
+            <th scope="col">Business Type</th>
+            <th scope="col">Groups</th>
+        </tr>
+        </thead>
+        <tbody>
         @foreach (var business in Model.Businesses)
         {
-        <tr>
-            <td>@business.Name</td>
-            <td>@business.BusinessTypeName</td>
-            <td>
-                <a asp-controller="Group" asp-action="Create" asp-route-businessId="@business.Id" class="btn btn-primary btn-sm">Create</a>
-                <a asp-controller="Group" asp-action="All" asp-route-businessId="@business.Id" class="btn btn-success btn-sm">All</a>
-            </td>
-        </tr>
+            <tr>
+                <td>@business.Name</td>
+                <td>@business.BusinessTypeName</td>
+                <td>
+                    @{
+                        //TODO: Research how to fix this dropdown
+                    }
+                    @*<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                        <div class="btn-group" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <a asp-controller="Group" asp-action="Create" asp-route-businessId="@business.Id" class="dropdown-item">Create</a>
+                                <a asp-controller="Group" asp-action="All" asp-route-businessId="@business.Id" class="dropdown-item">All</a>
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="btn-group" role="group" aria-label="group actions">
+                        <a asp-controller="Group" asp-action="Create" asp-route-businessid="@business.Id" class="btn btn-primary btn-sm">Create</a>
+                        <a asp-controller="Group" asp-action="All" asp-route-businessid="@business.Id" class="btn btn-primary btn-sm">All</a>
+                    </div>
+                </td>
+            </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>

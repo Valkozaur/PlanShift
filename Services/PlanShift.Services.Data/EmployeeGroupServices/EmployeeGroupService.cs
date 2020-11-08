@@ -18,12 +18,12 @@
             this.employeeGroupRepository = employeeGroupRepository;
         }
 
-        public async Task<string> AddEmployeeToGroupAsync(string groupId, string userId, decimal salary, string position, bool isManagement = false)
+        public async Task<string> AddEmployeeToGroupAsync(string employeeId, string groupId, decimal salary, string position, bool isManagement = false)
         {
             var employeeGroup = new EmployeeGroup()
             {
+                EmployeeId = employeeId,
                 GroupId = groupId,
-                EmployeeId = userId,
                 Salary = salary,
                 Position = position,
                 IsManagement = isManagement,
@@ -31,6 +31,7 @@
 
             await this.employeeGroupRepository.AddAsync(employeeGroup);
             await this.employeeGroupRepository.SaveChangesAsync();
+
             return employeeGroup.Id;
         }
 

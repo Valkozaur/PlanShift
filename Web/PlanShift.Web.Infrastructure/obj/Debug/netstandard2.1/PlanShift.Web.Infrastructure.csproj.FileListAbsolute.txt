@@ -13,6 +13,11 @@ C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\obj\Debug\netstandard2.1\PlanShift.Web.Infrastructure.csprojAssemblyReference.cache
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\obj\Debug\netstandard2.1\PlanShift.Web.Infrastructure.AssemblyInfoInputs.cache
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\obj\Debug\netstandard2.1\PlanShift.Web.Infrastructure.AssemblyInfo.cs
-C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\obj\Debug\netstandard2.1\PlanShift.Web.Infrastructure.csproj.CoreCompileInputs.cache
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\obj\Debug\netstandard2.1\PlanShift.Web.Infrastructure.dll
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\obj\Debug\netstandard2.1\PlanShift.Web.Infrastructure.pdb
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\bin\Debug\netstandard2.1\PlanShift.Data.Common.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\bin\Debug\netstandard2.1\PlanShift.Data.Models.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\bin\Debug\netstandard2.1\PlanShift.Data.Models.pdb
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\bin\Debug\netstandard2.1\PlanShift.Data.Common.pdb
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\obj\Debug\netstandard2.1\PlanShift.Web.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\obj\Debug\netstandard2.1\PlanShift.Web.Infrastructure.csproj.CopyComplete

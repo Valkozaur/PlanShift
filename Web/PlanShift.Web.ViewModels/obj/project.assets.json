@@ -436,6 +436,21 @@
         "runtime": {
           "bin/placeholder/PlanShift.Services.Mapping.dll": {}
         }
+      },
+      "PlanShift.Web.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Microsoft.Extensions.Identity.Core": "3.1.9",
+          "PlanShift.Data.Models": "1.0.0",
+          "System.ComponentModel.Annotations": "4.7.0"
+        },
+        "compile": {
+          "bin/placeholder/PlanShift.Web.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PlanShift.Web.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -1308,12 +1323,18 @@
       "type": "project",
       "path": "../../Services/PlanShift.Services.Mapping/PlanShift.Services.Mapping.csproj",
       "msbuildProject": "../../Services/PlanShift.Services.Mapping/PlanShift.Services.Mapping.csproj"
+    },
+    "PlanShift.Web.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../PlanShift.Web.Infrastructure/PlanShift.Web.Infrastructure.csproj",
+      "msbuildProject": "../PlanShift.Web.Infrastructure/PlanShift.Web.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.1": [
       "PlanShift.Data.Models >= 1.0.0",
       "PlanShift.Services.Mapping >= 1.0.0",
+      "PlanShift.Web.Infrastructure >= 1.0.0",
       "StyleCop.Analyzers >= 1.2.0-beta.205"
     ]
   },
@@ -1348,6 +1369,9 @@
             },
             "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Mapping\\PlanShift.Services.Mapping.csproj": {
               "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Mapping\\PlanShift.Services.Mapping.csproj"
+            },
+            "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Web\\PlanShift.Web.Infrastructure\\PlanShift.Web.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Web\\PlanShift.Web.Infrastructure\\PlanShift.Web.Infrastructure.csproj"
             }
           }
         }

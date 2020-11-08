@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\PlanShift.Data.Models\PlanShift.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\PlanShift.Services.Mapping\PlanShift.Services.Mapping.csproj" />
+    <ProjectReference Include="..\PlanShift.Web.Infrastructure\PlanShift.Web.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

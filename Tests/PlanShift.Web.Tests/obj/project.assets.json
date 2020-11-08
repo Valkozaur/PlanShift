@@ -3575,6 +3575,11 @@
       "PlanShift.Web.Infrastructure/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Microsoft.Extensions.Identity.Core": "3.1.9",
+          "PlanShift.Data.Models": "1.0.0",
+          "System.ComponentModel.Annotations": "4.7.0"
+        },
         "compile": {
           "bin/placeholder/PlanShift.Web.Infrastructure.dll": {}
         },
@@ -3587,7 +3592,8 @@
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
           "PlanShift.Data.Models": "1.0.0",
-          "PlanShift.Services.Mapping": "1.0.0"
+          "PlanShift.Services.Mapping": "1.0.0",
+          "PlanShift.Web.Infrastructure": "1.0.0"
         },
         "compile": {
           "bin/placeholder/PlanShift.Web.ViewModels.dll": {}

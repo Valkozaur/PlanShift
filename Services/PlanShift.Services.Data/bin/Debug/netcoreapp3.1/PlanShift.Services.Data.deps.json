@@ -1195,10 +1195,21 @@
           "PlanShift.Services.Mapping.dll": {}
         }
       },
+      "PlanShift.Web.Infrastructure/1.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Identity.Core": "3.1.9",
+          "PlanShift.Data.Models": "1.0.0",
+          "System.ComponentModel.Annotations": "4.7.0"
+        },
+        "runtime": {
+          "PlanShift.Web.Infrastructure.dll": {}
+        }
+      },
       "PlanShift.Web.ViewModels/1.0.0": {
         "dependencies": {
           "PlanShift.Data.Models": "1.0.0",
-          "PlanShift.Services.Mapping": "1.0.0"
+          "PlanShift.Services.Mapping": "1.0.0",
+          "PlanShift.Web.Infrastructure": "1.0.0"
         },
         "runtime": {
           "PlanShift.Web.ViewModels.dll": {}
@@ -2017,6 +2028,11 @@
       "sha512": ""
     },
     "PlanShift.Services.Mapping/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PlanShift.Web.Infrastructure/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

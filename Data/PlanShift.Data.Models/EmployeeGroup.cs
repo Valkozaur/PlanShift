@@ -1,7 +1,7 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
-
 namespace PlanShift.Data.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
@@ -11,6 +11,8 @@ namespace PlanShift.Data.Models
     {
         public EmployeeGroup()
         {
+            this.Id = Guid.NewGuid().ToString();
+
             this.Shifts = new HashSet<Shift>();
             this.CreatedShifts = new HashSet<Shift>();
 

@@ -42,3 +42,5 @@ C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services.Data
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services.Data\obj\Debug\netcoreapp3.1\PlanShift.Services.Data.pdb
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services.Data\bin\Debug\netcoreapp3.1\PlanShift.Web.ViewModels.dll
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services.Data\bin\Debug\netcoreapp3.1\PlanShift.Web.ViewModels.pdb
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services.Data\bin\Debug\netcoreapp3.1\PlanShift.Web.Infrastructure.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services.Data\bin\Debug\netcoreapp3.1\PlanShift.Web.Infrastructure.pdb

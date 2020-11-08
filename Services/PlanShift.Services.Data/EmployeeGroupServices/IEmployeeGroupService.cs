@@ -5,7 +5,7 @@
 
     public interface IEmployeeGroupService
     {
-        Task<string> AddEmployeeToGroupAsync(string groupId, string userId, decimal salary, string position, bool isManagement = false);
+        Task<string> AddEmployeeToGroupAsync(string employeeId, string groupId, decimal salary, string position, bool isManagement = false);
 
         Task<IEnumerable<T>> GetAllEmployeesFromGroup<T>(string groupId, bool isManagement = false);
 

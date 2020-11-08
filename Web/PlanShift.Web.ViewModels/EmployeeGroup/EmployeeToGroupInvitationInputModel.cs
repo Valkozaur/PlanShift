@@ -2,11 +2,14 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using PlanShift.Web.Infrastructure.ValidationAttributes;
+
     public class EmployeeToGroupInvitationInputModel
     {
         [Required]
         [MinLength(3)]
         [MaxLength(60)]
+        [UsernameExists]
         public string Username { get; set; }
 
         public string GroupId { get; set; }
@@ -18,5 +21,7 @@
         [MinLength(3)]
         [MaxLength(60)]
         public string Position { get; set; }
+
+        public bool IsManagement { get; set; }
     }
 }

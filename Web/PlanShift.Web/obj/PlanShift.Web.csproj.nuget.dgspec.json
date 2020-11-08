@@ -576,7 +576,11 @@
         },
         "frameworks": {
           "netstandard2.1": {
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Models\\PlanShift.Data.Models.csproj": {
+                "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Models\\PlanShift.Data.Models.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -588,11 +592,19 @@
       "frameworks": {
         "netstandard2.1": {
           "dependencies": {
+            "Microsoft.Extensions.Identity.Core": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
             "StyleCop.Analyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",
               "suppressParent": "All",
               "target": "Package",
               "version": "[1.2.0-beta.205, )"
+            },
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[4.7.0, )"
             }
           },
           "imports": [
@@ -642,6 +654,9 @@
               },
               "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Mapping\\PlanShift.Services.Mapping.csproj": {
                 "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Mapping\\PlanShift.Services.Mapping.csproj"
+              },
+              "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Web\\PlanShift.Web.Infrastructure\\PlanShift.Web.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Web\\PlanShift.Web.Infrastructure\\PlanShift.Web.Infrastructure.csproj"
               }
             }
           }

@@ -30,3 +30,5 @@ C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.ViewModels\obj
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.ViewModels\obj\Debug\netstandard2.1\PlanShift.Web.ViewModels.csproj.CopyComplete
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.ViewModels\obj\Debug\netstandard2.1\PlanShift.Web.ViewModels.dll
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.ViewModels\obj\Debug\netstandard2.1\PlanShift.Web.ViewModels.pdb
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.ViewModels\bin\Debug\netstandard2.1\PlanShift.Web.Infrastructure.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.ViewModels\bin\Debug\netstandard2.1\PlanShift.Web.Infrastructure.pdb
