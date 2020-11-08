@@ -18,5 +18,7 @@
         Task<T> GetGroupAsync<T>(string id);
 
         Task<IEnumerable<T>> GetAllByBusinessIdAsync<T>(string businessId);
+
+        Task<string> GetGroupName(string id);
     }
 }

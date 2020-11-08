@@ -76,5 +76,11 @@
                 .Where(x => x.BusinessId == businessId)
                 .To<T>()
                 .ToArrayAsync();
+
+        public async Task<string> GetGroupName(string id)
+        {
+            var group = await this.groupRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            return group.Name;
+        }
     }
 }

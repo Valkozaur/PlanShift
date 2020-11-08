@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PlanShift.Data.Models;
 using PlanShift.Services.Data.EmployeeGroupServices;
+using PlanShift.Services.Data.GroupServices;
 using PlanShift.Services.Data.ShiftServices;
 using PlanShift.Web.ViewModels.ControllerDTO;
 using PlanShift.Web.ViewModels.Shift;
@@ -16,12 +17,14 @@ namespace PlanShift.Web.Controllers
     {
         private readonly IShiftService shiftService;
         private readonly IEmployeeGroupService employeeGroupService;
+        private readonly IGroupService groupService;
         private readonly UserManager<PlanShiftUser> userManager;
 
-        public ShiftController(IShiftService shiftService, IEmployeeGroupService employeeGroupService, UserManager<PlanShiftUser> userManager)
+        public ShiftController(IShiftService shiftService, IEmployeeGroupService employeeGroupService, IGroupService groupService, UserManager<PlanShiftUser> userManager)
         {
             this.shiftService = shiftService;
             this.employeeGroupService = employeeGroupService;
+            this.groupService = groupService;
             this.userManager = userManager;
         }
 
@@ -56,9 +59,18 @@ namespace PlanShift.Web.Controllers
             return this.RedirectToAction(nameof(this.All), new {GroupId = input.GroupId});
         }
 
-        public IActionResult All(string GroupId)
+        public async Task<IActionResult> All(string groupId)
         {
-            
+            var shifts = await this.shiftService.GetAllShiftsByGroup<ShiftAllViewModel>(groupId);
+            var groupName = await this.groupService.GetGroupName(groupId);
+
+            var viewModel = new ShiftListViewModel()
+            {
+                Shifts = shifts,
+                GroupName = groupName,
+            };
+
+            return this.View(viewModel);
         }
     }
 }
