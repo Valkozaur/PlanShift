@@ -1,12 +1,64 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using PlanShift.Data.Models;
+using PlanShift.Services.Data.EmployeeGroupServices;
+using PlanShift.Services.Data.ShiftServices;
+using PlanShift.Web.ViewModels.ControllerDTO;
+using PlanShift.Web.ViewModels.Shift;
 
 namespace PlanShift.Web.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
     public class ShiftController : Controller
     {
-        public IActionResult Index()
+        private readonly IShiftService shiftService;
+        private readonly IEmployeeGroupService employeeGroupService;
+        private readonly UserManager<PlanShiftUser> userManager;
+
+        public ShiftController(IShiftService shiftService, IEmployeeGroupService employeeGroupService, UserManager<PlanShiftUser> userManager)
         {
-            return View();
+            this.shiftService = shiftService;
+            this.employeeGroupService = employeeGroupService;
+            this.userManager = userManager;
+        }
+
+        public IActionResult Create(string groupId)
+        {
+            var model = new CreateShiftInputModel()
+            {
+                GroupId = groupId,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Create(CreateShiftInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            var userId = this.userManager.GetUserId(this.User);
+
+            var employeeGroup = await this.employeeGroupService.GetEmployeeGroupById<EmployeeGroupIsManagement>(input.GroupId, userId);
+
+            if (employeeGroup.IsManagement)
+            {
+                await this.shiftService.CreateShift(userId, input.GroupId, input.Start, input.End, input.Description, input.BonusPayment ?? 0);
+            }
+
+            return this.RedirectToAction(nameof(this.All), new {GroupId = input.GroupId});
+        }
+
+        public IActionResult All(string GroupId)
+        {
+            
         }
     }
 }

@@ -5,6 +5,11 @@
 
     public class DateIsFutureAttribute : ValidationAttribute
     {
+        public DateIsFutureAttribute()
+        {
+            this.ErrorMessage = $"Date should be after {DateTime.UtcNow}";
+        }
+
         public override bool IsValid(object value)
         {
             var date = (DateTime)value;

@@ -28,6 +28,9 @@ namespace PlanShift.Data.Models
 
         public decimal BonusPayment { get; set; }
 
+        [MaxLength(300)]
+        public string Description { get; set; }
+
         [Required]
         public string GroupId { get; set; }
 

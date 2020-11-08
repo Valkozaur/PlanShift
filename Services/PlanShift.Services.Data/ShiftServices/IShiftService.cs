@@ -4,12 +4,11 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using PlanShift.Data.Models;
     using PlanShift.Models.Enumerations;
 
     public interface IShiftService
     {
-        Task<string> CreateShift(string groupId, DateTime start, DateTime end, decimal bonusPayment = 0);
+        Task<string> CreateShift(string shiftCreatorId, string groupId, DateTime start, DateTime end, string description, decimal bonusPayment = 0);
 
         Task DeleteShift(string shiftId);
 

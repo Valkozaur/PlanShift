@@ -24,7 +24,7 @@
             this.employeeGroupService = employeeGroupService;
         }
 
-        public async Task<string> CreateShift(string groupId, DateTime start, DateTime end, decimal bonusPayment = 0)
+        public async Task<string> CreateShift(string shiftCreatorId, string groupId, DateTime start, DateTime end, string description, decimal bonusPayment = 0)
         {
             var shift = new Shift()
             {
@@ -32,7 +32,9 @@
                 ShiftStatus = ShiftStatus.New,
                 Start = start,
                 End = end,
+                Description = description,
                 BonusPayment = bonusPayment,
+                ShiftCreatorId = shiftCreatorId,
             };
 
             await this.shiftRepository.AddAsync(shift);
