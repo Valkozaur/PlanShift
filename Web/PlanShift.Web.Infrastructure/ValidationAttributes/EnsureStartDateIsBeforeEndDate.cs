@@ -15,7 +15,7 @@
         public override bool IsValid(object value)
         {
             var startDate = (DateTime)value;
-            if (startDate > endDate)
+            if (startDate > this.endDate)
             {
                 return false;
             }

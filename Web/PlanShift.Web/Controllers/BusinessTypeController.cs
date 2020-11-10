@@ -19,7 +19,7 @@
         [Authorize]
         public IActionResult Create()
         {
-            return View();
+            return this.View();
         }
 
         [Authorize]
@@ -33,7 +33,7 @@
 
             var businessTypeId = await this.businessTypeService.CreateAsync(input.Name);
 
-            return this.RedirectToAction("Register", "Business", new { id = businessTypeId});
+            return this.RedirectToAction("Register", "Business", new { id = businessTypeId });
         }
     }
 }

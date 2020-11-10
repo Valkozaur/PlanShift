@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace PlanShift.Web.ViewModels.Shift
+﻿namespace PlanShift.Web.ViewModels.Shift
 {
+    using System;
+
     using AutoMapper;
     using PlanShift.Data.Models;
     using PlanShift.Services.Mapping;

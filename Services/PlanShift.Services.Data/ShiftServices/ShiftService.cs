@@ -1,6 +1,4 @@
-﻿using PlanShift.Data.Models.Enumerations;
-
-namespace PlanShift.Services.Data.ShiftServices
+﻿namespace PlanShift.Services.Data.ShiftServices
 {
     using System;
     using System.Collections.Generic;
@@ -11,6 +9,7 @@ namespace PlanShift.Services.Data.ShiftServices
     using PlanShift.Data;
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
+    using PlanShift.Data.Models.Enumerations;
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Mapping;
 

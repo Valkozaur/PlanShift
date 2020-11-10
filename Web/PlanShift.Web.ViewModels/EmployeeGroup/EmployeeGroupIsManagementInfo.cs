@@ -1,7 +1,6 @@
-﻿using AutoMapper;
-
-namespace PlanShift.Web.ViewModels.EmployeeGroup
+﻿namespace PlanShift.Web.ViewModels.EmployeeGroup
 {
+    using AutoMapper;
     using PlanShift.Data.Models;
     using PlanShift.Services.Mapping;
 

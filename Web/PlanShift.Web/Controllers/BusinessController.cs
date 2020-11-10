@@ -31,7 +31,6 @@
                 BusinessTypeId = id ?? default,
             };
 
-
             return this.View(viewModel);
         }
 

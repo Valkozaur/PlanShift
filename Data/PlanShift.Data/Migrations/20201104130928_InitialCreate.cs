@@ -19,7 +19,7 @@
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -48,7 +48,7 @@
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -63,7 +63,7 @@
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(maxLength: 60, nullable: false)
+                    Name = table.Column<string>(maxLength: 60, nullable: false),
                 },
                 constraints: table =>
                 {
@@ -78,7 +78,7 @@
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
+                    ClaimValue = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -99,7 +99,7 @@
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
+                    ClaimValue = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -119,7 +119,7 @@
                     LoginProvider = table.Column<string>(nullable: false),
                     ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
+                    UserId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -137,7 +137,7 @@
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false)
+                    RoleId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -163,7 +163,7 @@
                     UserId = table.Column<string>(nullable: false),
                     LoginProvider = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    Value = table.Column<string>(nullable: true)
+                    Value = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -187,7 +187,7 @@
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
                     BusinessTypeId = table.Column<int>(nullable: false),
-                    OwnerId = table.Column<string>(nullable: false)
+                    OwnerId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -217,7 +217,7 @@
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(maxLength: 120, nullable: false),
                     StandardSalary = table.Column<decimal>(nullable: true),
-                    BusinessId = table.Column<string>(nullable: false)
+                    BusinessId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -242,7 +242,7 @@
                     EmployeeId = table.Column<string>(nullable: false),
                     GroupId = table.Column<string>(nullable: false),
                     Position = table.Column<string>(maxLength: 60, nullable: false),
-                    Salary = table.Column<decimal>(nullable: false)
+                    Salary = table.Column<decimal>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -277,7 +277,7 @@
                     GroupId = table.Column<string>(nullable: false),
                     EmployeeId = table.Column<string>(nullable: false),
                     ManagementId = table.Column<string>(nullable: true),
-                    ShiftCreatorId = table.Column<string>(nullable: false)
+                    ShiftCreatorId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -321,7 +321,7 @@
                     ShiftId = table.Column<string>(nullable: false),
                     OriginalEmployeeId = table.Column<string>(nullable: false),
                     PendingEmployeeId = table.Column<string>(nullable: false),
-                    ManagementId = table.Column<string>(nullable: true)
+                    ManagementId = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {

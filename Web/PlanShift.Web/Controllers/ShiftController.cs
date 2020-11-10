@@ -1,18 +1,17 @@
-﻿using System.Linq;
-using PlanShift.Data.Migrations;
-using PlanShift.Web.ViewModels.EmployeeGroup;
-
-namespace PlanShift.Web.Controllers
+﻿namespace PlanShift.Web.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using PlanShift.Data.Migrations;
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Services.Data.ShiftServices;
+    using PlanShift.Web.ViewModels.EmployeeGroup;
     using PlanShift.Web.ViewModels.Shift;
 
     public class ShiftController : Controller
@@ -37,7 +36,7 @@ namespace PlanShift.Web.Controllers
                 GroupId = groupId,
             };
 
-            return View(model);
+            return this.View(model);
         }
 
         [HttpPost]
@@ -59,7 +58,7 @@ namespace PlanShift.Web.Controllers
             }
             else
             {
-                //TODO: Return error;
+                // TODO: Return error;
             }
 
             return this.RedirectToAction(nameof(this.All), new { GroupId = input.GroupId });

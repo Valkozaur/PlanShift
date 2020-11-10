@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace PlanShift.Services.Data.EmployeeGroupServices
+﻿namespace PlanShift.Services.Data.EmployeeGroupServices
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;

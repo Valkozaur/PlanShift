@@ -1,15 +1,14 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
 
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using PlanShift.Data.Models.Enumerations;
-
 namespace PlanShift.Data.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     using PlanShift.Data.Common.Models;
+    using PlanShift.Data.Models.Enumerations;
 
     public class Shift : BaseDeletableModel<string>
     {

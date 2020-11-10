@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace PlanShift.Services.Data.ShiftApplication
+﻿namespace PlanShift.Services.Data.ShiftApplication
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
     public interface IShiftApplicationService
     {
         Task CreateShiftApplication(string shiftId, string employeeId);

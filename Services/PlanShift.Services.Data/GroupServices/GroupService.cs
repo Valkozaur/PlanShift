@@ -63,7 +63,7 @@
             }
         }
 
-        public async Task<T> GetGroupAsync<T>(string id) 
+        public async Task<T> GetGroupAsync<T>(string id)
             => await this.groupRepository
                 .All()
                 .Where(x => x.Id == id)

@@ -1,17 +1,17 @@
-﻿using System;
-using PlanShift.Data.Common.Repositories;
-
-namespace PlanShift.Services.Data.ShiftApplication
+﻿namespace PlanShift.Services.Data.ShiftApplication
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
+    using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
 
     public class ShiftApplicationService : IShiftApplicationService
     {
         public ShiftApplicationService(IRepository<ShiftApplication> shiftApplicationRepository)
         {
-            
+
         }
 
         public Task CreateShiftApplication(string shiftId, string employeeId)
