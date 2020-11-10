@@ -1,10 +1,10 @@
-﻿namespace PlanShift.Services.Data.ShiftServices
+﻿using PlanShift.Data.Models.Enumerations;
+
+namespace PlanShift.Services.Data.ShiftServices
 {
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
-    using PlanShift.Models.Enumerations;
 
     public interface IShiftService
     {

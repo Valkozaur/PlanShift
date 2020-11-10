@@ -5,7 +5,6 @@
     using System.ComponentModel.DataAnnotations;
 
     using PlanShift.Data.Common.Models;
-    using PlanShift.Models;
 
     public class Business : BaseDeletableModel<string>
     {

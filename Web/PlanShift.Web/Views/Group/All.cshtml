@@ -14,6 +14,7 @@
         <th scope="col">Employees</th>
         <th scope="col">Invite Employee</th>
         <th scope="col">Create Shift</th>
+        <th scope="col">All Shift</th>
     </tr>
     </thead>
     <tbody>
@@ -33,6 +34,9 @@
             </td>
             <td>
                 <a asp-controller="Shift" asp-action="Create" asp-route-groupid="@group.Id" class="btn btn-primary btn-sm">Create</a>
+            </td>
+            <td>
+                <a asp-controller="Shift" asp-action="All" asp-route-groupid="@group.Id" class="btn btn-primary btn-sm">All</a>
             </td>
         </tr>
     }

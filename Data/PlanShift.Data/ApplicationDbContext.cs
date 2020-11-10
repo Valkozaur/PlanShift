@@ -35,6 +35,8 @@
 
         public DbSet<EmployeeGroup> EmployeeGroups { get; set; }
 
+        public DbSet<ShiftApplication> ShiftApplications { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

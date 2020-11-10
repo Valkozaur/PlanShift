@@ -1,0 +1,42 @@
+﻿@using PlanShift.Web.ViewModels.Shift;
+@model ShiftListViewModel
+
+@{
+    this.ViewData["Title"] = $"All shifts for {Model.GroupName}!";
+    DateTime currentDate = default;
+}
+
+
+<h1 class="text-center">Your businesses!</h1>
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Start</th>
+                <th scope="col">End</th>
+                <th scope="col">Status</th>
+                <th scope="col">Employee</th>
+                <th scope="col">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var shift in Model.Shifts)
+            {
+                if (shift.StartDate > currentDate && currentDate != default)
+                {
+                    <br />
+                }
+
+                <tr>
+                    <td>@shift.Start</td>
+                    <td>@shift.End</td>
+                    <td>@shift.Status</td>
+                    <td>@shift.Employee</td>
+                    <td>@shift.Description</td>
+                </tr>
+
+                @(currentDate = shift.StartDate);
+            }
+        </tbody>
+    </table>
+</div>

@@ -417,7 +417,6 @@ namespace PlanShift.Data.Migrations
                         .HasMaxLength(300);
 
                     b.Property<string>("EmployeeId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("End")
@@ -459,6 +458,32 @@ namespace PlanShift.Data.Migrations
                     b.HasIndex("ShiftCreatorId");
 
                     b.ToTable("Shifts");
+                });
+
+            modelBuilder.Entity("PlanShift.Data.Models.ShiftApplication", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ShiftId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ShiftId");
+
+                    b.ToTable("ShiftApplications");
                 });
 
             modelBuilder.Entity("PlanShift.Data.Models.ShiftChange", b =>
@@ -606,8 +631,7 @@ namespace PlanShift.Data.Migrations
                     b.HasOne("PlanShift.Data.Models.EmployeeGroup", "Employee")
                         .WithMany("Shifts")
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("PlanShift.Data.Models.Group", "Group")
                         .WithMany("Shifts")
@@ -624,6 +648,17 @@ namespace PlanShift.Data.Migrations
                         .HasForeignKey("ShiftCreatorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("PlanShift.Data.Models.ShiftApplication", b =>
+                {
+                    b.HasOne("PlanShift.Data.Models.EmployeeGroup", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId");
+
+                    b.HasOne("PlanShift.Data.Models.Shift", "Shift")
+                        .WithMany()
+                        .HasForeignKey("ShiftId");
                 });
 
             modelBuilder.Entity("PlanShift.Data.Models.ShiftChange", b =>

@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Services.Data.ShiftServices
+﻿using PlanShift.Data.Models.Enumerations;
+
+namespace PlanShift.Services.Data.ShiftServices
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +11,6 @@
     using PlanShift.Data;
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
-    using PlanShift.Models.Enumerations;
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Mapping;
 
@@ -28,13 +29,13 @@
         {
             var shift = new Shift()
             {
+                ShiftCreatorId = shiftCreatorId,
                 GroupId = groupId,
-                ShiftStatus = ShiftStatus.New,
                 Start = start,
                 End = end,
                 Description = description,
                 BonusPayment = bonusPayment,
-                ShiftCreatorId = shiftCreatorId,
+                ShiftStatus = ShiftStatus.New,
             };
 
             await this.shiftRepository.AddAsync(shift);
@@ -63,6 +64,7 @@
             => await this.shiftRepository
                 .AllAsNoTracking()
                 .Where(x => x.GroupId == groupId)
+                .OrderBy(x => x.Start)
                 .To<T>()
                 .ToArrayAsync();
 

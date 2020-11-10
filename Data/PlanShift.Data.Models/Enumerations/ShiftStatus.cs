@@ -1,4 +1,4 @@
-﻿namespace PlanShift.Models.Enumerations
+﻿namespace PlanShift.Data.Models.Enumerations
 {
     public enum ShiftStatus
     {

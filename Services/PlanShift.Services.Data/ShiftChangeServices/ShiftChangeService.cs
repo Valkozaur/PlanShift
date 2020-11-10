@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Services.Data.ShiftChangeServices
+﻿using PlanShift.Data.Models.Enumerations;
+
+namespace PlanShift.Services.Data.ShiftChangeServices
 {
     using System;
     using System.Linq;
@@ -7,7 +9,6 @@
     using Microsoft.EntityFrameworkCore;
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
-    using PlanShift.Models.Enumerations;
     using PlanShift.Services.Data.ShiftServices;
     using PlanShift.Services.Mapping;
 

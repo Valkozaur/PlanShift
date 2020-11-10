@@ -1,17 +1,19 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using PlanShift.Data.Models;
-using PlanShift.Services.Data.EmployeeGroupServices;
-using PlanShift.Services.Data.GroupServices;
-using PlanShift.Services.Data.ShiftServices;
-using PlanShift.Web.ViewModels.ControllerDTO;
-using PlanShift.Web.ViewModels.Shift;
+﻿using System.Linq;
+using PlanShift.Data.Migrations;
+using PlanShift.Web.ViewModels.EmployeeGroup;
 
 namespace PlanShift.Web.Controllers
 {
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using PlanShift.Data.Models;
+    using PlanShift.Services.Data.EmployeeGroupServices;
+    using PlanShift.Services.Data.GroupServices;
+    using PlanShift.Services.Data.ShiftServices;
+    using PlanShift.Web.ViewModels.Shift;
 
     public class ShiftController : Controller
     {
@@ -49,14 +51,18 @@ namespace PlanShift.Web.Controllers
 
             var userId = this.userManager.GetUserId(this.User);
 
-            var employeeGroup = await this.employeeGroupService.GetEmployeeGroupById<EmployeeGroupIsManagement>(input.GroupId, userId);
+            var employeeGroup = await this.employeeGroupService.GetEmployeeGroupById<EmployeeGroupIsManagementInfo>(userId, input.GroupId);
 
             if (employeeGroup.IsManagement)
             {
-                await this.shiftService.CreateShift(userId, input.GroupId, input.Start, input.End, input.Description, input.BonusPayment ?? 0);
+                await this.shiftService.CreateShift(employeeGroup.Id, input.GroupId, input.Start, input.End, input.Description, input.BonusPayment ?? 0);
+            }
+            else
+            {
+                //TODO: Return error;
             }
 
-            return this.RedirectToAction(nameof(this.All), new {GroupId = input.GroupId});
+            return this.RedirectToAction(nameof(this.All), new { GroupId = input.GroupId });
         }
 
         public async Task<IActionResult> All(string groupId)
@@ -66,7 +72,7 @@ namespace PlanShift.Web.Controllers
 
             var viewModel = new ShiftListViewModel()
             {
-                Shifts = shifts,
+                Shifts = shifts.ToList(),
                 GroupName = groupName,
             };
 

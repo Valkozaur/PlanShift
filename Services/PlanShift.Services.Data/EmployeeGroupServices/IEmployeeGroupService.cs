@@ -10,5 +10,7 @@
         Task<IEnumerable<T>> GetAllEmployeesFromGroup<T>(string groupId, bool isManagement = false);
 
         Task<T> GetEmployeeGroupById<T>(string groupId, string employeeId);
+
+        Task<bool> IsEmployeeManagerInGroup(string employeeId, string groupId);
     }
 }

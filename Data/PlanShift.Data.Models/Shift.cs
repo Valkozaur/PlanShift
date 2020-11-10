@@ -2,6 +2,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using PlanShift.Data.Models.Enumerations;
 
 namespace PlanShift.Data.Models
 {
@@ -9,7 +10,6 @@ namespace PlanShift.Data.Models
     using System.Collections.Generic;
 
     using PlanShift.Data.Common.Models;
-    using PlanShift.Models.Enumerations;
 
     public class Shift : BaseDeletableModel<string>
     {
@@ -36,7 +36,6 @@ namespace PlanShift.Data.Models
 
         public virtual Group Group { get; set; }
 
-        [Required]
         [ForeignKey(nameof(EmployeeGroup))]
         public string EmployeeId { get; set; }
 

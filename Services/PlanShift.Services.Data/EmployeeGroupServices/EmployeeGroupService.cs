@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Services.Data.EmployeeGroupServices
+﻿using System;
+
+namespace PlanShift.Services.Data.EmployeeGroupServices
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -49,11 +51,25 @@
             return employees;
         }
 
-        public Task<T> GetEmployeeGroupById<T>(string groupId, string employeeId)
+        public Task<T> GetEmployeeGroupById<T>(string employeeId, string groupId)
             => this.employeeGroupRepository
-                .AllAsNoTrackingWithDeleted()
+                .AllAsNoTracking()
                 .Where(x => x.EmployeeId == employeeId && x.GroupId == groupId)
                 .To<T>()
                 .FirstOrDefaultAsync();
+
+        public async Task<bool> IsEmployeeManagerInGroup(string employeeId, string groupId)
+        {
+            var eg = await this.employeeGroupRepository
+                .AllAsNoTracking()
+                .FirstOrDefaultAsync(x => x.EmployeeId == employeeId && x.GroupId == groupId);
+
+            if (eg == null)
+            {
+                throw new ArgumentException("No such employee found in this group!");
+            }
+
+            return true;
+        }
     }
 }
