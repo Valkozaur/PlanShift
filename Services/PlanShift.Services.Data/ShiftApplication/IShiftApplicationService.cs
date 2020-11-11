@@ -5,8 +5,10 @@
 
     public interface IShiftApplicationService
     {
-        Task CreateShiftApplication(string shiftId, string employeeId);
+        Task<string> CreateShiftApplicationAsync(string shiftId, string employeeId);
 
-        Task<IEnumerable<T>> GetAllApplicationByShiftId<T>(string shiftId);
+        Task<IEnumerable<T>> GetAllApplicationByShiftIdAsync<T>(string shiftId);
+
+        Task ApproveShiftApplicationAsync(string id);
     }
 }

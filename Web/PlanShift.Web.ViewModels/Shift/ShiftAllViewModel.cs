@@ -8,6 +8,8 @@
 
     public class ShiftAllViewModel : IMapFrom<Shift>, IHaveCustomMappings
     {
+        public string Id { get; set; }
+
         public string Start { get; set; }
 
         public string End { get; set; }

@@ -19,5 +19,7 @@
         Task StatusChange(string id, ShiftStatus newStatus);
 
         Task ApproveShiftToEmployee(string id, string employeeId, string managementId);
+
+        Task<string> GetGroupIdAsync(string shiftId);
     }
 }

@@ -1,4 +1,6 @@
 ﻿@using PlanShift.Web.ViewModels.Shift;
+@using Microsoft.AspNetCore.Identity
+@using PlanShift.Data.Models
 @model ShiftListViewModel
 
 @{
@@ -17,6 +19,7 @@
                 <th scope="col">Status</th>
                 <th scope="col">Employee</th>
                 <th scope="col">Description</th>
+                <th scope="col">Apply</th>
             </tr>
         </thead>
         <tbody>
@@ -33,6 +36,11 @@
                     <td>@shift.Status</td>
                     <td>@shift.Employee</td>
                     <td>@shift.Description</td>
+                    <td>
+                        <a asp-controller="ShiftApplication" asp-action="Apply" asp-route-shiftId="@shift.Id">
+                            <input class="btn btn-sm btn-primary btn-sm" value="Apply" />
+                        </a>
+                    </td>
                 </tr>
 
                 @(currentDate = shift.StartDate);

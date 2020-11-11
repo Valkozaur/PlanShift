@@ -12,5 +12,7 @@
         Task<T> GetEmployeeGroupById<T>(string groupId, string employeeId);
 
         Task<bool> IsEmployeeManagerInGroup(string employeeId, string groupId);
+
+        Task<string> GetEmployeeId(string employeeId, string groupId);
     }
 }

@@ -85,5 +85,12 @@
 
             await this.shiftRepository.SaveChangesAsync();
         }
+
+        public async Task<string> GetGroupIdAsync(string shiftId)
+            => await this.shiftRepository
+                .All()
+                .Where(x => x.Id == shiftId)
+                .Select(x => x.GroupId)
+                .FirstOrDefaultAsync();
     }
 }

@@ -59,16 +59,19 @@
 
         public async Task<bool> IsEmployeeManagerInGroup(string employeeId, string groupId)
         {
-            var eg = await this.employeeGroupRepository
+            return await this.employeeGroupRepository
                 .AllAsNoTracking()
-                .FirstOrDefaultAsync(x => x.EmployeeId == employeeId && x.GroupId == groupId);
-
-            if (eg == null)
-            {
-                throw new ArgumentException("No such employee found in this group!");
-            }
-
-            return true;
+                .AnyAsync(x
+                    => x.EmployeeId == employeeId
+                    && x.GroupId == groupId
+                    && x.IsManagement);
         }
+
+        public async Task<string> GetEmployeeId(string employeeId, string groupId) =>
+            await this.employeeGroupRepository
+                .AllAsNoTrackingWithDeleted()
+                .Where(x => x.EmployeeId == employeeId && x.GroupId == groupId)
+                .Select(x => x.Id)
+                .FirstOrDefaultAsync();
     }
 }

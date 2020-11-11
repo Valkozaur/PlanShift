@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Web
+﻿using PlanShift.Services.Data.ShiftApplication;
+
+namespace PlanShift.Web
 {
     using System.Reflection;
 
@@ -74,6 +76,7 @@
             services.AddTransient<IShiftService, ShiftService>();
             services.AddTransient<IShiftChangeService, ShiftChangeService>();
             services.AddTransient<IEmployeeGroupService, EmployeeGroupService>();
+            services.AddTransient<IShiftApplicationService, ShiftApplicationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
