@@ -20,7 +20,7 @@
 
         public string Status { get; set; }
 
-        public string Employee { get; set; }
+        public string EmployeeName { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
@@ -38,7 +38,7 @@
                     m => m.Status,
                     s => s.MapFrom(x => x.ShiftStatus.ToString()))
                 .ForMember(
-                    m => m.Employee,
+                    m => m.EmployeeName,
                     s => s.MapFrom(x => x.Employee.Employee.UserName));
         }
     }

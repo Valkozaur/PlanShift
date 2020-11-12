@@ -1,4 +1,4 @@
-﻿namespace PlanShift.Services.Common
+﻿namespace PlanShift.Services.Data.Common
 {
     internal static class ErrorMessages
     {

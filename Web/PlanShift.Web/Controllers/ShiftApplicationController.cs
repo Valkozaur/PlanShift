@@ -8,6 +8,9 @@
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.ShiftApplication;
     using PlanShift.Services.Data.ShiftServices;
+    using PlanShift.Web.ViewModels.EmployeeGroup;
+    using PlanShift.Web.ViewModels.Shift;
+    using PlanShift.Web.ViewModels.ShiftApplication;
 
     public class ShiftApplicationController : Controller
     {
@@ -40,10 +43,46 @@
                 return this.RedirectToAction("Index", "Home");
             }
 
-            //TODO: Make the achievement system check here
+            var hasEmployeeApplied = await this.shiftApplicationService.HasEmployeeAppliedForShift(shiftId, employeeGroupId);
+            if (hasEmployeeApplied)
+            {
+                return this.RedirectToAction("All", "Shift", new { GroupId = groupId });
+            }
 
+            // TODO: Make the achievement system check here
             await this.shiftApplicationService.CreateShiftApplicationAsync(shiftId, employeeGroupId);
             return this.RedirectToAction("All", "Shift", new { GroupId = groupId });
+        }
+
+        public async Task<IActionResult> All(string shiftId)
+        {
+            var shiftApplications = await this.shiftApplicationService.GetAllApplicationByShiftIdAsync<ShiftApplicationAllViewModel>(shiftId);
+            var shift = await this.shiftService.GetShiftById<ShiftShiftApplicationViewModel>(shiftId);
+            var viewModel = new ShiftApplicationListViewModel()
+            {
+                Applications = shiftApplications,
+                Shift = shift,
+            };
+
+            return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> Approve(string shiftApplicationId)
+        {
+            var userId = this.userManager.GetUserId(this.User);
+
+            var shiftApplicationInfo = await this.shiftApplicationService.GetShiftApplicationById<ApproveShiftInfo>(shiftApplicationId);
+
+            var manager = await this.employeeGroupService.GetEmployeeGroupById<EmployeeGroupInfo>(userId, shiftApplicationInfo.GroupId);
+            if (!manager.IsManagement)
+            {
+                return this.RedirectToAction("Index", "Home");
+            }
+
+            await this.shiftService.ApproveShiftToEmployee(shiftApplicationInfo.ShiftId, shiftApplicationInfo.EmployeeId, manager.Id);
+            await this.shiftApplicationService.ApproveShiftApplicationAsync(shiftApplicationId);
+
+            return this.RedirectToAction("All", "Shift", new { GroupId = shiftApplicationInfo.GroupId });
         }
     }
 }

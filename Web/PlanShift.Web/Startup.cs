@@ -1,6 +1,4 @@
-﻿using PlanShift.Services.Data.ShiftApplication;
-
-namespace PlanShift.Web
+﻿namespace PlanShift.Web
 {
     using System.Reflection;
 
@@ -23,6 +21,7 @@ namespace PlanShift.Web
     using PlanShift.Services.Data.BusinessTypeServices;
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.GroupServices;
+    using PlanShift.Services.Data.ShiftApplication;
     using PlanShift.Services.Data.ShiftChangeServices;
     using PlanShift.Services.Data.ShiftServices;
     using PlanShift.Services.Mapping;

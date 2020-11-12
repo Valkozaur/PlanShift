@@ -3,8 +3,7 @@
     public enum ShiftStatus
     {
         Pending = 1,
-        Accepted = 2,
-        Deleted = 4,
+        Approved = 2,
         New = 5,
     }
 }

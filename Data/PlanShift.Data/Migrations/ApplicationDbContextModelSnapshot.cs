@@ -471,14 +471,14 @@ namespace PlanShift.Data.Migrations
                     b.Property<string>("EmployeeId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("IsApproved")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ShiftId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -500,9 +500,6 @@ namespace PlanShift.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsAccepted")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -523,6 +520,9 @@ namespace PlanShift.Data.Migrations
                     b.Property<string>("ShiftId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

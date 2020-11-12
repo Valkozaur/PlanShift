@@ -31,13 +31,13 @@
                                 Dropdown
                             </button>
                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                <a asp-controller="Group" asp-action="Create" asp-route-businessId="@business.Id" class="dropdown-item">Create</a>
+                                <a asp-controller="Group" asp-action="CreateShiftChangeAsync" asp-route-businessId="@business.Id" class="dropdown-item">CreateShiftChangeAsync</a>
                                 <a asp-controller="Group" asp-action="All" asp-route-businessId="@business.Id" class="dropdown-item">All</a>
                             </div>
                         </div>
                     </div>*@
                     <div class="btn-group" role="group" aria-label="group actions">
-                        <a asp-controller="Group" asp-action="Create" asp-route-businessid="@business.Id" class="btn btn-primary btn-sm">Create</a>
+                        <a asp-controller="Group" asp-action="Create" asp-route-businessid="@business.Id" class="btn btn-primary btn-sm">CreateShiftChangeAsync</a>
                         <a asp-controller="Group" asp-action="All" asp-route-businessid="@business.Id" class="btn btn-primary btn-sm">All</a>
                     </div>
                 </td>

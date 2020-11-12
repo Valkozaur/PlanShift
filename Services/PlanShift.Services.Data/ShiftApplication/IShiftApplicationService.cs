@@ -7,8 +7,12 @@
     {
         Task<string> CreateShiftApplicationAsync(string shiftId, string employeeId);
 
+        Task<bool> HasEmployeeAppliedForShift(string shiftId, string employeeId);
+
         Task<IEnumerable<T>> GetAllApplicationByShiftIdAsync<T>(string shiftId);
 
         Task ApproveShiftApplicationAsync(string id);
+
+        Task<T> GetShiftApplicationById<T>(string id);
     }
 }

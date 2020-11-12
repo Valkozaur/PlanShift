@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Services.Data.ShiftApplication
+﻿using PlanShift.Data.Models.Enumerations;
+
+namespace PlanShift.Services.Data.ShiftApplication
 {
     using System;
     using System.Collections.Generic;
@@ -34,6 +36,11 @@
             return shiftApplication.Id;
         }
 
+        public async Task<bool> HasEmployeeAppliedForShift(string shiftId, string employeeId)
+        => await this.shiftApplicationRepository
+            .AllAsNoTracking()
+            .AnyAsync(x => x.ShiftId == shiftId && x.EmployeeId == employeeId);
+
         public async Task<IEnumerable<T>> GetAllApplicationByShiftIdAsync<T>(string shiftId)
             => await this.shiftApplicationRepository
                 .AllAsNoTracking()
@@ -44,8 +51,15 @@
         public async Task ApproveShiftApplicationAsync(string id)
         {
             var shiftApplication = await this.shiftApplicationRepository.All().FirstOrDefaultAsync(x => x.Id == id);
-            shiftApplication.IsApproved = true;
+            shiftApplication.Status = ShiftApplicationStatus.Approved;
             await this.shiftApplicationRepository.SaveChangesAsync();
         }
+
+        public async Task<T> GetShiftApplicationById<T>(string id)
+            => await this.shiftApplicationRepository
+                .AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
     }
 }

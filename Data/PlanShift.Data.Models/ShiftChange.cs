@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Data.Models
+﻿using PlanShift.Data.Models.Enumerations;
+
+namespace PlanShift.Data.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -13,7 +15,7 @@
             this.Id = Guid.NewGuid().ToString();
         }
 
-        public bool IsAccepted { get; set; }
+        public ShiftApplicationStatus Status { get; set; }
 
         [Required]
         public string ShiftId { get; set; }

@@ -1,8 +1,8 @@
-﻿namespace PlanShift.Web.ViewModels.EmployeeGroup
+﻿using PlanShift.Web.Infrastructure.Validations.ValidationAttributes;
+
+namespace PlanShift.Web.ViewModels.EmployeeGroup
 {
     using System.ComponentModel.DataAnnotations;
-
-    using PlanShift.Web.Infrastructure.ValidationAttributes;
 
     public class EmployeeToGroupInvitationInputModel
     {

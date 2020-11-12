@@ -1,13 +1,9 @@
 ﻿@using PlanShift.Web.ViewModels.Shift;
-@using Microsoft.AspNetCore.Identity
-@using PlanShift.Data.Models
 @model ShiftListViewModel
 
 @{
     this.ViewData["Title"] = $"All shifts for {Model.GroupName}!";
-    DateTime currentDate = default;
 }
-
 
 <h1 class="text-center">Your businesses!</h1>
 <div>
@@ -20,30 +16,34 @@
                 <th scope="col">Employee</th>
                 <th scope="col">Description</th>
                 <th scope="col">Apply</th>
+                <th scope="col">ApplyForChange</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var shift in Model.Shifts)
             {
-                if (shift.StartDate > currentDate && currentDate != default)
-                {
-                    <br />
-                }
-
-                <tr>
-                    <td>@shift.Start</td>
-                    <td>@shift.End</td>
-                    <td>@shift.Status</td>
-                    <td>@shift.Employee</td>
-                    <td>@shift.Description</td>
-                    <td>
-                        <a asp-controller="ShiftApplication" asp-action="Apply" asp-route-shiftId="@shift.Id">
-                            <input class="btn btn-sm btn-primary btn-sm" value="Apply" />
-                        </a>
-                    </td>
-                </tr>
-
-                @(currentDate = shift.StartDate);
+            <tr>
+                <td>@shift.Start</td>
+                <td>@shift.End</td>
+                <td>@shift.Status</td>
+                <td>@shift.EmployeeName</td>
+                <td>@shift.Description</td>
+                <td>
+                    <a asp-controller="ShiftApplication" asp-action="Apply" asp-route-shiftId="@shift.Id">
+                        <input class="btn btn-sm btn-primary btn-sm" value="Apply" />
+                    </a>
+                </td>
+                <td>
+                    <a asp-controller="ShiftApplication" asp-action="All" asp-route-shiftId="@shift.Id">
+                        <input class="btn btn-sm btn-primary btn-sm" value="Applications" />
+                    </a>
+                </td>
+                <td>
+                    <a asp-controller="ShiftChange" asp-action="ApplyForChange" asp-route-shiftId="@shift.Id">
+                        <input class="btn btn-sm btn-primary btn-sm" value="Applications" />
+                    </a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

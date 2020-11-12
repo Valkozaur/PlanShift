@@ -24,8 +24,4 @@
     <ProjectReference Include="..\PlanShift.Web.Infrastructure\PlanShift.Web.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ShiftApplication\" />
-  </ItemGroup>
-
 </Project>

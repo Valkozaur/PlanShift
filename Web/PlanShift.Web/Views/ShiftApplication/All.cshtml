@@ -1,0 +1,38 @@
+﻿@using PlanShift.Web.ViewModels.ShiftApplication;
+@model ShiftApplicationListViewModel;
+
+<div class="card bg-warning">
+    <div class="card-body">
+        <h4 class="card-title text-center">Shift</h4>
+        <h5 class="card-title text-center">Start: @Model.Shift.Start / End: @Model.Shift.End</h5>
+        <h6 class="card-text text-center">Bonus payment: @Model.Shift.BonusPayment</h6>
+        <p class="card-text text-center">Description: @Model.Shift.Description</p>
+    </div>
+</div>
+
+<br />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Employee Name</th>
+            <th scope="col">Created On</th>
+            <th scope="col">Accept</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var application in this.Model.Applications)
+        {
+
+        <tr>
+            <td>@application.EmployeeName</td>
+            <td>@application.CreatedOn</td>
+            <td>
+                <a asp-controller="ShiftApplication" asp-action="Approve" asp-route-shiftApplicationId="@application.Id">
+                    <input class="btn btn-sm btn-primary btn-sm" value="Approve" />
+                </a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

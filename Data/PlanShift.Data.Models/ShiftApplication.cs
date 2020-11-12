@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Data.Models
+﻿using PlanShift.Data.Models.Enumerations;
+
+namespace PlanShift.Data.Models
 {
     using System;
 
@@ -19,6 +21,6 @@
 
         public EmployeeGroup Employee { get; set; }
 
-        public bool IsApproved { get; set; }
+        public ShiftApplicationStatus Status { get; set; }
     }
 }

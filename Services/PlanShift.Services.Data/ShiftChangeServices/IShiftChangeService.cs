@@ -4,7 +4,7 @@
 
     public interface IShiftChangeService
     {
-        Task<string> Create(string shiftId, string originalEmployeeId, string candidateEmployeeId);
+        Task<string> CreateShiftChangeAsync(string shiftId, string originalEmployeeId, string candidateEmployeeId);
 
         Task<T> GetShiftChangeById<T>(string id);
 

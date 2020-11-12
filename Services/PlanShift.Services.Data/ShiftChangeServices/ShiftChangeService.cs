@@ -22,14 +22,14 @@
             this.shiftService = shiftService;
         }
 
-        public async Task<string> Create(string shiftId, string originalEmployeeId, string candidateEmployeeId)
+        public async Task<string> CreateShiftChangeAsync(string shiftId, string originalEmployeeId, string candidateEmployeeId)
         {
             var shiftChange = new ShiftChange()
             {
                 ShiftId = shiftId,
                 OriginalEmployeeId = originalEmployeeId,
                 PendingEmployeeId = candidateEmployeeId,
-                IsAccepted = false,
+                Status = ShiftApplicationStatus.Pending,
             };
 
             await this.shiftService.StatusChange(shiftId, ShiftStatus.Pending);
@@ -57,7 +57,7 @@
             }
 
             shiftChange.ManagementId = managerId;
-            shiftChange.IsAccepted = true;
+            shiftChange.Status = ShiftApplicationStatus.Approved;
 
             await this.shiftService.ApproveShiftToEmployee(shiftChange.ShiftId, shiftChange.PendingEmployeeId, managerId);
         }
@@ -67,7 +67,7 @@
             var shiftChange = await this.shiftChangeRepository.All().FirstOrDefaultAsync(x => x.Id == shiftChangeId);
 
             shiftChange.ManagementId = managerId;
-            shiftChange.Shift.ShiftStatus = ShiftStatus.Accepted;
+            shiftChange.Shift.ShiftStatus = ShiftStatus.Approved;
 
             await this.shiftChangeRepository.SaveChangesAsync();
         }

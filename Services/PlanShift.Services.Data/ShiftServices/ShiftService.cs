@@ -81,7 +81,7 @@
 
             shift.EmployeeId = employeeId;
             shift.ManagementId = managementId;
-            shift.ShiftStatus = ShiftStatus.Accepted;
+            shift.ShiftStatus = ShiftStatus.Approved;
 
             await this.shiftRepository.SaveChangesAsync();
         }
