@@ -16,7 +16,8 @@
                 <th scope="col">Employee</th>
                 <th scope="col">Description</th>
                 <th scope="col">Apply</th>
-                <th scope="col">ApplyForChange</th>
+                <th scope="col">Change Shift</th>
+                <th scope="col">Applications</th>
             </tr>
         </thead>
         <tbody>
@@ -34,12 +35,12 @@
                     </a>
                 </td>
                 <td>
-                    <a asp-controller="ShiftApplication" asp-action="All" asp-route-shiftId="@shift.Id">
-                        <input class="btn btn-sm btn-primary btn-sm" value="Applications" />
+                    <a asp-controller="ShiftChange" asp-action="ApplyForShiftChange" asp-route-shiftId="@shift.Id">
+                        <input class="btn btn-sm btn-primary btn-sm" value="Apply for Change" />
                     </a>
                 </td>
                 <td>
-                    <a asp-controller="ShiftChange" asp-action="ApplyForChange" asp-route-shiftId="@shift.Id">
+                    <a asp-controller="ShiftApplication" asp-action="All" asp-route-shiftId="@shift.Id">
                         <input class="btn btn-sm btn-primary btn-sm" value="Applications" />
                     </a>
                 </td>

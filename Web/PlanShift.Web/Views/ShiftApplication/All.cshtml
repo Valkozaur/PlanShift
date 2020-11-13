@@ -1,14 +1,7 @@
 ﻿@using PlanShift.Web.ViewModels.ShiftApplication;
 @model ShiftApplicationListViewModel;
 
-<div class="card bg-warning">
-    <div class="card-body">
-        <h4 class="card-title text-center">Shift</h4>
-        <h5 class="card-title text-center">Start: @Model.Shift.Start / End: @Model.Shift.End</h5>
-        <h6 class="card-text text-center">Bonus payment: @Model.Shift.BonusPayment</h6>
-        <p class="card-text text-center">Description: @Model.Shift.Description</p>
-    </div>
-</div>
+<vc:shift shift-id="@this.Model.ShiftId"></vc:shift>
 
 <br />
 <table class="table table-striped">

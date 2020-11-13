@@ -926,3 +926,5 @@ C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netc
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shift\All.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\ShiftApplication.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\ShiftApplication\All.cshtml.g.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\Shift\Default.cshtml.g.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\ShiftChange\ApplyForShiftChange.cshtml.g.cs

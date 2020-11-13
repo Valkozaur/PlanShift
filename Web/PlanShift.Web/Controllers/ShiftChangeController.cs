@@ -1,4 +1,7 @@
-﻿using PlanShift.Web.ViewModels.Shift;
+﻿using System;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
+using Microsoft.EntityFrameworkCore;
 
 namespace PlanShift.Web.Controllers
 {
@@ -10,6 +13,7 @@ namespace PlanShift.Web.Controllers
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.ShiftChangeServices;
     using PlanShift.Services.Data.ShiftServices;
+    using PlanShift.Web.ViewModels.Shift;
 
     public class ShiftChangeController : Controller
     {
@@ -30,7 +34,14 @@ namespace PlanShift.Web.Controllers
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> ApplyForChange(string shiftId)
+        public IActionResult ApplyForShiftChange(string shiftId)
+        {
+            return this.View(shiftId);
+        }
+
+        [HttpPost]
+        [ActionName(nameof(ApplyForShiftChange))]
+        public async Task<IActionResult> ApplyForShiftChangePost(string shiftId)
         {
             var userId = this.userManager.GetUserId(this.User);
             var shiftInformation = await this.shiftService.GetShiftById<ShiftInfoViewModel>(shiftId);
@@ -42,7 +53,17 @@ namespace PlanShift.Web.Controllers
                 return this.RedirectToAction("Index", "Home");
             }
 
-            await this.shiftChangeService.CreateShiftChangeAsync(shiftId, shiftInformation.OriginalEmployeeId, userId);
+            if (employeeGroupId == shiftInformation.OriginalEmployeeId)
+            {
+                this.ModelState.AddModelError("Employee", "You can't apply for a shift that is already yours!");
+            }
+
+            if (!this.ModelState.IsValid)
+            {  PROBLEM!!!!
+                return this.View(shiftId);
+            }
+
+            await this.shiftChangeService.CreateShiftChangeAsync(shiftId, shiftInformation.OriginalEmployeeId, employeeGroupId);
 
             return this.RedirectToAction("All", "Shift", new { GroupId = shiftInformation.GroupId });
         }

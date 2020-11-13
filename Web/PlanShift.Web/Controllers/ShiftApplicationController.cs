@@ -61,7 +61,7 @@
             var viewModel = new ShiftApplicationListViewModel()
             {
                 Applications = shiftApplications,
-                Shift = shift,
+                ShiftId = shiftId,
             };
 
             return this.View(viewModel);

@@ -1,0 +1,11 @@
+﻿@model string;
+
+<div asp-validation-summary="All"></div>
+
+<vc:shift shift-id="@this.Model"></vc:shift>
+
+<form method="post">
+    <input type="hidden" id="shiftId" value="@this.Model" />
+    <button type="button" class="btn btn-primary">Apply For Change</button>
+</form>
+

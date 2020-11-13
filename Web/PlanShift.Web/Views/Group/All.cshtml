@@ -13,7 +13,6 @@
         <th scope="col">Management</th>
         <th scope="col">Employees</th>
         <th scope="col">Invite Employee</th>
-        <th scope="col">CreateShiftChangeAsync Shift</th>
         <th scope="col">All Shift</th>
     </tr>
     </thead>
@@ -31,9 +30,6 @@
             </td>
             <td>
                 <a asp-controller="EmployeeGroup" asp-action="AddEmployeeToGroup" asp-route-groupid="@group.Id" class="btn btn-primary btn-sm">Add</a>
-            </td>
-            <td>
-                <a asp-controller="Shift" asp-action="Create" asp-route-groupid="@group.Id" class="btn btn-primary btn-sm">CreateShiftChangeAsync</a>
             </td>
             <td>
                 <a asp-controller="Shift" asp-action="All" asp-route-groupid="@group.Id" class="btn btn-primary btn-sm">All</a>
