@@ -22,6 +22,11 @@
             this.userManager = userManager;
         }
 
+        public IActionResult Index(string businessId)
+        {
+            return this.View();
+        }
+
         public async Task<IActionResult> Register(int? id)
         {
             var businessTypes = await this.businessTypeService.GetAllAsync<BusinessTypeDropDownViewModel>();
@@ -34,6 +39,7 @@
             return this.View(viewModel);
         }
 
+        // TODO: Finish this action
         [HttpPost]
         public async Task<IActionResult> Register(BusinessRegisterInputModel inputModel)
         {

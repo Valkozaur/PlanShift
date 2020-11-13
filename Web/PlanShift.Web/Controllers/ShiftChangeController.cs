@@ -1,9 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
-using Microsoft.EntityFrameworkCore;
-
-namespace PlanShift.Web.Controllers
+﻿namespace PlanShift.Web.Controllers
 {
     using System.Threading.Tasks;
 
@@ -36,7 +31,7 @@ namespace PlanShift.Web.Controllers
 
         public IActionResult ApplyForShiftChange(string shiftId)
         {
-            return this.View(shiftId);
+            return this.View(null, shiftId);
         }
 
         [HttpPost]
@@ -59,8 +54,8 @@ namespace PlanShift.Web.Controllers
             }
 
             if (!this.ModelState.IsValid)
-            {  PROBLEM!!!!
-                return this.View(shiftId);
+            {
+                return this.View(null, shiftId);
             }
 
             await this.shiftChangeService.CreateShiftChangeAsync(shiftId, shiftInformation.OriginalEmployeeId, employeeGroupId);

@@ -13,6 +13,7 @@
             <th scope="col">Business Name</th>
             <th scope="col">Business Type</th>
             <th scope="col">Groups</th>
+            <th scope="col">Manage</th>
         </tr>
         </thead>
         <tbody>
@@ -40,6 +41,9 @@
                         <a asp-controller="Group" asp-action="Create" asp-route-businessid="@business.Id" class="btn btn-primary btn-sm">Create Group</a>
                         <a asp-controller="Group" asp-action="All" asp-route-businessid="@business.Id" class="btn btn-primary btn-sm">All</a>
                     </div>
+                </td>
+                <td>
+                    <a asp-controller="Business" asp-action="Index" asp-route-businessid="@business.Id" class="btn btn-primary btn-sm">Manage</a>
                 </td>
             </tr>
         }

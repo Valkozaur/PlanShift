@@ -1,0 +1,12 @@
+﻿@using PlanShift.Web.ViewModels.Business;
+@model BusinessIndexViewModel
+
+<div>
+    <div class="card" style="width: 18rem;">
+        <h5 class="text-center">Pending Actions</h5>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><a class="btn btn-outline-info float-right" asp-controller="PendingRequests" asp-action="AllRequests">@Model.ShiftChangesCount Swap requests</a></li>
+            <li class="list-group-item"><a class="btn btn-outline-info float-right" asp-controller="PendingRequests" asp-action="AllRequests">@Model.ShiftApplicationsCount Shifts requests</a></li>
+        </ul>
+    </div>
+</div>
