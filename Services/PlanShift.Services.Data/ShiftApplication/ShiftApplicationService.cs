@@ -1,6 +1,4 @@
-﻿using PlanShift.Data.Models.Enumerations;
-
-namespace PlanShift.Services.Data.ShiftApplication
+﻿namespace PlanShift.Services.Data.ShiftApplication
 {
     using System;
     using System.Collections.Generic;
@@ -10,6 +8,7 @@ namespace PlanShift.Services.Data.ShiftApplication
     using Microsoft.EntityFrameworkCore;
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
+    using PlanShift.Data.Models.Enumerations;
     using PlanShift.Services.Mapping;
 
     public class ShiftApplicationService : IShiftApplicationService
@@ -61,5 +60,27 @@ namespace PlanShift.Services.Data.ShiftApplication
                 .Where(x => x.Id == id)
                 .To<T>()
                 .FirstOrDefaultAsync();
+
+        public Task<int> GetCountByBusinessIdAsync(string businessId)
+            => this.shiftApplicationRepository
+            .All()
+            .CountAsync(x
+                => x.Shift.Group.BusinessId == businessId
+                && x.Status == ShiftApplicationStatus.Pending);
+
+        public async Task<IEnumerable<T>> GetAllActiveShiftApplicationsPerGroup<T>(string groupId)
+            => await this.shiftApplicationRepository
+                .All()
+                .Where(x =>
+                        x.Shift.GroupId == groupId
+                        && x.Status == ShiftApplicationStatus.Pending
+                        && x.Shift.End < DateTime.UtcNow)
+                .To<T>()
+                .ToArrayAsync();
+
+        public Task<IEnumerable<T>> GetAllActiveShiftApplicationsPerBusiness<T>(string businessId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

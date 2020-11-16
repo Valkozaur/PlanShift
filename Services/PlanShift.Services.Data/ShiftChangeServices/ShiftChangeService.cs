@@ -71,5 +71,12 @@
 
             await this.shiftChangeRepository.SaveChangesAsync();
         }
+
+        public Task<int> GetCountByBusinessIdAsync(string businessId) =>
+        this.shiftChangeRepository
+            .All()
+            .CountAsync(x =>
+                x.Shift.Group.BusinessId == businessId
+                && x.Status == ShiftApplicationStatus.Pending);
     }
 }

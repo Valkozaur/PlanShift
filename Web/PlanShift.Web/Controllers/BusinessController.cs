@@ -1,4 +1,7 @@
-﻿namespace PlanShift.Web.Controllers
+﻿using PlanShift.Services.Data.ShiftApplication;
+using PlanShift.Services.Data.ShiftChangeServices;
+
+namespace PlanShift.Web.Controllers
 {
     using System.Threading.Tasks;
 
@@ -13,18 +16,36 @@
     {
         private readonly IBusinessService businessService;
         private readonly IBusinessTypeService businessTypeService;
+        private readonly IShiftApplicationService shiftApplicationService;
+        private readonly IShiftChangeService shiftChangeService;
         private readonly UserManager<PlanShiftUser> userManager;
 
-        public BusinessController(IBusinessService businessService, IBusinessTypeService businessTypeService, UserManager<PlanShiftUser> userManager)
+        public BusinessController(
+            IBusinessService businessService,
+            IBusinessTypeService businessTypeService,
+            IShiftApplicationService shiftApplicationService,
+            IShiftChangeService shiftChangeService,
+            UserManager<PlanShiftUser> userManager)
         {
             this.businessService = businessService;
             this.businessTypeService = businessTypeService;
+            this.shiftApplicationService = shiftApplicationService;
+            this.shiftChangeService = shiftChangeService;
             this.userManager = userManager;
         }
 
-        public IActionResult Index(string businessId)
+        public async Task<IActionResult> Index(string businessId)
         {
-            return this.View();
+            var applicationsCount = await this.shiftApplicationService.GetCountByBusinessIdAsync(businessId);
+            var shiftChangesCount = await this.shiftChangeService.GetCountByBusinessIdAsync(businessId);
+
+            var viewModel = new BusinessIndexViewModel()
+            {
+                ShiftApplicationsCount = applicationsCount,
+                ShiftChangesCount = shiftChangesCount,
+            };
+
+            return this.View(viewModel);
         }
 
         public async Task<IActionResult> Register(int? id)

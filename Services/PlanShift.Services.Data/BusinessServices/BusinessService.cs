@@ -52,12 +52,19 @@
             return business?.Id;
         }
 
-        public async Task<IEnumerable<T>> GetAllForUserAsync<T>(string userId)
-            => await this.businessRepository
+        public async Task<IEnumerable<T>> GetAllForUserAsync<T>(string userId, int count = 0)
+        {
+            var query = this.businessRepository
                 .AllAsNoTracking()
-                .Where(x => x.OwnerId == userId)
-                .To<T>()
-                .ToArrayAsync();
+                .Where(x => x.OwnerId == userId);
+
+            if (count != 0)
+            {
+                query = query.Take(count);
+            }
+
+            return await query.To<T>().ToArrayAsync();
+        }
 
         public async Task<T> GetBusinessAsync<T>(string id)
             => await this.businessRepository

@@ -14,5 +14,11 @@
         Task ApproveShiftApplicationAsync(string id);
 
         Task<T> GetShiftApplicationById<T>(string id);
+
+        Task<int> GetCountByBusinessIdAsync(string businessId);
+
+        Task<IEnumerable<T>> GetAllActiveShiftApplicationsPerGroup<T>(string groupId);
+
+        Task<IEnumerable<T>> GetAllActiveShiftApplicationsPerBusiness<T>(string businessId);
     }
 }

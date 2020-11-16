@@ -11,5 +11,7 @@
         Task ApproveEmployeeForShift(string shiftChangeId, string managerId);
 
         Task DeclineShiftChange(string shiftChangeId, string managerId);
+
+        Task<int> GetCountByBusinessIdAsync(string businessId);
     }
 }

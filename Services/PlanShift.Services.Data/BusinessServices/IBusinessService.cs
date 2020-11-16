@@ -9,7 +9,7 @@
 
         Task<string> UpdateBusinessAsync(string businessId, string ownerId, string name = null, int? typeId = null);
 
-        Task<IEnumerable<T>> GetAllForUserAsync<T>(string userId);
+        Task<IEnumerable<T>> GetAllForUserAsync<T>(string userId, int count = 0);
 
         Task<T> GetBusinessAsync<T>(string id);
     }
