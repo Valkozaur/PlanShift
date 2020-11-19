@@ -43,6 +43,7 @@ namespace PlanShift.Web.Controllers
             {
                 ShiftApplicationsCount = applicationsCount,
                 ShiftChangesCount = shiftChangesCount,
+                BusinessId = businessId,
             };
 
             return this.View(viewModel);

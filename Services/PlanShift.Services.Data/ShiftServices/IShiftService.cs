@@ -21,5 +21,7 @@
         Task ApproveShiftToEmployee(string id, string employeeId, string managementId);
 
         Task<string> GetGroupIdAsync(string shiftId);
+
+        Task<IEnumerable<T>> GetPendingShiftsPerGroup<T>(string groupId);
     }
 }

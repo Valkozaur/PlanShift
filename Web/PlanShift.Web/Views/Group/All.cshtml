@@ -1,5 +1,5 @@
 ﻿@using PlanShift.Web.ViewModels.Group;
-@model GroupListViewModel
+@model GroupListViewModel<GroupAllViewModel>
 
 @{
     this.ViewData["Title"] = "Groups all";
@@ -8,10 +8,11 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th scope="col">Group Name</th>
+        <th scope="col">Group EmployeeName</th>
         <th scope="col">Employee Count</th>
         <th scope="col">Management</th>
         <th scope="col">Employees</th>
+        <th scope="col">Create shift</th>
         <th scope="col">Invite Employee</th>
         <th scope="col">All Shift</th>
     </tr>
@@ -24,6 +25,9 @@
             <td>@group.EmployeesCount</td>
             <td>
                 <a asp-controller="EmployeeGroup" asp-action="GroupManagement" asp-route-groupid="@group.Id" class="btn btn-primary btn-sm">All management</a>
+            </td>
+            <td>
+                <a asp-controller="Shift" asp-action="Create" asp-route-groupid="@group.Id" class="btn btn-primary btn-sm">Create shift</a>
             </td>
             <td>
                 <a asp-controller="EmployeeGroup" asp-action="GroupEmployees" asp-route-groupid="@group.Id" class="btn btn-primary btn-sm">All employees</a>

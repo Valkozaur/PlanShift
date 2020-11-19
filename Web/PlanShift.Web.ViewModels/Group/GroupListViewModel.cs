@@ -2,10 +2,12 @@
 {
     using System.Collections.Generic;
 
-    public class GroupListViewModel
+    public class GroupListViewModel<T>
     {
-        public IEnumerable<GroupAllViewModel> Groups { get; set; }
+        public IEnumerable<T> Groups { get; set; }
 
         public string BusinessId { get; set; }
+
+        public string ActiveTabGroupId { get; set; }
     }
 }

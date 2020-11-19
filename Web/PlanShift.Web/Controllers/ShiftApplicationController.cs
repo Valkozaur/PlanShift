@@ -1,15 +1,17 @@
 ﻿namespace PlanShift.Web.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.EmployeeGroupServices;
+    using PlanShift.Services.Data.GroupServices;
     using PlanShift.Services.Data.ShiftApplication;
     using PlanShift.Services.Data.ShiftServices;
     using PlanShift.Web.ViewModels.EmployeeGroup;
-    using PlanShift.Web.ViewModels.Shift;
+    using PlanShift.Web.ViewModels.Group;
     using PlanShift.Web.ViewModels.ShiftApplication;
 
     public class ShiftApplicationController : Controller
@@ -17,17 +19,20 @@
         private readonly IShiftApplicationService shiftApplicationService;
         private readonly IShiftService shiftService;
         private readonly IEmployeeGroupService employeeGroupService;
+        private readonly IGroupService groupService;
         private readonly UserManager<PlanShiftUser> userManager;
 
         public ShiftApplicationController(
             IShiftApplicationService shiftApplicationService,
             IShiftService shiftService,
             IEmployeeGroupService employeeGroupService,
+            IGroupService groupService,
             UserManager<PlanShiftUser> userManager)
         {
             this.shiftApplicationService = shiftApplicationService;
             this.shiftService = shiftService;
             this.employeeGroupService = employeeGroupService;
+            this.groupService = groupService;
             this.userManager = userManager;
         }
 
@@ -54,17 +59,38 @@
             return this.RedirectToAction("All", "Shift", new { GroupId = groupId });
         }
 
-        public async Task<IActionResult> All(string shiftId)
+        //public async Task<IActionResult> All(string shiftId)
+        //{
+        //    var shiftApplications = await this.shiftApplicationService.GetAllApplicationByShiftIdAsync<ShiftApplicationAllViewModel>(shiftId);
+
+        //    var viewModel = new ShiftApplicationListViewModel()
+        //    {
+        //        Applications = shiftApplications,
+        //        ShiftId = shiftId,
+        //    };
+
+        //    return this.View(viewModel);
+        //}
+
+        public async Task<IActionResult> All(string businessId, string activeTabGroupId)
         {
-            var shiftApplications = await this.shiftApplicationService.GetAllApplicationByShiftIdAsync<ShiftApplicationAllViewModel>(shiftId);
-            var shift = await this.shiftService.GetShiftById<ShiftShiftApplicationViewModel>(shiftId);
-            var viewModel = new ShiftApplicationListViewModel()
+            var userId = this.userManager.GetUserId(this.User);
+
+            var groupsInBusiness = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(businessId, userId);
+
+            var viewModel = new GroupListViewModel<GroupBasicInfoViewModel>()
             {
-                Applications = shiftApplications,
-                ShiftId = shiftId,
+                Groups = groupsInBusiness,
+                ActiveTabGroupId = activeTabGroupId ?? groupsInBusiness.FirstOrDefault()?.Id,
+                BusinessId = businessId,
             };
 
             return this.View(viewModel);
+        }
+
+        public IActionResult SwitchToTabs(string activeTabGroupId, string businessId)
+        {
+            return this.RedirectToAction(nameof(this.All), new { ActiveTabGroupId = activeTabGroupId, businessId = businessId });
         }
 
         public async Task<IActionResult> Approve(string shiftApplicationId)

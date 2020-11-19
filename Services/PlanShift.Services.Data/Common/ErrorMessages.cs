@@ -6,7 +6,7 @@
         internal const string NoInformationWasUpdated = "There wasn't found any new information to update";
 
         // UserService
-        internal const string NameCanNotBeNull = "Name can't be null";
+        internal const string NameCanNotBeNull = "EmployeeName can't be null";
         internal const string NoSuchUserFound = "User with this {0} doesn't exists";
 
         // BusinessService

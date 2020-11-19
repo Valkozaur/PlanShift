@@ -27,6 +27,7 @@
                 ShiftId = shiftId,
                 EmployeeId = employeeId,
                 CreatedOn = DateTime.UtcNow,
+                Status = ShiftApplicationStatus.Pending,
             };
 
             await this.shiftApplicationRepository.AddAsync(shiftApplication);
@@ -74,13 +75,8 @@
                 .Where(x =>
                         x.Shift.GroupId == groupId
                         && x.Status == ShiftApplicationStatus.Pending
-                        && x.Shift.End < DateTime.UtcNow)
+                        && x.Shift.End > DateTime.UtcNow)
                 .To<T>()
                 .ToArrayAsync();
-
-        public Task<IEnumerable<T>> GetAllActiveShiftApplicationsPerBusiness<T>(string businessId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

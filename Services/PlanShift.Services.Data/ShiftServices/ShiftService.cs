@@ -92,5 +92,26 @@
                 .Where(x => x.Id == shiftId)
                 .Select(x => x.GroupId)
                 .FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<T>> GetPendingShiftsPerGroup<T>(string groupId)
+        {
+            return await this.shiftRepository
+                .AllAsNoTracking()
+                .Where(s => s.GroupId == groupId
+                && s.ShiftStatus == ShiftStatus.Pending)
+                //.Select(x => new
+                //{
+                //    ShiftStartDate = x.Start.ToString("G"),
+                //    ShiftEndDate = x.End.ToString("G"),
+                //    Applications = x.ShiftApplications.Select(sa 
+                //        => new
+                //        {
+                //            Id = x.Id,
+                //            EmployeeName = sa.Employee.Employee.UserName,
+                //        }),
+                //})
+                .To<T>()
+                .ToArrayAsync();
+        }
     }
 }

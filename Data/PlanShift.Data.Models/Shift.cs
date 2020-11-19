@@ -17,6 +17,7 @@ namespace PlanShift.Data.Models
             this.Id = Guid.NewGuid().ToString();
 
             this.ShiftChanges = new HashSet<ShiftChange>();
+            this.ShiftApplications = new HashSet<ShiftApplication>();
         }
 
         public ShiftStatus ShiftStatus { get; set; }
@@ -52,5 +53,7 @@ namespace PlanShift.Data.Models
         public virtual EmployeeGroup ShiftCreator { get; set; }
 
         public virtual ICollection<ShiftChange> ShiftChanges { get; set; }
+
+        public virtual ICollection<ShiftApplication> ShiftApplications { get; set; }
     }
 }

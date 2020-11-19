@@ -1,4 +1,7 @@
-﻿namespace PlanShift.Web.Controllers
+﻿using Microsoft.AspNetCore.Identity;
+using PlanShift.Data.Models;
+
+namespace PlanShift.Web.Controllers
 {
     using System.Threading.Tasks;
 
@@ -12,17 +15,22 @@
     {
         private readonly IGroupService groupService;
         private readonly IBusinessService businessService;
+        private readonly UserManager<PlanShiftUser> userManager;
 
-        public GroupController(IGroupService groupService, IBusinessService businessService)
+
+        public GroupController(IGroupService groupService, IBusinessService businessService, UserManager<PlanShiftUser> userManager)
         {
             this.groupService = groupService;
             this.businessService = businessService;
+            this.userManager = userManager;
         }
 
         public async Task<IActionResult> All(string businessId)
         {
-            var groups = await this.groupService.GetAllByBusinessIdAsync<GroupAllViewModel>(businessId);
-            var viewModel = new GroupListViewModel()
+            var userId = this.userManager.GetUserId(this.User);
+
+            var groups = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupAllViewModel>(businessId, userId);
+            var viewModel = new GroupListViewModel<GroupAllViewModel>()
             {
                 Groups = groups,
                 BusinessId = businessId,

@@ -5,5 +5,7 @@
         public int ShiftChangesCount { get; set; }
 
         public int ShiftApplicationsCount { get; set; }
+
+        public string BusinessId { get; set; }
     }
 }

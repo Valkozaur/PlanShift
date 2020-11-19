@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Services.Data.ShiftApplication
+﻿using PlanShift.Web.ViewModels.ShiftApplication;
+
+namespace PlanShift.Services.Data.ShiftApplication
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -19,6 +21,6 @@
 
         Task<IEnumerable<T>> GetAllActiveShiftApplicationsPerGroup<T>(string groupId);
 
-        Task<IEnumerable<T>> GetAllActiveShiftApplicationsPerBusiness<T>(string businessId);
+        //Task<IEnumerable<T>> GetAllActiveShiftApplicationsPerBusiness<T>(string businessId);
     }
 }

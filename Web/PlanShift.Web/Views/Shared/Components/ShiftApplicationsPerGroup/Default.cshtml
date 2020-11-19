@@ -1,0 +1,32 @@
+﻿@using PlanShift.Web.ViewModels.Shift;
+@model ShiftWithApplicationsListViewModel;
+
+@{
+    var appliedEmployees = @Model.ShiftsWithApplications
+        .SelectMany(m => m.Applications.Select(x => new SelectListItem(x.EmployeeName, x.Id)));
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Applied Employees</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var shiftApplication in this.Model.ShiftsWithApplications)
+        {
+            <tr>
+                <td>@shiftApplication.StartDate</td>
+                <td>@shiftApplication.EndDate</td>
+                <td>
+                    <form method="post" asp-controller="ShiftApplication" asp-action="Approve">
+                        <select asp-items="@appliedEmployees"></select>
+                        <br/><button type="submit">Register</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,9 +1,11 @@
 ﻿namespace PlanShift.Web.ViewModels.Shift
 {
     using AutoMapper;
+
+    using PlanShift.Data.Models;
     using PlanShift.Services.Mapping;
 
-    public class ShiftShiftApplicationViewModel : IMapFrom<Data.Models.Shift>, IHaveCustomMappings
+    public class ShiftShiftApplicationViewModel : IMapFrom<Shift>, IHaveCustomMappings
     {
         public string Start { get; set; }
 
@@ -15,7 +17,7 @@
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Data.Models.Shift, ShiftShiftApplicationViewModel>()
+            configuration.CreateMap<Shift, ShiftShiftApplicationViewModel>()
             .ForMember(
                     m => m.Start,
                     s => s.MapFrom(x => x.Start.ToString("g")))

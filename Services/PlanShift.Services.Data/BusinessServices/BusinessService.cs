@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Services.Data.BusinessServices
+﻿using Microsoft.EntityFrameworkCore.Internal;
+
+namespace PlanShift.Services.Data.BusinessServices
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -56,7 +58,7 @@
         {
             var query = this.businessRepository
                 .AllAsNoTracking()
-                .Where(x => x.OwnerId == userId);
+                .Where(x => x.OwnerId == userId || x.Groups.Any(g => g.Employees.Any(e => e.EmployeeId == userId)));
 
             if (count != 0)
             {
@@ -66,11 +68,18 @@
             return await query.To<T>().ToArrayAsync();
         }
 
-        public async Task<T> GetBusinessAsync<T>(string id)
-            => await this.businessRepository
-                .All()
+        public async Task<T> GetBusinessAsync<T>(string id) => 
+            await this.businessRepository
+                .AllAsNoTracking()
                 .Where(b => b.Id == id)
                 .To<T>()
+                .FirstOrDefaultAsync();
+
+        public async Task<string> GetOwnerIdAsync(string id) =>
+            await this.businessRepository
+                .AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .Select(x => x.OwnerId)
                 .FirstOrDefaultAsync();
     }
 }

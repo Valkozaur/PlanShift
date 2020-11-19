@@ -7,15 +7,21 @@
     using Microsoft.EntityFrameworkCore;
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
+    using PlanShift.Services.Data.BusinessServices;
+    using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Mapping;
 
     public class GroupService : IGroupService
     {
         private readonly IDeletableEntityRepository<Group> groupRepository;
+        private readonly IEmployeeGroupService employeeGroupService;
+        private readonly IBusinessService businessService;
 
-        public GroupService(IDeletableEntityRepository<Group> groupRepository)
+        public GroupService(IDeletableEntityRepository<Group> groupRepository, IEmployeeGroupService employeeGroupService, IBusinessService businessService)
         {
             this.groupRepository = groupRepository;
+            this.employeeGroupService = employeeGroupService;
+            this.businessService = businessService;
         }
 
         public async Task<string> CreateGroupAsync(string businessId, string name, decimal? standardSalary = null)
@@ -29,6 +35,9 @@
 
             await this.groupRepository.AddAsync(group);
             await this.groupRepository.SaveChangesAsync();
+
+            var ownerId = await this.businessService.GetOwnerIdAsync(businessId);
+            await this.employeeGroupService.AddEmployeeToGroupAsync(ownerId, group.Id, 0, "Owner", true);
 
             return group.Id;
         }
@@ -70,10 +79,11 @@
                 .To<T>()
                 .FirstOrDefaultAsync();
 
-        public async Task<IEnumerable<T>> GetAllByBusinessIdAsync<T>(string businessId)
+        public async Task<IEnumerable<T>> GetAllGroupByCurrentUserAndBusinessIdAsync<T>(string businessId, string userId)
             => await this.groupRepository
                 .AllAsNoTracking()
-                .Where(x => x.BusinessId == businessId)
+                .Where(
+                    x => x.BusinessId == businessId && x.Employees.Any(e => e.EmployeeId == userId))
                 .To<T>()
                 .ToArrayAsync();
 

@@ -12,5 +12,7 @@
         Task<IEnumerable<T>> GetAllForUserAsync<T>(string userId, int count = 0);
 
         Task<T> GetBusinessAsync<T>(string id);
+
+        Task<string> GetOwnerIdAsync(string id);
     }
 }
