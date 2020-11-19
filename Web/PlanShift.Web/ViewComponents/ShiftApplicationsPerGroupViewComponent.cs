@@ -20,7 +20,7 @@ namespace PlanShift.Web.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(string groupId)
         {
-            var shiftApplications = await this.shiftService.GetPendingShiftsPerGroup<ShiftWithApplicationsViewModel>(groupId);
+            var shiftApplications = await this.shiftService.GetPendingShiftsPerGroup(groupId);
 
             var listOfApplications = new ShiftWithApplicationsListViewModel()
             {
