@@ -2,8 +2,8 @@
 @model ShiftWithApplicationsListViewModel;
 
 @{
-    var appliedEmployees = @Model.ShiftsWithApplications
-        .SelectMany(m => m.Applications.Select(x => new SelectListItem(x.EmployeeName, x.Id)));
+    @Model.ShiftsWithApplications = Model.ShiftsWithApplications.Select(m => m.Applications.Select(x => new SelectListItem(x.EmployeeName, x.Id)));
+
 }
 
 <table class="table table-striped">

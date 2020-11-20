@@ -35,7 +35,7 @@
                 End = end,
                 Description = description,
                 BonusPayment = bonusPayment,
-                ShiftStatus = ShiftStatus.Pending,
+                ShiftStatus = ShiftStatus.New,
             };
 
             await this.shiftRepository.AddAsync(shift);
@@ -109,7 +109,8 @@
                         {
                             Id = x.Id,
                             EmployeeName = sa.Employee.Employee.UserName,
-                        }),
+                        })
+                        .ToArray(),
                 })
                 //.To<T>()
                 .ToArrayAsync();

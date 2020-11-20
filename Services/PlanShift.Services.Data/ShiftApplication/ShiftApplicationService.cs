@@ -9,15 +9,18 @@
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
     using PlanShift.Data.Models.Enumerations;
+    using PlanShift.Services.Data.ShiftServices;
     using PlanShift.Services.Mapping;
 
     public class ShiftApplicationService : IShiftApplicationService
     {
         private readonly IRepository<ShiftApplication> shiftApplicationRepository;
+        private readonly IShiftService shiftService;
 
-        public ShiftApplicationService(IRepository<ShiftApplication> shiftApplicationRepository)
+        public ShiftApplicationService(IRepository<ShiftApplication> shiftApplicationRepository, IShiftService shiftService)
         {
             this.shiftApplicationRepository = shiftApplicationRepository;
+            this.shiftService = shiftService;
         }
 
         public async Task<string> CreateShiftApplicationAsync(string shiftId, string employeeId)
@@ -32,6 +35,8 @@
 
             await this.shiftApplicationRepository.AddAsync(shiftApplication);
             await this.shiftApplicationRepository.SaveChangesAsync();
+
+            await this.shiftService.StatusChange(shiftId, ShiftStatus.Pending);
 
             return shiftApplication.Id;
         }
@@ -52,6 +57,9 @@
         {
             var shiftApplication = await this.shiftApplicationRepository.All().FirstOrDefaultAsync(x => x.Id == id);
             shiftApplication.Status = ShiftApplicationStatus.Approved;
+
+            await this.shiftService.StatusChange(shiftApplication.ShiftId, ShiftStatus.Approved);
+
             await this.shiftApplicationRepository.SaveChangesAsync();
         }
 

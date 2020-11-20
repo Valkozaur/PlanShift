@@ -1,13 +1,11 @@
-﻿using PlanShift.Services.Data.ShiftServices;
-using PlanShift.Web.ViewModels.Shift;
-
-namespace PlanShift.Web.ViewComponents
+﻿namespace PlanShift.Web.ViewComponents
 {
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-    using PlanShift.Services.Data.ShiftApplication;
-    using PlanShift.Web.ViewModels.ShiftApplication;
+
+    using PlanShift.Services.Data.ShiftServices;
+    using PlanShift.Web.ViewModels.Shift;
 
     public class ShiftApplicationsPerGroupViewComponent : ViewComponent
     {
@@ -26,8 +24,6 @@ namespace PlanShift.Web.ViewComponents
             {
                 ShiftsWithApplications = shiftApplications,
             };
-            
-            // TODO: Implement different tab for every group there is in a business;
 
             return this.View(listOfApplications);
         }
