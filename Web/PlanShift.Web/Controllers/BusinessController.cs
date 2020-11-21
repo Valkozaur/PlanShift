@@ -1,8 +1,6 @@
-﻿using PlanShift.Services.Data.ShiftApplication;
-using PlanShift.Services.Data.ShiftChangeServices;
-
-namespace PlanShift.Web.Controllers
+﻿namespace PlanShift.Web.Controllers
 {
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
@@ -10,6 +8,8 @@ namespace PlanShift.Web.Controllers
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.BusinessServices;
     using PlanShift.Services.Data.BusinessTypeServices;
+    using PlanShift.Services.Data.ShiftApplication;
+    using PlanShift.Services.Data.ShiftChangeServices;
     using PlanShift.Web.ViewModels.Business;
 
     public class BusinessController : BaseController
@@ -70,18 +70,18 @@ namespace PlanShift.Web.Controllers
                 return this.View();
             }
 
-            var userId = await this.userManager.GetUserAsync(this.User);
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value; ;
 
-            var businessId = await this.businessService.CreateBusinessAsync(userId.Id, inputModel.Name, inputModel.BusinessTypeId);
+            var businessId = await this.businessService.CreateBusinessAsync(userId, inputModel.Name, inputModel.BusinessTypeId);
 
             return this.Json(businessId);
         }
 
         public async Task<IActionResult> All()
         {
-            var user = await this.userManager.GetUserAsync(this.User);
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            var businesses = await this.businessService.GetAllForUserAsync<BusinessAllViewModel>(user.Id);
+            var businesses = await this.businessService.GetAllForUserAsync<BusinessAllViewModel>(userId);
             var businessesList = new BusinessListViewModel()
             {
                 Businesses = businesses,

@@ -1,27 +1,23 @@
 ﻿namespace PlanShift.Web.ViewModels.Shift
 {
+    using System;
     using System.Collections.Generic;
 
-    using AutoMapper;
+    using PlanShift.Data.Models;
     using PlanShift.Services.Mapping;
 
-    public class ShiftWithApplicationsViewModel : IMapFrom<Data.Models.Shift>, IHaveCustomMappings
+    public class ShiftWithApplicationsViewModel : IMapFrom<Shift>
     {
-        public string StartDate { get; set; }
+        public DateTime Start { get; set; }
 
-        public string EndDate { get; set; }
+        public DateTime End { get; set; }
 
-        public IEnumerable<ShiftApplicationInfoViewModel> Applications { get; set; }
+        public string Position{ get; set; }
 
-        public void CreateMappings(IProfileExpression configuration)
-        {
-            configuration.CreateMap<Data.Models.Shift, ShiftWithApplicationsViewModel>()
-                .ForMember(
-                    m => m.StartDate,
-                    s => s.MapFrom(x => x.Start))
-                .ForMember(
-                    m => m.EndDate,
-                    s => s.MapFrom(x => x.End));
-        }
+        public decimal BonusPayment { get; set; }
+
+        public string Description { get; set; }
+
+        public IEnumerable<ShiftApplicationInfoViewModel> ShiftApplications { get; set; }
     }
 }

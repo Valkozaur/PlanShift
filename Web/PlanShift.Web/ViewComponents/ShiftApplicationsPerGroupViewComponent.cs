@@ -18,7 +18,7 @@
 
         public async Task<IViewComponentResult> InvokeAsync(string groupId)
         {
-            var shiftApplications = await this.shiftService.GetPendingShiftsPerGroup(groupId);
+            var shiftApplications = await this.shiftService.GetPendingShiftsPerGroup<ShiftWithApplicationsViewModel>(groupId);
 
             var listOfApplications = new ShiftWithApplicationsListViewModel()
             {

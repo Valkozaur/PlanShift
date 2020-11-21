@@ -2,31 +2,60 @@
 @model ShiftWithApplicationsListViewModel;
 
 @{
-    @Model.ShiftsWithApplications = Model.ShiftsWithApplications.Select(m => m.Applications.Select(x => new SelectListItem(x.EmployeeName, x.Id)));
-
+    this.ViewData["Title"] = "Applications";
 }
 
-<table class="table table-striped">
+<table class="table table-hover table-sm">
     <thead>
         <tr>
             <th scope="col">Start Date</th>
             <th scope="col">End Date</th>
+            <th scope="col">Position</th>
+            <th scope="col">Original Employee</th>
+            <th scope="col">Pending Employee</th>
             <th scope="col">Applied Employees</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var shiftApplication in this.Model.ShiftsWithApplications)
+        @foreach (var shift in this.Model.ShiftsWithApplications)
         {
+            var applications = shift.ShiftApplications.Select(x => new SelectListItem(x.EmployeeEmployeeUsername, x.Id));
+
             <tr>
-                <td>@shiftApplication.StartDate</td>
-                <td>@shiftApplication.EndDate</td>
+                <td>@shift.Start.ToString("G")</td>
+                <td>@shift.End.ToString("G")</td>
+                <td>@shift.Position</td>
+                <td>@(shift.BonusPayment == 0 ? "-" : shift.BonusPayment.ToString("0.0"))</td>
+                <td>
+                    @if (shift.Description == null)
+                    {
+                        //TODO: FIX The dropdown
+                        <span>No description</span>
+                    }
+                    else
+                    {
+                        <div class="dropdown">
+                            <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Read
+                            </button>
+                            <div class="dropdown-menu p-4" style="max-width: 200px;">
+                                <p class="mb-0">
+                                    @shift.Description
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </td>
                 <td>
                     <form method="post" asp-controller="ShiftApplication" asp-action="Approve">
-                        <select asp-items="@appliedEmployees"></select>
-                        <br/><button type="submit">Register</button>
+                        <div class="row">
+                            <select class="custom-select custom-select-sm col-7" asp-items="applications"></select>
+                            <button class="btn-sm btn-primary" type="submit">Accept</button>
+                        </div>
                     </form>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+

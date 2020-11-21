@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Services.Data.GroupServices
+﻿using PlanShift.Services.Data.Enumerations;
+
+namespace PlanShift.Services.Data.GroupServices
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -17,7 +19,7 @@
 
         Task<T> GetGroupAsync<T>(string id);
 
-        Task<IEnumerable<T>> GetAllGroupByCurrentUserAndBusinessIdAsync<T>(string businessId, string userId);
+        Task<IEnumerable<T>> GetAllGroupByCurrentUserAndBusinessIdAsync<T>(string businessId, string userId, PendingActionsType pendingAction = PendingActionsType.Unknown);
 
         Task<string> GetGroupName(string id);
     }

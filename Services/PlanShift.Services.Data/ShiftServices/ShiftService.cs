@@ -12,7 +12,6 @@
     using PlanShift.Data.Models.Enumerations;
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Mapping;
-    using PlanShift.Web.ViewModels.Shift;
 
     public class ShiftService : IShiftService
     {
@@ -94,25 +93,25 @@
                 .Select(x => x.GroupId)
                 .FirstOrDefaultAsync();
 
-        public async Task<IEnumerable<ShiftWithApplicationsViewModel>> GetPendingShiftsPerGroup(string groupId)
+        public async Task<IEnumerable<T>> GetPendingShiftsPerGroup<T>(string groupId)
         {
             return await this.shiftRepository
                 .AllAsNoTracking()
                 .Where(s => s.GroupId == groupId
                 && s.ShiftStatus == ShiftStatus.Pending)
-                .Select(x => new ShiftWithApplicationsViewModel()
-                {
-                    StartDate = x.Start.ToString("G"),
-                    EndDate = x.End.ToString("G"),
-                    Applications = x.ShiftApplications.Select(sa
-                        => new ShiftApplicationInfoViewModel()
-                        {
-                            Id = x.Id,
-                            EmployeeName = sa.Employee.Employee.UserName,
-                        })
-                        .ToArray(),
-                })
-                //.To<T>()
+                //.Select(x => new ShiftWithApplicationsViewModel()
+                //{
+                //    StartDate = x.Start.ToString("G"),
+                //    EndDate = x.End.ToString("G"),
+                //    Applications = x.ShiftApplications.Select(sa
+                //        => new ShiftApplicationInfoViewModel()
+                //        {
+                //            Id = x.Id,
+                //            EmployeeName = sa.Employee.Employee.UserName,
+                //        })
+                //        .ToArray(),
+                //})
+                .To<T>()
                 .ToArrayAsync();
         }
     }

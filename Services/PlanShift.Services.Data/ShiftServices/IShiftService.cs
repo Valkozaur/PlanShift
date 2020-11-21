@@ -1,6 +1,4 @@
-﻿using PlanShift.Web.ViewModels.Shift;
-
-namespace PlanShift.Services.Data.ShiftServices
+﻿namespace PlanShift.Services.Data.ShiftServices
 {
     using System;
     using System.Collections.Generic;
@@ -24,6 +22,6 @@ namespace PlanShift.Services.Data.ShiftServices
 
         Task<string> GetGroupIdAsync(string shiftId);
 
-        Task<IEnumerable<ShiftWithApplicationsViewModel>> GetPendingShiftsPerGroup(string groupId);
+        Task<IEnumerable<T>> GetPendingShiftsPerGroup<T>(string groupId);
     }
 }

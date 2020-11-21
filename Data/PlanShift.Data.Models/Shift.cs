@@ -26,6 +26,8 @@ namespace PlanShift.Data.Models
 
         public DateTime End { get; set; }
 
+        public string Position { get; set; }
+
         public decimal BonusPayment { get; set; }
 
         [MaxLength(300)]

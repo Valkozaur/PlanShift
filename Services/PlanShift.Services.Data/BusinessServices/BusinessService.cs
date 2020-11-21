@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Internal;
-
-namespace PlanShift.Services.Data.BusinessServices
+﻿namespace PlanShift.Services.Data.BusinessServices
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -9,18 +7,15 @@ namespace PlanShift.Services.Data.BusinessServices
     using Microsoft.EntityFrameworkCore;
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
-    using PlanShift.Services.Data.BusinessTypeServices;
     using PlanShift.Services.Mapping;
 
     public class BusinessService : IBusinessService
     {
         private readonly IDeletableEntityRepository<Business> businessRepository;
-        private readonly IBusinessTypeService businessTypeService;
 
-        public BusinessService(IDeletableEntityRepository<Business> businessRepository, IBusinessTypeService businessTypeService)
+        public BusinessService(IDeletableEntityRepository<Business> businessRepository)
         {
             this.businessRepository = businessRepository;
-            this.businessTypeService = businessTypeService;
         }
 
         public async Task<string> CreateBusinessAsync(string ownerId, string name, int typeId)

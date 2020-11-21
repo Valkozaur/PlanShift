@@ -9,6 +9,7 @@
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.BusinessServices;
     using PlanShift.Services.Data.EmployeeGroupServices;
+    using PlanShift.Services.Data.Enumerations;
     using PlanShift.Services.Mapping;
 
     public class GroupService : IGroupService
@@ -79,13 +80,23 @@
                 .To<T>()
                 .FirstOrDefaultAsync();
 
-        public async Task<IEnumerable<T>> GetAllGroupByCurrentUserAndBusinessIdAsync<T>(string businessId, string userId)
-            => await this.groupRepository
+        public async Task<IEnumerable<T>> GetAllGroupByCurrentUserAndBusinessIdAsync<T>(string businessId, string userId, PendingActionsType pendingAction = PendingActionsType.Unknown)
+        {
+            var query = this.groupRepository
                 .AllAsNoTracking()
-                .Where(
-                    x => x.BusinessId == businessId && x.Employees.Any(e => e.EmployeeId == userId))
-                .To<T>()
-                .ToArrayAsync();
+                .Where(x => x.BusinessId == businessId && x.Employees.Any(e => e.EmployeeId == userId));
+
+            if (pendingAction == PendingActionsType.ShiftApplications)
+            {
+                query = query.Where(x => x.Shifts.Any(s => s.ShiftApplications.Count != 0));
+            }
+            else if (pendingAction == PendingActionsType.ShiftChanges)
+            {
+                query = query.Where(x => x.Shifts.Any(s => s.ShiftChanges.Count != 0));
+            }
+
+            return await query.To<T>().ToArrayAsync();
+        }
 
         public async Task<string> GetGroupName(string id)
         {

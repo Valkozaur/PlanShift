@@ -435,6 +435,9 @@ namespace PlanShift.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Position")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ShiftCreatorId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -497,12 +500,6 @@ namespace PlanShift.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("ManagementId")
                         .HasColumnType("nvarchar(450)");
 
@@ -525,8 +522,6 @@ namespace PlanShift.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
 
                     b.HasIndex("ManagementId");
 
@@ -660,7 +655,7 @@ namespace PlanShift.Data.Migrations
                         .HasForeignKey("EmployeeId");
 
                     b.HasOne("PlanShift.Data.Models.Shift", "Shift")
-                        .WithMany()
+                        .WithMany("ShiftApplications")
                         .HasForeignKey("ShiftId");
                 });
 

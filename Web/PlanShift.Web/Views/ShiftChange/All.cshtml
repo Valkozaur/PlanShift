@@ -1,0 +1,17 @@
+﻿@using PlanShift.Web.ViewModels.Group;
+@model GroupListViewModel<GroupBasicInfoViewModel>
+
+@{
+    this.ViewData["Title"] = $"Applications";
+}
+
+<h2>Applications by group</h2>
+<ul class="nav nav-tabs">
+    @foreach (var group in this.Model.Groups)
+    {
+        <li role="presentation" class="nav-link @(Model.ActiveTabGroupId == @group.Id ? "active" : string.Empty)"><a asp-controller="ShiftApplication" asp-action="SwitchToTabs" asp-route-activeTabGroupId="@group.Id" asp-route-businessId="@Model.BusinessId">@group.Name</a></li>
+    }
+</ul>
+
+<vc:shift-changes-per-group group-id="@Model.ActiveTabGroupId"></vc:shift-changes-per-group>
+

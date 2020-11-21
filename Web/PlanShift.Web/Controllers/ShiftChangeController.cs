@@ -1,13 +1,18 @@
 ﻿namespace PlanShift.Web.Controllers
 {
+    using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.EmployeeGroupServices;
+    using PlanShift.Services.Data.Enumerations;
+    using PlanShift.Services.Data.GroupServices;
     using PlanShift.Services.Data.ShiftChangeServices;
     using PlanShift.Services.Data.ShiftServices;
+    using PlanShift.Web.ViewModels.Group;
     using PlanShift.Web.ViewModels.Shift;
 
     public class ShiftChangeController : Controller
@@ -15,17 +20,20 @@
         private readonly IShiftChangeService shiftChangeService;
         private readonly IShiftService shiftService;
         private readonly IEmployeeGroupService employeeGroupService;
+        private readonly IGroupService groupService;
         private readonly UserManager<PlanShiftUser> userManager;
 
         public ShiftChangeController(
             IShiftChangeService shiftChangeService,
             IShiftService shiftService,
             IEmployeeGroupService employeeGroupService,
+            IGroupService groupService,
             UserManager<PlanShiftUser> userManager)
         {
             this.shiftChangeService = shiftChangeService;
             this.shiftService = shiftService;
             this.employeeGroupService = employeeGroupService;
+            this.groupService = groupService;
             this.userManager = userManager;
         }
 
@@ -61,6 +69,26 @@
             await this.shiftChangeService.CreateShiftChangeAsync(shiftId, shiftInformation.OriginalEmployeeId, employeeGroupId);
 
             return this.RedirectToAction("All", "Shift", new { GroupId = shiftInformation.GroupId });
+        }
+
+        public async Task<IActionResult> All(string businessId, string activeTabGroupId)
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var groupsInBusiness = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(businessId, userId, PendingActionsType.ShiftChanges);
+            var viewModel = new GroupListViewModel<GroupBasicInfoViewModel>()
+             {
+                 Groups = groupsInBusiness,
+                 ActiveTabGroupId = activeTabGroupId ?? groupsInBusiness.FirstOrDefault()?.Id,
+                 BusinessId = businessId,
+             };
+
+            return this.View(viewModel);
+        }
+
+        public IActionResult SwitchToTabs(string activeTabGroupId, string businessId)
+        {
+            return this.RedirectToAction(nameof(this.All), new { ActiveTabGroupId = activeTabGroupId, businessId = businessId });
         }
     }
 }

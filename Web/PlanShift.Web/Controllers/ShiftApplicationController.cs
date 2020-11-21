@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Web.Controllers
+﻿using System.Security.Claims;
+
+namespace PlanShift.Web.Controllers
 {
     using System.Linq;
     using System.Threading.Tasks;
@@ -7,6 +9,7 @@
     using Microsoft.AspNetCore.Mvc;
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.EmployeeGroupServices;
+    using PlanShift.Services.Data.Enumerations;
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Services.Data.ShiftApplication;
     using PlanShift.Services.Data.ShiftServices;
@@ -59,24 +62,11 @@
             return this.RedirectToAction("All", "Shift", new { GroupId = groupId });
         }
 
-        //public async Task<IActionResult> All(string shiftId)
-        //{
-        //    var shiftApplications = await this.shiftApplicationService.GetAllApplicationByShiftIdAsync<ShiftApplicationAllViewModel>(shiftId);
-
-        //    var viewModel = new ShiftApplicationListViewModel()
-        //    {
-        //        Applications = shiftApplications,
-        //        ShiftId = shiftId,
-        //    };
-
-        //    return this.View(viewModel);
-        //}
-
         public async Task<IActionResult> All(string businessId, string activeTabGroupId)
         {
-            var userId = this.userManager.GetUserId(this.User);
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            var groupsInBusiness = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(businessId, userId);
+            var groupsInBusiness = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(businessId, userId, PendingActionsType.ShiftApplications);
 
             var viewModel = new GroupListViewModel<GroupBasicInfoViewModel>()
             {

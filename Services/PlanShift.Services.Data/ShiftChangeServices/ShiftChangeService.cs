@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Services.Data.ShiftChangeServices
+﻿using System.Collections.Generic;
+
+namespace PlanShift.Services.Data.ShiftChangeServices
 {
     using System;
     using System.Linq;
@@ -13,10 +15,10 @@
 
     public class ShiftChangeService : IShiftChangeService
     {
-        private readonly IDeletableEntityRepository<ShiftChange> shiftChangeRepository;
+        private readonly IRepository<ShiftChange> shiftChangeRepository;
         private readonly IShiftService shiftService;
 
-        public ShiftChangeService(IDeletableEntityRepository<ShiftChange> shiftChangeRepository, IShiftService shiftService)
+        public ShiftChangeService(IRepository<ShiftChange> shiftChangeRepository, IShiftService shiftService)
         {
             this.shiftChangeRepository = shiftChangeRepository;
             this.shiftService = shiftService;
@@ -78,5 +80,12 @@
             .CountAsync(x =>
                 x.Shift.Group.BusinessId == businessId
                 && x.Status == ShiftApplicationStatus.Pending);
+
+        public async Task<IEnumerable<T>> GetShiftChangesPerGroupAsync<T>(string groupId, ShiftApplicationStatus shiftApplicationStatus = ShiftApplicationStatus.Pending)
+        => await this.shiftChangeRepository
+            .AllAsNoTracking()
+            .Where(sc => sc.Shift.GroupId == groupId && sc.Status == shiftApplicationStatus)
+            .To<T>()
+            .ToArrayAsync();
     }
 }

@@ -1,14 +1,13 @@
-﻿using PlanShift.Data.Models.Enumerations;
-
-namespace PlanShift.Data.Models
+﻿namespace PlanShift.Data.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     using PlanShift.Data.Common.Models;
+    using PlanShift.Data.Models.Enumerations;
 
-    public class ShiftChange : BaseDeletableModel<string>
+    public class ShiftChange : BaseModel<string>
     {
         public ShiftChange()
         {

@@ -1,10 +1,9 @@
-﻿using PlanShift.Data.Models.Enumerations;
-
-namespace PlanShift.Data.Models
+﻿namespace PlanShift.Data.Models
 {
     using System;
 
     using PlanShift.Data.Common.Models;
+    using PlanShift.Data.Models.Enumerations;
 
     public class ShiftApplication : BaseModel<string>
     {
