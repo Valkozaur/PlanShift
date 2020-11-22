@@ -1,19 +1,15 @@
 ﻿@using PlanShift.Web.ViewModels.Shift;
 @model ShiftWithApplicationsListViewModel;
 
-@{
-    this.ViewData["Title"] = "Applications";
-}
-
 <table class="table table-hover table-sm">
     <thead>
         <tr>
             <th scope="col">Start Date</th>
             <th scope="col">End Date</th>
             <th scope="col">Position</th>
-            <th scope="col">Original Employee</th>
-            <th scope="col">Pending Employee</th>
-            <th scope="col">Applied Employees</th>
+            <th scope="col">Bonus Payment</th>
+            <th scope="col">Description</th>
+            <th scope="col">Applications</th>
         </tr>
     </thead>
     <tbody>
@@ -49,8 +45,9 @@
                 <td>
                     <form method="post" asp-controller="ShiftApplication" asp-action="Approve">
                         <div class="row">
-                            <select class="custom-select custom-select-sm col-7" asp-items="applications"></select>
-                            <button class="btn-sm btn-primary" type="submit">Accept</button>
+                            <select class="custom-select custom-select-sm col-7" name="shiftApplicationId" asp-items="applications"></select>
+                            <input type="hidden" name="businessId" id="businessId" value="@Model.BusinsesId">
+                            <button class="btn-sm btn-primary" type="submit">Assign</button>
                         </div>
                     </form>
                 </td>

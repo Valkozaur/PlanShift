@@ -15,12 +15,10 @@
     public class ShiftApplicationService : IShiftApplicationService
     {
         private readonly IRepository<ShiftApplication> shiftApplicationRepository;
-        private readonly IShiftService shiftService;
 
-        public ShiftApplicationService(IRepository<ShiftApplication> shiftApplicationRepository, IShiftService shiftService)
+        public ShiftApplicationService(IRepository<ShiftApplication> shiftApplicationRepository)
         {
             this.shiftApplicationRepository = shiftApplicationRepository;
-            this.shiftService = shiftService;
         }
 
         public async Task<string> CreateShiftApplicationAsync(string shiftId, string employeeId)
@@ -35,8 +33,6 @@
 
             await this.shiftApplicationRepository.AddAsync(shiftApplication);
             await this.shiftApplicationRepository.SaveChangesAsync();
-
-            await this.shiftService.StatusChange(shiftId, ShiftStatus.Pending);
 
             return shiftApplication.Id;
         }
@@ -55,10 +51,21 @@
 
         public async Task ApproveShiftApplicationAsync(string id)
         {
-            var shiftApplication = await this.shiftApplicationRepository.All().FirstOrDefaultAsync(x => x.Id == id);
-            shiftApplication.Status = ShiftApplicationStatus.Approved;
+            var shiftApplications = await this.shiftApplicationRepository
+                .All()
+                .Where(x => x.Id == id)
+                .ToListAsync();
 
-            await this.shiftService.StatusChange(shiftApplication.ShiftId, ShiftStatus.Approved);
+            foreach (var shiftApplication in shiftApplications)
+            {
+                if (shiftApplication.Id == id)
+                {
+                    shiftApplication.Status = ShiftApplicationStatus.Approved;
+                    continue;
+                }
+
+                shiftApplication.Status = ShiftApplicationStatus.Declined;
+            }
 
             await this.shiftApplicationRepository.SaveChangesAsync();
         }

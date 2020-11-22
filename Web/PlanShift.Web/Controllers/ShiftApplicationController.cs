@@ -1,13 +1,13 @@
-﻿using System.Security.Claims;
-
-namespace PlanShift.Web.Controllers
+﻿namespace PlanShift.Web.Controllers
 {
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PlanShift.Data.Models;
+    using PlanShift.Data.Models.Enumerations;
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.Enumerations;
     using PlanShift.Services.Data.GroupServices;
@@ -59,7 +59,26 @@ namespace PlanShift.Web.Controllers
 
             // TODO: Make the achievement system check here
             await this.shiftApplicationService.CreateShiftApplicationAsync(shiftId, employeeGroupId);
+            await this.shiftService.StatusChange(shiftId, ShiftStatus.Pending);
             return this.RedirectToAction("All", "Shift", new { GroupId = groupId });
+        }
+
+        public async Task<IActionResult> Approve(string shiftApplicationId, string businessId)
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var shiftApplicationInfo = await this.shiftApplicationService.GetShiftApplicationById<ApproveShiftInfo>(shiftApplicationId);
+
+            var manager = await this.employeeGroupService.GetEmployeeGroupById<EmployeeGroupInfo>(userId, shiftApplicationInfo.GroupId);
+            if (!manager.IsManagement)
+            {
+                return this.RedirectToAction("Index", "Home");
+            }
+
+            await this.shiftService.ApproveShiftToEmployee(shiftApplicationInfo.ShiftId, shiftApplicationInfo.EmployeeId, manager.Id);
+            await this.shiftApplicationService.ApproveShiftApplicationAsync(shiftApplicationId);
+
+            return this.RedirectToAction(nameof(this.All), new { BusinessId = businessId, activeTabGroupId = shiftApplicationInfo.GroupId });
         }
 
         public async Task<IActionResult> All(string businessId, string activeTabGroupId)
@@ -81,24 +100,6 @@ namespace PlanShift.Web.Controllers
         public IActionResult SwitchToTabs(string activeTabGroupId, string businessId)
         {
             return this.RedirectToAction(nameof(this.All), new { ActiveTabGroupId = activeTabGroupId, businessId = businessId });
-        }
-
-        public async Task<IActionResult> Approve(string shiftApplicationId)
-        {
-            var userId = this.userManager.GetUserId(this.User);
-
-            var shiftApplicationInfo = await this.shiftApplicationService.GetShiftApplicationById<ApproveShiftInfo>(shiftApplicationId);
-
-            var manager = await this.employeeGroupService.GetEmployeeGroupById<EmployeeGroupInfo>(userId, shiftApplicationInfo.GroupId);
-            if (!manager.IsManagement)
-            {
-                return this.RedirectToAction("Index", "Home");
-            }
-
-            await this.shiftService.ApproveShiftToEmployee(shiftApplicationInfo.ShiftId, shiftApplicationInfo.EmployeeId, manager.Id);
-            await this.shiftApplicationService.ApproveShiftApplicationAsync(shiftApplicationId);
-
-            return this.RedirectToAction("All", "Shift", new { GroupId = shiftApplicationInfo.GroupId });
         }
     }
 }

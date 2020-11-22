@@ -34,7 +34,7 @@ using PlanShift.Web.ViewModels.EmployeeGroup;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b37d410c5ce2a714f7b4374338924f59ab43e1b1", @"/Views/Business/BusinessPage.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1a432fb8008cbbcd9a15da41e0f958378a28de0d", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"dcb4b5e26a5386507a874264fc78bac08f1ee6e8", @"/Views/_ViewImports.cshtml")]
     public class Views_Business_BusinessPage : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<ManagementListViewModel>
     {
         #pragma warning disable 1998

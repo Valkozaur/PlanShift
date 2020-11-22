@@ -16,12 +16,10 @@ namespace PlanShift.Services.Data.ShiftChangeServices
     public class ShiftChangeService : IShiftChangeService
     {
         private readonly IRepository<ShiftChange> shiftChangeRepository;
-        private readonly IShiftService shiftService;
 
-        public ShiftChangeService(IRepository<ShiftChange> shiftChangeRepository, IShiftService shiftService)
+        public ShiftChangeService(IRepository<ShiftChange> shiftChangeRepository)
         {
             this.shiftChangeRepository = shiftChangeRepository;
-            this.shiftService = shiftService;
         }
 
         public async Task<string> CreateShiftChangeAsync(string shiftId, string originalEmployeeId, string candidateEmployeeId)
@@ -33,8 +31,6 @@ namespace PlanShift.Services.Data.ShiftChangeServices
                 PendingEmployeeId = candidateEmployeeId,
                 Status = ShiftApplicationStatus.Pending,
             };
-
-            await this.shiftService.StatusChange(shiftId, ShiftStatus.Pending);
 
             await this.shiftChangeRepository.AddAsync(shiftChange);
             await this.shiftChangeRepository.SaveChangesAsync();
@@ -61,7 +57,7 @@ namespace PlanShift.Services.Data.ShiftChangeServices
             shiftChange.ManagementId = managerId;
             shiftChange.Status = ShiftApplicationStatus.Approved;
 
-            await this.shiftService.ApproveShiftToEmployee(shiftChange.ShiftId, shiftChange.PendingEmployeeId, managerId);
+            await this.shiftChangeRepository.SaveChangesAsync();
         }
 
         public async Task DeclineShiftChange(string shiftChangeId, string managerId)

@@ -3,53 +3,54 @@
 
 <table class="table table-hover table-sm">
     <thead>
-        <tr>
-            <th scope="col">Start Date</th>
-            <th scope="col">End Date</th>
-            <th scope="col">Position</th>
-            <th scope="col">Original employee</th>
-            <th scope="col">Pending employee</th>
-            <th scope="col">Description</th>
-            <th scope="col">Accept</th>
-        </tr>
+    <tr>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Position</th>
+        <th scope="col">Original employee</th>
+        <th scope="col">Pending employee</th>
+        <th scope="col">Description</th>
+        <th scope="col">Accept</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var shiftChange in this.Model.ShiftChanges)
-        {
-            <tr>
-                <td>@shiftChange.ShiftStart.ToString("G")</td>
-                <td>@shiftChange.ShiftStart.ToString("G")</td>
-                <td>@shiftChange.ShiftPosition</td>
-                <td>@shiftChange.OriginalEmployeeEmployeeUsername</td>
-                <td>@shiftChange.PendingEmployeeEmployeeUsername</td>
-                <td>
-                    @if (shiftChange.ShiftDescription == null)
-                    {
-                        //TODO: FIX The dropdown
-                        <span>No description</span>
-                    }
-                    else
-                    {
-                        <div class="dropdown">
-                            <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Read
-                            </button>
-                            <div class="dropdown-menu p-4" style="max-width: 200px;">
-                                <p class="mb-0">
-                                    @shiftChange.ShiftDescription
-                                </p>
-                            </div>
+    @foreach (var shiftChange in this.Model.ShiftChanges)
+    {
+        <tr>
+            <td>@shiftChange.ShiftStart.ToString("G")</td>
+            <td>@shiftChange.ShiftStart.ToString("G")</td>
+            <td>@shiftChange.ShiftPosition</td>
+            <td>@shiftChange.OriginalEmployeeEmployeeUsername</td>
+            <td>@shiftChange.PendingEmployeeEmployeeUsername</td>
+            <td>
+                @if (shiftChange.ShiftDescription == null)
+                {
+                    <span>No description</span>
+                }
+                else
+                {
+                    <div class="dropdown">
+                        <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Read
+                        </button>
+                        <div class="dropdown-menu p-4" style="max-width: 200px;">
+                            <p class="mb-0">
+                                @shiftChange.ShiftDescription
+                            </p>
                         </div>
-                    }
-                </td>
-                <td>
-                    <form method="post" asp-controller="ShiftChange" asp-action="Approve">
-                        <div class="row">
-                            <button class="btn-sm btn-primary" type="submit">Accept</button>
-                        </div>
-                    </form>
-                </td>
-            </tr>
-        }
+                    </div>
+                }
+            </td>
+            <td>
+                <form>
+                    //TODO: FINISH THE FORM!!!
+                </form>
+            </td>
+        </tr>
+    }
     </tbody>
 </table>
+
+<form method="post" id="antiForgeryForm"></form>
+
+<script src="~/js/components/ShiftChangeAjax.js"></script>

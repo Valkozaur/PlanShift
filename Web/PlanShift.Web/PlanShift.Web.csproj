@@ -36,4 +36,10 @@
     <ProjectReference Include="..\PlanShift.Web.Infrastructure\PlanShift.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\PlanShift.Web.ViewModels\PlanShift.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

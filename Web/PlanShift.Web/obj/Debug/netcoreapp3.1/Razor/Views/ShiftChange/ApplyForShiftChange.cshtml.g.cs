@@ -27,7 +27,7 @@ using PlanShift.Web.ViewModels;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"5f6affce40c3f2268d41141b6fc21e5b812b2e0d", @"/Views/ShiftChange/ApplyForShiftChange.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1a432fb8008cbbcd9a15da41e0f958378a28de0d", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"dcb4b5e26a5386507a874264fc78bac08f1ee6e8", @"/Views/_ViewImports.cshtml")]
     public class Views_ShiftChange_ApplyForShiftChange : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<string>
     {
         private global::AspNetCore.Views_ShiftChange_ApplyForShiftChange.__Generated__ShiftViewComponentTagHelper __ShiftViewComponentTagHelper;

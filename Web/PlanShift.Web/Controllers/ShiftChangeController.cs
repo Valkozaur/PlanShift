@@ -1,4 +1,8 @@
-﻿namespace PlanShift.Web.Controllers
+﻿using EllipticCurve;
+using PlanShift.Web.ViewModels.EmployeeGroup;
+using PlanShift.Web.ViewModels.ShiftChange;
+
+namespace PlanShift.Web.Controllers
 {
     using System.Linq;
     using System.Security.Claims;
@@ -21,20 +25,17 @@
         private readonly IShiftService shiftService;
         private readonly IEmployeeGroupService employeeGroupService;
         private readonly IGroupService groupService;
-        private readonly UserManager<PlanShiftUser> userManager;
 
         public ShiftChangeController(
             IShiftChangeService shiftChangeService,
             IShiftService shiftService,
             IEmployeeGroupService employeeGroupService,
-            IGroupService groupService,
-            UserManager<PlanShiftUser> userManager)
+            IGroupService groupService)
         {
             this.shiftChangeService = shiftChangeService;
             this.shiftService = shiftService;
             this.employeeGroupService = employeeGroupService;
             this.groupService = groupService;
-            this.userManager = userManager;
         }
 
         public IActionResult ApplyForShiftChange(string shiftId)
@@ -46,7 +47,7 @@
         [ActionName(nameof(ApplyForShiftChange))]
         public async Task<IActionResult> ApplyForShiftChangePost(string shiftId)
         {
-            var userId = this.userManager.GetUserId(this.User);
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var shiftInformation = await this.shiftService.GetShiftById<ShiftInfoViewModel>(shiftId);
 
             var employeeGroupId = await this.employeeGroupService.GetEmployeeId(userId, shiftInformation.GroupId);
@@ -89,6 +90,24 @@
         public IActionResult SwitchToTabs(string activeTabGroupId, string businessId)
         {
             return this.RedirectToAction(nameof(this.All), new { ActiveTabGroupId = activeTabGroupId, businessId = businessId });
+        }
+
+        public async Task<IActionResult> Approve(string shiftChangeId, string businessId, string groupId)
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var manager = await this.employeeGroupService.GetEmployeeGroupById<EmployeeGroupInfo>(userId, groupId);
+            if (!manager.IsManagement)
+            {
+                return this.RedirectToAction("Index", "Home");
+            }
+
+            var shiftChange = await this.shiftChangeService.GetShiftChangeById<ShiftChangeInfoViewModel>(shiftChangeId);
+
+            await this.shiftChangeService.ApproveEmployeeForShift(shiftChangeId, userId);
+            await this.shiftService.ApproveShiftToEmployee(shiftChangeId, shiftChange.PendingEmployeeId, userId);
+
+            this.RedirectToAction(nameof(this.All), new { BusinessId = businessId, ActiveTabGroupId = groupId });
         }
     }
 }

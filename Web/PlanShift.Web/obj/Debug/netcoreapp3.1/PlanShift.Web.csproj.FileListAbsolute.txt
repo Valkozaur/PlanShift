@@ -932,3 +932,4 @@ C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netc
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\ShiftApplicationsPerGroup\Default.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\ShiftChange\All.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\ShiftChangesPerGroup\Default.cshtml.g.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\bin\Debug\netcoreapp3.1\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
