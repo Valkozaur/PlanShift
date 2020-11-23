@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace PlanShift.Data.Migrations
+﻿namespace PlanShift.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class EnumerationAddedToShiftApplicationAndShiftChange : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

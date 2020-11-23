@@ -10,7 +10,6 @@
         public IActionResult Index()
         {
             // TODO: Get the business page here;
-
             return this.View();
         }
 

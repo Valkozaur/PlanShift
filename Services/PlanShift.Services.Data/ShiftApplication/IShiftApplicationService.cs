@@ -1,9 +1,9 @@
-﻿using PlanShift.Web.ViewModels.ShiftApplication;
-
-namespace PlanShift.Services.Data.ShiftApplication
+﻿namespace PlanShift.Services.Data.ShiftApplication
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
+    using PlanShift.Web.ViewModels.ShiftApplication;
 
     public interface IShiftApplicationService
     {

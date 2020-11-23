@@ -1,13 +1,10 @@
-﻿using EllipticCurve;
-using PlanShift.Web.ViewModels.EmployeeGroup;
-using PlanShift.Web.ViewModels.ShiftChange;
-
-namespace PlanShift.Web.Controllers
+﻿namespace PlanShift.Web.Controllers
 {
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
+    using EllipticCurve;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PlanShift.Data.Models;
@@ -16,8 +13,10 @@ namespace PlanShift.Web.Controllers
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Services.Data.ShiftChangeServices;
     using PlanShift.Services.Data.ShiftServices;
+    using PlanShift.Web.ViewModels.EmployeeGroup;
     using PlanShift.Web.ViewModels.Group;
     using PlanShift.Web.ViewModels.Shift;
+    using PlanShift.Web.ViewModels.ShiftChange;
 
     public class ShiftChangeController : Controller
     {
@@ -107,7 +106,7 @@ namespace PlanShift.Web.Controllers
             await this.shiftChangeService.ApproveEmployeeForShift(shiftChangeId, userId);
             await this.shiftService.ApproveShiftToEmployee(shiftChangeId, shiftChange.PendingEmployeeId, userId);
 
-            this.RedirectToAction(nameof(this.All), new { BusinessId = businessId, ActiveTabGroupId = groupId });
+            return this.RedirectToAction(nameof(this.All), new { BusinessId = businessId, ActiveTabGroupId = groupId });
         }
     }
 }

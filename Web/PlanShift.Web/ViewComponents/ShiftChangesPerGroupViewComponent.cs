@@ -15,11 +15,13 @@
             this.shiftChangeService = shiftChangeService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(string groupId)
+        public async Task<IViewComponentResult> InvokeAsync(string groupId, string businessId)
         {
             var shiftChangesPerGroup = await this.shiftChangeService.GetShiftChangesPerGroupAsync<ShiftChangeAllViewModel>(groupId);
             var viewModel = new ShiftChangeListViewModel<ShiftChangeAllViewModel>()
             {
+                BusinessId = businessId,
+                GroupId = groupId,
                 ShiftChanges = shiftChangesPerGroup,
             };
 

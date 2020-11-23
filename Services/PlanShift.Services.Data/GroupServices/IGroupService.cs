@@ -1,9 +1,9 @@
-﻿using PlanShift.Services.Data.Enumerations;
-
-namespace PlanShift.Services.Data.GroupServices
+﻿namespace PlanShift.Services.Data.GroupServices
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
+    using PlanShift.Services.Data.Enumerations;
 
     public interface IGroupService
     {

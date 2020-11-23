@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using PlanShift.Data.Models;
-
-namespace PlanShift.Web.Controllers
+﻿namespace PlanShift.Web.Controllers
 {
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using PlanShift.Data.Models;
     using PlanShift.Services.Data.BusinessServices;
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Web.ViewModels.Business;

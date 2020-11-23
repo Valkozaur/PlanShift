@@ -1,9 +1,9 @@
-﻿using PlanShift.Web.Infrastructure.Validations.ValidationAttributes;
-
-namespace PlanShift.Web.ViewModels.Shift
+﻿namespace PlanShift.Web.ViewModels.Shift
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+
+    using PlanShift.Web.Infrastructure.Validations.ValidationAttributes;
 
     public class CreateShiftInputModel
     {

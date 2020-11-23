@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace PlanShift.Services.Data.ShiftChangeServices
+﻿namespace PlanShift.Services.Data.ShiftChangeServices
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
