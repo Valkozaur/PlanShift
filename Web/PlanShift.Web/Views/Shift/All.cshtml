@@ -1,9 +1,12 @@
 ﻿@using PlanShift.Web.ViewModels.Shift;
+@using System.Security.Claims
 @model ShiftListViewModel
 
 @{
     this.ViewData["Title"] = $"All shifts for {Model.GroupName}!";
 }
+
+<h1>@this.User.FindFirst(ClaimTypes.NameIdentifier).Value</h1>
 
 <h1 class="text-center">Your businesses!</h1>
 <div>
@@ -28,7 +31,7 @@
                 <td>@shift.End</td>
                 <td>@shift.Status</td>
                 <td>@shift.EmployeeName</td>
-                <td>@shift.Description</td>
+                <td>@shift.Id</td>
                 <td>
                     <a asp-controller="ShiftApplication" asp-action="Apply" asp-route-shiftId="@shift.Id">
                         <input class="btn btn-sm btn-primary btn-sm" value="Apply" />

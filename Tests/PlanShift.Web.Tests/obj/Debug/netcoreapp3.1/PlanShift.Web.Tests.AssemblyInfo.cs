@@ -12,9 +12,18 @@ using System;
 using System.Reflection;
 
 [assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap4")]
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("PlanShift.Data.Common", "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Common", "PlanShift.Data.Common.csproj", "0")]
 [assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("PlanShift.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data", "PlanShift.Data.csproj", "0")]
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("PlanShift.Data.Models", "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Models", "PlanShift.Data.Models.csproj", "0")]
 [assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("PlanShift.Services.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Data", "PlanShift.Services.Data.csproj", "0")]
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("PlanShift.Services", "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services", "PlanShift.Services.csproj", "0")]
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("PlanShift.Services.Mapping", "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Mappi" +
+    "ng", "PlanShift.Services.Mapping.csproj", "0")]
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("PlanShift.Services.Messaging", "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Messa" +
+    "ging", "PlanShift.Services.Messaging.csproj", "0")]
 [assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("PlanShift.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Web\\PlanShift.Web", "PlanShift.Web.csproj", "0")]
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("PlanShift.Web.Infrastructure", "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Web\\PlanShift.Web.Infrastructure", "PlanShift.Web.Infrastructure.csproj", "0")]
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("PlanShift.Web.ViewModels", "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Web\\PlanShift.Web.ViewModels", "PlanShift.Web.ViewModels.csproj", "0")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("PlanShift.Web.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]

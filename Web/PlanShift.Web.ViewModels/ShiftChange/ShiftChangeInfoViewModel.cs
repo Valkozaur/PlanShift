@@ -6,5 +6,7 @@
     public class ShiftChangeInfoViewModel : IMapFrom<ShiftChange>
     {
         public string PendingEmployeeId { get; set; }
+
+        public string ShiftId { get; set; }
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace PlanShift.Web.Controllers
+﻿using System;
+using Microsoft.AspNetCore.Server.IIS.Core;
+
+namespace PlanShift.Web.Controllers
 {
     using System.Linq;
     using System.Threading.Tasks;
@@ -76,6 +79,11 @@
             };
 
             return this.View(viewModel);
+        }
+
+        public JsonResult GetEvents()
+        {
+            return this.Json(new { Title = "Event", Description = "asd", Start = DateTime.UtcNow, end = DateTime.UtcNow.Day, AllDay = false });
         }
     }
 }

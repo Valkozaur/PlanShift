@@ -23,5 +23,7 @@
         Task<string> GetGroupIdAsync(string shiftId);
 
         Task<IEnumerable<T>> GetPendingShiftsPerGroup<T>(string groupId);
+
+        Task<IEnumerable<T>> GetUpcomingShiftForUser<T>(string businessId, string userId);
     }
 }

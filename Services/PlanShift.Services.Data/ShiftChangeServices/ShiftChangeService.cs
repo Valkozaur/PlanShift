@@ -44,7 +44,7 @@
                 .To<T>()
                 .FirstOrDefaultAsync();
 
-        public async Task ApproveEmployeeForShift(string shiftChangeId, string managerId)
+        public async Task ApproveShiftChange(string shiftChangeId, string managerId)
         {
             var shiftChange = await this.shiftChangeRepository.All().FirstOrDefaultAsync(x => x.Id == shiftChangeId);
 

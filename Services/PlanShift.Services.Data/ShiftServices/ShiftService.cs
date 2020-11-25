@@ -18,13 +18,15 @@
         private readonly IDeletableEntityRepository<Shift> shiftRepository;
         private readonly IEmployeeGroupService employeeGroupService;
 
-        public ShiftService(IDeletableEntityRepository<Shift> shiftRepository, IEmployeeGroupService employeeGroupService)
+        public ShiftService(IDeletableEntityRepository<Shift> shiftRepository,
+            IEmployeeGroupService employeeGroupService)
         {
             this.shiftRepository = shiftRepository;
             this.employeeGroupService = employeeGroupService;
         }
 
-        public async Task<string> CreateShift(string shiftCreatorId, string groupId, DateTime start, DateTime end, string description, decimal bonusPayment = 0)
+        public async Task<string> CreateShift(string shiftCreatorId, string groupId, DateTime start, DateTime end,
+            string description, decimal bonusPayment = 0)
         {
             var shift = new Shift()
             {
@@ -94,25 +96,21 @@
                 .FirstOrDefaultAsync();
 
         public async Task<IEnumerable<T>> GetPendingShiftsPerGroup<T>(string groupId)
-        {
-            return await this.shiftRepository
+            => await this.shiftRepository
                 .AllAsNoTracking()
                 .Where(s => s.GroupId == groupId
-                && s.ShiftStatus == ShiftStatus.Pending)
-                //.Select(x => new ShiftWithApplicationsViewModel()
-                //{
-                //    StartDate = x.Start.ToString("G"),
-                //    EndDate = x.End.ToString("G"),
-                //    Applications = x.ShiftApplications.Select(sa
-                //        => new ShiftApplicationInfoViewModel()
-                //        {
-                //            Id = x.Id,
-                //            EmployeeName = sa.Employee.Employee.UserName,
-                //        })
-                //        .ToArray(),
-                //})
+                            && s.ShiftStatus == ShiftStatus.Pending)
                 .To<T>()
                 .ToArrayAsync();
+
+        public async Task<IEnumerable<T>> GetUpcomingShiftForUser<T>(string businessId, string userId)
+        {
+         return await this.shiftRepository
+                .AllAsNoTracking()
+                .Where(s => s.Group.BusinessId == businessId && s.Employee.EmployeeId == userId && s.Start > DateTime.UtcNow)
+                .To<T>()
+                .ToArrayAsync();
+        ;
         }
     }
 }

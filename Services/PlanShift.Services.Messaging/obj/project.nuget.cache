@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "H+iKJrLoxd1aOQZZoY3dRZ5ntPCdbbM08AJAVRkJLIaYFp1VW5Bjj2C91qosZH9Bblj/YmzQjSHq1u9x6sM4CA==",
+  "dgSpecHash": "s6/TzZD5swX+7Fx0A3pdLgAS4vUUncVvM5GLZEys+IVGZU2MMgM5nfkiIqkVmoSJrtvaHDbez3tPmPIK3IqERg==",
   "success": true,
   "projectFilePath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Services\\PlanShift.Services.Messaging\\PlanShift.Services.Messaging.csproj",
   "expectedPackageFiles": [
@@ -8,7 +8,7 @@
     "C:\\Users\\valni\\.nuget\\packages\\microsoft.netcore.platforms\\1.0.1\\microsoft.netcore.platforms.1.0.1.nupkg.sha512",
     "C:\\Users\\valni\\.nuget\\packages\\microsoft.netcore.targets\\1.0.1\\microsoft.netcore.targets.1.0.1.nupkg.sha512",
     "C:\\Users\\valni\\.nuget\\packages\\newtonsoft.json\\9.0.1\\newtonsoft.json.9.0.1.nupkg.sha512",
-    "C:\\Users\\valni\\.nuget\\packages\\sendgrid\\9.21.0\\sendgrid.9.21.0.nupkg.sha512",
+    "C:\\Users\\valni\\.nuget\\packages\\sendgrid\\9.21.2\\sendgrid.9.21.2.nupkg.sha512",
     "C:\\Users\\valni\\.nuget\\packages\\starkbank-ecdsa\\1.2.0\\starkbank-ecdsa.1.2.0.nupkg.sha512",
     "C:\\Users\\valni\\.nuget\\packages\\stylecop.analyzers\\1.2.0-beta.205\\stylecop.analyzers.1.2.0-beta.205.nupkg.sha512",
     "C:\\Users\\valni\\.nuget\\packages\\stylecop.analyzers.unstable\\1.2.0.205\\stylecop.analyzers.unstable.1.2.0.205.nupkg.sha512",

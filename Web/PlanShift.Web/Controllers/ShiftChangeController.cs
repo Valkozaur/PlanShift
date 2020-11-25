@@ -4,10 +4,7 @@
     using System.Security.Claims;
     using System.Threading.Tasks;
 
-    using EllipticCurve;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using PlanShift.Data.Models;
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.Enumerations;
     using PlanShift.Services.Data.GroupServices;
@@ -103,8 +100,8 @@
 
             var shiftChange = await this.shiftChangeService.GetShiftChangeById<ShiftChangeInfoViewModel>(shiftChangeId);
 
-            await this.shiftChangeService.ApproveEmployeeForShift(shiftChangeId, userId);
-            await this.shiftService.ApproveShiftToEmployee(shiftChangeId, shiftChange.PendingEmployeeId, userId);
+            await this.shiftService.ApproveShiftToEmployee(shiftChange.ShiftId, shiftChange.PendingEmployeeId, manager.Id);
+            await this.shiftChangeService.ApproveShiftChange(shiftChangeId, manager.Id);
 
             return this.RedirectToAction(nameof(this.All), new { BusinessId = businessId, ActiveTabGroupId = groupId });
         }

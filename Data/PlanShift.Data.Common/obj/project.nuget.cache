@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "kxN3qnLctIVRb7V+9K8yTuBRFcK2jJfBvWcWoe5oe6Vul8pgyWIPMBfLEU25Znq7o3oZzDTN01depy8w7mAIlg==",
+  "dgSpecHash": "n/XWLN21X5yXdAptzBnBQ1XZPpiAamRIlNwqxnMssBXWpHPiM/XW/QIBnOmcz7MQ3jhbRlNGBO7jUNfVntanjQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Data\\PlanShift.Data.Common\\PlanShift.Data.Common.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\valni\\.nuget\\packages\\stylecop.analyzers\\1.2.0-beta.205\\stylecop.analyzers.1.2.0-beta.205.nupkg.sha512",
     "C:\\Users\\valni\\.nuget\\packages\\stylecop.analyzers.unstable\\1.2.0.205\\stylecop.analyzers.unstable.1.2.0.205.nupkg.sha512",
-    "C:\\Users\\valni\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512"
+    "C:\\Users\\valni\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }
