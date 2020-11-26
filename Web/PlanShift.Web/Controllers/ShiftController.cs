@@ -65,26 +65,21 @@ namespace PlanShift.Web.Controllers
                 // TODO: Return error;
             }
 
-            return this.RedirectToAction(nameof(this.All), new { GroupId = input.GroupId });
+            return this.RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> All(string groupId)
+        [Authorize]
+        public async Task<JsonResult> GetGroupShifts(string groupId)
         {
-            var shifts = await this.shiftService.GetAllShiftsByGroup<ShiftAllViewModel>(groupId);
+            var shifts = await this.shiftService.GetAllShiftsByGroup<ShiftCalendarViewModel>(groupId);
             var groupName = await this.groupService.GetGroupName(groupId);
 
             var viewModel = new ShiftListViewModel()
             {
-                Shifts = shifts.ToList(),
-                GroupName = groupName,
+                Shifts = shifts.ToArray(),
             };
 
-            return this.View(viewModel);
-        }
-
-        public JsonResult GetEvents()
-        {
-            return this.Json(new { Title = "Event", Description = "asd", Start = DateTime.UtcNow, end = DateTime.UtcNow.Day, AllDay = false });
+            return this.Json(viewModel);
         }
     }
 }

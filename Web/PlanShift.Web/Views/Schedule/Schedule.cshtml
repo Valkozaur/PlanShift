@@ -1,0 +1,79 @@
+﻿@using PlanShift.Web.ViewModels.Group;
+@model GroupListViewModel<GroupAllViewModel>
+
+@section Styles
+{
+    <link href='~/css/FullCalendar/main.css' rel='stylesheet' />
+}
+
+<div clas="row">
+    <div class="btn-group-vertical">Groups</div>
+    <div class="flex-column list-group col-2">
+        @foreach (var group in this.Model.Groups)
+        {
+        <button type="button" class="btn btn-secondary">
+                <span class="row justify-content-center text-capitalize">@group.Name</span>
+                <span class="row justify-content-center text-capitalize">@group.EmployeesCount</span>
+        </button>
+        }
+    </div>
+    
+    <div class="col-10">
+        <div id='calendar'></div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src='~/js/FullCalendar/main.js'></script>
+
+    <script>
+        $(document).ready(function() {
+            var events = [];
+            $.ajax({
+                type: "GET",
+                url: "/Shifts/GetGroupShifts?businessId=@Model.BusinessId",
+                success: function(data) {
+                    $.each(data.allShiftsCalendar,
+                        function(i, v) {
+                            var color = null;
+                            if (v.type == 1) {
+                                color = '#00bfff';
+                            } else if (v.type == 2) {
+                                color = '#FF0000';
+                            } else if (v.type == 3) {
+                                color = '#9932cc';
+                            }
+                            console.log(color);
+                            events.push({
+                                groupName: v.groupName,
+                                description: v.description,
+                                start: moment(v.start),
+                                end: v.End != null ? moment(v.end) : null,
+                                color: color,
+                                allDay: false,
+                                eventDisplay: 'auto'
+                            });
+                        });
+
+                    GenerateCalender(events);
+                },
+                error:
+                    function(error) {
+                        alert('failed');
+                    }
+            });
+
+            function(events) {
+                document.addEventListener('DOMContentLoaded', function() {
+                    var calendarEl = document.getElementById('calendar');
+                    var calendar = new FullCalendar.Calendar(calendarEl,
+                        {
+                            events: events,
+                            initialView: 'dayGridWeek'
+                        });
+                    calendar.render();
+                }
+            });
+
+    </script>
+    }
