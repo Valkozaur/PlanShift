@@ -2,6 +2,9 @@
 {
     using System;
 
+    using Microsoft.EntityFrameworkCore;
+
+    [Keyless]
     public class ShiftCalendar
     {
         public string GroupName { get; set; }

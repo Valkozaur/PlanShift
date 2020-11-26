@@ -1,0 +1,17 @@
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\bin\Debug\net5.0\PlanShift.Web.Infrastructure.deps.json
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\bin\Debug\net5.0\PlanShift.Web.Infrastructure.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\bin\Debug\net5.0\ref\PlanShift.Web.Infrastructure.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\bin\Debug\net5.0\PlanShift.Web.Infrastructure.pdb
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\bin\Debug\net5.0\PlanShift.Data.Common.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\bin\Debug\net5.0\PlanShift.Data.Models.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\bin\Debug\net5.0\PlanShift.Data.Models.pdb
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\bin\Debug\net5.0\PlanShift.Data.Common.pdb
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\obj\Debug\net5.0\PlanShift.Web.Infrastructure.csprojAssemblyReference.cache
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\obj\Debug\net5.0\PlanShift.Web.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\obj\Debug\net5.0\PlanShift.Web.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\obj\Debug\net5.0\PlanShift.Web.Infrastructure.AssemblyInfo.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\obj\Debug\net5.0\PlanShift.Web.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\obj\Debug\net5.0\PlanShift.Web.Infrastructure.csproj.CopyComplete
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\obj\Debug\net5.0\PlanShift.Web.Infrastructure.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\obj\Debug\net5.0\ref\PlanShift.Web.Infrastructure.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web.Infrastructure\obj\Debug\net5.0\PlanShift.Web.Infrastructure.pdb

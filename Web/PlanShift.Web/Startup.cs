@@ -16,6 +16,7 @@
     using PlanShift.Data.Models;
     using PlanShift.Data.Repositories;
     using PlanShift.Data.Seeding;
+    using PlanShift.Data.TableStoredProcedures;
     using PlanShift.Services.Data;
     using PlanShift.Services.Data.BusinessServices;
     using PlanShift.Services.Data.BusinessTypeServices;
@@ -66,6 +67,7 @@
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
+            //services.AddScoped(typeof(ITableStoredProcedureCaller<>), typeof(TableStoredProcedureCallerCaller<>));
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
@@ -76,6 +78,7 @@
             services.AddTransient<IShiftChangeService, ShiftChangeService>();
             services.AddTransient<IEmployeeGroupService, EmployeeGroupService>();
             services.AddTransient<IShiftApplicationService, ShiftApplicationService>();
+            services.AddTransient<Services.Data.TableStoredProcedureCallerCaller, Services.Data.TableStoredProcedureCallerCaller>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

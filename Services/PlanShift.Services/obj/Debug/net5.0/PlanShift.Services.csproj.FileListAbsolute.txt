@@ -1,0 +1,12 @@
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services\bin\Debug\net5.0\PlanShift.Services.deps.json
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services\bin\Debug\net5.0\PlanShift.Services.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services\bin\Debug\net5.0\ref\PlanShift.Services.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services\bin\Debug\net5.0\PlanShift.Services.pdb
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services\obj\Debug\net5.0\PlanShift.Services.csprojAssemblyReference.cache
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services\obj\Debug\net5.0\PlanShift.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services\obj\Debug\net5.0\PlanShift.Services.AssemblyInfoInputs.cache
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services\obj\Debug\net5.0\PlanShift.Services.AssemblyInfo.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services\obj\Debug\net5.0\PlanShift.Services.csproj.CoreCompileInputs.cache
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services\obj\Debug\net5.0\PlanShift.Services.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services\obj\Debug\net5.0\ref\PlanShift.Services.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services\obj\Debug\net5.0\PlanShift.Services.pdb

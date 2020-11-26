@@ -9,7 +9,6 @@
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
     using PlanShift.Data.Models.Enumerations;
-    using PlanShift.Services.Data.ShiftServices;
     using PlanShift.Services.Mapping;
 
     public class ShiftApplicationService : IShiftApplicationService

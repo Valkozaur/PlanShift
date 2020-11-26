@@ -1,0 +1,12 @@
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services.Messaging\bin\Debug\net5.0\PlanShift.Services.Messaging.deps.json
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services.Messaging\bin\Debug\net5.0\PlanShift.Services.Messaging.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services.Messaging\bin\Debug\net5.0\ref\PlanShift.Services.Messaging.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services.Messaging\bin\Debug\net5.0\PlanShift.Services.Messaging.pdb
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services.Messaging\obj\Debug\net5.0\PlanShift.Services.Messaging.csprojAssemblyReference.cache
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services.Messaging\obj\Debug\net5.0\PlanShift.Services.Messaging.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services.Messaging\obj\Debug\net5.0\PlanShift.Services.Messaging.AssemblyInfoInputs.cache
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services.Messaging\obj\Debug\net5.0\PlanShift.Services.Messaging.AssemblyInfo.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services.Messaging\obj\Debug\net5.0\PlanShift.Services.Messaging.csproj.CoreCompileInputs.cache
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services.Messaging\obj\Debug\net5.0\PlanShift.Services.Messaging.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services.Messaging\obj\Debug\net5.0\ref\PlanShift.Services.Messaging.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Services\PlanShift.Services.Messaging\obj\Debug\net5.0\PlanShift.Services.Messaging.pdb

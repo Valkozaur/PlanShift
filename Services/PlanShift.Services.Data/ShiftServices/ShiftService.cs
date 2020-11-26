@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Services.Data.ShiftServices
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace PlanShift.Services.Data.ShiftServices
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +8,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-    using PlanShift.Data;
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
     using PlanShift.Data.Models.Enumerations;
@@ -18,7 +19,8 @@
         private readonly IDeletableEntityRepository<Shift> shiftRepository;
         private readonly IEmployeeGroupService employeeGroupService;
 
-        public ShiftService(IDeletableEntityRepository<Shift> shiftRepository,
+        public ShiftService(
+            IDeletableEntityRepository<Shift> shiftRepository,
             IEmployeeGroupService employeeGroupService)
         {
             this.shiftRepository = shiftRepository;
@@ -104,13 +106,31 @@
                 .ToArrayAsync();
 
         public async Task<IEnumerable<T>> GetUpcomingShiftForUser<T>(string businessId, string userId)
-        {
-         return await this.shiftRepository
+            => await this.shiftRepository
+                   .AllAsNoTracking()
+                   .Where(s => s.Group.BusinessId == businessId
+                               && s.Employee.EmployeeId == userId
+                               && s.ShiftStatus == ShiftStatus.Approved)
+                   .To<T>()
+                   .ToArrayAsync();
+
+        public async Task<IEnumerable<T>> GetOpenShiftsAvailableForUser<T>(string businessId, string userId)
+            => await this.shiftRepository
                 .AllAsNoTracking()
-                .Where(s => s.Group.BusinessId == businessId && s.Employee.EmployeeId == userId && s.Start > DateTime.UtcNow)
+                .Where(s => s.Group.BusinessId == businessId
+                            && s.Group.Employees.Any(e => e.EmployeeId == userId)
+                            && s.ShiftStatus == ShiftStatus.New)
+                //TODO: Add achievement check here
                 .To<T>()
                 .ToArrayAsync();
-        ;
-        }
+
+        public async Task<IEnumerable<T>> GetPendingShiftsPerUser<T>(string businessId, string userId)
+            => await this.shiftRepository
+                .AllAsNoTracking()
+                .Where(s => s.Group.BusinessId == businessId
+                            && s.ShiftStatus == ShiftStatus.Pending
+                            && s.ShiftChanges.Any(sc => sc.OriginalEmployee.EmployeeId == userId))
+                .To<T>()
+                .ToArrayAsync();
     }
 }

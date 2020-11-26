@@ -1,0 +1,26 @@
+﻿#upcomingShiftsCount {
+    list-style: none;
+    color: #a9a9a9;
+    font: bold 24pt helvetica, arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 25px;
+}
+
+#openShiftsCount {
+    list-style: none;
+    color: #a9a9a9;
+    font: bold 24pt helvetica, arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 25px;
+}
+
+#pendingShiftsCount {
+    list-style: none;
+    color: #a9a9a9;
+    font: bold 24pt helvetica, arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 25px;
+}

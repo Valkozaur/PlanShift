@@ -25,5 +25,9 @@
         Task<IEnumerable<T>> GetPendingShiftsPerGroup<T>(string groupId);
 
         Task<IEnumerable<T>> GetUpcomingShiftForUser<T>(string businessId, string userId);
+
+        Task<IEnumerable<T>> GetOpenShiftsAvailableForUser<T>(string businessId, string userId);
+
+        Task<IEnumerable<T>> GetPendingShiftsPerUser<T>(string businessId, string userId);
     }
 }
