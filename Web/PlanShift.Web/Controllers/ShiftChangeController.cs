@@ -72,7 +72,7 @@
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            var groupsInBusiness = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(businessId, userId, PendingActionsType.ShiftChanges);
+            var groupsInBusiness = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(businessId, userId, false, PendingActionsType.ShiftChanges);
             var viewModel = new GroupListViewModel<GroupBasicInfoViewModel>()
              {
                  Groups = groupsInBusiness,

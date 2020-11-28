@@ -1,9 +1,11 @@
 ﻿namespace PlanShift.Web.ViewModels.Shift
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using PlanShift.Web.Infrastructure.Validations.ValidationAttributes;
+    using PlanShift.Web.ViewModels.Group;
 
     public class CreateShiftInputModel
     {
@@ -23,5 +25,7 @@
         public string GroupId { get; set; }
 
         public string BusinessId { get; set; }
+
+        public IEnumerable<GroupAllViewModel> Groups { get; set; }
     }
 }

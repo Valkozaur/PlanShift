@@ -1,19 +1,17 @@
-﻿using System.Security.Claims;
-using PlanShift.Web.ViewModels.Group;
-
-namespace PlanShift.Web.Controllers
+﻿namespace PlanShift.Web.Controllers
 {
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Services.Data.ShiftServices;
     using PlanShift.Web.ViewModels.EmployeeGroup;
+    using PlanShift.Web.ViewModels.Group;
     using PlanShift.Web.ViewModels.Shift;
 
     public class ShiftController : Controller
@@ -35,32 +33,36 @@ namespace PlanShift.Web.Controllers
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Schedule(string businessId)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            var groups = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupAllViewModel>(businessId, userId);
-            var viewModel = new GroupListViewModel<GroupAllViewModel>()
+            var groups = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupAllViewModel>(businessId, userId, true);
+            var viewModel = new CreateShiftInputModel()
             {
-                Groups = groups,
                 BusinessId = businessId,
-                ActiveTabGroupId = null,
+                Groups = groups,
             };
-
-            if (inputModel != null)
-            {
-                viewModel.ShiftInputModel = inputModel;
-            }
 
             return this.View(viewModel);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(CreateShiftInputModel input)
+        public async Task<IActionResult> Schedule(CreateShiftInputModel input)
         {
             var userId = this.userManager.GetUserId(this.User);
             var employeeGroup = await this.employeeGroupService.GetEmployeeGroupById<EmployeeGroupIsManagementInfo>(userId, input.GroupId);
+
+            var groups = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupAllViewModel>(input.BusinessId, userId, true);
+
+            input.Groups = groups;
+            
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
 
             if (employeeGroup.IsManagement)
             {
@@ -72,14 +74,8 @@ namespace PlanShift.Web.Controllers
             }
 
             var groupsBusinessId = await this.groupService.GetGroupsBusinessId(input.GroupId);
-            input.BusinessId = groupsBusinessId;
 
-            if (!this.ModelState.IsValid)
-            {
-                return this.RedirectToAction("Schedule", "Schedule", input);
-            }
-
-            return this.RedirectToAction("Schedule", "Schedule", new { input.BusinessId, input.GroupId });
+            return this.View(input);
         }
 
         public IActionResult CreateFormViewComponent(string groupId)

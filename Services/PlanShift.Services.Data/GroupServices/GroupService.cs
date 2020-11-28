@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Services.Data.GroupServices
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace PlanShift.Services.Data.GroupServices
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -80,11 +82,16 @@
                 .To<T>()
                 .FirstOrDefaultAsync();
 
-        public async Task<IEnumerable<T>> GetAllGroupByCurrentUserAndBusinessIdAsync<T>(string businessId, string userId, PendingActionsType pendingAction = PendingActionsType.Unknown)
+        public async Task<IEnumerable<T>> GetAllGroupByCurrentUserAndBusinessIdAsync<T>(string businessId, string userId,bool isManager = false, PendingActionsType pendingAction = PendingActionsType.Unknown)
         {
             var query = this.groupRepository
                 .AllAsNoTracking()
                 .Where(x => x.BusinessId == businessId && x.Employees.Any(e => e.EmployeeId == userId));
+
+            if (isManager)
+            {
+                query = query.Where(x => x.Employees.Any(e => e.EmployeeId == userId && e.IsManagement));
+            }
 
             if (pendingAction == PendingActionsType.ShiftApplications)
             {

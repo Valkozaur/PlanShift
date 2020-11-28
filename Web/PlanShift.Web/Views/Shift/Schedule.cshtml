@@ -1,0 +1,209 @@
+﻿@using PlanShift.Web.ViewModels.Shift;
+@model CreateShiftInputModel
+
+@section Styles
+{
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.4.0/main.min.css" rel="stylesheet">
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-2 btn-group-vertical">
+            @foreach (var group in this.Model.Groups)
+            {
+                <button type="button" class="btn btn-primary" value="@group.Id">
+                    <span class="row justify-content-center text-capitalize">@group.Name</span>
+                    <span class="row justify-content-center text-capitalize">@group.EmployeesCount</span>
+                </button>
+            }
+        </div>
+
+        <div class="col-10" id='calendar'></div>
+    </div>
+</div>
+
+
+<div class="text-center">
+    <button class="btn-lg btn-primary" id="createShiftBtn" type="button" value="empty">Add Shift</button>
+    <button class="btn-lg btn-secondary" id="hideCreateShiftFormBtn" type="button">Hide</button>
+</div>
+
+<partial name="_FullCalendarModalPartial" />
+
+<form id="createShiftForm" method="post" asp-controller="Shift" asp-action="Schedule">
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Start" class="control-label">Start of the shift</label>
+            <input asp-for="Start" value="@DateTime.Today.ToString("s")" class="form-control">
+            <span asp-validation-for="Start" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="End" class="control-label">End of the shift</label>
+            <input asp-for="End" value="@DateTime.Today.ToString("s")" class="form-control">
+            <span asp-validation-for="End" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="BonusPayment" class="control-label">Bonus Salary</label>
+            <input asp-for="BonusPayment" class="form-control">
+            <span asp-validation-for="BonusPayment" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="Description" class="control-label">Shift Description</label>
+            <input asp-for="Description" class="form-control">
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+    <input type="hidden" id="GroupId" name="GroupId" value="empty">
+    <input type="hidden"  name="BusinessId" value="@Model.BusinessId">
+    <div class="form-group">
+        <input type="submit" value="Create Shift" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts{
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.4.0/main.min.js'></script>
+
+    <script>
+            $("#createShiftForm").hide();
+            $("#createShiftBtn").hide();
+            $("#hideCreateShiftFormBtn").hide();
+    </script>
+
+    @if (Model.GroupId != null)
+    {
+        <script>
+            var events = [];
+
+            $.ajax({
+                type: "GET",
+                url: "/api/Calendar/GetGroupShifts?groupId=@Model.GroupId&groupId=@Model.GroupId",
+                success: function(data) {
+                    $.each(data.shifts,
+                        function(i, v) {
+           
+                            events.push({
+                                groupName: v.groupName,
+                                description: v.description,
+                                start: v.start,
+                                end: v.end != null ? v.end : null,
+                                color: '#00bfff',
+                                allDay: false,
+                                eventDisplay: 'auto'
+                            });
+
+                            $("#createShiftBtn").show();
+                            $("#hideCreateShiftFormBtn").show();
+                            $("#createShiftForm").show();
+
+                            generateCalender(events);
+                        });
+                },
+                error:
+                    function(error) {
+                        alert('failed');
+                    }
+            });
+
+            function generateCalender(events) {
+                var calendarEl = document.getElementById('calendar');
+
+                var calendar = new FullCalendar.Calendar(calendarEl,
+                    {
+                        timeZone: 'UTC',
+                        initialView: 'timeGridWeek',
+                        headerToolbar: {
+                            left: 'prev,next',
+                            center: 'title',
+                            right: 'timeGridDay,timeGridWeek'
+                        },
+                        events: events,
+                        slotEventOverlap: true,
+                        timeGrid: {
+                            timeGrid: {
+                                dayMaxEventRows: 6
+                            }
+                        }
+                    });
+
+                calendar.render();
+            };
+        </script>
+    }
+
+    <script>
+        $("body > div > main > div > div > div > button").click(function() {
+            var clickedGroup = $(this).val();
+
+            $("#createShiftBtn").val(clickedGroup);
+            $("#GroupId").val(clickedGroup);
+
+            var events = [];
+
+            $("#createShiftBtn").show();
+            $("#hideCreateShiftFormBtn").show();
+
+            $.ajax({
+                type: "GET",
+                url: `/api/Calendar/GetGroupShifts?groupId=${clickedGroup}`,
+                success: function(data) {
+                    $.each(data.shifts,
+                        function(i, v) {
+
+                            events.push({
+                                groupName: v.groupName,
+                                description: v.description,
+                                start: v.start,
+                                end: v.end != null ? v.end : null,
+                                color: '#00bfff',
+                                allDay: false,
+                                eventDisplay: 'auto'
+                            });
+
+                            generateCalender(events);
+                        });
+                },
+                error:
+                    function(error) {
+                        alert('failed');
+                    }
+            });
+        });
+
+        function generateCalender(events) {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl,
+                {
+                    timeZone: 'UTC',
+                    initialView: 'timeGridWeek',
+                    headerToolbar: {
+                        left: 'prev,next',
+                        center: 'title',
+                        right: 'timeGridDay,timeGridWeek'
+                    },
+                    events: events,
+                    slotEventOverlap: true,
+                    timeGrid: {
+                        timeGrid: {
+                            dayMaxEventRows: 6
+                        }
+                    }
+                });
+
+            calendar.render();
+        };
+    </script>
+
+    <script>
+        $("#createShiftBtn").click(function() {
+            $("#createShiftForm").show();
+        })
+
+        $("#hideCreateShiftFormBtn").click(function() {
+
+            $("#createShiftForm").hide();
+        });
+    </script>
+}

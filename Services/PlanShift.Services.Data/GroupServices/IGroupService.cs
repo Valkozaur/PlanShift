@@ -19,7 +19,7 @@
 
         Task<T> GetGroupAsync<T>(string id);
 
-        Task<IEnumerable<T>> GetAllGroupByCurrentUserAndBusinessIdAsync<T>(string businessId, string userId, PendingActionsType pendingAction = PendingActionsType.Unknown);
+        Task<IEnumerable<T>> GetAllGroupByCurrentUserAndBusinessIdAsync<T>(string businessId, string userId,bool isManager = false, PendingActionsType pendingAction = PendingActionsType.Unknown);
 
         Task<string> GetGroupName(string id);
 
