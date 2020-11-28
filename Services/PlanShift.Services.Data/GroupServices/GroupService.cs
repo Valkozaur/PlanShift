@@ -103,5 +103,12 @@
             var group = await this.groupRepository.All().FirstOrDefaultAsync(x => x.Id == id);
             return group.Name;
         }
+
+        public async Task<string> GetGroupsBusinessId(string groupId)
+            => await this.groupRepository
+                .All()
+                .Where(g => g.Id == groupId)
+                .Select(g => g.BusinessId)
+                .FirstOrDefaultAsync();
     }
 }

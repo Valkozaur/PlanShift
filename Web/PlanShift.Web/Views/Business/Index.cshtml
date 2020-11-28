@@ -1,4 +1,5 @@
 ﻿@using PlanShift.Web.ViewModels.Business;
+@using PlanShift.Web.Controllers
 
 @model BusinessIndexViewModel;
 
@@ -48,7 +49,7 @@
             var events = [];
             $.ajax({
                 type: "GET",
-                url: "/api/GetEvents?businessId=@Model.BusinessId",
+                url: "/api/Calendar?businessId=@Model.BusinessId",
                 success: function(data) {
 
                     if (data.upcomingShiftsCount != 0) {
@@ -73,19 +74,18 @@
                             } else if (v.type == 3) {
                                 color = '#9932cc';
                             }
-                            console.log(color);
                             events.push({
                                 groupName: v.groupName,
                                 description: v.description,
                                 start: moment(v.start),
-                                end: v.End != null ? moment(v.end) : null,
+                                end: v.end != null ? moment(v.end) : null,
                                 color: color,
                                 allDay: false,
                                 eventDisplay: 'auto'
                             });
                         });
 
-                    GenerateCalender(events);
+                    generateCalender(events);
                 },
                 error:
                     function(error) {
@@ -93,7 +93,7 @@
                     }
             });
 
-            function GenerateCalender(events) {
+            function generateCalender(events) {
                 $('#calender').fullCalendar('destroy');
                 $('#calender').fullCalendar({
                     contentHeight: 420,

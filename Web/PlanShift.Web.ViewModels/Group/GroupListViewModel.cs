@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
 
+    using PlanShift.Web.ViewModels.Shift;
+
     public class GroupListViewModel<T>
     {
         public IEnumerable<T> Groups { get; set; }

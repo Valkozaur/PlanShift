@@ -1,79 +1,130 @@
 ﻿@using PlanShift.Web.ViewModels.Group;
+@using PlanShift.Web.Controllers
 @model GroupListViewModel<GroupAllViewModel>
 
 @section Styles
 {
-    <link href='~/css/FullCalendar/main.css' rel='stylesheet' />
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.4.0/main.min.css" rel="stylesheet">
 }
 
-<div clas="row">
-    <div class="btn-group-vertical">Groups</div>
-    <div class="flex-column list-group col-2">
+<div class="container">
+    <div class="row">
+    <div class="col-2 btn-group-vertical">
         @foreach (var group in this.Model.Groups)
         {
-        <button type="button" class="btn btn-secondary">
+            <button type="button" class="btn btn-primary" value="@group.Id">
                 <span class="row justify-content-center text-capitalize">@group.Name</span>
                 <span class="row justify-content-center text-capitalize">@group.EmployeesCount</span>
-        </button>
+            </button>
         }
     </div>
-    
-    <div class="col-10">
-        <div id='calendar'></div>
+
+        <div class="col-10" id='calendar'></div>
     </div>
 </div>
 
+
+<div class="text-center">
+    <button class="btn-lg btn-primary" id="createShift" type="button" value="empty">Add Shift</button>
+    <button class="btn-lg btn-secondary" id="hideCreateShiftForm" type="button">Hide</button>
+    <div id="createShiftForm"></div>
+</div>
+
+<partial name="_FullCalendarModalPartial" />
+
 @section Scripts{
-    <script src='~/js/FullCalendar/main.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.4.0/main.min.js'></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
+            $("#createShift").hide();
+            $("#hideCreateShiftForm").hide();
+        });
+    </script>
+
+    <script>
+        $("body > div > main > div > div > div > button").click(function() {
+            var clickedGroup = $(this).val();
+
+            console.log(clickedGroup)
+
+            $("#createShift").val(clickedGroup);
+
             var events = [];
+
+            $("#createShift").show();
+            $("#hideCreateShiftForm").show();
+
             $.ajax({
                 type: "GET",
-                url: "/Shifts/GetGroupShifts?businessId=@Model.BusinessId",
+                url: `/api/Calendar/@nameof(CalendarController.GetGroupShifts)?groupId=${clickedGroup}`,
                 success: function(data) {
-                    $.each(data.allShiftsCalendar,
+                    $.each(data.shifts,
                         function(i, v) {
-                            var color = null;
-                            if (v.type == 1) {
-                                color = '#00bfff';
-                            } else if (v.type == 2) {
-                                color = '#FF0000';
-                            } else if (v.type == 3) {
-                                color = '#9932cc';
-                            }
-                            console.log(color);
+
                             events.push({
                                 groupName: v.groupName,
                                 description: v.description,
-                                start: moment(v.start),
-                                end: v.End != null ? moment(v.end) : null,
-                                color: color,
+                                start: v.start,
+                                end: v.end != null ? v.end : null,
+                                color: '#00bfff',
                                 allDay: false,
                                 eventDisplay: 'auto'
                             });
-                        });
 
-                    GenerateCalender(events);
+                            generateCalender(events);
+                        });
+                    console.log(events);
                 },
                 error:
                     function(error) {
                         alert('failed');
                     }
             });
+        });
 
-            function(events) {
-                document.addEventListener('DOMContentLoaded', function() {
-                    var calendarEl = document.getElementById('calendar');
-                    var calendar = new FullCalendar.Calendar(calendarEl,
-                        {
-                            events: events,
-                            initialView: 'dayGridWeek'
-                        });
-                    calendar.render();
+        function generateCalender(events) {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl,
+                {
+                    timeZone: 'UTC',
+                    initialView: 'timeGridWeek',
+                    headerToolbar: {
+                        left: 'prev,next',
+                        center: 'title',
+                        right: 'timeGridDay,timeGridWeek'
+                    },
+                    events: events,
+                    slotEventOverlap: true,
+                    timeGrid: {
+                        timeGrid: {
+                            dayMaxEventRows: 6
+                        }
+                    }
+                });
+
+            calendar.render();
+        };
+    </script>
+
+    <script>
+        $("#createShift").click(function () {
+            var groupId = $(this).val();
+
+            $.ajax({
+                type: "GET",
+                url: `/Shift/CreateFormViewComponent?groupId=${groupId}`,
+         
+                success: function (result) {
+                    $("#createShiftForm").html(result);
                 }
             });
+        });
 
+        $("#hideCreateShiftForm").click(function () {
+
+            $("form").hide();
+        });
     </script>
-    }
+}

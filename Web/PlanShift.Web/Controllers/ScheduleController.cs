@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Web.ViewModels.Group;
+    using PlanShift.Web.ViewModels.Shift;
 
     public class ScheduleController : Controller
     {
@@ -25,6 +26,7 @@
             {
                 Groups = groups,
                 BusinessId = businessId,
+                ActiveTabGroupId = null,
             };
 
             return this.View(viewModel);
