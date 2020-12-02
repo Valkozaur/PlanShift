@@ -5,5 +5,7 @@
         public const string SystemName = "PlanShift";
 
         public const string AdministratorRoleName = "Administrator";
+
+        public const string BusinessSessionName = "BusinessId";
     }
 }

@@ -3,13 +3,17 @@
     using System.Security.Claims;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using PlanShift.Common;
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.BusinessServices;
     using PlanShift.Services.Data.BusinessTypeServices;
     using PlanShift.Services.Data.ShiftApplication;
     using PlanShift.Services.Data.ShiftChangeServices;
+    using PlanShift.Web.Infrastructure.Validations.UserValidationAttributes;
+    using PlanShift.Web.SessionExtension;
     using PlanShift.Web.ViewModels.Business;
 
     public class BusinessController : BaseController
@@ -34,8 +38,12 @@
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> Index(string businessId)
+        [Authorize]
+        [SessionValidation(GlobalConstants.BusinessSessionName)]
+        public async Task<IActionResult> Index()
         {
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
+
             var applicationsCount = await this.shiftApplicationService.GetCountByBusinessIdAsync(businessId);
             var shiftChangesCount = await this.shiftChangeService.GetCountByBusinessIdAsync(businessId);
 
@@ -49,6 +57,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> Register(int? id)
         {
             var businessTypes = await this.businessTypeService.GetAllAsync<BusinessTypeDropDownViewModel>();
@@ -61,7 +70,7 @@
             return this.View(viewModel);
         }
 
-        // TODO: Finish this action
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Register(BusinessRegisterInputModel inputModel)
         {
@@ -70,16 +79,22 @@
                 return this.View();
             }
 
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value; ;
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var businessId = await this.businessService.CreateBusinessAsync(userId, inputModel.Name, inputModel.BusinessTypeId);
 
-            return this.Json(businessId);
+            if (string.IsNullOrEmpty(await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName)))
+            {
+                await this.HttpContext.Session.SetStringAsync(GlobalConstants.BusinessSessionName, businessId);
+            }
+
+            return this.RedirectToAction(nameof(Index));
         }
 
+        [Authorize]
         public async Task<IActionResult> All()
         {
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var businesses = await this.businessService.GetAllForUserAsync<BusinessAllViewModel>(userId);
             var businessesList = new BusinessListViewModel()
@@ -88,6 +103,32 @@
             };
 
             return this.View(businessesList);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Pick()
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var businesses = await this.businessService.GetAllForUserAsync<BusinessAllViewModel>(userId);
+            var businessesList = new BusinessListViewModel()
+            {
+                Businesses = businesses,
+            };
+
+            return this.View(businessesList);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Pick(string businessId)
+        {
+            if (string.IsNullOrEmpty(await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName)))
+            {
+                await this.HttpContext.Session.SetStringAsync(GlobalConstants.BusinessSessionName, businessId);
+            }
+
+            return this.RedirectToAction(nameof(this.Index));
         }
     }
 }

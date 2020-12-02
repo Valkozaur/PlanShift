@@ -5,11 +5,14 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
+    using PlanShift.Common;
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.Enumerations;
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Services.Data.ShiftChangeServices;
     using PlanShift.Services.Data.ShiftServices;
+    using PlanShift.Web.Infrastructure;
+    using PlanShift.Web.SessionExtension;
     using PlanShift.Web.ViewModels.EmployeeGroup;
     using PlanShift.Web.ViewModels.Group;
     using PlanShift.Web.ViewModels.Shift;
@@ -68,9 +71,11 @@
             return this.RedirectToAction("All", "Shift", new { GroupId = shiftInformation.GroupId });
         }
 
-        public async Task<IActionResult> All(string businessId, string activeTabGroupId)
+        public async Task<IActionResult> All(string activeTabGroupId)
         {
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
+
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var groupsInBusiness = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(businessId, userId, false, PendingActionsType.ShiftChanges);
             var viewModel = new GroupListViewModel<GroupBasicInfoViewModel>()
@@ -83,14 +88,16 @@
             return this.View(viewModel);
         }
 
-        public IActionResult SwitchToTabs(string activeTabGroupId, string businessId)
+        public IActionResult SwitchToTabs(string activeTabGroupId)
         {
-            return this.RedirectToAction(nameof(this.All), new { ActiveTabGroupId = activeTabGroupId, businessId = businessId });
+            return this.RedirectToAction(nameof(this.All), new { ActiveTabGroupId = activeTabGroupId});
         }
 
-        public async Task<IActionResult> Approve(string shiftChangeId, string businessId, string groupId)
+        public async Task<IActionResult> Approve(string shiftChangeId, string groupId)
         {
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
+
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var manager = await this.employeeGroupService.GetEmployeeGroupById<EmployeeGroupInfo>(userId, groupId);
             if (!manager.IsManagement)

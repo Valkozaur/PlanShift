@@ -168,17 +168,15 @@ WriteAttributeValue(" ", 310, Model.ActiveTabGroupId == @group.Id ? "active" : s
             __tagHelperStringValueBuffer = EndWriteTagHelperAttribute();
             __ShiftApplicationsPerGroupViewComponentTagHelper.groupId = __tagHelperStringValueBuffer;
             __tagHelperExecutionContext.AddTagHelperAttribute("group-id", __ShiftApplicationsPerGroupViewComponentTagHelper.groupId, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-            BeginWriteTagHelperAttribute();
+            BeginAddHtmlAttributeValues(__tagHelperExecutionContext, "business-id", 1, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
 #nullable restore
 #line 16 "C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\Views\ShiftApplication\All.cshtml"
-                                                                     WriteLiteral(Model.BusinessId);
+AddHtmlAttributeValue("", 639, Model.BusinessId, 639, 17, false);
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperStringValueBuffer = EndWriteTagHelperAttribute();
-            __ShiftApplicationsPerGroupViewComponentTagHelper.businessId = __tagHelperStringValueBuffer;
-            __tagHelperExecutionContext.AddTagHelperAttribute("business-id", __ShiftApplicationsPerGroupViewComponentTagHelper.businessId, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            EndAddHtmlAttributeValues(__tagHelperExecutionContext);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
             {
@@ -210,11 +208,10 @@ WriteAttributeValue(" ", 310, Model.ActiveTabGroupId == @group.Id ? "active" : s
             [Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNotBoundAttribute, global::Microsoft.AspNetCore.Mvc.ViewFeatures.ViewContextAttribute]
             public global::Microsoft.AspNetCore.Mvc.Rendering.ViewContext ViewContext { get; set; }
             public System.String groupId { get; set; }
-            public System.String businessId { get; set; }
             public override async global::System.Threading.Tasks.Task ProcessAsync(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext __context, Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput __output)
             {
                 (__helper as global::Microsoft.AspNetCore.Mvc.ViewFeatures.IViewContextAware)?.Contextualize(ViewContext);
-                var __helperContent = await __helper.InvokeAsync("ShiftApplicationsPerGroup", new { groupId, businessId });
+                var __helperContent = await __helper.InvokeAsync("ShiftApplicationsPerGroup", new { groupId });
                 __output.TagName = null;
                 __output.Content.SetHtmlContent(__helperContent);
             }

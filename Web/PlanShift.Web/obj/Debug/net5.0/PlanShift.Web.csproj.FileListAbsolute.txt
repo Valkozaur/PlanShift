@@ -484,3 +484,13 @@ C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Views\Shared\_FullCalendarModalPartial.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\_ViewImports.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Views\Shift\Schedule.cshtml.g.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Views\Shared\_CreateShiftFormPartial.cshtml.g.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\bin\Debug\net5.0\Microsoft.Extensions.Caching.SqlServer.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Views\Business\Pick.cshtml.g.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Areas\Identity\Account\Login.cshtml.g.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Areas\Identity\Account\_LoginPartial.cshtml.g.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Areas\Identity\Account\_ViewImports.cshtml.g.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Areas\Identity\Account\_ViewStart.cshtml.g.cs

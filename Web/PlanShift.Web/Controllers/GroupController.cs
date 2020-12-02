@@ -4,9 +4,12 @@
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using PlanShift.Common;
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.BusinessServices;
     using PlanShift.Services.Data.GroupServices;
+    using PlanShift.Web.Infrastructure;
+    using PlanShift.Web.SessionExtension;
     using PlanShift.Web.ViewModels.Business;
     using PlanShift.Web.ViewModels.Group;
 
@@ -24,8 +27,9 @@
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> All(string businessId)
+        public async Task<IActionResult> All()
         {
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
             var userId = this.userManager.GetUserId(this.User);
 
             var groups = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupAllViewModel>(businessId, userId);
@@ -38,8 +42,10 @@
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> Create(string businessId)
+        public async Task<IActionResult> Create()
         {
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
+
             var business = await this.businessService.GetBusinessAsync<BusinessInfoViewModel>(businessId);
             var viewModel = new GroupInputModel()
             {
@@ -53,14 +59,17 @@
         [HttpPost]
         public async Task<IActionResult> Create(GroupInputModel inputModel)
         {
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
+
+
             if (!this.ModelState.IsValid)
             {
                 return this.View(inputModel);
             }
 
-            var groupId = await this.groupService.CreateGroupAsync(inputModel.BusinessId, inputModel.Name, inputModel.StandardSalary);
+            var groupId = await this.groupService.CreateGroupAsync(businessId, inputModel.Name, inputModel.StandardSalary);
 
-            return this.RedirectToAction("All", "Business", new { BusinessId = inputModel.BusinessId });
+            return this.RedirectToAction("All", "Business");
         }
     }
 }

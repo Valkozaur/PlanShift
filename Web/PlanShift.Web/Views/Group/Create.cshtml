@@ -19,7 +19,7 @@
                 <input asp-for="StandardSalary" class="form-control" />
                 <span asp-validation-for="StandardSalary" class="text-danger"></span>
             </div>
-            <input type="hidden" asp-for="BusinessId" value="@Model.BusinessId" />
+            <input type="hidden" asp-for="BusinessId" />
             <br />
             <div class="form-group">
                 <input type="submit" value="CreateShiftChangeAsync" class="btn btn-primary" />

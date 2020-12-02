@@ -1,5 +1,6 @@
 ﻿namespace PlanShift.Web
 {
+    using System;
     using System.Reflection;
 
     using Microsoft.AspNetCore.Builder;
@@ -16,8 +17,6 @@
     using PlanShift.Data.Models;
     using PlanShift.Data.Repositories;
     using PlanShift.Data.Seeding;
-    using PlanShift.Data.TableStoredProcedures;
-    using PlanShift.Services.Data;
     using PlanShift.Services.Data.BusinessServices;
     using PlanShift.Services.Data.BusinessTypeServices;
     using PlanShift.Services.Data.EmployeeGroupServices;
@@ -54,6 +53,25 @@
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
 
+            services.AddDistributedSqlServerCache(
+                options =>
+                {
+
+                    options.ConnectionString = this.configuration.GetConnectionString("DefaultConnection");
+
+                    options.SchemaName = "dbo";
+
+                    options.TableName = "ApplicationCache";
+
+                });
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = new TimeSpan(0, 7, 0);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddControllersWithViews(
                 options =>
                     {
@@ -67,7 +85,7 @@
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
-            //services.AddScoped(typeof(ITableStoredProcedureCaller<>), typeof(TableStoredProcedureCallerCaller<>));
+            // services.AddScoped(typeof(ITableStoredProcedureCaller<>), typeof(TableStoredProcedureCallerCaller<>));
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
@@ -110,6 +128,7 @@
             app.UseCookiePolicy();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();

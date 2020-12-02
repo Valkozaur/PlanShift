@@ -1,11 +1,10 @@
-﻿using PlanShift.Data.Models;
-
-namespace PlanShift.Data.TableStoredProcedures
+﻿namespace PlanShift.Data.TableStoredProcedures
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+    using PlanShift.Data.Models;
 
     public class TableStoredProcedureCallerCaller
     {

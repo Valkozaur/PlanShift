@@ -5,5 +5,7 @@
     public class ShiftListViewModel
     {
         public IList<ShiftCalendarViewModel> Shifts { get; set; }
+
+        public int ShiftCount { get; set; }
     }
 }

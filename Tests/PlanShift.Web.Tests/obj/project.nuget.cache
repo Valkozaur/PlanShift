@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wucppy0A8QP80ph11rNeRRgsMnorbHKE6GFJVakz9N2qWlWgBqg49LNkI10baxZ+at8M18Z6tqA429qBtXJbsA==",
+  "dgSpecHash": "CdBl20zYwQ9bkcUvR0kuBpmErZhpdwlhvjmrllKM38W9J7kH9sI7wn+uldDTh/QOLTuCuyZpkkXeuILbIQDw9w==",
   "success": true,
   "projectFilePath": "C:\\Users\\valni\\Desktop\\PlanShift-Repo\\PlanShift\\Tests\\PlanShift.Web.Tests\\PlanShift.Web.Tests.csproj",
   "expectedPackageFiles": [
@@ -38,6 +38,7 @@
     "C:\\Users\\valni\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\5.0.0\\microsoft.entityframeworkcore.sqlserver.5.0.0.nupkg.sha512",
     "C:\\Users\\valni\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\5.0.0\\microsoft.extensions.caching.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\valni\\.nuget\\packages\\microsoft.extensions.caching.memory\\5.0.0\\microsoft.extensions.caching.memory.5.0.0.nupkg.sha512",
+    "C:\\Users\\valni\\.nuget\\packages\\microsoft.extensions.caching.sqlserver\\5.0.0\\microsoft.extensions.caching.sqlserver.5.0.0.nupkg.sha512",
     "C:\\Users\\valni\\.nuget\\packages\\microsoft.extensions.configuration\\5.0.0\\microsoft.extensions.configuration.5.0.0.nupkg.sha512",
     "C:\\Users\\valni\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\5.0.0\\microsoft.extensions.configuration.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\valni\\.nuget\\packages\\microsoft.extensions.configuration.binder\\5.0.0\\microsoft.extensions.configuration.binder.5.0.0.nupkg.sha512",

@@ -1,9 +1,8 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace PlanShift.Services.Data.GroupServices
+﻿namespace PlanShift.Services.Data.GroupServices
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Cryptography.X509Certificates;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;

@@ -6,9 +6,11 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using PlanShift.Common;
     using PlanShift.Services.Data.ShiftApplication;
     using PlanShift.Services.Data.ShiftChangeServices;
     using PlanShift.Services.Data.ShiftServices;
+    using PlanShift.Web.SessionExtension;
     using PlanShift.Web.ViewModels.Enumerations;
     using PlanShift.Web.ViewModels.Shift;
 
@@ -32,8 +34,10 @@
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult> Get(string businessId)
+        public async Task<ActionResult> Get()
         {
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
+
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var upcomingShifts = await this.shiftService.GetUpcomingShiftForUser<ShiftCalendarViewModel>(businessId, userId);
@@ -80,6 +84,7 @@
 
             var jsonObject = new ShiftListViewModel()
             {
+                ShiftCount = shifts.Count,
                 Shifts = shifts.ToArray(),
             };
 

@@ -4,12 +4,15 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using PlanShift.Common;
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Services.Data.ShiftServices;
+    using PlanShift.Web.Infrastructure.Validations.UserValidationAttributes;
     using PlanShift.Web.ViewModels.EmployeeGroup;
     using PlanShift.Web.ViewModels.Group;
     using PlanShift.Web.ViewModels.Shift;
@@ -33,11 +36,21 @@
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> Schedule(string businessId)
+        [SessionValidation(GlobalConstants.BusinessSessionName)]
+        public async Task<IActionResult> Schedule()
         {
+            var businessId = this.HttpContext.Session.GetString(GlobalConstants.BusinessSessionName);
+
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var groups = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupAllViewModel>(businessId, userId, true);
+
+            var groupId = string.Empty;
+            if (this.TempData["GroupId"] != null)
+            {
+                groupId = this.TempData["GroupId"].ToString();
+            }
+
             var viewModel = new CreateShiftInputModel()
             {
                 BusinessId = businessId,
@@ -54,13 +67,10 @@
             var userId = this.userManager.GetUserId(this.User);
             var employeeGroup = await this.employeeGroupService.GetEmployeeGroupById<EmployeeGroupIsManagementInfo>(userId, input.GroupId);
 
-            var groups = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupAllViewModel>(input.BusinessId, userId, true);
-
-            input.Groups = groups;
-            
-
             if (!this.ModelState.IsValid)
             {
+                var groups = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupAllViewModel>(input.BusinessId, userId, true);
+                input.Groups = groups;
                 return this.View(input);
             }
 
@@ -73,9 +83,8 @@
                 return this.RedirectToAction("Index", "Home");
             }
 
-            var groupsBusinessId = await this.groupService.GetGroupsBusinessId(input.GroupId);
-
-            return this.View(input);
+            this.TempData["GroupId"] = input.GroupId;
+            return this.RedirectToAction("Schedule", new { input.BusinessId });
         }
 
         public IActionResult CreateFormViewComponent(string groupId)

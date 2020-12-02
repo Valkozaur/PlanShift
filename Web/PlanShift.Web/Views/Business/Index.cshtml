@@ -14,8 +14,8 @@
         <div class="card" style="width: 18rem;">
             <h5 class="text-center">Pending Actions</h5>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item"><a class="btn btn-outline-info float-right" asp-controller="ShiftChange" asp-action="All" asp-route-businessId="@Model.BusinessId">@Model.ShiftChangesCount Swap requests</a></li>
-                <li class="list-group-item"><a class="btn btn-outline-info float-right" asp-controller="ShiftApplication" asp-action="All" asp-route-businessId="@Model.BusinessId">@Model.ShiftApplicationsCount Shifts requests</a></li>
+                <li class="list-group-item"><a class="btn btn-outline-info float-right" asp-controller="ShiftChange" asp-action="All">@Model.ShiftChangesCount Swap requests</a></li>
+                <li class="list-group-item"><a class="btn btn-outline-info float-right" asp-controller="ShiftApplication" asp-action="All">@Model.ShiftApplicationsCount Shifts requests</a></li>
             </ul>
         </div>
     </div>
