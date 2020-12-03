@@ -10,7 +10,7 @@
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Web.ViewModels.EmployeeGroup;
 
-    public class EmployeeGroupController : Controller
+    public class EmployeeGroupController : BaseController
     {
         private readonly IEmployeeGroupService employeeGroupService;
         private readonly UserManager<PlanShiftUser> userManager;

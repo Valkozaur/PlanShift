@@ -1,4 +1,7 @@
-﻿namespace PlanShift.Web.Controllers
+﻿using PlanShift.Common;
+using PlanShift.Web.Tools.SessionExtension;
+
+namespace PlanShift.Web.Controllers
 {
     using System.Linq;
     using System.Security.Claims;
@@ -17,7 +20,7 @@
     using PlanShift.Web.ViewModels.Group;
     using PlanShift.Web.ViewModels.ShiftApplication;
 
-    public class ShiftApplicationController : Controller
+    public class ShiftApplicationController : BaseController
     {
         private readonly IShiftApplicationService shiftApplicationService;
         private readonly IShiftService shiftService;
@@ -81,9 +84,10 @@
             return this.RedirectToAction(nameof(this.All), new { BusinessId = businessId, activeTabGroupId = shiftApplicationInfo.GroupId });
         }
 
-        public async Task<IActionResult> All(string businessId, string activeTabGroupId)
+        public async Task<IActionResult> All(string activeTabGroupId)
         {
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
 
             var groupsInBusiness = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(businessId, userId, false, PendingActionsType.ShiftApplications);
 
@@ -91,7 +95,6 @@
             {
                 Groups = groupsInBusiness,
                 ActiveTabGroupId = activeTabGroupId ?? groupsInBusiness.FirstOrDefault()?.Id,
-                BusinessId = businessId,
             };
 
             return this.View(viewModel);

@@ -9,7 +9,7 @@
 <ul class="nav nav-tabs">
     @foreach (var group in this.Model.Groups)
     {
-        <li role="presentation" class="nav-link @(Model.ActiveTabGroupId == @group.Id ? "active" : string.Empty)"><a asp-controller="ShiftApplication" asp-action="SwitchToTabs" asp-route-activeTabGroupId="@group.Id" asp-route-businessId="@Model.BusinessId">@group.Name</a></li>
+        <li role="presentation" class="nav-link @(Model.ActiveTabGroupId == @group.Id ? "active" : string.Empty)"><a asp-controller="ShiftApplication" asp-action="SwitchToTabs" asp-route-activeTabGroupId="@group.Id">@group.Name</a></li>
     }
 </ul>
 

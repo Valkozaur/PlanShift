@@ -1,0 +1,33 @@
+﻿@using PlanShift.Web.ViewModels.Business;
+@model BusinessListViewModel
+
+@{ 
+    this.ViewData["Title"] = "Pick business!";
+}
+
+<h1 class="text-center">Your businesses!</h1>
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Business EmployeeName</th>
+                <th scope="col">Business Type</th>
+                <th scope="col">Continue with</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var business in Model.Businesses)
+            {
+                <tr>
+                    <td>@business.Name</td>
+                    <td>@business.BusinessTypeName</td>
+                    <td>
+                        <form method="post" asp-controller="Business" asp-action="Pick" asp-route-businessId="@business.Id">
+                            <button type="submit" class="btn btn-primary btn-sm">Manage</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

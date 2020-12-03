@@ -10,7 +10,7 @@
     using PlanShift.Services.Data.ShiftApplication;
     using PlanShift.Services.Data.ShiftChangeServices;
     using PlanShift.Services.Data.ShiftServices;
-    using PlanShift.Web.SessionExtension;
+    using PlanShift.Web.Tools.SessionExtension;
     using PlanShift.Web.ViewModels.Enumerations;
     using PlanShift.Web.ViewModels.Shift;
 

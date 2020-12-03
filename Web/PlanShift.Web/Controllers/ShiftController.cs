@@ -17,7 +17,7 @@
     using PlanShift.Web.ViewModels.Group;
     using PlanShift.Web.ViewModels.Shift;
 
-    public class ShiftController : Controller
+    public class ShiftController : BaseController
     {
         private readonly IShiftService shiftService;
         private readonly IEmployeeGroupService employeeGroupService;

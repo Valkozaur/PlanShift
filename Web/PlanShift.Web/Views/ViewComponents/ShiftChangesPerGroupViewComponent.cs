@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
     using PlanShift.Common;
     using PlanShift.Services.Data.ShiftChangeServices;
-    using PlanShift.Web.SessionExtension;
+    using PlanShift.Web.Tools.SessionExtension;
     using PlanShift.Web.ViewModels.ShiftChange;
 
     public class ShiftChangesPerGroupViewComponent : ViewComponent

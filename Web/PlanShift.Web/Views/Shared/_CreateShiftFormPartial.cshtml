@@ -1,0 +1,34 @@
+﻿@using PlanShift.Web.ViewModels.Shift;
+@model CreateShiftInputModel
+
+<form id="createShiftForm" method="post" asp-controller="Shift" asp-action="Schedule">
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Start" class="control-label">Start of the shift</label>
+            <input asp-for="Start" value="@DateTime.Today.ToString("s")" class="form-control">
+            <span asp-validation-for="Start" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="End" class="control-label">End of the shift</label>
+            <input asp-for="End" value="@DateTime.Today.ToString("s")" class="form-control">
+            <span asp-validation-for="End" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="BonusPayment" class="control-label">Bonus Salary</label>
+            <input asp-for="BonusPayment" class="form-control">
+            <span asp-validation-for="BonusPayment" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="Description" class="control-label">Shift Description</label>
+            <input asp-for="Description" class="form-control">
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+    <input type="hidden" id="GroupId" name="GroupId" value="empty">
+    <input type="hidden" name="BusinessId" value="@Model.BusinessId">
+    <div class="form-group">
+        <input type="submit" value="Create Shift" class="btn btn-primary" />
+    </div>
+</form>

@@ -11,14 +11,13 @@
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Services.Data.ShiftChangeServices;
     using PlanShift.Services.Data.ShiftServices;
-    using PlanShift.Web.Infrastructure;
-    using PlanShift.Web.SessionExtension;
+    using PlanShift.Web.Tools.SessionExtension;
     using PlanShift.Web.ViewModels.EmployeeGroup;
     using PlanShift.Web.ViewModels.Group;
     using PlanShift.Web.ViewModels.Shift;
     using PlanShift.Web.ViewModels.ShiftChange;
 
-    public class ShiftChangeController : Controller
+    public class ShiftChangeController : BaseController
     {
         private readonly IShiftChangeService shiftChangeService;
         private readonly IShiftService shiftService;
@@ -82,7 +81,6 @@
              {
                  Groups = groupsInBusiness,
                  ActiveTabGroupId = activeTabGroupId ?? groupsInBusiness.FirstOrDefault()?.Id,
-                 BusinessId = businessId,
              };
 
             return this.View(viewModel);

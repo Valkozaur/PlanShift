@@ -13,7 +13,7 @@
     using PlanShift.Services.Data.ShiftApplication;
     using PlanShift.Services.Data.ShiftChangeServices;
     using PlanShift.Web.Infrastructure.Validations.UserValidationAttributes;
-    using PlanShift.Web.SessionExtension;
+    using PlanShift.Web.Tools.SessionExtension;
     using PlanShift.Web.ViewModels.Business;
 
     public class BusinessController : BaseController

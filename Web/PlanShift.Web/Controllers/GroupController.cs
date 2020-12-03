@@ -8,12 +8,11 @@
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.BusinessServices;
     using PlanShift.Services.Data.GroupServices;
-    using PlanShift.Web.Infrastructure;
-    using PlanShift.Web.SessionExtension;
+    using PlanShift.Web.Tools.SessionExtension;
     using PlanShift.Web.ViewModels.Business;
     using PlanShift.Web.ViewModels.Group;
 
-    public class GroupController : Controller
+    public class GroupController : BaseController
     {
         private readonly IGroupService groupService;
         private readonly IBusinessService businessService;
@@ -36,7 +35,6 @@
             var viewModel = new GroupListViewModel<GroupAllViewModel>()
             {
                 Groups = groups,
-                BusinessId = businessId,
             };
 
             return this.View(viewModel);

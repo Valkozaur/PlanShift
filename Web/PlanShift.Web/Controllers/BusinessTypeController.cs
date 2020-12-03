@@ -7,7 +7,7 @@
     using PlanShift.Services.Data.BusinessTypeServices;
     using PlanShift.Web.ViewModels.BusinessType;
 
-    public class BusinessTypeController : Controller
+    public class BusinessTypeController : BaseController
     {
         private readonly IBusinessTypeService businessTypeService;
 
