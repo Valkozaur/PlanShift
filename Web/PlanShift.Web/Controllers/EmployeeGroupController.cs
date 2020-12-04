@@ -15,7 +15,7 @@
         private readonly UserManager<PlanShiftUser> userManager;
 
         public EmployeeGroupController(
-            IEmployeeGroupService employeeGroupService, 
+            IEmployeeGroupService employeeGroupService,
             UserManager<PlanShiftUser> userManager)
         {
             this.employeeGroupService = employeeGroupService;
@@ -55,8 +55,8 @@
 
             if (userToAdd == null)
             {
-                this.TempData["No Such Employee"] = "User with this email does not exists.";
-                return this.RedirectToAction("Index", "InviteUser", input);
+                this.ModelState.AddModelError("NoSuchUser", "User with this email does not exists.");
+                return this.View(input);
             }
 
             var isEmployeeInTheGroupAlready = await this.employeeGroupService.IsEmployeeInGroup(userToAdd.Id, input.GroupId);

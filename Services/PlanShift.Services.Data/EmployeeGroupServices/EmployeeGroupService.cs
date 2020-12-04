@@ -71,7 +71,7 @@
 
         public async Task<string> GetEmployeeId(string userId, string groupId) =>
             await this.employeeGroupRepository
-                .AllAsNoTrackingWithDeleted()
+                .AllAsNoTracking()
                 .Where(x => x.UserId == userId && x.GroupId == groupId)
                 .Select(x => x.Id)
                 .FirstOrDefaultAsync();

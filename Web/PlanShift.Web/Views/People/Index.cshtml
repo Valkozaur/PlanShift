@@ -7,8 +7,8 @@
 
 <div class="container">
     <div class="row">
-        <a class="btn btn-success" asp-controller="EmployeeGroup" asp-action="AddEmployeeToGroup">Add Existing Employee</a>
-        <a class="btn btn-primary" asp-controller="EmployeeGroup" asp-action="AddEmployeeToGroup">Add New Employee</a>
+        <a class="btn btn-success" asp-controller="EmployeeGroup" asp-action="AddEmployeeToGroup" asp-route-groupId="@Model.ActiveTabGroupId">Add Existing Employee</a>
+        <a class="btn btn-primary" asp-controller="EmployeeGroup" asp-action="AddEmployeeToGroup" asp-route-groupId="@Model.ActiveTabGroupId">Add New Employee</a>
     </div>
 
     <div class="row">
