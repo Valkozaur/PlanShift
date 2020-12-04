@@ -30,7 +30,6 @@ using PlanShift.Web.ViewModels;
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"dcb4b5e26a5386507a874264fc78bac08f1ee6e8", @"/_ViewImports.cshtml")]
     public class Views_ShiftChange_ApplyForShiftChange : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<string>
     {
-        private global::AspNetCore.Views_ShiftChange_ApplyForShiftChange.__Generated__ShiftViewComponentTagHelper __ShiftViewComponentTagHelper;
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("text-danger text-center"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_1 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-controller", "ShiftChange", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_2 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "ApplyForShiftChange", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -61,30 +60,17 @@ using PlanShift.Web.ViewModels;
         #pragma warning disable 1998
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("vc:shift", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5f6affce40c3f2268d41141b6fc21e5b812b2e0d4890", async() => {
-            }
-            );
-            __ShiftViewComponentTagHelper = CreateTagHelper<global::AspNetCore.Views_ShiftChange_ApplyForShiftChange.__Generated__ShiftViewComponentTagHelper>();
-            __tagHelperExecutionContext.Add(__ShiftViewComponentTagHelper);
-            BeginWriteTagHelperAttribute();
+            WriteLiteral("<vc:shift");
+            BeginWriteAttribute("shift-id", " shift-id=\"", 25, "\"", 47, 1);
 #nullable restore
 #line 2 "C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\Views\ShiftChange\ApplyForShiftChange.cshtml"
-        WriteLiteral(this.Model);
+WriteAttributeValue("", 36, this.Model, 36, 11, false);
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperStringValueBuffer = EndWriteTagHelperAttribute();
-            __ShiftViewComponentTagHelper.shiftId = __tagHelperStringValueBuffer;
-            __tagHelperExecutionContext.AddTagHelperAttribute("shift-id", __ShiftViewComponentTagHelper.shiftId, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-            await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
-            if (!__tagHelperExecutionContext.Output.IsContentModified)
-            {
-                await __tagHelperExecutionContext.SetOutputContentAsync();
-            }
-            Write(__tagHelperExecutionContext.Output);
-            __tagHelperExecutionContext = __tagHelperScopeManager.End();
-            WriteLiteral("\r\n\r\n<br /> \r\n");
+            EndWriteAttribute();
+            WriteLiteral("></vc:shift>\r\n\r\n<br /> \r\n");
 #nullable restore
 #line 5 "C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\Views\ShiftChange\ApplyForShiftChange.cshtml"
  if (!ViewData.ModelState.IsValid)
@@ -94,7 +80,7 @@ using PlanShift.Web.ViewModels;
 #line hidden
 #nullable disable
             WriteLiteral("    <div class=\"alert alert-danger text-center\">\r\n        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("div", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5f6affce40c3f2268d41141b6fc21e5b812b2e0d6764", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("div", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5f6affce40c3f2268d41141b6fc21e5b812b2e0d5530", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationSummaryTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.ValidationSummaryTagHelper>();
@@ -124,7 +110,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationSummaryTagHelper.ValidationSumma
 #line hidden
 #nullable disable
             WriteLiteral("\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5f6affce40c3f2268d41141b6fc21e5b812b2e0d8639", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5f6affce40c3f2268d41141b6fc21e5b812b2e0d7405", async() => {
                 WriteLiteral("\r\n    <!-- Input and Submit elements -->\r\n    <input type=\"hidden\" id=\"shiftId\" name=\"shiftId\"");
                 BeginWriteAttribute("value", " value=\"", 437, "\"", 456, 1);
 #nullable restore
@@ -168,25 +154,6 @@ WriteAttributeValue("", 445, this.Model, 445, 11, false);
         public global::Microsoft.AspNetCore.Mvc.Rendering.IJsonHelper Json { get; private set; }
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
         public global::Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper<string> Html { get; private set; }
-        [Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute("vc:shift")]
-        public class __Generated__ShiftViewComponentTagHelper : Microsoft.AspNetCore.Razor.TagHelpers.TagHelper
-        {
-            private readonly global::Microsoft.AspNetCore.Mvc.IViewComponentHelper __helper = null;
-            public __Generated__ShiftViewComponentTagHelper(global::Microsoft.AspNetCore.Mvc.IViewComponentHelper helper)
-            {
-                __helper = helper;
-            }
-            [Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeNotBoundAttribute, global::Microsoft.AspNetCore.Mvc.ViewFeatures.ViewContextAttribute]
-            public global::Microsoft.AspNetCore.Mvc.Rendering.ViewContext ViewContext { get; set; }
-            public System.String shiftId { get; set; }
-            public override async global::System.Threading.Tasks.Task ProcessAsync(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext __context, Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput __output)
-            {
-                (__helper as global::Microsoft.AspNetCore.Mvc.ViewFeatures.IViewContextAware)?.Contextualize(ViewContext);
-                var __helperContent = await __helper.InvokeAsync("Shift", new { shiftId });
-                __output.TagName = null;
-                __output.Content.SetHtmlContent(__helperContent);
-            }
-        }
     }
 }
 #pragma warning restore 1591

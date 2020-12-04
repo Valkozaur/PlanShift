@@ -19,7 +19,7 @@
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "EmployeeId",
+                name: "UserId",
                 table: "ShiftApplications",
                 nullable: true,
                 oldClrType: typeof(string),
@@ -62,7 +62,7 @@
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "EmployeeId",
+                name: "UserId",
                 table: "ShiftApplications",
                 type: "nvarchar(450)",
                 nullable: false,
@@ -79,7 +79,7 @@
             migrationBuilder.AddPrimaryKey(
                 name: "PK_ShiftApplications",
                 table: "ShiftApplications",
-                columns: new[] { "ShiftId", "EmployeeId" });
+                columns: new[] { "ShiftId", "UserId" });
         }
     }
 }

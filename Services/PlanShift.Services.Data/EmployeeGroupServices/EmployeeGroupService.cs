@@ -19,11 +19,11 @@
             this.employeeGroupRepository = employeeGroupRepository;
         }
 
-        public async Task<string> AddEmployeeToGroupAsync(string employeeId, string groupId, decimal salary, string position, bool isManagement = false)
+        public async Task<string> AddEmployeeToGroupAsync(string userId, string groupId, decimal salary, string position, bool isManagement = false)
         {
             var employeeGroup = new EmployeeGroup()
             {
-                EmployeeId = employeeId,
+                UserId = userId,
                 GroupId = groupId,
                 Salary = salary,
                 Position = position,
@@ -50,27 +50,29 @@
             return employees;
         }
 
-        public Task<T> GetEmployeeGroupById<T>(string employeeId, string groupId)
+        public Task<T> GetEmployeeGroupById<T>(string employeeId, string userId)
             => this.employeeGroupRepository
                 .AllAsNoTracking()
-                .Where(x => x.EmployeeId == employeeId && x.GroupId == groupId)
+                .Where(x => x.UserId == employeeId && x.GroupId == userId)
                 .To<T>()
                 .FirstOrDefaultAsync();
 
-        public async Task<bool> IsEmployeeManagerInGroup(string employeeId, string groupId)
+        public Task<bool> IsEmployeeInGroup(string userId, string groupId) => this.employeeGroupRepository.All().AnyAsync(x => x.UserId == userId);
+
+        public async Task<bool> IsEmployeeManagerInGroup(string userId, string groupId)
         {
             return await this.employeeGroupRepository
                 .AllAsNoTracking()
                 .AnyAsync(x
-                    => x.EmployeeId == employeeId
+                    => x.UserId == userId
                     && x.GroupId == groupId
                     && x.IsManagement);
         }
 
-        public async Task<string> GetEmployeeId(string employeeId, string groupId) =>
+        public async Task<string> GetEmployeeId(string userId, string groupId) =>
             await this.employeeGroupRepository
                 .AllAsNoTrackingWithDeleted()
-                .Where(x => x.EmployeeId == employeeId && x.GroupId == groupId)
+                .Where(x => x.UserId == userId && x.GroupId == groupId)
                 .Select(x => x.Id)
                 .FirstOrDefaultAsync();
     }

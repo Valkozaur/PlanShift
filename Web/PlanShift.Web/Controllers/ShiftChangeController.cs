@@ -57,7 +57,7 @@
 
             if (employeeGroupId == shiftInformation.OriginalEmployeeId)
             {
-                this.ModelState.AddModelError("Employee", "You can't apply for a shift that is already yours!");
+                this.ModelState.AddModelError("User", "You can't apply for a shift that is already yours!");
             }
 
             if (!this.ModelState.IsValid)

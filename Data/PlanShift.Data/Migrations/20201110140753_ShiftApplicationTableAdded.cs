@@ -36,7 +36,7 @@
             migrationBuilder.CreateIndex(
                 name: "IX_ShiftApplications_EmployeeId",
                 table: "ShiftApplications",
-                column: "EmployeeId");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

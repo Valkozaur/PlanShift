@@ -39,7 +39,7 @@
                     s => s.MapFrom(x => x.ShiftStatus.ToString()))
                 .ForMember(
                     m => m.EmployeeName,
-                    s => s.MapFrom(x => x.Employee.Employee.UserName));
+                    s => s.MapFrom(x => x.Employee.User.UserName));
         }
     }
 }

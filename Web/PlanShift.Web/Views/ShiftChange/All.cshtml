@@ -5,6 +5,7 @@
     this.ViewData["Title"] = "Change requests";
 }
 
+
 <h2>Shift Changes by group</h2>
 <ul class="nav nav-tabs">
     @foreach (var group in this.Model.Groups)
@@ -13,5 +14,5 @@
     }
 </ul>
 
-<vc:shift-changes-per-group group-id="@Model.ActiveTabGroupId"></vc:shift-changes-per-group>
+<vc:-changes-per-group group-id="@Model.ActiveTabGroupId"></vc:-changes-per-group>
 

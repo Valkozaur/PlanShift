@@ -22,7 +22,7 @@
             configuration.CreateMap<EmployeeGroup, EmployeeGroupInfoViewModel>()
                 .ForMember(
                     m => m.Username,
-                    eg => eg.MapFrom(x => x.Employee.UserName))
+                    eg => eg.MapFrom(x => x.User.UserName))
                 .ForMember(
                     m => m.TotalTakenShifts,
                     eg => eg.MapFrom(x => x.Shifts.Count))

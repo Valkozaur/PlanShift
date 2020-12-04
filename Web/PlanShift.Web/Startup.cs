@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Web
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace PlanShift.Web
 {
     using System;
     using System.Reflection;
@@ -67,9 +69,17 @@
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = new TimeSpan(0, 7, 0);
+                options.IdleTimeout = TimeSpan.FromMinutes(7);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
+            });
+
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Default Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(7);
+                options.User.RequireUniqueEmail = true;
             });
 
             services.AddControllersWithViews(

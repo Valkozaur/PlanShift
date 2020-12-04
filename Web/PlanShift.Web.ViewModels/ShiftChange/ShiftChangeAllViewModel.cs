@@ -17,8 +17,8 @@
 
         public string ShiftDescription { get; set; }
 
-        public string OriginalEmployeeEmployeeUsername { get; set; }
+        public string OriginalEmployeeUserUsername { get; set; }
 
-        public string PendingEmployeeEmployeeUsername { get; set; }
+        public string PendingEmployeeUserUsername { get; set; }
     }
 }

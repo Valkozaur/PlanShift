@@ -1,5 +1,6 @@
 ﻿namespace PlanShift.Web.Controllers
 {
+    using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -20,7 +21,7 @@
         }
 
         [SessionValidation(GlobalConstants.BusinessSessionName)]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string activeTabGroupId)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
@@ -30,9 +31,15 @@
             var viewModel = new GroupListViewModel<GroupPeopleCountViewModel>()
             {
                 Groups = groups,
+                ActiveTabGroupId = activeTabGroupId ?? groups.FirstOrDefault()?.Id,
             };
 
             return this.View(viewModel);
+        }
+
+        public IActionResult SwitchToTabs(string activeTabGroupId)
+        {
+            return this.RedirectToAction(nameof(this.Index), new { ActiveTabGroupId = activeTabGroupId });
         }
     }
 }

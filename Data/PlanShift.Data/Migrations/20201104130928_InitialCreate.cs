@@ -419,7 +419,7 @@
             migrationBuilder.CreateIndex(
                 name: "IX_EmployeeGroups_EmployeeId",
                 table: "EmployeeGroups",
-                column: "EmployeeId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmployeeGroups_GroupId",
@@ -469,7 +469,7 @@
             migrationBuilder.CreateIndex(
                 name: "IX_Shifts_EmployeeId",
                 table: "Shifts",
-                column: "EmployeeId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Shifts_GroupId",

@@ -15,7 +15,7 @@
         //        .ForMember(
         //            m => m.EmployeeName,
         //            sa 
-        //                => sa.MapFrom(x => x.Employee.Employee.UserName));
+        //                => sa.MapFrom(x => x.User.User.UserName));
         //}
     }
 }

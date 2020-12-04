@@ -15,7 +15,7 @@
         internal const string GroupCreatedSuccessfully = "{0} group for {1} was created successfully!";
         internal const string GroupWasUpdatedSuccessfully = "Group {0} was updated successfully!";
         internal const string GroupWasDeletedSuccessfully = "Group {0} was deleted successfully!";
-        internal const string EmployeeWasAddedSuccessfully = "Employee {0} was added successfully in group:{1} at position{2}";
+        internal const string EmployeeWasAddedSuccessfully = "User {0} was added successfully in group:{1} at position{2}";
 
         // ShiftService
         internal const string ShiftCreatedSuccessfully = "New Shift for group: {0} was created!";

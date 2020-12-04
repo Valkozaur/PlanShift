@@ -1,0 +1,20 @@
+﻿@using PlanShift.Web.ViewModels.People;
+@model EmployeeListViewModel<EmployeeViewModel>;
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Email</th>
+        <th scope="col hidden">IsManagement</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model.Employees)
+        {
+            <tr>
+                <td>@employee.UserUsername</td>
+                <td>@(employee.IsManagement ? "✓" : "")</td>
+            </tr>
+        }
+    </tbody>
+</table>

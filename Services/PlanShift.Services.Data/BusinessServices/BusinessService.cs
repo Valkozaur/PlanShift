@@ -53,7 +53,7 @@
         {
             var query = this.businessRepository
                 .AllAsNoTracking()
-                .Where(x => x.OwnerId == userId || x.Groups.Any(g => g.Employees.Any(e => e.EmployeeId == userId)));
+                .Where(x => x.OwnerId == userId || x.Groups.Any(g => g.Employees.Any(e => e.UserId == userId)));
 
             if (count != 0)
             {

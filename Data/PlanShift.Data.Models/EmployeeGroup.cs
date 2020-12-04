@@ -1,4 +1,7 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
+
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace PlanShift.Data.Models
 {
     using System;
@@ -21,9 +24,10 @@ namespace PlanShift.Data.Models
         }
 
         [Required]
-        public string EmployeeId { get; set; }
+        [Column("EmployeeId")]
+        public string UserId { get; set; }
 
-        public virtual PlanShiftUser Employee { get; set; }
+        public virtual PlanShiftUser User { get; set; }
 
         [Required]
         public string GroupId { get; set; }

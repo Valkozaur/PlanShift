@@ -7,7 +7,7 @@
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "EmployeeId",
+                name: "UserId",
                 table: "Shifts",
                 nullable: true,
                 oldClrType: typeof(string),
@@ -17,7 +17,7 @@
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "EmployeeId",
+                name: "UserId",
                 table: "Shifts",
                 type: "nvarchar(450)",
                 nullable: false,

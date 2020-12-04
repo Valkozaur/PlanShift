@@ -16,7 +16,7 @@
                 <th scope="col">Start</th>
                 <th scope="col">End</th>
                 <th scope="col">Status</th>
-                <th scope="col">Employee</th>
+                <th scope="col">User</th>
                 <th scope="col">Description</th>
                 <th scope="col">Apply</th>
                 <th scope="col">Change Shift</th>
@@ -30,7 +30,7 @@
                 <td>@shift.Start</td>
                 <td>@shift.End</td>
                 <td>@shift.Status</td>
-                <td>@shift.EmployeeName</td>
+                <td>@shift.UserName</td>
                 <td>@shift.Id</td>
                 <td>
                     <a asp-controller="ShiftApplication" asp-action="Apply" asp-route-shiftId="@shift.Id">

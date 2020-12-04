@@ -21,8 +21,8 @@
 
         // ShiftService
         internal const string ShiftCannotBeNull = "Shift can't be null!";
-        internal const string NoSuchEmployeeParticipatesInTheGroup = "Employee: {0} was not found in group: {1}";
-        internal const string IsNotManagement = "Employee: {0} does not have permission to finish the transaction.";
+        internal const string NoSuchEmployeeParticipatesInTheGroup = "User: {0} was not found in group: {1}";
+        internal const string IsNotManagement = "User: {0} does not have permission to finish the transaction.";
 
         // ChangeShiftService
         internal const string OnlyOriginalEmployeeCanChangeShift = "Only original employee can change shift.";

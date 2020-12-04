@@ -1,11 +1,10 @@
 ﻿namespace PlanShift.Web.Controllers
 {
-    using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Web.ViewModels.EmployeeGroup;
@@ -15,7 +14,9 @@
         private readonly IEmployeeGroupService employeeGroupService;
         private readonly UserManager<PlanShiftUser> userManager;
 
-        public EmployeeGroupController(IEmployeeGroupService employeeGroupService, UserManager<PlanShiftUser> userManager)
+        public EmployeeGroupController(
+            IEmployeeGroupService employeeGroupService, 
+            UserManager<PlanShiftUser> userManager)
         {
             this.employeeGroupService = employeeGroupService;
             this.userManager = userManager;
@@ -34,50 +35,39 @@
         [HttpPost]
         public async Task<IActionResult> AddEmployeeToGroup(EmployeeToGroupInvitationInputModel input)
         {
+
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
 
-            var user = await this.userManager.Users.Where(x => x.UserName == input.Username).FirstOrDefaultAsync();
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            var isUserAdministrator = await this.userManager.IsInRoleAsync(await this.userManager.GetUserAsync(this.User), "Administrator");
+            var isUserManager = await this.employeeGroupService.IsEmployeeManagerInGroup(userId, input.GroupId);
 
-            var employeGroupId = string.Empty;
-
-            if (isUserAdministrator)
+            if (!isUserManager)
             {
-                employeGroupId = await this.employeeGroupService.AddEmployeeToGroupAsync(user.Id, input.GroupId, input.Salary, input.Position, input.IsManagement);
-            }
-            else
-            {
-                employeGroupId = await this.employeeGroupService.AddEmployeeToGroupAsync(user.Id, input.GroupId, input.Salary, input.Position);
+                this.ModelState.AddModelError("NotPermitted", "You should be manager to finish this action!");
+                return this.View();
             }
 
-            return this.RedirectToAction(nameof(this.GroupEmployees), new { input.GroupId });
-        }
+            var userToAdd = await this.userManager.FindByEmailAsync(input.Email);
 
-        // TODO: Group Authentication if you can see this info
-        public async Task<IActionResult> GroupManagement(string groupId)
-        {
-            var management = await this.employeeGroupService.GetAllEmployeesFromGroup<ManagementViewModel>(groupId, true);
-            var viewModel = new ManagementListViewModel()
+            if (userToAdd == null)
             {
-                Managers = management,
-            };
+                this.TempData["No Such Employee"] = "User with this email does not exists.";
+                return this.RedirectToAction("Index", "InviteUser", input);
+            }
 
-            return this.View(viewModel);
-        }
+            var isEmployeeInTheGroupAlready = await this.employeeGroupService.IsEmployeeInGroup(userToAdd.Id, input.GroupId);
 
-        public async Task<IActionResult> GroupEmployees(string groupId)
-        {
-            var employees = await this.employeeGroupService.GetAllEmployeesFromGroup<EmployeeGroupInfoViewModel>(groupId);
-            var viewModel = new EmployeeGroupAllListViewModel()
+            if (isEmployeeInTheGroupAlready)
             {
-                Employees = employees,
-            };
+                this.ModelState.AddModelError("EmployeeIsInGroupAlready", $"The employee with email:{input.Email} is already in the group!");
+                return this.View();
+            }
 
-            return this.View(viewModel);
+            return this.RedirectToAction("Index", "People", new { ActiveTabGroupId = input.GroupId });
         }
     }
 }

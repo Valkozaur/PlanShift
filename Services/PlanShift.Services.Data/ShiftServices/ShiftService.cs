@@ -108,7 +108,7 @@
             => await this.shiftRepository
                    .AllAsNoTracking()
                    .Where(s => s.Group.BusinessId == businessId
-                               && s.Employee.EmployeeId == userId
+                               && s.Employee.UserId == userId
                                && s.ShiftStatus == ShiftStatus.Approved)
                    .To<T>()
                    .ToArrayAsync();
@@ -117,7 +117,7 @@
             => await this.shiftRepository
                 .AllAsNoTracking()
                 .Where(s => s.Group.BusinessId == businessId
-                            && s.Group.Employees.Any(e => e.EmployeeId == userId)
+                            && s.Group.Employees.Any(e => e.UserId == userId)
                             && s.ShiftStatus == ShiftStatus.New)
                 //TODO: Add achievement check here
                 .To<T>()
@@ -128,7 +128,7 @@
                 .AllAsNoTracking()
                 .Where(s => s.Group.BusinessId == businessId
                             && s.ShiftStatus == ShiftStatus.Pending
-                            && s.ShiftChanges.Any(sc => sc.OriginalEmployee.EmployeeId == userId))
+                            && s.ShiftChanges.Any(sc => sc.OriginalEmployee.UserId == userId))
                 .To<T>()
                 .ToArrayAsync();
     }

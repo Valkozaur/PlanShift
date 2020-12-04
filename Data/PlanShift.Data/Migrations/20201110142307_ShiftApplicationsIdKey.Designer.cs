@@ -243,7 +243,7 @@ namespace PlanShift.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EmployeeId")
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -270,7 +270,7 @@ namespace PlanShift.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasIndex("UserId");
 
                     b.HasIndex("GroupId");
 
@@ -418,7 +418,7 @@ namespace PlanShift.Data.Migrations
                         .HasColumnType("nvarchar(300)")
                         .HasMaxLength(300);
 
-                    b.Property<string>("EmployeeId")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("End")
@@ -449,7 +449,7 @@ namespace PlanShift.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasIndex("UserId");
 
                     b.HasIndex("GroupId");
 
@@ -470,7 +470,7 @@ namespace PlanShift.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EmployeeId")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ModifiedOn")
@@ -481,7 +481,7 @@ namespace PlanShift.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasIndex("UserId");
 
                     b.HasIndex("ShiftId");
 
@@ -606,9 +606,9 @@ namespace PlanShift.Data.Migrations
 
             modelBuilder.Entity("PlanShift.Data.Models.EmployeeGroup", b =>
                 {
-                    b.HasOne("PlanShift.Data.Models.PlanShiftUser", "Employee")
+                    b.HasOne("PlanShift.Data.Models.PlanShiftUser", "User")
                         .WithMany()
-                        .HasForeignKey("EmployeeId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -630,9 +630,9 @@ namespace PlanShift.Data.Migrations
 
             modelBuilder.Entity("PlanShift.Data.Models.Shift", b =>
                 {
-                    b.HasOne("PlanShift.Data.Models.EmployeeGroup", "Employee")
+                    b.HasOne("PlanShift.Data.Models.EmployeeGroup", "User")
                         .WithMany("Shifts")
-                        .HasForeignKey("EmployeeId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("PlanShift.Data.Models.Group", "Group")
@@ -654,9 +654,9 @@ namespace PlanShift.Data.Migrations
 
             modelBuilder.Entity("PlanShift.Data.Models.ShiftApplication", b =>
                 {
-                    b.HasOne("PlanShift.Data.Models.EmployeeGroup", "Employee")
+                    b.HasOne("PlanShift.Data.Models.EmployeeGroup", "User")
                         .WithMany()
-                        .HasForeignKey("EmployeeId");
+                        .HasForeignKey("UserId");
 
                     b.HasOne("PlanShift.Data.Models.Shift", "Shift")
                         .WithMany()

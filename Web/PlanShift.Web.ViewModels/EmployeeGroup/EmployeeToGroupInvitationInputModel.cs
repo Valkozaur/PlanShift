@@ -10,7 +10,7 @@
         [MinLength(3)]
         [MaxLength(60)]
         [UsernameExists]
-        public string Username { get; set; }
+        public string Email { get; set; }
 
         public string GroupId { get; set; }
 

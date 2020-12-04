@@ -85,11 +85,11 @@
         {
             var query = this.groupRepository
                 .AllAsNoTracking()
-                .Where(x => x.BusinessId == businessId && x.Employees.Any(e => e.EmployeeId == userId));
+                .Where(x => x.BusinessId == businessId && x.Employees.Any(e => e.UserId == userId));
 
             if (isManager)
             {
-                query = query.Where(x => x.Employees.Any(e => e.EmployeeId == userId && e.IsManagement));
+                query = query.Where(x => x.Employees.Any(e => e.UserId == userId && e.IsManagement));
             }
 
             if (pendingAction == PendingActionsType.ShiftApplications)
