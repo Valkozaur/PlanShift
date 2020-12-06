@@ -32,10 +32,20 @@
                     <div class="modal-body">
                         <p>@modelState.Errors[0].ErrorMessage</p>
                         <p>Do you want to invite the user to your group?</p>
+                        @if (this.User.IsInRole("Administrator"))
+                        {
+                            <p>You will have to make this employee manager manually!</p>
+                        }
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-                        <a class="btn btn-success" asp-controller="InviteUser" asp-action="Index" asp-route-email="@Model.Email" asp-route-groupId="@Model.GroupId">Invite Employee</a>
+                        <form method="post" asp-controller="InviteUser" asp-action="InviteUserToGroup">
+                            <input type="hidden" name="email" value="@Model.Email"/>
+                            <input type="hidden" name="salary" value="@Model.Salary"/>
+                            <input type="hidden" name="position" value="@Model.Position"/>
+                            <input type="hidden" name="groupId" value="@Model.GroupId"/>
+                            <button class="btn btn-success" >Invite Employee</button>
+                        </form>
                     </div>
                 </div>
             </div>

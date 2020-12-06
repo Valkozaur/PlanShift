@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using PlanShift.Services.Data.InvitationVerificationServices;
 
 namespace PlanShift.Web
 {
@@ -98,7 +99,7 @@ namespace PlanShift.Web
             // services.AddScoped(typeof(ITableStoredProcedureCaller<>), typeof(TableStoredProcedureCallerCaller<>));
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
             services.AddTransient<IBusinessService, BusinessService>();
             services.AddTransient<IBusinessTypeService, BusinessTypeService>();
             services.AddTransient<IGroupService, GroupService>();
@@ -106,7 +107,7 @@ namespace PlanShift.Web
             services.AddTransient<IShiftChangeService, ShiftChangeService>();
             services.AddTransient<IEmployeeGroupService, EmployeeGroupService>();
             services.AddTransient<IShiftApplicationService, ShiftApplicationService>();
-            services.AddTransient<Services.Data.TableStoredProcedureCallerCaller, Services.Data.TableStoredProcedureCallerCaller>();
+            services.AddTransient<IInviteEmployeeVerificationsService, InviteEmployeeVerificationsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

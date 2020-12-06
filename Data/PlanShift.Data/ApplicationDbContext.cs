@@ -39,6 +39,8 @@
 
         public DbSet<ShiftCalendar> ShiftsCalendar { get; set; }
 
+        public DbSet<InviteEmployeeVerifications> InviteEmployeeVerifications { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

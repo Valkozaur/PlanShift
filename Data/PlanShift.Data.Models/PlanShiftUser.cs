@@ -37,5 +37,7 @@ namespace PlanShift.Data.Models
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
         public virtual ICollection<Business> Businesses { get; set; }
+
+        public virtual ICollection<EmployeeGroup> Groups { get; set; }
     }
 }
