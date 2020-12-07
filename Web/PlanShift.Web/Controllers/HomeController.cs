@@ -9,7 +9,6 @@
 
     public class HomeController : BaseController
     {
-        [SessionValidation(GlobalConstants.BusinessSessionName)]
         public IActionResult Index()
         {
             // TODO: Get the business page here;

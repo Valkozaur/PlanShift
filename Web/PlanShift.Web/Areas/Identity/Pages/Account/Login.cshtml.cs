@@ -1,4 +1,4 @@
-﻿namespace PlanShift.Web.Areas.Identity.Account
+﻿namespace PlanShift.Web.Areas.Identity.Pages.Account
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -21,7 +21,7 @@
         private readonly ILogger<LoginModel> logger;
 
         public LoginModel(
-            SignInManager<PlanShiftUser> signInManager, 
+            SignInManager<PlanShiftUser> signInManager,
             ILogger<LoginModel> logger,
             UserManager<PlanShiftUser> userManager)
         {
@@ -81,12 +81,13 @@
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await this.signInManager.PasswordSignInAsync(this.Input.Email, this.Input.Password, this.Input.RememberMe, lockoutOnFailure: false);
+                var user = await this.userManager.FindByEmailAsync(this.Input.Email);
+
+                var result = await this.signInManager.PasswordSignInAsync(user, this.Input.Password, this.Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("User logged in.");
-
-                    return this.RedirectToAction("Pick", "Business");
+                    return this.RedirectToAction("Pick", "Business", new { area = string.Empty });
                 }
                 if (result.RequiresTwoFactor)
                 {

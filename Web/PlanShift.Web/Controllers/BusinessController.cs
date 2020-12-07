@@ -88,7 +88,7 @@
                 await this.HttpContext.Session.SetStringAsync(GlobalConstants.BusinessSessionName, businessId);
             }
 
-            return this.RedirectToAction(nameof(Index));
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         [Authorize]

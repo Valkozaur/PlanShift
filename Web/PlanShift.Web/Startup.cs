@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using PlanShift.Services.Data.InvitationVerificationServices;
-
-namespace PlanShift.Web
+﻿namespace PlanShift.Web
 {
     using System;
     using System.Reflection;
@@ -9,6 +6,7 @@ namespace PlanShift.Web
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -24,6 +22,7 @@ namespace PlanShift.Web
     using PlanShift.Services.Data.BusinessTypeServices;
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.GroupServices;
+    using PlanShift.Services.Data.InvitationVerificationServices;
     using PlanShift.Services.Data.ShiftApplication;
     using PlanShift.Services.Data.ShiftChangeServices;
     using PlanShift.Services.Data.ShiftServices;

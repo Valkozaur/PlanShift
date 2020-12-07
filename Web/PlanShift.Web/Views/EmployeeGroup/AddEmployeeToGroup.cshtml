@@ -55,38 +55,40 @@
     }
 }
 
-<form method="post">
-    <div class="form-group">
-        <label asp-for="Email" class="control-label"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Salary" class="control-label"></label>
-        <input asp-for="Salary" class="form-control" />
-        <span asp-validation-for="Salary" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Position" class="control-label"></label>
-        <input asp-for="Position" class="form-control" />
-        <span asp-validation-for="Position" class="text-danger"></span>
-    </div>
-    @if (this.User.IsInRole("Administrator"))
-    {
-        <div class="form-check">
-            <input asp-for="IsManagement" class="form-check-input" type="checkbox" id="gridCheck1">
-            <label asp-for="IsManagement" class="form-check-label" for="gridCheck1">
-                Is Management
-            </label>
+<div class="border-secondary">
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
         </div>
-        <br />
-    }
+        <div class="form-group">
+            <label asp-for="Salary" class="control-label"></label>
+            <input asp-for="Salary" class="form-control" />
+            <span asp-validation-for="Salary" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Position" class="control-label"></label>
+            <input asp-for="Position" class="form-control" />
+            <span asp-validation-for="Position" class="text-danger"></span>
+        </div>
+        @if (this.User.IsInRole("Administrator"))
+        {
+            <div class="form-check">
+                <input asp-for="IsManagement" class="form-check-input" type="checkbox" id="gridCheck1">
+                <label asp-for="IsManagement" class="form-check-label" for="gridCheck1">
+                    Is Management
+                </label>
+            </div>
+            <br />
+        }
 
-    <input type="hidden" asp-for="GroupId" class="form-control" />
-    <div class="form-group">
-        <input type="submit" value="Invite" class="btn btn-primary" />
-    </div>
-</form>
+        <input type="hidden" asp-for="GroupId" class="form-control" />
+        <div class="form-group">
+            <input type="submit" value="Invite" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
 
 @section Scripts{
     @if (userWithEmailNotFound)
