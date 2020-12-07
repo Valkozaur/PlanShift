@@ -467,7 +467,6 @@ C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Views\ShiftApplication.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Views\ShiftApplication\All.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Views\ShiftChange\All.cshtml.g.cs
-C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Views\ShiftChange\ApplyForShiftChange.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Views\Shift\All.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Views\_ViewStart.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\PlanShift.Web.RazorTargetAssemblyInfo.cache
@@ -498,3 +497,4 @@ C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Views\Business\All.cshtml.g.cs
+C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Web\PlanShift.Web\obj\Debug\net5.0\Razor\Views\ShiftChange\ShiftSwapRequests.cshtml.g.cs

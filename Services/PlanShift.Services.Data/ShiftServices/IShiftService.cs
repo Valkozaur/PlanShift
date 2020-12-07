@@ -18,6 +18,8 @@
 
         Task StatusChange(string id, ShiftStatus newStatus);
 
+        Task<ShiftStatus> GetShiftStatus(string id);
+
         Task ApproveShiftToEmployee(string id, string employeeId, string managementId);
 
         Task<string> GetGroupIdAsync(string shiftId);
@@ -29,5 +31,7 @@
         Task<IEnumerable<T>> GetOpenShiftsAvailableForUser<T>(string businessId, string userId);
 
         Task<IEnumerable<T>> GetPendingShiftsPerUser<T>(string businessId, string userId);
+
+        Task<IEnumerable<T>> GetTakenShiftsPerUser<T>(string businessId, string userId);
     }
 }

@@ -1,5 +1,5 @@
 ﻿@using PlanShift.Web.ViewModels.ShiftChange;
-@model ShiftChangeListViewModel<ShiftChangeAllViewModel>;
+@model ShiftChangeListWithActiveGroupViewModel<ShiftChangeManagementViewViewModel>;
 
 <table class="table table-hover table-sm">
     <thead>
@@ -44,7 +44,6 @@
             <td>
                 <form method="post" asp-controller="ShiftChange" asp-action="Approve">
                     <input type="hidden" id="groupId" name="groupId" value="@Model.GroupId"/>
-                    <input type="hidden" id="businessId" name="businessId" value="@Model.BusinessId"/>
                     <input type="hidden" id="shiftChangeId" name="shiftChangeId" value="@shiftChange.Id"/>
                     <button class="btn-sm btn-primary" type="submit">Assign</button>
 

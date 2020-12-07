@@ -19,12 +19,9 @@
 
         public async Task<IViewComponentResult> InvokeAsync(string groupId)
         {
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
-
-            var shiftChangesPerGroup = await this.shiftChangeService.GetShiftChangesPerGroupAsync<ShiftChangeAllViewModel>(groupId);
-            var viewModel = new ShiftChangeListViewModel<ShiftChangeAllViewModel>()
+            var shiftChangesPerGroup = await this.shiftChangeService.GetShiftChangesPerGroupAsync<ShiftChangeManagementViewViewModel>(groupId);
+            var viewModel = new ShiftChangeListWithActiveGroupViewModel<ShiftChangeManagementViewViewModel>()
             {
-                BusinessId = businessId,
                 GroupId = groupId,
                 ShiftChanges = shiftChangesPerGroup,
             };

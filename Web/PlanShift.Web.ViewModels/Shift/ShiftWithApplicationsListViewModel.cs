@@ -7,8 +7,5 @@
         public IEnumerable<ShiftWithApplicationsViewModel> ShiftsWithApplications { get; set; }
 
         public string GroupId { get; set; }
-
-        //TODO: Solution for the moment
-        public string BusinsesId { get; set; }
     }
 }

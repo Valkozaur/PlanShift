@@ -1,11 +1,13 @@
 ﻿namespace PlanShift.Web.Controllers
 {
+    using System;
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
     using PlanShift.Common;
+    using PlanShift.Data.Models.Enumerations;
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.Enumerations;
     using PlanShift.Services.Data.GroupServices;
@@ -36,14 +38,7 @@
             this.groupService = groupService;
         }
 
-        public IActionResult ApplyForShiftChange(string shiftId)
-        {
-            return this.View(null, shiftId);
-        }
-
-        [HttpPost]
-        [ActionName(nameof(ApplyForShiftChange))]
-        public async Task<IActionResult> ApplyForShiftChangePost(string shiftId)
+        public async Task<IActionResult> Apply(string shiftId)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var shiftInformation = await this.shiftService.GetShiftById<ShiftInfoViewModel>(shiftId);
@@ -52,43 +47,36 @@
 
             if (employeeGroupId == null)
             {
-                return this.RedirectToAction("Index", "Home");
+                this.TempData["Error"] = "You are not participant of the group!";
+                return this.RedirectToAction("Index", "Business");
             }
 
             if (employeeGroupId == shiftInformation.OriginalEmployeeId)
             {
-                this.ModelState.AddModelError("User", "You can't apply for a shift that is already yours!");
-            }
-
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(null, shiftId);
+                this.TempData["Error"] = "You can't apply for a shift that is already yours!";
             }
 
             await this.shiftChangeService.CreateShiftChangeAsync(shiftId, shiftInformation.OriginalEmployeeId, employeeGroupId);
+            await this.shiftService.StatusChange(shiftId, ShiftStatus.Pending);
 
-            return this.RedirectToAction("All", "Shift", new { GroupId = shiftInformation.GroupId });
+            return this.RedirectToAction("Index", "Business", new { GroupId = shiftInformation.GroupId });
         }
 
-        public async Task<IActionResult> All(string activeTabGroupId)
+        public async Task<IActionResult> TakeAction(string shiftChangeId, string groupId, bool isAccepted)
         {
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
-
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            var groupsInBusiness = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(businessId, userId, false, PendingActionsType.ShiftChanges);
-            var viewModel = new GroupListViewModel<GroupBasicInfoViewModel>()
-             {
-                 Groups = groupsInBusiness,
-                 ActiveTabGroupId = activeTabGroupId ?? groupsInBusiness.FirstOrDefault()?.Id,
-             };
+            try
+            {
+                await this.shiftChangeService.ProcessShiftChangeOriginalEmployeeStatus(userId, shiftChangeId, isAccepted);
+                this.TempData["Success"] = "Shift swap action taken successfully!";
+            }
+            catch (Exception e)
+            {
+                this.TempData["Error"] = e.Message;
+            }
 
-            return this.View(viewModel);
-        }
-
-        public IActionResult SwitchToTabs(string activeTabGroupId)
-        {
-            return this.RedirectToAction(nameof(this.All), new { ActiveTabGroupId = activeTabGroupId});
+            return this.RedirectToAction("Index", "Business");
         }
 
         public async Task<IActionResult> Approve(string shiftChangeId, string groupId)
@@ -109,6 +97,39 @@
             await this.shiftChangeService.ApproveShiftChange(shiftChangeId, manager.Id);
 
             return this.RedirectToAction(nameof(this.All), new { BusinessId = businessId, ActiveTabGroupId = groupId });
+        }
+
+        public async Task<IActionResult> ShiftSwapRequests(string shiftId)
+        {
+            var shiftChanges = await this.shiftChangeService.GetShiftChangesPerShift<ShiftChangeUserViewModel>(shiftId);
+
+            var viewModel = new ShiftChangeListViewModel<ShiftChangeUserViewModel>()
+            {
+                ShiftChanges = shiftChanges,
+            };
+
+            return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> All(string activeTabGroupId)
+        {
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
+
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var groupsInBusiness = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(businessId, userId, false, PendingActionsType.ShiftChanges);
+            var viewModel = new GroupListViewModel<GroupBasicInfoViewModel>()
+            {
+                Groups = groupsInBusiness,
+                ActiveTabGroupId = activeTabGroupId ?? groupsInBusiness.FirstOrDefault()?.Id,
+            };
+
+            return this.View(viewModel);
+        }
+
+        public IActionResult SwitchToTabs(string activeTabGroupId)
+        {
+            return this.RedirectToAction(nameof(this.All), new { ActiveTabGroupId = activeTabGroupId });
         }
     }
 }

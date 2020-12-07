@@ -43,6 +43,30 @@
                 .To<T>()
                 .FirstOrDefaultAsync();
 
+        public async Task<IEnumerable<T>> GetShiftChangesPerShift<T>(string shiftId)
+        {
+            return await this.shiftChangeRepository
+                .AllAsNoTracking()
+                .Where(sc => sc.ShiftId == shiftId && sc.Status == ShiftApplicationStatus.Pending)
+                .To<T>()
+                .ToArrayAsync();
+        }
+
+        public async Task ProcessShiftChangeOriginalEmployeeStatus(string userId, string shiftChangeId, bool isAccepted)
+        {
+            var shiftChange = await this.shiftChangeRepository
+                .All()
+                .FirstOrDefaultAsync(sc => sc.Id == shiftChangeId && sc.OriginalEmployee.UserId == userId);
+
+            if (shiftChange == null)
+            {
+                throw new ArgumentException("No such shiftChange found!");
+            }
+
+            shiftChange.IsApprovedByOriginalEmployee = isAccepted;
+            await this.shiftChangeRepository.SaveChangesAsync();
+        }
+
         public async Task ApproveShiftChange(string shiftChangeId, string managerId)
         {
             var shiftChange = await this.shiftChangeRepository.All().FirstOrDefaultAsync(x => x.Id == shiftChangeId);
@@ -68,17 +92,18 @@
             await this.shiftChangeRepository.SaveChangesAsync();
         }
 
-        public Task<int> GetCountByBusinessIdAsync(string businessId) =>
-        this.shiftChangeRepository
-            .All()
-            .CountAsync(x =>
+        public Task<int> GetCountByBusinessIdAsync(string businessId)
+            => this.shiftChangeRepository
+                .All()
+                .CountAsync(x =>
                 x.Shift.Group.BusinessId == businessId
-                && x.Status == ShiftApplicationStatus.Pending);
+                && x.Status == ShiftApplicationStatus.Pending
+                && x.IsApprovedByOriginalEmployee == true);
 
         public async Task<IEnumerable<T>> GetShiftChangesPerGroupAsync<T>(string groupId, ShiftApplicationStatus shiftApplicationStatus = ShiftApplicationStatus.Pending)
         => await this.shiftChangeRepository
             .AllAsNoTracking()
-            .Where(sc => sc.Shift.GroupId == groupId && sc.Status == shiftApplicationStatus)
+            .Where(sc => sc.Shift.GroupId == groupId && sc.Status == shiftApplicationStatus && sc.IsApprovedByOriginalEmployee == true)
             .To<T>()
             .ToArrayAsync();
     }

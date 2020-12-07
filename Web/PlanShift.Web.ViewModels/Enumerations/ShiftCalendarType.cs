@@ -6,5 +6,6 @@
         Upcoming = 1,
         Open = 2,
         Pending = 3,
+        Taken = 4,
     }
 }

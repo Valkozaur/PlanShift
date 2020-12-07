@@ -1,12 +1,30 @@
 ﻿@using PlanShift.Web.ViewModels.Business;
-@using PlanShift.Web.Controllers
 
 @model BusinessIndexViewModel;
 
 @section Styles{
-    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
-    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
-    <link href="css/custom.css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" asp-append-version="true"/>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" asp-append-version="true"/>
+    <link href="css/custom.css" rel="stylesheet" asp-append-version="true"/>
+}
+
+@if (this.TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @this.TempData["Error"];
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+else if (this.TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @this.TempData["Success"];
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 }
 
 <div class="row">
@@ -33,6 +51,9 @@
         <li id="pendingShifts" class="list-group-item">
             <span id="pendingShiftsCount">0</span> Swap requests
         </li>
+        <li id="takenShifts" class="list-group-item">
+            <span id="takenShiftsCount">0</span> Taken shifts
+        </li>
     </ul>
 </div>
 
@@ -41,7 +62,7 @@
 <partial name="_FullCalendarModalPartial" />
 
 @section Scripts{
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-    <script src="~/js/site.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" asp-append-version="true"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js" asp-append-version="true"></script>
+    <script src="~/js/calendar.js" asp-append-version="true"></script>
 }

@@ -1,0 +1,30 @@
+﻿@using PlanShift.Web.ViewModels.ShiftChange;
+@model ShiftChangeListViewModel<ShiftChangeUserViewModel>
+
+<table class="table table-sm">
+    <thead>
+    <tr>
+        <th scope="col">Shift Start</th>
+        <th scope="col">Shift End</th>
+        <th scope="col">Shift Position</th>
+        <th scope="col">Shift Description</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var shiftChange in this.Model.ShiftChanges)
+    {
+        <tr>
+            <th scope="row">@shiftChange.ShiftStart</th>
+            <th>@shiftChange.ShiftEnd</th>
+            <th>@shiftChange.ShiftPosition</th>
+            <th>@shiftChange.ShiftDescription</th>
+            <th>@shiftChange.PendingEmployeeUserFullName</th>
+            <th>
+                <a class="btn btn-sm btn-success" asp-controller="ShiftChange" asp-action="TakeAction" asp-route-shiftChangeId="@shiftChange.Id" asp-route-isAccepted="true">Accept</a>
+                <a class="btn btn-sm btn-danger" asp-controller="ShiftChange" asp-action="TakeAction" asp-route-shiftChangeId="@shiftChange.Id" asp-route-isAccepted="false">Decline</a>
+            </th>
+        </tr>
+    }
+    </tbody>
+</table>

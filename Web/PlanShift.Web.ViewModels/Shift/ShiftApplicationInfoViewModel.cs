@@ -7,15 +7,6 @@
     {
         public string Id { get; set; }
 
-        public string EmployeeEmployeeFullName { get; set; }
-
-        //public void CreateMappings(IProfileExpression configuration)
-        //{
-        //    configuration.CreateMap<ShiftApplication, ShiftApplicationInfoViewModel>()
-        //        .ForMember(
-        //            m => m.EmployeeName,
-        //            sa 
-        //                => sa.MapFrom(x => x.User.User.UserName));
-        //}
+        public string EmployeeUserFullName { get; set; }
     }
 }

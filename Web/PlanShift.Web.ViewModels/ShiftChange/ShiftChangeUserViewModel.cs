@@ -5,7 +5,7 @@
     using PlanShift.Data.Models;
     using PlanShift.Services.Mapping;
 
-    public class ShiftChangeAllViewModel : IMapFrom<ShiftChange>
+    public class ShiftChangeUserViewModel : IMapFrom<ShiftChange>
     {
         public string Id { get; set; }
 
@@ -16,8 +16,6 @@
         public string ShiftPosition { get; set; }
 
         public string ShiftDescription { get; set; }
-
-        public string OriginalEmployeeUserFullName { get; set; }
 
         public string PendingEmployeeUserFullName { get; set; }
     }

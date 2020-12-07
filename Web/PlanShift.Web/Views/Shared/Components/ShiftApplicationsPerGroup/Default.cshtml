@@ -15,7 +15,7 @@
     <tbody>
         @foreach (var shift in this.Model.ShiftsWithApplications)
         {
-            var applications = shift.ShiftApplications.Select(x => new SelectListItem(x.EmployeeEmployeeFullName, x.Id));
+            var applications = shift.ShiftApplications.Select(x => new SelectListItem(x.EmployeeUserFullName, x.Id));
 
             <tr>
                 <td>@shift.Start.ToString("G")</td>
@@ -46,7 +46,6 @@
                     <form method="post" asp-controller="ShiftApplication" asp-action="Approve">
                         <div class="row">
                             <select class="custom-select custom-select-sm col-7" name="shiftApplicationId" asp-items="applications"></select>
-                            <input type="hidden" name="businessId" id="businessId" value="@Model.BusinsesId">
                             <button class="btn-sm btn-primary" type="submit">Assign</button>
                         </div>
                     </form>

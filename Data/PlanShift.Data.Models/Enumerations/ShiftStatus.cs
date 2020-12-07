@@ -2,7 +2,7 @@
 {
     public enum ShiftStatus
     {
-        New = 1,
+        Open = 1,
         Pending = 2,
         Approved = 3,
     }

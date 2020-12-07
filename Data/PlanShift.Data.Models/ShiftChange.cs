@@ -14,6 +14,8 @@
             this.Id = Guid.NewGuid().ToString();
         }
 
+        public bool? IsApprovedByOriginalEmployee { get; set; }
+
         public ShiftApplicationStatus Status { get; set; }
 
         [Required]

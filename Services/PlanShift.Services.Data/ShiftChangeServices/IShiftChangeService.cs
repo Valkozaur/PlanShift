@@ -11,6 +11,10 @@
 
         Task<T> GetShiftChangeById<T>(string id);
 
+        Task<IEnumerable<T>> GetShiftChangesPerShift<T>(string shiftId);
+
+        Task ProcessShiftChangeOriginalEmployeeStatus(string userId, string shiftChangeId, bool isAccepted);
+
         Task ApproveShiftChange(string shiftChangeId, string managerId);
 
         Task DeclineShiftChange(string shiftChangeId, string managerId);

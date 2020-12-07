@@ -18,12 +18,12 @@
         internal const string EmployeeWasAddedSuccessfully = "User {0} was added successfully in group:{1} at position{2}";
 
         // ShiftService
-        internal const string ShiftCreatedSuccessfully = "New Shift for group: {0} was created!";
+        internal const string ShiftCreatedSuccessfully = "Open Shift for group: {0} was created!";
         internal const string ShiftDeletedSuccessfully = "Shift was deleted successfully!";
         internal const string ShiftWasSuccessfullyGivenToEmployee = "Shift with id:{0} was successfully given to employee:{1}";
 
         // ShiftChange
-        internal const string ShiftChangeCreatedSuccessfully = "New shift change created successfully!";
+        internal const string ShiftChangeCreatedSuccessfully = "Open shift change created successfully!";
         internal const string ShiftChangeAccepted = "Shift change was accepted by {0}";
         internal const string ShiftChangeDeclined = "Shift change was declined by {0}";
     }

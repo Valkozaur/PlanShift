@@ -43,6 +43,7 @@
             var upcomingShifts = await this.shiftService.GetUpcomingShiftForUser<ShiftCalendarViewModel>(businessId, userId);
             var openShifts = await this.shiftService.GetOpenShiftsAvailableForUser<ShiftCalendarViewModel>(businessId, userId);
             var swapRequests = await this.shiftService.GetPendingShiftsPerUser<ShiftCalendarViewModel>(businessId, userId);
+            var takenShifts = await this.shiftService.GetTakenShiftsPerUser<ShiftCalendarViewModel>(businessId, userId);
 
             foreach (var upcoming in upcomingShifts)
             {
@@ -59,17 +60,24 @@
                 pendingShift.Type = ShiftCalendarType.Pending;
             }
 
+            foreach (var takenShift in takenShifts)
+            {
+                takenShift.Type = ShiftCalendarType.Taken;
+            }
+
             var allShiftCalendar =
                 (upcomingShifts)
                 .Concat(openShifts)
                 .Concat(swapRequests)
+                .Concat(takenShifts)
                 .ToArray();
 
             var jsonObject = new
             {
                 UpcomingShiftsCount = upcomingShifts.Count(),
-                OpenShiftsCount = upcomingShifts.Count(),
+                OpenShiftsCount = openShifts.Count(),
                 PendingShiftsCount = swapRequests.Count(),
+                TakenShifts = swapRequests.Count(),
                 AllShiftsCalendar = allShiftCalendar,
             };
 

@@ -19,15 +19,11 @@
 
         public async Task<IViewComponentResult> InvokeAsync(string groupId)
         {
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
-
-
             var shiftApplications = await this.shiftService.GetPendingShiftsPerGroup<ShiftWithApplicationsViewModel>(groupId);
 
             var listOfApplications = new ShiftWithApplicationsListViewModel()
             {
                 ShiftsWithApplications = shiftApplications,
-                BusinsesId = businessId,
             };
 
             return this.View(listOfApplications);

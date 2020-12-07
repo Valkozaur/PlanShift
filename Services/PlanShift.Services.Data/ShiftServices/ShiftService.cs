@@ -26,8 +26,7 @@
             this.employeeGroupService = employeeGroupService;
         }
 
-        public async Task<string> CreateShift(string shiftCreatorId, string groupId, DateTime start, DateTime end,
-            string description, decimal bonusPayment = 0)
+        public async Task<string> CreateShift(string shiftCreatorId, string groupId, DateTime start, DateTime end, string description, decimal bonusPayment = 0)
         {
             var shift = new Shift()
             {
@@ -37,13 +36,24 @@
                 End = end,
                 Description = description,
                 BonusPayment = bonusPayment,
-                ShiftStatus = ShiftStatus.New,
+                ShiftStatus = ShiftStatus.Open,
             };
 
             await this.shiftRepository.AddAsync(shift);
             await this.shiftRepository.SaveChangesAsync();
 
             return shift.Id;
+        } 
+
+        public async Task ApproveShiftToEmployee(string id, string employeeId, string managementId)
+        {
+            var shift = await this.shiftRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+
+            shift.EmployeeId = employeeId;
+            shift.ManagementId = managementId;
+            shift.ShiftStatus = ShiftStatus.Approved;
+
+            await this.shiftRepository.SaveChangesAsync();
         }
 
         public async Task DeleteShift(string id)
@@ -78,16 +88,12 @@
             await this.shiftRepository.SaveChangesAsync();
         }
 
-        public async Task ApproveShiftToEmployee(string id, string employeeId, string managementId)
-        {
-            var shift = await this.shiftRepository.All().FirstOrDefaultAsync(x => x.Id == id);
-
-            shift.EmployeeId = employeeId;
-            shift.ManagementId = managementId;
-            shift.ShiftStatus = ShiftStatus.Approved;
-
-            await this.shiftRepository.SaveChangesAsync();
-        }
+        public async Task<ShiftStatus> GetShiftStatus(string id)
+            => await this.shiftRepository
+                .AllAsNoTracking()
+                .Where(s => s.Id == id)
+                .Select(s => s.ShiftStatus)
+                .FirstOrDefaultAsync();
 
         public async Task<string> GetGroupIdAsync(string shiftId)
             => await this.shiftRepository
@@ -118,7 +124,7 @@
                 .AllAsNoTracking()
                 .Where(s => s.Group.BusinessId == businessId
                             && s.Group.Employees.Any(e => e.UserId == userId)
-                            && s.ShiftStatus == ShiftStatus.New)
+                            && s.ShiftStatus == ShiftStatus.Open)
                 //TODO: Add achievement check here
                 .To<T>()
                 .ToArrayAsync();
@@ -129,6 +135,13 @@
                 .Where(s => s.Group.BusinessId == businessId
                             && s.ShiftStatus == ShiftStatus.Pending
                             && s.ShiftChanges.Any(sc => sc.OriginalEmployee.UserId == userId))
+                .To<T>()
+                .ToArrayAsync();
+
+        public async Task<IEnumerable<T>> GetTakenShiftsPerUser<T>(string businessId, string userId)
+            => await this.shiftRepository
+                .AllAsNoTracking()
+                .Where(s => s.Group.BusinessId == businessId && s.ShiftStatus == ShiftStatus.Approved && s.EmployeeId != userId)
                 .To<T>()
                 .ToArrayAsync();
     }
