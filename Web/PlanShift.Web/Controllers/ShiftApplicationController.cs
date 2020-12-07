@@ -42,28 +42,29 @@ namespace PlanShift.Web.Controllers
             this.userManager = userManager;
         }
 
+        [HttpPost]
         public async Task<IActionResult> Apply(string shiftId)
         {
             var userId = this.userManager.GetUserId(this.User);
             var groupId = await this.shiftService.GetGroupIdAsync(shiftId);
 
-            var employeeGroupId = await this.employeeGroupService.GetEmployeeId(userId, groupId);
+            var employeeId = await this.employeeGroupService.GetEmployeeId(userId, groupId);
 
-            if (employeeGroupId == null)
+            if (employeeId == null)
             {
-                return this.RedirectToAction("Index", "Home");
+                return this.RedirectToAction("Index", "Business");
             }
 
-            var hasEmployeeApplied = await this.shiftApplicationService.HasEmployeeAppliedForShift(shiftId, employeeGroupId);
+            var hasEmployeeApplied = await this.shiftApplicationService.HasEmployeeAppliedForShift(shiftId, employeeId);
             if (hasEmployeeApplied)
             {
-                return this.RedirectToAction("All", "Shift", new { GroupId = groupId });
+                return this.RedirectToAction("Index", "Business", new { GroupId = groupId });
             }
 
             // TODO: Make the achievement system check here
-            await this.shiftApplicationService.CreateShiftApplicationAsync(shiftId, employeeGroupId);
+            await this.shiftApplicationService.CreateShiftApplicationAsync(shiftId, employeeId);
             await this.shiftService.StatusChange(shiftId, ShiftStatus.Pending);
-            return this.RedirectToAction("All", "Shift", new { GroupId = groupId });
+            return this.RedirectToAction("Index", "Business", new { GroupId = groupId });
         }
 
         public async Task<IActionResult> Approve(string shiftApplicationId, string businessId)

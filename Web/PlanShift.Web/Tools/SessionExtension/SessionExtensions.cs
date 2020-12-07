@@ -26,5 +26,15 @@
             var value = session.GetString(key);
             return value;
         }
+
+        public static async Task<bool> HasKeyAsync(this ISession session, string key)
+        {
+            if (!session.IsAvailable)
+            {
+                await session.LoadAsync();
+            }
+
+            return session.TryGetValue(key, out _);
+        }
     }
 }

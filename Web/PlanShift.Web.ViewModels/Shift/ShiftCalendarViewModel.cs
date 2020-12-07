@@ -9,6 +9,8 @@
 
     public class ShiftCalendarViewModel : IMapFrom<Shift>
     {
+        public string Id { get; set; }
+
         public string GroupName { get; set; }
 
         public string Description { get; set; }

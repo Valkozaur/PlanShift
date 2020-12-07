@@ -45,7 +45,7 @@
         [ActionName(nameof(ApplyForShiftChange))]
         public async Task<IActionResult> ApplyForShiftChangePost(string shiftId)
         {
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var shiftInformation = await this.shiftService.GetShiftById<ShiftInfoViewModel>(shiftId);
 
             var employeeGroupId = await this.employeeGroupService.GetEmployeeId(userId, shiftInformation.GroupId);

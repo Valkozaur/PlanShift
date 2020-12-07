@@ -69,6 +69,10 @@
 
             EntityIndexesConfiguration.Configure(builder);
 
+            builder.Entity<PlanShiftUser>()
+                .Property(p => p.FullName)
+                .HasComputedColumnSql("[FirstName] + ' ' + [LastName]");
+
             var entityTypes = builder.Model.GetEntityTypes().ToList();
 
             // Set global query filter for not deleted entities only

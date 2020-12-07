@@ -9,23 +9,17 @@
 
     public class EmployeeGroupInfoViewModel : IMapFrom<EmployeeGroup>, IHaveCustomMappings
     {
-        public string Username { get; set; }
+        public string UserFullName { get; set; }
 
         public string Position { get; set; }
 
         public int ActiveShifts { get; set; }
 
-        public int TotalTakenShifts { get; set; }
+        public int ShiftsCount { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<EmployeeGroup, EmployeeGroupInfoViewModel>()
-                .ForMember(
-                    m => m.Username,
-                    eg => eg.MapFrom(x => x.User.UserName))
-                .ForMember(
-                    m => m.TotalTakenShifts,
-                    eg => eg.MapFrom(x => x.Shifts.Count))
                 .ForMember(
                     m => m.ActiveShifts,
                     eg => eg.MapFrom(x => x.Shifts.Count(s => s.Start > DateTime.UtcNow)));

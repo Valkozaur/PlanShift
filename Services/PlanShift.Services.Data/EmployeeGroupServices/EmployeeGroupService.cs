@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Services.Data.EmployeeGroupServices
+﻿using System.Threading;
+
+namespace PlanShift.Services.Data.EmployeeGroupServices
 {
     using System;
     using System.Collections.Generic;
@@ -21,6 +23,11 @@
 
         public async Task<string> AddEmployeeToGroupAsync(string userId, string groupId, decimal salary, string position, bool isManagement = false)
         {
+            if (await this.IsEmployeeInGroup(userId, groupId))
+            {
+                throw new ArgumentException("Employee is already in the group!");
+            }
+
             var employeeGroup = new EmployeeGroup()
             {
                 UserId = userId,

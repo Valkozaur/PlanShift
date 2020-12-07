@@ -3,11 +3,9 @@
     using PlanShift.Services.Mapping;
     using PlanShift.Data.Models;
 
-    public class InviteEmployeeVerificationInfoViewModel : IMapFrom<InviteEmployeeVerifications>
+    public class InviteEmployeeVerificationInfoViewModel : InviteEmployeeVerificationEmailViewModel, IMapFrom<InviteEmployeeVerifications>
     {
         public string GroupId { get; set; }
-
-        public string Email { get; set; }
 
         public string Position { get; set; }
 

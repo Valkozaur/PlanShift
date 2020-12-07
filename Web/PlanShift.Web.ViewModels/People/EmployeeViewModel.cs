@@ -7,7 +7,7 @@
     {
         public string Id { get; set; }
 
-        public string UserUsername { get; set; }
+        public string UserFullName { get; set; }
 
         public bool IsManagement { get; set; }
     }

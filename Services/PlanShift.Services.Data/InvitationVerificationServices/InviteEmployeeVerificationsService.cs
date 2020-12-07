@@ -1,5 +1,6 @@
 ﻿namespace PlanShift.Services.Data.InvitationVerificationServices
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -17,11 +18,18 @@
             this.verificationRepository = verificationRepository;
         }
 
-        public async Task CreateShiftVerificationAsync(string guidId, string groupId, string email, string position, decimal salary)
+        public async Task<string> CreateShiftVerificationAsync(string groupId, string email, string position, decimal salary)
         {
+            var currentShiftVerifications = await this.verificationRepository.All().Where(x => x.Email == email).ToArrayAsync();
+
+            foreach (var shiftVerification in currentShiftVerifications)
+            {
+                shiftVerification.Used = true;
+            }
+
             var userInvitationVerification = new InviteEmployeeVerifications()
             {
-                Id = guidId,
+                Id = Guid.NewGuid().ToString(),
                 GroupId = groupId,
                 Email = email,
                 Position = position,
@@ -30,6 +38,8 @@
 
             await this.verificationRepository.AddAsync(userInvitationVerification);
             await this.verificationRepository.SaveChangesAsync();
+
+            return userInvitationVerification.Id;
         }
 
         public async Task<bool> IsVerificationValidAsync(string guidId)
@@ -43,8 +53,7 @@
                 return false;
             }
 
-            //TODO: UNCOMMENT!
-            //verification.Used = true;
+            verification.Used = true;
             await this.verificationRepository.SaveChangesAsync();
             return true;
         }

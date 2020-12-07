@@ -18,10 +18,10 @@
         @foreach (var employee in Model.Employees)
         {
             <tr>
-                <td>@employee.Username</td>
+                <td>@employee.UserFullName</td>
                 <td>@employee.Position</td>
                 <td>@employee.ActiveShifts</td>
-                <td>@employee.TotalTakenShifts</td>
+                <td>@employee.ShiftsCount</td>
             </tr>
         }
     </tbody>

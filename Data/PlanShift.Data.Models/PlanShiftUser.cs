@@ -1,8 +1,10 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
+
 namespace PlanShift.Data.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using Microsoft.AspNetCore.Identity;
     using PlanShift.Data.Common.Models;
@@ -20,7 +22,20 @@ namespace PlanShift.Data.Models
             this.Businesses = new HashSet<Business>();
         }
 
+        [Required]
+        [MaxLength(80)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [MaxLength(80)]
+        public string LastName { get; set; }
+
+        [Required]
+        [MaxLength(160)]
+        public string FullName { get; set; }
+
         // Audit info
+
         public DateTime CreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }

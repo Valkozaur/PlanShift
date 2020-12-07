@@ -41,13 +41,13 @@
 
             var guid = Guid.NewGuid().ToString();
 
-            await this.inviteEmployeeVerificationsService.CreateShiftVerificationAsync(guid, details.GroupId, details.Email, details.Position, details.Salary);
+            var verificationId = await this.inviteEmployeeVerificationsService.CreateShiftVerificationAsync(details.GroupId, details.Email, details.Position, details.Salary);
 
             html.AppendLine($"<h1> {groupNames.BusinessName} wants to invite you to {GlobalConstants.SystemName}</h1>");
             html.AppendLine($"<p> You are invited to become part of the group {groupNames.Name} at position {details.Position}</p>");
             html.AppendLine($"<p> Your salary will be {details.Salary}</p>");
             html.AppendLine($"<h3> If you accept you will become a member of {GlobalConstants.SystemName}, please click the button below! </h3>");
-            html.AppendLine("<a> https://localhost:44319/InviteUser/AcceptInvitation/" + guid + "</a>");
+            html.AppendLine("<a> https://localhost:44319/InviteUser/AcceptInvitation/" + verificationId + "</a>");
 
             await this.emailSender.SendEmailAsync(GlobalConstants.EmailAddress, groupNames.BusinessName, details.Email, EmailSubject, html.ToString());
 

@@ -7,7 +7,7 @@
     {
         public string Id { get; set; }
 
-        public string EmployeeEmployeeUsername { get; set; }
+        public string EmployeeEmployeeFullName { get; set; }
 
         //public void CreateMappings(IProfileExpression configuration)
         //{

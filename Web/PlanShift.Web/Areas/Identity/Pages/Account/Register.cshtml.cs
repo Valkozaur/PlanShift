@@ -1,4 +1,5 @@
 ﻿using System;
+using PlanShift.Services.Data.EmployeeGroupServices;
 
 namespace PlanShift.Web.Areas.Identity.Pages.Account
 {
@@ -29,19 +30,24 @@ namespace PlanShift.Web.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> logger;
         private readonly IEmailSender emailSender;
         private readonly IInviteEmployeeVerificationsService inviteEmployeeVerificationsService;
+        private readonly IEmployeeGroupService employeeGroupService;
 
         public RegisterModel(
             UserManager<PlanShiftUser> userManager,
             SignInManager<PlanShiftUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IInviteEmployeeVerificationsService inviteEmployeeVerificationsService)
+            IInviteEmployeeVerificationsService inviteEmployeeVerificationsService,
+            IEmployeeGroupService employeeGroupService)
         {
+            this.Input = new InputModel();
+
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.logger = logger;
             this.emailSender = emailSender;
             this.inviteEmployeeVerificationsService = inviteEmployeeVerificationsService;
+            this.employeeGroupService = employeeGroupService;
         }
 
         [BindProperty]
@@ -54,12 +60,12 @@ namespace PlanShift.Web.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [RegularExpression("/^[a-z,.'-]+$/i")]
+            [RegularExpression("^[A-Z]{1}[a-z,.'-]+$")]
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
             [Required]
-            [RegularExpression("/^[a-z,.'-]+$/i")]
+            [RegularExpression("^[A-Z]{1}[a-z,.'-]+$")]
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
 
@@ -78,14 +84,17 @@ namespace PlanShift.Web.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            public string ValidationId { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null, string validationId = null)
         {
             if (validationId != null)
             {
-                var validationInfo = await this.inviteEmployeeVerificationsService.GetVerificationAsync<InviteEmployeeVerificationInfoViewModel>(validationId);
+                var validationInfo = await this.inviteEmployeeVerificationsService.GetVerificationAsync<InviteEmployeeVerificationEmailViewModel>(validationId);
 
+                this.Input.ValidationId = validationId;
                 this.Input.Email = validationInfo.Email;
             }
 
@@ -101,7 +110,7 @@ namespace PlanShift.Web.Areas.Identity.Pages.Account
             {
                 var userFullName = string.Join(' ', this.Input.FirstName, this.Input.LastName);
 
-                var user = new PlanShiftUser { UserName = userFullName, Email = this.Input.Email };
+                var user = new PlanShiftUser { UserName = this.Input.Email, Email = this.Input.Email, FirstName = this.Input.FirstName, LastName = this.Input.LastName};
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)
                 {
@@ -117,6 +126,14 @@ namespace PlanShift.Web.Areas.Identity.Pages.Account
 
                     await this.emailSender.SendEmailAsync(this.Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    if (!string.IsNullOrWhiteSpace(this.Input.ValidationId))
+                    {
+                        var validationDetails = await this.inviteEmployeeVerificationsService.GetVerificationAsync<InviteEmployeeVerificationInfoViewModel>(this.Input.ValidationId);
+
+                        this.logger.LogInformation($"User {user.Email} added to group with groupId = {validationDetails.GroupId}");
+                        await this.employeeGroupService.AddEmployeeToGroupAsync(user.Id, validationDetails.GroupId, validationDetails.Salary, validationDetails.Position);
+                    }
 
                     if (this.userManager.Options.SignIn.RequireConfirmedAccount)
                     {

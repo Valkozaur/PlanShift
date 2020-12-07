@@ -4,7 +4,7 @@
 
     public interface IInviteEmployeeVerificationsService
     {
-        Task CreateShiftVerificationAsync(string guidId, string groupId, string email, string position, decimal salary);
+        Task<string> CreateShiftVerificationAsync(string groupId, string email, string position, decimal salary);
 
         Task<bool> IsVerificationValidAsync(string guidId);
 

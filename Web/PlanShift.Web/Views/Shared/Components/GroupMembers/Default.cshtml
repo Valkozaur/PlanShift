@@ -12,7 +12,7 @@
         @foreach (var employee in Model.Employees)
         {
             <tr>
-                <td>@employee.UserUsername</td>
+                <td>@employee.UserFullName</td>
                 <td>@(employee.IsManagement ? "✓" : "")</td>
             </tr>
         }

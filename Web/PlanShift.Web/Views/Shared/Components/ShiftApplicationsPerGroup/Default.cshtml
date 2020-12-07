@@ -15,7 +15,7 @@
     <tbody>
         @foreach (var shift in this.Model.ShiftsWithApplications)
         {
-            var applications = shift.ShiftApplications.Select(x => new SelectListItem(x.EmployeeEmployeeUsername, x.Id));
+            var applications = shift.ShiftApplications.Select(x => new SelectListItem(x.EmployeeEmployeeFullName, x.Id));
 
             <tr>
                 <td>@shift.Start.ToString("G")</td>

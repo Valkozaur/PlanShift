@@ -27,6 +27,10 @@
                 BusinessTypeId = typeId,
             };
 
+            //business.Groups.Add(new Group{ Name = "Admin", StandardSalary = 0, });
+            //business.Groups.Add(new Group{ Name = "HR Managers", StandardSalary = 0, });
+            //business.Groups.Add(new Group{ Name = "Schedule Manager", StandardSalary = 0, });
+
             await this.businessRepository.AddAsync(business);
             await this.businessRepository.SaveChangesAsync();
 
