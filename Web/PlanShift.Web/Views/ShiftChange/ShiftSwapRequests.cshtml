@@ -1,30 +1,67 @@
 ﻿@using PlanShift.Web.ViewModels.ShiftChange;
 @model ShiftChangeListViewModel<ShiftChangeUserViewModel>
 
+@{
+    var previousGroupName = string.Empty;
+}
+
 <table class="table table-sm">
     <thead>
-    <tr>
-        <th scope="col">Shift Start</th>
-        <th scope="col">Shift End</th>
-        <th scope="col">Shift Position</th>
-        <th scope="col">Shift Description</th>
-        <th scope="col">Actions</th>
-    </tr>
+        <tr>
+            <th scope="col">Shift Start</th>
+            <th scope="col">Shift End</th>
+            <th scope="col">Shift Position</th>
+            <th scope="col">Shift Description</th>
+            <th scope="col">Pending Employee</th>
+            <th scope="col">Actions</th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var shiftChange in this.Model.ShiftChanges)
-    {
-        <tr>
-            <th scope="row">@shiftChange.ShiftStart</th>
-            <th>@shiftChange.ShiftEnd</th>
-            <th>@shiftChange.ShiftPosition</th>
-            <th>@shiftChange.ShiftDescription</th>
-            <th>@shiftChange.PendingEmployeeUserFullName</th>
-            <th>
-                <a class="btn btn-sm btn-success" asp-controller="ShiftChange" asp-action="TakeAction" asp-route-shiftChangeId="@shiftChange.Id" asp-route-isAccepted="true">Accept</a>
-                <a class="btn btn-sm btn-danger" asp-controller="ShiftChange" asp-action="TakeAction" asp-route-shiftChangeId="@shiftChange.Id" asp-route-isAccepted="false">Decline</a>
-            </th>
-        </tr>
-    }
+        @foreach (var shiftChange in this.Model.ShiftChanges)
+        {
+            if (shiftChange.ShiftGroupName != previousGroupName)
+            {
+                previousGroupName = shiftChange.ShiftGroupName;
+
+                <tr class="thead-light">
+                    <th class="text-center text-capitalize text-danger">@shiftChange.ShiftGroupName.ToUpper()</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            }
+
+            <tr>
+                <th scope="row">@shiftChange.ShiftStart</th>
+                <th scope="row">@shiftChange.ShiftEnd</th>
+                <th scope="row">@(shiftChange.ShiftPosition ?? "Unknown")</th>
+                @if (shiftChange.ShiftDescription == null)
+                {
+                    <th scope="row"><span>No description</span></th>
+                }
+                else
+                {
+                    <th scope="row">
+                        <div class="dropdown">
+                            <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Read
+                            </button>
+                            <div class="dropdown-menu p-4" style="max-width: 200px;">
+                                <p class="mb-0">
+                                    @shiftChange.ShiftDescription
+                                </p>
+                            </div>
+                        </div>
+                    </th>
+                }
+                <th scope="row">@shiftChange.PendingEmployeeUserFullName</th>
+                <th scope="row">
+                    <a class="btn btn-sm btn-success" asp-controller="ShiftChange" asp-action="TakeAction" asp-route-shiftChangeId="@shiftChange.Id" asp-route-isAccepted="true">Accept</a>
+                    <a class="btn btn-sm btn-danger" asp-controller="ShiftChange" asp-action="TakeAction" asp-route-shiftChangeId="@shiftChange.Id" asp-route-isAccepted="false">Decline</a>
+                </th>
+            </tr>
+        }
     </tbody>
 </table>

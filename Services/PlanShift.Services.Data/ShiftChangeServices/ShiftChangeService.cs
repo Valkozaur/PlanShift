@@ -48,6 +48,8 @@
             return await this.shiftChangeRepository
                 .AllAsNoTracking()
                 .Where(sc => sc.ShiftId == shiftId && sc.Status == ShiftApplicationStatus.Pending)
+                .OrderBy(sc => sc.Shift.Group.Name)
+                .ThenByDescending(sc => sc.Shift.Start)
                 .To<T>()
                 .ToArrayAsync();
         }

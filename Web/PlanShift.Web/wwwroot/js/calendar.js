@@ -8,16 +8,16 @@
             console.log(data);
 
             if (data.upcomingShiftsCount != 0) {
-                $('#upcomingShiftsCount').text(data.upcomingShiftsCount).css('color', '#00bfff');
+                $('#upcomingShiftsCount').text(data.upcomingShiftsCount);
             }
             if (data.openShiftsCount != 0) {
-                $('#openShiftsCount').text(data.openShiftsCount).css('color', '#FF0000');
+                $('#openShiftsCount').text(data.openShiftsCount);
             }
             if (data.pendingShiftsCount != 0) {
-                $('#pendingShiftsCount').text(data.endingShiftsCount).css('color', '#9932cc');
+                $('#pendingShiftsCount').text(data.endingShiftsCount);
             }
             if (data.takenShifts != 0) {
-                $('#takenShiftsCount').text(data.takenShifts).css('color', '#A9A9A9');
+                $('#takenShiftsCount').text(data.takenShifts);
             }
 
 

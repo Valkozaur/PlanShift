@@ -101,7 +101,7 @@
                 query = query.Where(x => x.Shifts.Any(s => s.ShiftChanges.Count != 0));
             }
 
-            return await query.To<T>().ToArrayAsync();
+            return await query.OrderByDescending(g => g.Employees.Count).To<T>().ToArrayAsync();
         }
 
         public async Task<string> GetGroupName(string id)

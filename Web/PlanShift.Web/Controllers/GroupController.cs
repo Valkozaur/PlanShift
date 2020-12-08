@@ -8,6 +8,7 @@
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.BusinessServices;
     using PlanShift.Services.Data.GroupServices;
+    using PlanShift.Web.Infrastructure.Validations.UserValidationAttributes;
     using PlanShift.Web.Tools.SessionExtension;
     using PlanShift.Web.ViewModels.Business;
     using PlanShift.Web.ViewModels.Group;
@@ -16,30 +17,15 @@
     {
         private readonly IGroupService groupService;
         private readonly IBusinessService businessService;
-        private readonly UserManager<PlanShiftUser> userManager;
 
 
         public GroupController(IGroupService groupService, IBusinessService businessService, UserManager<PlanShiftUser> userManager)
         {
             this.groupService = groupService;
             this.businessService = businessService;
-            this.userManager = userManager;
         }
 
-        public async Task<IActionResult> All()
-        {
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
-            var userId = this.userManager.GetUserId(this.User);
-
-            var groups = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupAllViewModel>(businessId, userId);
-            var viewModel = new GroupListViewModel<GroupAllViewModel>()
-            {
-                Groups = groups,
-            };
-
-            return this.View(viewModel);
-        }
-
+        [SessionValidation(GlobalConstants.BusinessSessionName)]
         public async Task<IActionResult> Create()
         {
             var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
@@ -55,10 +41,10 @@
         }
 
         [HttpPost]
+        [SessionValidation(GlobalConstants.BusinessSessionName)]
         public async Task<IActionResult> Create(GroupInputModel inputModel)
         {
             var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
-
 
             if (!this.ModelState.IsValid)
             {
@@ -67,7 +53,7 @@
 
             var groupId = await this.groupService.CreateGroupAsync(businessId, inputModel.Name, inputModel.StandardSalary);
 
-            return this.RedirectToAction("All", "Business");
+            return this.RedirectToAction("Index", "People", new { GroupId = groupId });
         }
     }
 }

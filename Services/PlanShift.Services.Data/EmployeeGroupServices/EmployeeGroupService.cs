@@ -64,20 +64,21 @@ namespace PlanShift.Services.Data.EmployeeGroupServices
                 .To<T>()
                 .FirstOrDefaultAsync();
 
-        public Task<bool> IsEmployeeInGroup(string userId, string groupId) => this.employeeGroupRepository.All().AnyAsync(x => x.UserId == userId);
+        public Task<bool> IsEmployeeInGroup(string userId, string groupId)
+            => this.employeeGroupRepository
+                .AllAsNoTracking()
+                .AnyAsync(x => x.UserId == userId && x.GroupId == groupId);
 
         public async Task<bool> IsEmployeeManagerInGroup(string userId, string groupId)
-        {
-            return await this.employeeGroupRepository
+            => await this.employeeGroupRepository
                 .AllAsNoTracking()
                 .AnyAsync(x
                     => x.UserId == userId
                     && x.GroupId == groupId
                     && x.IsManagement);
-        }
 
-        public async Task<string> GetEmployeeId(string userId, string groupId) =>
-            await this.employeeGroupRepository
+        public async Task<string> GetEmployeeId(string userId, string groupId) 
+            => await this.employeeGroupRepository
                 .AllAsNoTracking()
                 .Where(x => x.UserId == userId && x.GroupId == groupId)
                 .Select(x => x.Id)

@@ -91,20 +91,6 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> All()
-        {
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            var businesses = await this.businessService.GetAllForUserAsync<BusinessAllViewModel>(userId);
-            var businessesList = new BusinessListViewModel()
-            {
-                Businesses = businesses,
-            };
-
-            return this.View(businessesList);
-        }
-
-        [Authorize]
         public async Task<IActionResult> Pick()
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
