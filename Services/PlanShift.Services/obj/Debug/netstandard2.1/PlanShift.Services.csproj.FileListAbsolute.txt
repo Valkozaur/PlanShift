@@ -1,9 +1,0 @@
-C:\Users\valni\Desktop\PlanShift-main\Services\PlanShift.Services\bin\Debug\netstandard2.1\PlanShift.Services.deps.json
-C:\Users\valni\Desktop\PlanShift-main\Services\PlanShift.Services\bin\Debug\netstandard2.1\PlanShift.Services.dll
-C:\Users\valni\Desktop\PlanShift-main\Services\PlanShift.Services\bin\Debug\netstandard2.1\PlanShift.Services.pdb
-C:\Users\valni\Desktop\PlanShift-main\Services\PlanShift.Services\obj\Debug\netstandard2.1\PlanShift.Services.csprojAssemblyReference.cache
-C:\Users\valni\Desktop\PlanShift-main\Services\PlanShift.Services\obj\Debug\netstandard2.1\PlanShift.Services.AssemblyInfoInputs.cache
-C:\Users\valni\Desktop\PlanShift-main\Services\PlanShift.Services\obj\Debug\netstandard2.1\PlanShift.Services.AssemblyInfo.cs
-C:\Users\valni\Desktop\PlanShift-main\Services\PlanShift.Services\obj\Debug\netstandard2.1\PlanShift.Services.csproj.CoreCompileInputs.cache
-C:\Users\valni\Desktop\PlanShift-main\Services\PlanShift.Services\obj\Debug\netstandard2.1\PlanShift.Services.dll
-C:\Users\valni\Desktop\PlanShift-main\Services\PlanShift.Services\obj\Debug\netstandard2.1\PlanShift.Services.pdb

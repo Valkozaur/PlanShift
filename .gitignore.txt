@@ -10,6 +10,11 @@
 *.userosscache
 *.sln.docstates
 
+/Web/PlanShift.Web/appsettings.json
+bin
+obj
+
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

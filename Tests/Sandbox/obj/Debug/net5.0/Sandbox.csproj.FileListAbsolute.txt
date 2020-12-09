@@ -1,5 +1,0 @@
-C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Tests\Sandbox\obj\Debug\net5.0\Sandbox.csprojAssemblyReference.cache
-C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Tests\Sandbox\obj\Debug\net5.0\Sandbox.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Tests\Sandbox\obj\Debug\net5.0\Sandbox.AssemblyInfoInputs.cache
-C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Tests\Sandbox\obj\Debug\net5.0\Sandbox.AssemblyInfo.cs
-C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Tests\Sandbox\obj\Debug\net5.0\Sandbox.csproj.CoreCompileInputs.cache

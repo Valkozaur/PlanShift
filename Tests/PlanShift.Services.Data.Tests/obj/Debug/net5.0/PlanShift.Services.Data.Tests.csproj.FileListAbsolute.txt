@@ -1,5 +1,0 @@
-C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Tests\PlanShift.Services.Data.Tests\obj\Debug\net5.0\PlanShift.Services.Data.Tests.csprojAssemblyReference.cache
-C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Tests\PlanShift.Services.Data.Tests\obj\Debug\net5.0\PlanShift.Services.Data.Tests.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Tests\PlanShift.Services.Data.Tests\obj\Debug\net5.0\PlanShift.Services.Data.Tests.AssemblyInfoInputs.cache
-C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Tests\PlanShift.Services.Data.Tests\obj\Debug\net5.0\PlanShift.Services.Data.Tests.AssemblyInfo.cs
-C:\Users\valni\Desktop\PlanShift-Repo\PlanShift\Tests\PlanShift.Services.Data.Tests\obj\Debug\net5.0\PlanShift.Services.Data.Tests.csproj.CoreCompileInputs.cache
