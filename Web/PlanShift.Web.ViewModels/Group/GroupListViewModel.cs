@@ -11,5 +11,7 @@
         public IEnumerable<T> SpecialGroups { get; set; }
 
         public string ActiveTabGroupId { get; set; }
+
+        public bool IsInHrOrAdminRoleGroup { get; set; }
     }
 }

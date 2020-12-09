@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Web.Controllers
+﻿using PlanShift.Services.Data.EmployeeGroupServices;
+
+namespace PlanShift.Web.Controllers
 {
     using System.Linq;
     using System.Security.Claims;
@@ -16,10 +18,12 @@
     public class PeopleController : BaseController
     {
         private readonly IGroupService groupService;
+        private readonly IEmployeeGroupService employeeGroupService;
 
-        public PeopleController(IGroupService groupService)
+        public PeopleController(IGroupService groupService, IEmployeeGroupService employeeGroupService)
         {
             this.groupService = groupService;
+            this.employeeGroupService = employeeGroupService;
         }
 
         [SessionValidation(GlobalConstants.BusinessSessionName)]
@@ -46,6 +50,7 @@
                 Groups = groups,
                 SpecialGroups = specialGroups,
                 ActiveTabGroupId = activeTabGroupId ?? groups.FirstOrDefault()?.Id,
+                IsInHrOrAdminRoleGroup = await this.employeeGroupService.IsEmployeeInGroupsWithNames(userId, businessId, GlobalConstants.AdminsGroupName, GlobalConstants.HrGroupName),
             };
 
             return this.View(viewModel);

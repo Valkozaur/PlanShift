@@ -4,12 +4,11 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PlanShift.Common;
-    using PlanShift.Data.Models;
     using PlanShift.Services.Data.BusinessServices;
     using PlanShift.Services.Data.BusinessTypeServices;
+    using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.ShiftApplication;
     using PlanShift.Services.Data.ShiftChangeServices;
     using PlanShift.Web.Tools.ActionFilters;
@@ -23,35 +22,43 @@
         private readonly IBusinessTypeService businessTypeService;
         private readonly IShiftApplicationService shiftApplicationService;
         private readonly IShiftChangeService shiftChangeService;
-        private readonly UserManager<PlanShiftUser> userManager;
+        private readonly IEmployeeGroupService employeeGroupService;
 
         public BusinessController(
             IBusinessService businessService,
             IBusinessTypeService businessTypeService,
             IShiftApplicationService shiftApplicationService,
             IShiftChangeService shiftChangeService,
-            UserManager<PlanShiftUser> userManager)
+            IEmployeeGroupService employeeGroupService
+            )
         {
             this.businessService = businessService;
             this.businessTypeService = businessTypeService;
             this.shiftApplicationService = shiftApplicationService;
             this.shiftChangeService = shiftChangeService;
-            this.userManager = userManager;
+            this.employeeGroupService = employeeGroupService;
         }
 
         [SessionValidation(GlobalConstants.BusinessSessionName)]
         public async Task<IActionResult> Index()
         {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
 
-            var applicationsCount = await this.shiftApplicationService.GetCountByBusinessIdAsync(businessId);
-            var shiftChangesCount = await this.shiftChangeService.GetCountByBusinessIdAsync(businessId);
+            var isScheduleManagerOrAdmin = await this.employeeGroupService.IsEmployeeInGroupsWithNames(userId, businessId, GlobalConstants.AdminsGroupName, GlobalConstants.ScheduleManagersGroupName);
 
-            var viewModel = new BusinessIndexViewModel()
+            var viewModel = new BusinessIndexViewModel();
+
+            if (isScheduleManagerOrAdmin)
             {
-                ShiftApplicationsCount = applicationsCount,
-                ShiftChangesCount = shiftChangesCount,
-            };
+                var applicationsCount = await this.shiftApplicationService.GetCountByBusinessIdAsync(businessId);
+                var shiftChangesCount = await this.shiftChangeService.GetCountByBusinessIdAsync(businessId);
+
+                viewModel.ShiftApplicationsCount = applicationsCount;
+                viewModel.ShiftChangesCount = shiftChangesCount;
+            }
+
+            viewModel.IsScheduleManagerOrAdmin = isScheduleManagerOrAdmin;
 
             return this.View(viewModel);
         }

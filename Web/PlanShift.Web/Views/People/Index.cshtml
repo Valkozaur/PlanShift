@@ -6,10 +6,13 @@
 }
 
 <div class="container">
-    <div class="row">
-        <a class="btn btn-primary" asp-controller="Group" asp-action="Create">Create Group</a>
-        <a class="btn btn-success" asp-controller="EmployeeGroup" asp-action="AddEmployeeToGroup" asp-route-groupId="@this.Model.ActiveTabGroupId">Add Employee</a>
-    </div>
+    @if (this.Model.IsInHrOrAdminRoleGroup)
+    {
+        <div class="row">
+            <a class="btn btn-primary" asp-controller="Group" asp-action="Create">Create Group</a>
+            <a class="btn btn-success" asp-controller="EmployeeGroup" asp-action="AddEmployeeToGroup" asp-route-groupId="@this.Model.ActiveTabGroupId">Add Employee</a>
+        </div>
+    }
 
     <div class="row">
         <div class="col-3 border h-100">

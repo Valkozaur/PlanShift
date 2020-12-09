@@ -245,16 +245,7 @@ namespace PlanShift.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsHrManagement")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsScheduleManager")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedOn")
