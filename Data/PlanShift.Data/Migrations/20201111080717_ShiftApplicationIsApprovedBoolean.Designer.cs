@@ -254,7 +254,7 @@ namespace PlanShift.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsManagement")
+                    b.Property<bool>("IsHrManagement")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedOn")

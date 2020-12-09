@@ -7,7 +7,7 @@
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<bool>(
-                name: "IsManagement",
+                name: "IsHrManagement",
                 table: "EmployeeGroups",
                 nullable: false,
                 defaultValue: false);
@@ -16,7 +16,7 @@
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "IsManagement",
+                name: "IsHrManagement",
                 table: "EmployeeGroups");
         }
     }

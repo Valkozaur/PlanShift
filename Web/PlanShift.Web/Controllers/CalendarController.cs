@@ -14,6 +14,7 @@
     using PlanShift.Web.ViewModels.Enumerations;
     using PlanShift.Web.ViewModels.Shift;
 
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CalendarController : BaseController
@@ -33,7 +34,6 @@
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult> Get()
         {
             var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
@@ -84,7 +84,6 @@
             return this.Ok(jsonObject);
         }
 
-        [Authorize]
         [HttpGet("GetGroupShifts")]
         public async Task<ActionResult> GetGroupShifts(string groupId)
         {

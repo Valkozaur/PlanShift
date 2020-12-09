@@ -22,7 +22,6 @@
     <ProjectReference Include="..\..\Data\PlanShift.Data.Common\PlanShift.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\PlanShift.Data.Models\PlanShift.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\PlanShift.Data\PlanShift.Data.csproj" />
-    <ProjectReference Include="..\..\Web\PlanShift.Web.ViewModels\PlanShift.Web.ViewModels.csproj" />
     <ProjectReference Include="..\PlanShift.Services.Mapping\PlanShift.Services.Mapping.csproj" />
   </ItemGroup>
 

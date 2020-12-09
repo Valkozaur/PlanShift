@@ -8,6 +8,8 @@
     {
         public IEnumerable<T> Groups { get; set; }
 
+        public IEnumerable<T> SpecialGroups { get; set; }
+
         public string ActiveTabGroupId { get; set; }
     }
 }

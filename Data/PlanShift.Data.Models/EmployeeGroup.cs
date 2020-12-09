@@ -1,12 +1,11 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
 
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace PlanShift.Data.Models
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     using PlanShift.Data.Common.Models;
 
@@ -39,8 +38,6 @@ namespace PlanShift.Data.Models
         public string Position { get; set; }
 
         public decimal Salary { get; set; }
-
-        public bool IsManagement { get; set; }
 
         public virtual ICollection<Shift> Shifts { get; set; }
 

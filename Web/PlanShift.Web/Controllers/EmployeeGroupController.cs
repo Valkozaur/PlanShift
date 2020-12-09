@@ -1,14 +1,17 @@
 ﻿namespace PlanShift.Web.Controllers
 {
-    using System.Security.Claims;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using PlanShift.Common;
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.EmployeeGroupServices;
+    using PlanShift.Web.Tools.ActionFilters;
     using PlanShift.Web.ViewModels.EmployeeGroup;
 
+    [Authorize]
     public class EmployeeGroupController : BaseController
     {
         private readonly IEmployeeGroupService employeeGroupService;
@@ -22,6 +25,7 @@
             this.userManager = userManager;
         }
 
+        [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.HrGroupName } })]
         public IActionResult AddEmployeeToGroup(string groupId)
         {
             var inputModel = new EmployeeToGroupInvitationInputModel()
@@ -33,22 +37,13 @@
         }
 
         [HttpPost]
+        [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.HrGroupName } })]
         public async Task<IActionResult> AddEmployeeToGroup(EmployeeToGroupInvitationInputModel input)
         {
 
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
-            }
-
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            var isUserManager = await this.employeeGroupService.IsEmployeeManagerInGroup(userId, input.GroupId);
-
-            if (!isUserManager)
-            {
-                this.ModelState.AddModelError("NotPermitted", "You should be manager to finish this action!");
-                return this.View();
             }
 
             var userToAdd = await this.userManager.FindByEmailAsync(input.Email);

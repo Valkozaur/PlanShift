@@ -1,10 +1,9 @@
-﻿using System.Threading;
-
-namespace PlanShift.Services.Data.EmployeeGroupServices
+﻿namespace PlanShift.Services.Data.EmployeeGroupServices
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -34,7 +33,6 @@ namespace PlanShift.Services.Data.EmployeeGroupServices
                 GroupId = groupId,
                 Salary = salary,
                 Position = position,
-                IsManagement = isManagement,
             };
 
             await this.employeeGroupRepository.AddAsync(employeeGroup);
@@ -43,21 +41,16 @@ namespace PlanShift.Services.Data.EmployeeGroupServices
             return employeeGroup.Id;
         }
 
-        public async Task<IEnumerable<T>> GetAllEmployeesFromGroup<T>(string groupId, bool isManagement = false)
+        public async Task<IEnumerable<T>> GetAllEmployeesFromGroup<T>(string groupId)
         {
             var queryable = this.employeeGroupRepository.AllAsNoTracking().Where(x => x.GroupId == groupId);
-
-            if (isManagement)
-            {
-                queryable = queryable.Where(x => x.IsManagement);
-            }
 
             var employees = await queryable.To<T>().ToArrayAsync();
 
             return employees;
         }
 
-        public Task<T> GetEmployeeGroupById<T>(string employeeId, string userId)
+        public Task<T> GetEmployeeGroupById<T>(string userId, string employeeId)
             => this.employeeGroupRepository
                 .AllAsNoTracking()
                 .Where(x => x.UserId == employeeId && x.GroupId == userId)
@@ -69,13 +62,21 @@ namespace PlanShift.Services.Data.EmployeeGroupServices
                 .AllAsNoTracking()
                 .AnyAsync(x => x.UserId == userId && x.GroupId == groupId);
 
-        public async Task<bool> IsEmployeeManagerInGroup(string userId, string groupId)
+        public async Task<bool> IsEmployeeInGroupWithName(string userId, string businessId, string groupName)
             => await this.employeeGroupRepository
                 .AllAsNoTracking()
-                .AnyAsync(x
-                    => x.UserId == userId
-                    && x.GroupId == groupId
-                    && x.IsManagement);
+                .AnyAsync(eg
+                    => eg.UserId == userId &&
+                       eg.Group.BusinessId == businessId &&
+                       eg.Group.Name == groupName);
+
+        public async Task<bool> IsEmployeeInGroupsWithNames(string userId, string businessId, params string[] groupName)
+            => await this.employeeGroupRepository
+                .AllAsNoTracking()
+                .AnyAsync(eg
+                    => eg.UserId == userId &&
+                       eg.Group.BusinessId == businessId &&
+                       groupName.Contains(eg.Group.Name));
 
         public async Task<string> GetEmployeeId(string userId, string groupId) 
             => await this.employeeGroupRepository

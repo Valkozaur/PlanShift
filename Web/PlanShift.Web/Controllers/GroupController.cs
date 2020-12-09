@@ -2,22 +2,23 @@
 {
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PlanShift.Common;
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.BusinessServices;
     using PlanShift.Services.Data.GroupServices;
-    using PlanShift.Web.Infrastructure.Validations.UserValidationAttributes;
+    using PlanShift.Web.Tools.ActionFilters;
     using PlanShift.Web.Tools.SessionExtension;
     using PlanShift.Web.ViewModels.Business;
     using PlanShift.Web.ViewModels.Group;
 
+    [Authorize]
     public class GroupController : BaseController
     {
         private readonly IGroupService groupService;
         private readonly IBusinessService businessService;
-
 
         public GroupController(IGroupService groupService, IBusinessService businessService, UserManager<PlanShiftUser> userManager)
         {

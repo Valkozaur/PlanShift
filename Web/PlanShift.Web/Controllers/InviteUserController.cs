@@ -1,9 +1,12 @@
-﻿namespace PlanShift.Web.Controllers
+﻿using PlanShift.Web.Tools.ActionFilters;
+
+namespace PlanShift.Web.Controllers
 {
     using System;
     using System.Text;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using PlanShift.Common;
     using PlanShift.Services.Data.GroupServices;
@@ -12,6 +15,7 @@
     using PlanShift.Web.ViewModels.EmployeeGroup;
     using PlanShift.Web.ViewModels.Group;
 
+    [Authorize]
     public class InviteUserController : BaseController
     {
         private const string EmailSubject = "Become part of PlanShift!";
@@ -33,6 +37,7 @@
         }
 
         [HttpPost]
+        [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.HrGroupName } })]
         public async Task<IActionResult> InviteUserToGroup(EmployeeToGroupInvitationInputModel details)
         {
             var groupNames = await this.groupService.GetGroupAsync<GroupBusinessNamesViewModel>(details.GroupId);

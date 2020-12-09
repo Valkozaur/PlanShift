@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\PlanShift.Data.Models\PlanShift.Data.Models.csproj" />
+    <ProjectReference Include="..\..\PlanShift.Common\PlanShift.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

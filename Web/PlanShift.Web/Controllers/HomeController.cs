@@ -4,7 +4,6 @@
 
     using Microsoft.AspNetCore.Mvc;
     using PlanShift.Common;
-    using PlanShift.Web.Infrastructure.Validations.UserValidationAttributes;
     using PlanShift.Web.ViewModels;
 
     public class HomeController : BaseController

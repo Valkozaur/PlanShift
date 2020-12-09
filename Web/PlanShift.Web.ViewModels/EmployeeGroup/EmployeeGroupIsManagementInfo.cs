@@ -4,18 +4,8 @@
     using PlanShift.Data.Models;
     using PlanShift.Services.Mapping;
 
-    public class EmployeeGroupIsManagementInfo : IMapFrom<EmployeeGroup>, IHaveCustomMappings
+    public class EmployeeGroupIsManagementInfo : IMapFrom<EmployeeGroup>
     {
         public string Id { get; set; }
-
-        public bool IsManagement { get; set; }
-
-        public void CreateMappings(IProfileExpression configuration)
-        {
-            configuration.CreateMap<EmployeeGroup, EmployeeGroupIsManagementInfo>()
-                .ForMember(
-                    m => m.IsManagement,
-                    eg => eg.MapFrom(x => x.IsManagement));
-        }
     }
 }

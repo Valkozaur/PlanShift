@@ -12,10 +12,11 @@
     using PlanShift.Services.Data.BusinessTypeServices;
     using PlanShift.Services.Data.ShiftApplication;
     using PlanShift.Services.Data.ShiftChangeServices;
-    using PlanShift.Web.Infrastructure.Validations.UserValidationAttributes;
+    using PlanShift.Web.Tools.ActionFilters;
     using PlanShift.Web.Tools.SessionExtension;
     using PlanShift.Web.ViewModels.Business;
 
+    [Authorize]
     public class BusinessController : BaseController
     {
         private readonly IBusinessService businessService;
@@ -38,7 +39,6 @@
             this.userManager = userManager;
         }
 
-        [Authorize]
         [SessionValidation(GlobalConstants.BusinessSessionName)]
         public async Task<IActionResult> Index()
         {
@@ -56,7 +56,6 @@
             return this.View(viewModel);
         }
 
-        [Authorize]
         public async Task<IActionResult> Register(int? id)
         {
             var businessTypes = await this.businessTypeService.GetAllAsync<BusinessTypeDropDownViewModel>();
@@ -69,7 +68,6 @@
             return this.View(viewModel);
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Register(BusinessRegisterInputModel inputModel)
         {
@@ -90,7 +88,6 @@
             return this.RedirectToAction(nameof(this.Index));
         }
 
-        [Authorize]
         public async Task<IActionResult> Pick()
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -104,14 +101,11 @@
             return this.View(businessesList);
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Pick(string businessId)
         {
-            if (string.IsNullOrEmpty(await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName)))
-            {
-                await this.HttpContext.Session.SetStringAsync(GlobalConstants.BusinessSessionName, businessId);
-            }
+            await this.HttpContext.Session.SetStringAsync(GlobalConstants.BusinessSessionName, businessId);
+            var kur = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
 
             return this.RedirectToAction(nameof(this.Index));
         }

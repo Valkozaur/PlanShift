@@ -6,7 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
     using PlanShift.Common;
     using PlanShift.Services.Data.EmployeeGroupServices;
-    using PlanShift.Web.Infrastructure.Validations.UserValidationAttributes;
+    using PlanShift.Web.Tools.ActionFilters;
     using PlanShift.Web.ViewModels.People;
 
     public class GroupMembersViewComponent : ViewComponent

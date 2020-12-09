@@ -7,6 +7,7 @@
     using PlanShift.Services.Data.BusinessTypeServices;
     using PlanShift.Web.ViewModels.BusinessType;
 
+    [Authorize]
     public class BusinessTypeController : BaseController
     {
         private readonly IBusinessTypeService businessTypeService;
@@ -16,13 +17,11 @@
             this.businessTypeService = businessTypeService;
         }
 
-        [Authorize]
         public IActionResult Create()
         {
             return this.View();
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(BusinessTypeInputModel input)
         {

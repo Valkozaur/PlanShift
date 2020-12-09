@@ -1,4 +1,4 @@
-﻿namespace PlanShift.Web.Infrastructure.Validations.ValidationAttributes
+﻿namespace PlanShift.Web.Infrastructure.Validations.DataValidationAttributes
 {
     using System;
     using System.ComponentModel.DataAnnotations;

@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace PlanShift.Data.Migrations
+﻿namespace PlanShift.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class ShiftChangesIsApprovedByOriginalEmployeeBoolean : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using PlanShift.Web.Infrastructure.Validations.ValidationAttributes;
+    using PlanShift.Web.Infrastructure.Validations.DataValidationAttributes;
     using PlanShift.Web.ViewModels.Group;
 
     public class CreateShiftInputModel

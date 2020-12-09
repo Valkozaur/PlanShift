@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+    using PlanShift.Common;
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.BusinessServices;
@@ -80,16 +81,11 @@
                 .To<T>()
                 .FirstOrDefaultAsync();
 
-        public async Task<IEnumerable<T>> GetAllGroupByCurrentUserAndBusinessIdAsync<T>(string businessId, string userId,bool isManager = false, PendingActionsType pendingAction = PendingActionsType.Unknown)
+        public async Task<IEnumerable<T>> GetAllGroupByCurrentUserAndBusinessIdAsync<T>(string businessId, string userId, PendingActionsType pendingAction = PendingActionsType.Unknown)
         {
             var query = this.groupRepository
                 .AllAsNoTracking()
                 .Where(x => x.BusinessId == businessId && x.Employees.Any(e => e.UserId == userId));
-
-            if (isManager)
-            {
-                query = query.Where(x => x.Employees.Any(e => e.UserId == userId && e.IsManagement));
-            }
 
             if (pendingAction == PendingActionsType.ShiftApplications)
             {
@@ -100,20 +96,19 @@
                 query = query.Where(x => x.Shifts.Any(s => s.ShiftChanges.Count != 0));
             }
 
-            return await query.OrderByDescending(g => g.Employees.Count).To<T>().ToArrayAsync();
+            return await query
+                .OrderByDescending(g
+                    => g.Name == GlobalConstants.AdminsGroupName
+                       || g.Name == GlobalConstants.HrGroupName
+                       || g.Name == GlobalConstants.ScheduleManagersGroupName)
+                .ThenByDescending(g => g.Employees.Count)
+                .To<T>()
+                .ToArrayAsync();
         }
 
-        public async Task<string> GetGroupName(string id)
+        public Task<IEnumerable<T>> GetSpecialGroupsOfCurrentUserAndBusiness<T>(string businessId, string userId)
         {
-            var group = await this.groupRepository.All().FirstOrDefaultAsync(x => x.Id == id);
-            return group.Name;
+            throw new System.NotImplementedException();
         }
-
-        public async Task<string> GetGroupsBusinessId(string groupId)
-            => await this.groupRepository
-                .All()
-                .Where(g => g.Id == groupId)
-                .Select(g => g.BusinessId)
-                .FirstOrDefaultAsync();
     }
 }

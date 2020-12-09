@@ -8,15 +8,30 @@
 <div class="container">
     <div class="row">
         <a class="btn btn-primary" asp-controller="Group" asp-action="Create">Create Group</a>
-        <a class="btn btn-success" asp-controller="EmployeeGroup" asp-action="AddEmployeeToGroup" asp-route-groupId="@Model.ActiveTabGroupId">Add Employee</a>
+        <a class="btn btn-success" asp-controller="EmployeeGroup" asp-action="AddEmployeeToGroup" asp-route-groupId="@this.Model.ActiveTabGroupId">Add Employee</a>
     </div>
 
     <div class="row">
         <div class="col-3 border h-100">
             <div class="btn-group-vertical btn-group-lg d-flex w-100">
-                @foreach (var group in Model.Groups)
+                <h5 class="text-center">Groups</h5>
+                @foreach (var group in this.Model.Groups)
                 {
                     <a type="submit" class="btn btn-lg btn-outline-secondary w-100" asp-controller="People" asp-action="SwitchToTabs" asp-route-activeTabGroupId="@group.Id">
+                        <span class="float-left text-secondary">@group.Name</span><span class="float-right text-secondary numberCircle">@group.EmployeesCount</span>
+                    </a>
+                }
+
+                @if (this.Model.SpecialGroups.Count() != 0)
+                {
+                    <span>@(new String('-', 38))</span>
+                    <br />
+                    <h5 class="text-center">Managers Groups</h5>
+                }
+
+                @foreach (var group in this.Model.SpecialGroups)
+                {
+                    <a type="submit" class="btn btn-lg btn-light btn-outline-secondary w-100" asp-controller="People" asp-action="SwitchToTabs" asp-route-activeTabGroupId="@group.Id">
                         <span class="float-left text-secondary">@group.Name</span><span class="float-right text-secondary numberCircle">@group.EmployeesCount</span>
                     </a>
                 }
@@ -24,7 +39,7 @@
         </div>
 
         <div class="col-9">
-            <vc:group-members group-id="@Model.ActiveTabGroupId"></vc:group-members>
+            <vc:group-members group-id="@this.Model.ActiveTabGroupId"></vc:group-members>
         </div>
     </div>
 </div>

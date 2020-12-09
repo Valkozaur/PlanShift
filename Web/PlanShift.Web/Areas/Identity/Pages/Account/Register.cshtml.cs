@@ -1,8 +1,6 @@
-﻿using System;
-using PlanShift.Services.Data.EmployeeGroupServices;
-
-namespace PlanShift.Web.Areas.Identity.Pages.Account
+﻿namespace PlanShift.Web.Areas.Identity.Pages.Account
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
@@ -19,6 +17,7 @@ namespace PlanShift.Web.Areas.Identity.Pages.Account
     using Microsoft.AspNetCore.WebUtilities;
     using Microsoft.Extensions.Logging;
     using PlanShift.Data.Models;
+    using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.InvitationVerificationServices;
     using PlanShift.Web.ViewModels.InviteEmployeeValidation;
 

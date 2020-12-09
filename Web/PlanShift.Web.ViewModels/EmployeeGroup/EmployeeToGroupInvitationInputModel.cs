@@ -2,14 +2,13 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using PlanShift.Web.Infrastructure.Validations.ValidationAttributes;
+    using PlanShift.Web.Infrastructure.Validations.DataValidationAttributes;
 
     public class EmployeeToGroupInvitationInputModel
     {
         [Required]
         [MinLength(3)]
         [MaxLength(60)]
-        [UsernameExists]
         public string Email { get; set; }
 
         public string GroupId { get; set; }

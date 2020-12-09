@@ -4,6 +4,7 @@
     using System.Security.Claims;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PlanShift.Common;
@@ -14,11 +15,13 @@
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Services.Data.ShiftApplication;
     using PlanShift.Services.Data.ShiftServices;
+    using PlanShift.Web.Tools.ActionFilters;
     using PlanShift.Web.Tools.SessionExtension;
     using PlanShift.Web.ViewModels.EmployeeGroup;
     using PlanShift.Web.ViewModels.Group;
     using PlanShift.Web.ViewModels.ShiftApplication;
 
+    [Authorize]
     public class ShiftApplicationController : BaseController
     {
         private readonly IShiftApplicationService shiftApplicationService;
@@ -76,19 +79,16 @@
             return this.RedirectToAction("Index", "Business", new { GroupId = groupId });
         }
 
+        [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.ScheduleManagersGroupName } })]
         public async Task<IActionResult> Approve(string shiftApplicationId, string businessId)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var shiftApplicationInfo = await this.shiftApplicationService.GetShiftApplicationById<ApproveShiftInfo>(shiftApplicationId);
 
-            var manager = await this.employeeGroupService.GetEmployeeGroupById<EmployeeGroupInfo>(userId, shiftApplicationInfo.GroupId);
-            if (!manager.IsManagement)
-            {
-                return this.RedirectToAction("Index", "Home");
-            }
+            var employeeId = await this.employeeGroupService.GetEmployeeId(userId, shiftApplicationInfo.GroupId);
 
-            await this.shiftService.ApproveShiftToEmployee(shiftApplicationInfo.ShiftId, shiftApplicationInfo.EmployeeId, manager.Id);
+            await this.shiftService.ApproveShiftToEmployee(shiftApplicationInfo.ShiftId, shiftApplicationInfo.EmployeeId, employeeId);
             await this.shiftApplicationService.ApproveShiftApplicationAsync(shiftApplicationId);
 
             return this.RedirectToAction(nameof(this.All), new { BusinessId = businessId, activeTabGroupId = shiftApplicationInfo.GroupId });
@@ -99,7 +99,7 @@
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
 
-            var groupsInBusiness = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(businessId, userId, false, PendingActionsType.ShiftApplications);
+            var groupsInBusiness = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(businessId, userId, PendingActionsType.ShiftApplications);
 
             var viewModel = new GroupListViewModel<GroupBasicInfoViewModel>()
             {

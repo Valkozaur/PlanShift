@@ -8,6 +8,19 @@
     <link href="css/custom.css" rel="stylesheet" asp-append-version="true"/>
 }
 
+@if (!this.ViewData.ModelState.IsValid)
+{
+    foreach (var value in this.ViewData.ModelState.Values)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @value.Errors[0];
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+}
+
 @if (this.TempData["Error"] != null)
 {
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
