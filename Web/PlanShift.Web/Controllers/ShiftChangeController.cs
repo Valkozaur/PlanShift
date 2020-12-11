@@ -1,6 +1,4 @@
-﻿using PlanShift.Web.Tools.ActionFilters;
-
-namespace PlanShift.Web.Controllers
+﻿namespace PlanShift.Web.Controllers
 {
     using System;
     using System.Linq;
@@ -16,6 +14,7 @@ namespace PlanShift.Web.Controllers
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Services.Data.ShiftChangeServices;
     using PlanShift.Services.Data.ShiftServices;
+    using PlanShift.Web.Tools.ActionFilters;
     using PlanShift.Web.Tools.SessionExtension;
     using PlanShift.Web.ViewModels.EmployeeGroup;
     using PlanShift.Web.ViewModels.Group;

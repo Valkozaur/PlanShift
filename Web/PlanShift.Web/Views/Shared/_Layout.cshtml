@@ -17,12 +17,11 @@
             <div class="container">
                 @if (await this.ViewContext.HttpContext.Session.HasKeyAsync(GlobalConstants.BusinessSessionName))
                 {
-                    <a class="navbar-brand" asp-area="" asp-controller="Business" asp-action="Index">@GlobalConstants.SystemName</a>
-                }
+    <a class="navbar-brand" asp-area="" asp-controller="Business" asp-action="Index">@GlobalConstants.SystemName</a> }
                 else
                 {
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
-                }
+    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
+}
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -63,6 +62,7 @@
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js" asp-append-version="true"></script>
+    <script src="~/lib/signalr/dist/browser/signalr.min.js" asp-append-version="true"></script>
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

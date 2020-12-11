@@ -13,6 +13,8 @@
             <a class="btn btn-success" asp-controller="EmployeeGroup" asp-action="AddEmployeeToGroup" asp-route-groupId="@this.Model.ActiveTabGroupId">Add Employee</a>
         </div>
     }
+    <a class="btn btn-success" asp-controller="Group" asp-action="GroupChat" asp-route-groupId="@this.Model.ActiveTabGroupId">Add Employee</a>
+
 
     <div class="row">
         <div class="col-3 border h-100">
@@ -27,7 +29,6 @@
 
                 @if (this.Model.SpecialGroups.Count() != 0)
                 {
-                    <span>@(new String('-', 38))</span>
                     <br />
                     <h5 class="text-center">Managers Groups</h5>
                 }

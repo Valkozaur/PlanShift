@@ -31,7 +31,7 @@
         public async Task<IActionResult> Create()
         {
             var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
-            
+
             var business = await this.businessService.GetBusinessAsync<BusinessInfoViewModel>(businessId);
             var viewModel = new GroupInputModel()
             {
@@ -57,6 +57,14 @@
             var groupId = await this.groupService.CreateGroupAsync(businessId, inputModel.Name, inputModel.StandardSalary);
 
             return this.RedirectToAction("Index", "People", new { GroupId = groupId });
+        }
+
+        [Authorize]
+        public async Task<IActionResult> GroupChat(string groupId)
+        {
+            var viewModel = await this.groupService.GetGroupAsync<GroupChatViewModel>(groupId);
+
+            return this.View(viewModel);
         }
     }
 }

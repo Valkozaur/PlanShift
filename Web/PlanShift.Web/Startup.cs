@@ -1,4 +1,7 @@
-﻿namespace PlanShift.Web
+﻿using PlanShift.Web.Hubs;
+using SignalRChat.Hubs;
+
+namespace PlanShift.Web
 {
     using System;
     using System.Reflection;
@@ -47,6 +50,8 @@
 
             services.AddDefaultIdentity<PlanShiftUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddSignalR();
 
             services.Configure<CookiePolicyOptions>(
                 options =>
@@ -146,6 +151,7 @@
             app.UseEndpoints(
                 endpoints =>
                     {
+                        endpoints.MapHub<TestChatHub>("/GroupChat");
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();

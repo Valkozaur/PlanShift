@@ -43,7 +43,7 @@
             </td>
             <td>
                 <form method="post" asp-controller="ShiftChange" asp-action="Approve">
-                    <input type="hidden" id="groupId" name="groupId" value="@Model.GroupId"/>
+                    <input type="hidden" id="groupId" name="groupNameArg" value="@Model.GroupId"/>
                     <input type="hidden" id="shiftChangeId" name="shiftChangeId" value="@shiftChange.Id"/>
                     <button class="btn-sm btn-primary" type="submit">Assign</button>
 

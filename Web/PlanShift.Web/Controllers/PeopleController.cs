@@ -1,6 +1,4 @@
-﻿using PlanShift.Services.Data.EmployeeGroupServices;
-
-namespace PlanShift.Web.Controllers
+﻿namespace PlanShift.Web.Controllers
 {
     using System.Linq;
     using System.Security.Claims;
@@ -9,6 +7,7 @@ namespace PlanShift.Web.Controllers
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using PlanShift.Common;
+    using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Web.Tools.ActionFilters;
     using PlanShift.Web.Tools.SessionExtension;
@@ -59,6 +58,13 @@ namespace PlanShift.Web.Controllers
         public IActionResult SwitchToTabs(string activeTabGroupId)
         {
             return this.RedirectToAction(nameof(this.Index), new { ActiveTabGroupId = activeTabGroupId });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Chat(string userId)
+        {
+            return this.View();
         }
     }
 }

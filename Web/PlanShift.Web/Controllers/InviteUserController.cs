@@ -1,6 +1,4 @@
-﻿using PlanShift.Web.Tools.ActionFilters;
-
-namespace PlanShift.Web.Controllers
+﻿namespace PlanShift.Web.Controllers
 {
     using System;
     using System.Text;
@@ -12,6 +10,7 @@ namespace PlanShift.Web.Controllers
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Services.Data.InvitationVerificationServices;
     using PlanShift.Services.Messaging;
+    using PlanShift.Web.Tools.ActionFilters;
     using PlanShift.Web.ViewModels.EmployeeGroup;
     using PlanShift.Web.ViewModels.Group;
 
