@@ -1,10 +1,12 @@
-﻿using PlanShift.Web.Hubs;
-using SignalRChat.Hubs;
-
-namespace PlanShift.Web
+﻿namespace PlanShift.Web
 {
     using System;
     using System.Reflection;
+
+    using Hangfire;
+    using Hangfire.Console;
+    using Hangfire.Dashboard;
+    using Hangfire.SqlServer;
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -15,6 +17,7 @@ namespace PlanShift.Web
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+
     using PlanShift.Data;
     using PlanShift.Data.Common;
     using PlanShift.Data.Common.Repositories;
@@ -31,6 +34,7 @@ namespace PlanShift.Web
     using PlanShift.Services.Data.ShiftServices;
     using PlanShift.Services.Mapping;
     using PlanShift.Services.Messaging;
+    using PlanShift.Web.Hubs;
     using PlanShift.Web.ViewModels;
 
     public class Startup
@@ -47,6 +51,20 @@ namespace PlanShift.Web
         {
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(this.configuration.GetConnectionString("DefaultConnection"), new SqlServerStorageOptions
+                {
+                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                    QueuePollInterval = TimeSpan.Zero,
+                    UseRecommendedIsolationLevel = true,
+                    DisableGlobalLocks = true
+                }));
+
 
             services.AddDefaultIdentity<PlanShiftUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
