@@ -1,10 +1,11 @@
-﻿namespace PlanShift.Web
+﻿using System.Security.Claims;
+
+namespace PlanShift.Web
 {
     using System;
     using System.Reflection;
 
     using Hangfire;
-    using Hangfire.Console;
     using Hangfire.Dashboard;
     using Hangfire.SqlServer;
 
@@ -17,13 +18,14 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-
+    using PlanShift.Common;
     using PlanShift.Data;
     using PlanShift.Data.Common;
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
     using PlanShift.Data.Repositories;
     using PlanShift.Data.Seeding;
+    using PlanShift.Services.CronJobs;
     using PlanShift.Services.Data.BusinessServices;
     using PlanShift.Services.Data.BusinessTypeServices;
     using PlanShift.Services.Data.EmployeeGroupServices;
@@ -49,9 +51,6 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
-
             services.AddHangfire(configuration => configuration
                 .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                 .UseSimpleAssemblyNameTypeSerializer()
@@ -62,10 +61,12 @@
                     SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
                     QueuePollInterval = TimeSpan.Zero,
                     UseRecommendedIsolationLevel = true,
-                    DisableGlobalLocks = true
+                    DisableGlobalLocks = true,
                 }));
 
-
+            services.AddDbContext<ApplicationDbContext>(
+                options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
+            services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddDefaultIdentity<PlanShiftUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -81,13 +82,11 @@
             services.AddDistributedSqlServerCache(
                 options =>
                 {
-
                     options.ConnectionString = this.configuration.GetConnectionString("DefaultConnection");
 
                     options.SchemaName = "dbo";
 
                     options.TableName = "ApplicationCache";
-
                 });
 
             services.AddSession(options =>
@@ -96,7 +95,6 @@
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
-
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -133,7 +131,7 @@
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IRecurringJobManager recurringJobManager)
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
@@ -143,12 +141,12 @@
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 dbContext.Database.Migrate();
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                this.SeedHangfireJobs(recurringJobManager, dbContext);
             }
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -166,6 +164,11 @@
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseHangfireServer(new BackgroundJobServerOptions { WorkerCount = 1 });
+            app.UseHangfireDashboard(
+                "/hangfire",
+                new DashboardOptions { Authorization = new[] { new HangfireAuthorizationFilter() } });
+
             app.UseEndpoints(
                 endpoints =>
                     {
@@ -173,7 +176,23 @@
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();
+                        endpoints.MapHangfireDashboard();
                     });
+        }
+
+        private void SeedHangfireJobs(IRecurringJobManager recurringJobManager, ApplicationDbContext dbContext)
+        {
+            recurringJobManager.AddOrUpdate<DbCleanUpJob>("DbCleanUpJob", x => x.Work(), Cron.Weekly);
+            recurringJobManager.AddOrUpdate<ChangeShiftStatusJob>("ChangeShiftStatusJob", x => x.Work(), Cron.Daily);
+        }
+
+        private class HangfireAuthorizationFilter : IDashboardAuthorizationFilter
+        {
+            public bool Authorize(DashboardContext context)
+            {
+                var httpContext = context.GetHttpContext();
+                return httpContext.User.IsInRole(GlobalConstants.AdministratorRoleName);
+            }
         }
     }
 }

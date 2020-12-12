@@ -1,0 +1,12 @@
+/Web/PlanShift.Web/bin/Debug/net5.0
+/Services/PlanShift.Services.Data/bin/Debug/net5.0
+/Data/PlanShift.Data/bin/Debug/net5.0
+/Tests/PlanShift.Web.Tests/bin/Debug/net5.0
+/Services/PlanShift.Services.Mapping/bin/Debug/net5.0
+/Services/PlanShift.Services/bin/Debug/net5.0
+/Data/PlanShift.Data.Models/bin/Debug/net5.0
+/Web/PlanShift.Web.ViewModels/bin/Debug/net5.0
+/Web/PlanShift.Web.Infrastructure/bin/Debug/net5.0
+/Services/PlanShift.Services.Messaging/bin/Debug/net5.0
+/Data/PlanShift.Data.Common/bin/Debug/net5.0
+/PlanShift.Services.CronJobs/bin/Debug/net5.0

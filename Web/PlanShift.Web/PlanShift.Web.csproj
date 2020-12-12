@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.18" />
-Asp    <PackageReference Include="Hangfire.SqlServer" Version="1.7.18" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.18" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0">
@@ -38,6 +38,7 @@ Asp    <PackageReference Include="Hangfire.SqlServer" Version="1.7.18" />
     <ProjectReference Include="..\..\PlanShift.Common\PlanShift.Common.csproj" />
     <ProjectReference Include="..\..\Data\PlanShift.Data.Models\PlanShift.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\PlanShift.Data\PlanShift.Data.csproj" />
+    <ProjectReference Include="..\..\PlanShift.Services.CronJobs\PlanShift.Services.CronJobs.csproj" />
     <ProjectReference Include="..\..\Services\PlanShift.Services.Data\PlanShift.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\PlanShift.Services.Mapping\PlanShift.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\PlanShift.Services.Messaging\PlanShift.Services.Messaging.csproj" />
