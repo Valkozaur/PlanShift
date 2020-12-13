@@ -10,8 +10,6 @@
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.EmployeeGroupServices;
-    using PlanShift.Services.Mapping;
-    using PlanShift.Web.ViewModels;
     using PlanShift.Web.ViewModels.EmployeeGroup;
     using Xunit;
 

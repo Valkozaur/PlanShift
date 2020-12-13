@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Services.Data.GroupServices
+﻿using PlanShift.Data.Models.Enumerations;
+
+namespace PlanShift.Services.Data.GroupServices
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -44,39 +46,39 @@
             return group.Id;
         }
 
-        public async Task<string> UpdateGroupAsync(
-            string groupId,
-            string name = null,
-            string businessId = null,
-            decimal? standardSalary = null)
-        {
-            var group = await this.groupRepository.All().FirstOrDefaultAsync(x => x.Id == groupId);
+        //public async Task<string> UpdateGroupAsync(
+        //    string groupId,
+        //    string name = null,
+        //    string businessId = null,
+        //    decimal? standardSalary = null)
+        //{
+        //    var group = await this.groupRepository.All().FirstOrDefaultAsync(x => x.Id == groupId);
 
-            if (group != null && (name != null || standardSalary != null))
-            {
-                group.Name = name ?? group.Name;
-                group.BusinessId = businessId;
-                group.StandardSalary = standardSalary ?? group.StandardSalary;
-            }
+        //    if (group != null && (name != null || standardSalary != null))
+        //    {
+        //        group.Name = name ?? group.Name;
+        //        group.BusinessId = businessId;
+        //        group.StandardSalary = standardSalary ?? group.StandardSalary;
+        //    }
 
-            await this.groupRepository.SaveChangesAsync();
-            return group?.Id;
-        }
+        //    await this.groupRepository.SaveChangesAsync();
+        //    return group?.Id;
+        //}
 
-        public async Task DeleteGroupAsync(string id)
-        {
-            var group = await this.groupRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+        //public async Task DeleteGroupAsync(string id)
+        //{
+        //    var group = await this.groupRepository.All().FirstOrDefaultAsync(x => x.Id == id);
 
-            if (group != null)
-            {
-                this.groupRepository.Delete(group);
-                await this.groupRepository.SaveChangesAsync();
-            }
-        }
+        //    if (group != null)
+        //    {
+        //        this.groupRepository.Delete(group);
+        //        await this.groupRepository.SaveChangesAsync();
+        //    }
+        //}
 
         public async Task<T> GetGroupAsync<T>(string id)
             => await this.groupRepository
-                .All()
+                .AllAsNoTracking()
                 .Where(x => x.Id == id)
                 .To<T>()
                 .FirstOrDefaultAsync();
@@ -89,11 +91,11 @@
 
             if (pendingAction == PendingActionsType.ShiftApplications)
             {
-                query = query.Where(x => x.Shifts.Any(s => s.ShiftApplications.Count != 0));
+                query = query.Where(x => x.Shifts.Any(s => s.ShiftApplications.Count(sa => sa.Status == ShiftApplicationStatus.Pending) != 0));
             }
             else if (pendingAction == PendingActionsType.ShiftChanges)
             {
-                query = query.Where(x => x.Shifts.Any(s => s.ShiftChanges.Count != 0));
+                query = query.Where(x => x.Shifts.Any(s => s.ShiftChanges.Count(sc => sc.Status == ShiftApplicationStatus.Pending) != 0));
             }
 
             return await query

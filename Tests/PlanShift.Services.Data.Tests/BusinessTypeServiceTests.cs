@@ -1,21 +1,18 @@
-﻿using System.Reflection;
-using PlanShift.Services.Mapping;
-using PlanShift.Web.ViewModels;
-
-namespace PlanShift.Services.Data.Tests
+﻿namespace PlanShift.Services.Data.Tests
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using System.Threading.Tasks;
 
     using MockQueryable.Moq;
     using Moq;
-
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.BusinessTypeServices;
+    using PlanShift.Services.Mapping;
+    using PlanShift.Web.ViewModels;
     using PlanShift.Web.ViewModels.Business;
-
     using Xunit;
 
     public class BusinessTypeServiceTests : BaseTestClass

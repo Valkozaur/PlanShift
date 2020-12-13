@@ -73,11 +73,6 @@
         {
             var shiftChange = await this.shiftChangeRepository.All().FirstOrDefaultAsync(x => x.Id == shiftChangeId);
 
-            if (shiftChange == null)
-            {
-                throw new ArgumentNullException();
-            }
-
             shiftChange.ManagementId = managerId;
             shiftChange.Status = ShiftApplicationStatus.Approved;
 

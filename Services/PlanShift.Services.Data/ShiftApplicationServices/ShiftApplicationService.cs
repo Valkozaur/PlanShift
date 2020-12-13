@@ -41,13 +41,6 @@
             .AllAsNoTracking()
             .AnyAsync(x => x.ShiftId == shiftId && x.EmployeeId == employeeId);
 
-        public async Task<IEnumerable<T>> GetAllApplicationByShiftIdAsync<T>(string shiftId)
-            => await this.shiftApplicationRepository
-                .AllAsNoTracking()
-                .Where(x => x.ShiftId == shiftId)
-                .To<T>()
-                .ToArrayAsync();
-
         public async Task ApproveShiftApplicationAsync(string id)
         {
             var shiftApplications = await this.shiftApplicationRepository
@@ -82,15 +75,5 @@
             .CountAsync(x
                 => x.Shift.Group.BusinessId == businessId
                 && x.Status == ShiftApplicationStatus.Pending);
-
-        public async Task<IEnumerable<T>> GetAllActiveShiftApplicationsPerGroup<T>(string groupId)
-            => await this.shiftApplicationRepository
-                .All()
-                .Where(x =>
-                        x.Shift.GroupId == groupId
-                        && x.Status == ShiftApplicationStatus.Pending
-                        && x.Shift.End > DateTime.UtcNow)
-                .To<T>()
-                .ToArrayAsync();
     }
 }
