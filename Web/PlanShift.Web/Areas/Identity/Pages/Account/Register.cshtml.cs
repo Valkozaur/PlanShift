@@ -56,36 +56,6 @@
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-        public class InputModel
-        {
-            [Required]
-            [RegularExpression("^[A-Z]{1}[a-z,.'-]+$")]
-            [Display(Name = "First Name")]
-            public string FirstName { get; set; }
-
-            [Required]
-            [RegularExpression("^[A-Z]{1}[a-z,.'-]+$")]
-            [Display(Name = "Last Name")]
-            public string LastName { get; set; }
-
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
-            public string Email { get; set; }
-
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "Password")]
-            public string Password { get; set; }
-
-            [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-            public string ConfirmPassword { get; set; }
-
-            public string ValidationId { get; set; }
-        }
 
         public async Task OnGetAsync(string returnUrl = null, string validationId = null)
         {
@@ -109,7 +79,7 @@
             {
                 var userFullName = string.Join(' ', this.Input.FirstName, this.Input.LastName);
 
-                var user = new PlanShiftUser { UserName = this.Input.Email, Email = this.Input.Email, FirstName = this.Input.FirstName, LastName = this.Input.LastName};
+                var user = new PlanShiftUser { UserName = this.Input.Email, Email = this.Input.Email, FirstName = this.Input.FirstName, LastName = this.Input.LastName };
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)
                 {
@@ -153,6 +123,37 @@
 
             // If we got this far, something failed, redisplay form
             return this.Page();
+        }
+
+        public class InputModel
+        {
+            [Required]
+            [RegularExpression("^[A-Z]{1}[a-z,.'-]+$")]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [RegularExpression("^[A-Z]{1}[a-z,.'-]+$")]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [Required]
+            [EmailAddress]
+            [Display(Name = "Email")]
+            public string Email { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [DataType(DataType.Password)]
+            [Display(Name = "Password")]
+            public string Password { get; set; }
+
+            [DataType(DataType.Password)]
+            [Display(Name = "Confirm password")]
+            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            public string ConfirmPassword { get; set; }
+
+            public string ValidationId { get; set; }
         }
     }
 }

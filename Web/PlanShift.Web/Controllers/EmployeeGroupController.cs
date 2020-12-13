@@ -62,7 +62,7 @@
                 return this.View();
             }
 
-            await this.employeeGroupService.AddEmployeeToGroupAsync(userToAdd.Id, input.GroupId, input.Salary, input.Position, input.IsManagement);
+            await this.employeeGroupService.AddEmployeeToGroupAsync(userToAdd.Id, input.GroupId, input.Salary, input.Position);
             return this.RedirectToAction("Index", "People", new { ActiveTabGroupId = input.GroupId });
         }
     }

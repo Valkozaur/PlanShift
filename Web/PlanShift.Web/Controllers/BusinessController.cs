@@ -29,8 +29,7 @@
             IBusinessTypeService businessTypeService,
             IShiftApplicationService shiftApplicationService,
             IShiftChangeService shiftChangeService,
-            IEmployeeGroupService employeeGroupService
-            )
+            IEmployeeGroupService employeeGroupService)
         {
             this.businessService = businessService;
             this.businessTypeService = businessTypeService;

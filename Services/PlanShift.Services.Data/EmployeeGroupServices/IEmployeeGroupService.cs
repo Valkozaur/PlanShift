@@ -5,15 +5,11 @@
 
     public interface IEmployeeGroupService
     {
-        Task<string> AddEmployeeToGroupAsync(string userId, string groupId, decimal salary, string position, bool isManagement = false);
+        Task<string> AddEmployeeToGroupAsync(string userId, string groupId, decimal salary, string position);
 
         Task<IEnumerable<T>> GetAllEmployeesFromGroup<T>(string groupId);
 
-        Task<T> GetEmployeeGroupById<T>(string userId, string groupId);
-
         Task<bool> IsEmployeeInGroup(string userId, string groupId);
-
-        Task<bool> IsEmployeeInGroupWithName(string userId, string businessId, string groupName);
 
         Task<bool> IsEmployeeInGroupsWithNames(string userId, string businessId, params string[] groupName);
 

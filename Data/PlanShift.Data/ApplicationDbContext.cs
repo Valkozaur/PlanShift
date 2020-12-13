@@ -69,6 +69,14 @@
 
             EntityIndexesConfiguration.Configure(builder);
 
+            builder.Entity<BusinessType>()
+                .HasIndex(bt => bt.Name)
+                .IsUnique();
+
+            builder.Entity<EmployeeGroup>()
+                .HasIndex(x => new { x.GroupId, x.UserId })
+                .IsUnique();
+
             builder.Entity<PlanShiftUser>()
                 .Property(p => p.FullName)
                 .HasComputedColumnSql("[FirstName] + ' ' + [LastName]");

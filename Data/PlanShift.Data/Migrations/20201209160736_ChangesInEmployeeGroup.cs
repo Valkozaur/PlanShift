@@ -51,8 +51,7 @@
                 "(NEWID(), GETDATE(), @OwnerId, @AdminGroupId, 'Owner', 0, 0)," +
                 "(NEWID(), GETDATE(), @OwnerId, @HRGroupId, 'Owner', 0, 0)," +
                 "(NEWID(), GETDATE(), @OwnerId, @SheduleManagerGroupId, 'Owner', 0, 0)" +
-                "END"
-            );
+                "END");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -3,7 +3,7 @@
     using PlanShift.Data.Models;
     using PlanShift.Services.Mapping;
 
-    public class EmployeeGroupInf : IMapFrom<EmployeeGroup>
+    public class EmployeeGroupIdViewModel : IMapFrom<EmployeeGroup>
     {
         public string Id { get; set; }
     }

@@ -11,7 +11,7 @@
     {
         public Task Send(string message)
         {
-            return this.Clients.All.NewMessage(new Message() {User = this.Context.User.Identity.Name, Text = message});
+            return this.Clients.All.NewMessage(new Message() { User = this.Context.User.Identity.Name, Text = message });
         }
     }
 }

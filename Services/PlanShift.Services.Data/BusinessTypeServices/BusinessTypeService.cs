@@ -1,7 +1,6 @@
 ﻿namespace PlanShift.Services.Data.BusinessTypeServices
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -31,32 +30,9 @@
             return businessType.Id;
         }
 
-        public async Task<T> GetByIdAsync<T>(int id)
-            => await this.businessTypeRepository
-                .All()
-                .Where(x => x.Id == id)
-                .To<T>()
-                .FirstOrDefaultAsync();
-
-        public async Task<T> GetByNameAsync<T>(string name)
-        => await this.businessTypeRepository
-            .All()
-            .Where(x => x.Name == name)
-            .To<T>()
-            .FirstOrDefaultAsync();
-
-        public async Task<int?> GetIdByName(string name)
-        {
-            var businessType = await this.businessTypeRepository
-                .All()
-                .FirstOrDefaultAsync(x => x.Name == name);
-
-            return businessType?.Id;
-        }
-
         public async Task<IEnumerable<T>> GetAllAsync<T>()
         => await this.businessTypeRepository
-                .All()
+                .AllAsNoTracking()
                 .To<T>()
                 .ToArrayAsync();
     }

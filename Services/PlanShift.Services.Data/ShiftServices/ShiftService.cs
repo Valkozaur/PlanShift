@@ -43,7 +43,7 @@
             await this.shiftRepository.SaveChangesAsync();
 
             return shift.Id;
-        } 
+        }
 
         public async Task ApproveShiftToEmployee(string id, string employeeId, string managementId)
         {
@@ -125,7 +125,7 @@
                 .Where(s => s.Group.BusinessId == businessId
                             && s.Group.Employees.Any(e => e.UserId == userId)
                             && s.ShiftStatus == ShiftStatus.Open)
-                //TODO: Add achievement check here
+                // TODO: Add achievement check here
                 .To<T>()
                 .ToArrayAsync();
 

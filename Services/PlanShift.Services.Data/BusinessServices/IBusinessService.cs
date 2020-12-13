@@ -7,7 +7,7 @@
     {
         Task<string> CreateBusinessAsync(string ownerId, string name, int typeId);
 
-        Task<string> UpdateBusinessAsync(string businessId, string ownerId, string name = null, int? typeId = null);
+        // Task<string> UpdateBusinessAsync(string businessId, string ownerId, string name = null, int? typeId = null);
 
         Task<IEnumerable<T>> GetAllForUserAsync<T>(string userId, int count = 0);
 

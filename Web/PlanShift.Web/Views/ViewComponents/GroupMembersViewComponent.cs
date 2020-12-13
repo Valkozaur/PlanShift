@@ -25,7 +25,7 @@
 
             var viewModel = new EmployeeListViewModel<EmployeeViewModel>()
             {
-                Employees = employees.OrderByDescending(e => e.IsManagement),
+                Employees = employees,
             };
 
             return this.View(viewModel);

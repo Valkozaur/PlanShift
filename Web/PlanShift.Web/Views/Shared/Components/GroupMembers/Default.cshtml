@@ -4,8 +4,7 @@
 <table class="table table-hover">
     <thead>
     <tr>
-        <th scope="col">Email</th>
-        <th scope="col hidden">IsHrManagement</th>
+        <th scope="col">Employee Name</th>
     </tr>
     </thead>
     <tbody>
@@ -13,7 +12,6 @@
         {
             <tr>
                 <td>@employee.UserFullName</td>
-                <td>@(employee.IsManagement ? "✓" : "")</td>
             </tr>
         }
     </tbody>

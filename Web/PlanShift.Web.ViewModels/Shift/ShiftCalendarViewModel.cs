@@ -20,6 +20,6 @@
         public DateTime End { get; set; }
 
         [NotMapped]
-        public ShiftCalendarType Type {get; set;}
+        public ShiftCalendarType Type { get; set; }
     }
 }

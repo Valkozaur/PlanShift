@@ -39,7 +39,7 @@
             await this.groupRepository.SaveChangesAsync();
 
             var ownerId = await this.businessService.GetOwnerIdAsync(businessId);
-            await this.employeeGroupService.AddEmployeeToGroupAsync(ownerId, group.Id, 0, "Owner", true);
+            await this.employeeGroupService.AddEmployeeToGroupAsync(ownerId, group.Id, 0, "Owner");
 
             return group.Id;
         }
@@ -104,11 +104,6 @@
                 .ThenByDescending(g => g.Employees.Count)
                 .To<T>()
                 .ToArrayAsync();
-        }
-
-        public Task<IEnumerable<T>> GetSpecialGroupsOfCurrentUserAndBusiness<T>(string businessId, string userId)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

@@ -33,21 +33,21 @@
             return business.Id;
         }
 
-        public async Task<string> UpdateBusinessAsync(string businessId, string ownerId = null, string name = null, int? typeId = null)
-        {
-            var business = await this.businessRepository.All().FirstOrDefaultAsync(x => x.Id == businessId);
+        // public async Task<string> UpdateBusinessAsync(string businessId, string ownerId = null, string name = null, int? typeId = null)
+        // {
+        //    var business = await this.businessRepository.All().FirstOrDefaultAsync(x => x.Id == businessId);
 
-            if (business != null && (ownerId != null || name != null || typeId != null))
-            {
-                business.Name = name ?? business.Name;
-                business.OwnerId = ownerId ?? business.OwnerId;
-                business.BusinessTypeId = typeId ?? business.BusinessTypeId;
-            }
+        // if (business != null && (ownerId != null || name != null || typeId != null))
+        //    {
+        //        business.Name = name ?? business.Name;
+        //        business.OwnerId = ownerId ?? business.OwnerId;
+        //        business.BusinessTypeId = typeId ?? business.BusinessTypeId;
+        //    }
 
-            await this.businessRepository.SaveChangesAsync();
+        // await this.businessRepository.SaveChangesAsync();
 
-            return business?.Id;
-        }
+        // return business?.Id;
+        // }
 
         public async Task<IEnumerable<T>> GetAllForUserAsync<T>(string userId, int count = 0)
         {

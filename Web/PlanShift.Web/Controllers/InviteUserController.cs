@@ -26,8 +26,7 @@
         public InviteUserController(
             IGroupService groupService,
             IInviteEmployeeVerificationsService inviteEmployeeVerificationsService,
-            IEmailSender emailSender
-            )
+            IEmailSender emailSender)
         {
             this.groupService = groupService;
             this.inviteEmployeeVerificationsService = inviteEmployeeVerificationsService;

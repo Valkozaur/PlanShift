@@ -7,12 +7,6 @@
     {
         Task<int> CreateAsync(string name);
 
-        Task<T> GetByIdAsync<T>(int id);
-
-        Task<T> GetByNameAsync<T>(string name);
-
-        Task<int?> GetIdByName(string name);
-
         Task<IEnumerable<T>> GetAllAsync<T>();
     }
 }

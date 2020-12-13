@@ -6,6 +6,6 @@
     public interface ITableStoredProcedureCaller<TEntity>
         where TEntity : class
     {
-        public Task<IEnumerable<TEntity>> ExecuteTableProcedure(string sql, string  businessId, string userId);
+        public Task<IEnumerable<TEntity>> ExecuteTableProcedure(string sql, string businessId, string userId);
     }
 }

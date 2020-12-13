@@ -29,7 +29,7 @@ namespace PlanShift.Web.Hubs
         {
         }
 
-        //public override async Task OnDisconnectedAsync(Exception ex)
+        // public override async Task OnDisconnectedAsync(Exception ex)
         //    => await this.Clients.Group(this.groupName).UserLoggedOff(
         //        new
         //        {
@@ -39,7 +39,7 @@ namespace PlanShift.Web.Hubs
         public async Task PostMessage(string message, string groupName)
             => await this.Clients.Group(groupName).MessageReceived(new Message() { User = this.Username, Text = message });
 
-        //public async Task UserTyping(bool isTyping)
+        // public async Task UserTyping(bool isTyping)
         //    => await this.Clients.OthersInGroup(this.groupName).UserTyping(
         //        new
         //        {

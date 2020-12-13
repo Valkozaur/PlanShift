@@ -20,7 +20,5 @@
         [MinLength(3)]
         [MaxLength(60)]
         public string Position { get; set; }
-
-        public bool IsManagement { get; set; }
     }
 }
