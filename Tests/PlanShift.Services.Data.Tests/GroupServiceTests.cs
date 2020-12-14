@@ -1,22 +1,21 @@
-﻿using System.Linq;
-using PlanShift.Data.Models.Enumerations;
-using PlanShift.Services.Data.Enumerations;
-
-namespace PlanShift.Services.Data.Tests
+﻿namespace PlanShift.Services.Data.Tests
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Moq;
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
+    using PlanShift.Data.Models.Enumerations;
     using PlanShift.Services.Data.BusinessServices;
     using PlanShift.Services.Data.EmployeeGroupServices;
+    using PlanShift.Services.Data.Enumerations;
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Web.ViewModels.Group;
     using Xunit;
 
-    public class GroupServiceTests : BaseTestClass
+    public class GroupServiceTests : DeletableEntityBaseTestClass
     {
         private const string Id = "Test";
         private const string Name = "Test";
@@ -111,7 +110,6 @@ namespace PlanShift.Services.Data.Tests
         [Fact]
         public async Task GetAllGroupByCurrentUserAndBusinessIdAsyncShouldReturnGroupsWhichContainsShiftsWithShiftApplicationsWithPendingStatus()
         {
-            const int groupsCount = 1;
             const string userId = "Test";
 
             // Arrange
@@ -150,7 +148,6 @@ namespace PlanShift.Services.Data.Tests
         [Fact]
         public async Task GetAllGroupByCurrentUserAndBusinessIdAsyncShouldReturnGroupsWhichContainsShiftsWithShiftChangesWithPendingStatus()
         {
-            const int groupsCount = 1;
             const string userId = "Test";
 
             // Arrange

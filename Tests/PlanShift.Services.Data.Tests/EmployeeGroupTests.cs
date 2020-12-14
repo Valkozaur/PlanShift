@@ -13,26 +13,21 @@
     using PlanShift.Web.ViewModels.EmployeeGroup;
     using Xunit;
 
-    public class EmployeeGroupTests : BaseTestClass
+    public class EmployeeGroupTests : DeletableEntityBaseTestClass
     {
         private const decimal Salary = 1000.10M;
         private const string Position = "Test";
+        private const string UserId = "Test";
+        private const string GroupId = "Test";
+        private const string BusinessId = "Test";
 
-        private readonly string userId;
-        private readonly string groupId;
-        private readonly string businessId;
 
         private readonly Mock<IDeletableEntityRepository<EmployeeGroup>> repository;
         private readonly List<EmployeeGroup> fakeDb;
         private IEmployeeGroupService employeeGroupService;
 
         public EmployeeGroupTests()
-        : base()
         {
-            this.userId = Guid.NewGuid().ToString();
-            this.groupId = Guid.NewGuid().ToString();
-            this.businessId = Guid.NewGuid().ToString();
-
             this.repository = new Mock<IDeletableEntityRepository<EmployeeGroup>>();
             this.fakeDb = new List<EmployeeGroup>();
         }
@@ -46,7 +41,7 @@
             this.employeeGroupService = new EmployeeGroupService(this.repository.Object);
 
             // Act
-            var id = await this.employeeGroupService.AddEmployeeToGroupAsync(this.userId, this.groupId, Salary, Position);
+            var id = await this.employeeGroupService.AddEmployeeToGroupAsync(UserId, GroupId, Salary, Position);
 
             // Assert
             Assert.NotNull(id);
@@ -59,16 +54,16 @@
             const int numberOfFakeEmployees = 3;
 
             // Arrange
-            this.fakeDb.Add(new EmployeeGroup() { UserId = this.userId, GroupId = this.groupId, Salary = Salary, Position = Position });
-            this.fakeDb.Add(new EmployeeGroup() { UserId = this.userId, GroupId = this.groupId, Salary = Salary, Position = Position });
-            this.fakeDb.Add(new EmployeeGroup() { UserId = this.userId, GroupId = this.groupId, Salary = Salary, Position = Position });
+            this.fakeDb.Add(new EmployeeGroup() { UserId = UserId, GroupId = GroupId, Salary = Salary, Position = Position });
+            this.fakeDb.Add(new EmployeeGroup() { UserId = UserId, GroupId = GroupId, Salary = Salary, Position = Position });
+            this.fakeDb.Add(new EmployeeGroup() { UserId = UserId, GroupId = GroupId, Salary = Salary, Position = Position });
 
             this.SetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb);
 
             this.employeeGroupService = new EmployeeGroupService(this.repository.Object);
 
             // Arrange
-            var employees = await this.employeeGroupService.GetAllEmployeesFromGroup<EmployeeGroupIdViewModel>(this.groupId);
+            var employees = await this.employeeGroupService.GetAllEmployeesFromGroup<EmployeeGroupIdViewModel>(GroupId);
 
             // Assert
             Assert.Equal(numberOfFakeEmployees, employees.Count());
@@ -83,7 +78,7 @@
             this.employeeGroupService = new EmployeeGroupService(this.repository.Object);
 
             // Arrange
-            var employees = await this.employeeGroupService.GetAllEmployeesFromGroup<EmployeeGroupIdViewModel>(this.groupId);
+            var employees = await this.employeeGroupService.GetAllEmployeesFromGroup<EmployeeGroupIdViewModel>(GroupId);
 
             // Assert
             Assert.Empty(employees);
@@ -93,13 +88,13 @@
         public async Task IsEmployeeInGroupShouldReturnTrueIfEmployeeIsInGroup()
         {
             // Arrange
-            this.fakeDb.Add(new EmployeeGroup() { UserId = this.userId, GroupId = this.groupId, Salary = Salary, Position = Position });
+            this.fakeDb.Add(new EmployeeGroup() { UserId = UserId, GroupId = GroupId, Salary = Salary, Position = Position });
 
             this.SetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb);
             this.employeeGroupService = new EmployeeGroupService(this.repository.Object);
 
             // Act
-            var isEmployeeInGroup = await this.employeeGroupService.IsEmployeeInGroup(this.userId, this.groupId);
+            var isEmployeeInGroup = await this.employeeGroupService.IsEmployeeInGroup(UserId, GroupId);
 
             // Assert
             Assert.True(isEmployeeInGroup);
@@ -113,7 +108,7 @@
             this.employeeGroupService = new EmployeeGroupService(this.repository.Object);
 
             // Act
-            var isEmployeeInGroup = await this.employeeGroupService.IsEmployeeInGroup(this.userId, this.groupId);
+            var isEmployeeInGroup = await this.employeeGroupService.IsEmployeeInGroup(UserId, GroupId);
 
             // Assert
             Assert.False(isEmployeeInGroup);
@@ -122,16 +117,16 @@
         [Fact]
         public async Task IsEmployeeInGroupWithNamesShouldReturnTrueIfEmployeeIs()
         {
-            // Arrange
-            var groupName1 = "Test";
-            var groupName2 = "Test1";
+            const string groupName1 = "Test";
+            const string groupName2 = "Test1";
 
-            var group1 = new Group(){ Id = this.groupId, BusinessId = this.businessId, Name = groupName1 };
+            // Arrange
+            var group1 = new Group(){ Id = GroupId, BusinessId = BusinessId, Name = groupName1 };
 
             var employeeGroup = new EmployeeGroup
             {
-                UserId = this.userId,
-                GroupId = this.groupId,
+                UserId = UserId,
+                GroupId = GroupId,
                 Salary = Salary,
                 Position = Position,
                 Group = group1,
@@ -143,7 +138,7 @@
             this.employeeGroupService = new EmployeeGroupService(this.repository.Object);
 
             // Act
-            var isInGroupWithNames = await this.employeeGroupService.IsEmployeeInGroupsWithNames(this.userId, this.businessId, groupName1, groupName2);
+            var isInGroupWithNames = await this.employeeGroupService.IsEmployeeInGroupsWithNames(UserId, BusinessId, groupName1, groupName2);
 
             // Assert
             Assert.True(isInGroupWithNames);
@@ -152,17 +147,18 @@
         [Fact]
         public async Task IsEmployeeInGroupWithNamesShouldReturnFalseIfEmployeeIsNot()
         {
-            // Arrange
-            var groupName1 = "Test";
-            var groupName2 = "Test1";
-            var groupName3 = "Test3";
+            const string groupName1 = "Test";
+            const string groupName2 = "Test1";
+            const string groupName3 = "Test3";
 
-            var group1 = new Group() { Id = this.groupId, BusinessId = this.businessId, Name = groupName3 };
+            // Arrange
+
+            var group1 = new Group() { Id = GroupId, BusinessId = BusinessId, Name = groupName3 };
 
             var employeeGroup = new EmployeeGroup
             {
-                UserId = this.userId,
-                GroupId = this.groupId,
+                UserId = UserId,
+                GroupId = GroupId,
                 Salary = Salary,
                 Position = Position,
                 Group = group1,
@@ -174,7 +170,7 @@
             this.employeeGroupService = new EmployeeGroupService(this.repository.Object);
 
             // Act
-            var isInGroupWithNames = await this.employeeGroupService.IsEmployeeInGroupsWithNames(this.userId, this.businessId, groupName1, groupName2);
+            var isInGroupWithNames = await this.employeeGroupService.IsEmployeeInGroupsWithNames(UserId, BusinessId, groupName1, groupName2);
 
             // Assert
             Assert.False(isInGroupWithNames);
@@ -183,16 +179,17 @@
         [Fact]
         public async Task GetEmployeeIdShouldReturnEmployeeIdIfExists()
         {
-            // Arrange
-            var employeeId = "Test";
+            const string employeeId = "Test";
 
-            this.fakeDb.Add(new EmployeeGroup() { Id = employeeId, UserId = this.userId, GroupId = this.groupId, Salary = Salary, Position = Position });
+            // Arrange
+
+            this.fakeDb.Add(new EmployeeGroup() { Id = employeeId, UserId = UserId, GroupId = GroupId, Salary = Salary, Position = Position });
             this.SetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb);
 
             this.employeeGroupService = new EmployeeGroupService(this.repository.Object);
 
             // Act
-            var getEmployeeId = await this.employeeGroupService.GetEmployeeId(this.userId, this.groupId);
+            var getEmployeeId = await this.employeeGroupService.GetEmployeeId(UserId, GroupId);
 
             // Assert
             Assert.Equal(employeeId, getEmployeeId);
@@ -207,7 +204,7 @@
             this.employeeGroupService = new EmployeeGroupService(this.repository.Object);
 
             // Act
-            var getEmployeeId = await this.employeeGroupService.GetEmployeeId(this.userId, this.groupId);
+            var getEmployeeId = await this.employeeGroupService.GetEmployeeId(UserId, GroupId);
 
             // Assert
             Assert.Null(getEmployeeId);

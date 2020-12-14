@@ -8,7 +8,7 @@
         {
             migrationBuilder.AlterColumn<string>(
                 name: "Position",
-                table: "InviteEmployeeVerifications",
+                table: "InviteEmployeeVerification",
                 type: "nvarchar(80)",
                 maxLength: 80,
                 nullable: false,
@@ -19,7 +19,7 @@
 
             migrationBuilder.AlterColumn<string>(
                 name: "GroupId",
-                table: "InviteEmployeeVerifications",
+                table: "InviteEmployeeVerification",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "",
@@ -29,7 +29,7 @@
 
             migrationBuilder.AlterColumn<string>(
                 name: "Email",
-                table: "InviteEmployeeVerifications",
+                table: "InviteEmployeeVerification",
                 type: "nvarchar(80)",
                 maxLength: 80,
                 nullable: false,
@@ -67,7 +67,7 @@
 
             migrationBuilder.AlterColumn<string>(
                 name: "Position",
-                table: "InviteEmployeeVerifications",
+                table: "InviteEmployeeVerification",
                 type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
@@ -76,7 +76,7 @@
 
             migrationBuilder.AlterColumn<string>(
                 name: "GroupId",
-                table: "InviteEmployeeVerifications",
+                table: "InviteEmployeeVerification",
                 type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
@@ -84,7 +84,7 @@
 
             migrationBuilder.AlterColumn<string>(
                 name: "Email",
-                table: "InviteEmployeeVerifications",
+                table: "InviteEmployeeVerification",
                 type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),

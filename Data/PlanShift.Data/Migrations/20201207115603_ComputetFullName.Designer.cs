@@ -318,7 +318,7 @@ namespace PlanShift.Data.Migrations
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("PlanShift.Data.Models.InviteEmployeeVerifications", b =>
+            modelBuilder.Entity("PlanShift.Data.Models.InviteEmployeeVerification", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -351,7 +351,7 @@ namespace PlanShift.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InviteEmployeeVerifications");
+                    b.ToTable("InviteEmployeeVerification");
                 });
 
             modelBuilder.Entity("PlanShift.Data.Models.PlanShiftUser", b =>

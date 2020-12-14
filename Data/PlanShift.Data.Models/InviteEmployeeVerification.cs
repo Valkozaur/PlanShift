@@ -4,7 +4,7 @@
 
     using PlanShift.Data.Common.Models;
 
-    public class InviteEmployeeVerifications : BaseModel<string>
+    public class InviteEmployeeVerification : BaseModel<string>
     {
         public bool Used { get; set; }
 

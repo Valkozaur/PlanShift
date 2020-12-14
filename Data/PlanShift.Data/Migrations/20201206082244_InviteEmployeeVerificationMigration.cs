@@ -9,7 +9,7 @@
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "InviteEmployeeVerifications",
+                name: "InviteEmployeeVerification",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -27,7 +27,7 @@
         {
 
             migrationBuilder.DropTable(
-                name: "InviteEmployeeVerifications");
+                name: "InviteEmployeeVerification");
         }
     }
 }

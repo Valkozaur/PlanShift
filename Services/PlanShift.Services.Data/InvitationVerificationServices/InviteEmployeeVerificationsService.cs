@@ -11,9 +11,9 @@
 
     public class InviteEmployeeVerificationsService : IInviteEmployeeVerificationsService
     {
-        private readonly IRepository<InviteEmployeeVerifications> verificationRepository;
+        private readonly IRepository<InviteEmployeeVerification> verificationRepository;
 
-        public InviteEmployeeVerificationsService(IRepository<InviteEmployeeVerifications> verificationRepository)
+        public InviteEmployeeVerificationsService(IRepository<InviteEmployeeVerification> verificationRepository)
         {
             this.verificationRepository = verificationRepository;
         }
@@ -27,7 +27,7 @@
                 shiftVerification.Used = true;
             }
 
-            var userInvitationVerification = new InviteEmployeeVerifications()
+            var userInvitationVerification = new InviteEmployeeVerification()
             {
                 Id = Guid.NewGuid().ToString(),
                 GroupId = groupId,
@@ -42,11 +42,11 @@
             return userInvitationVerification.Id;
         }
 
-        public async Task<bool> IsVerificationValidAsync(string guidId)
+        public async Task<bool> IsVerificationValid(string id)
         {
             var verification = await this.verificationRepository
-                .AllAsNoTracking()
-                .FirstOrDefaultAsync(ivs => ivs.Id == guidId && !ivs.Used && ivs.CreatedOn < ivs.CreatedOn.AddDays(1));
+                .All()
+                .FirstOrDefaultAsync(ivs => ivs.Id == id && !ivs.Used && ivs.CreatedOn < ivs.CreatedOn.AddDays(1));
 
             if (verification == null)
             {

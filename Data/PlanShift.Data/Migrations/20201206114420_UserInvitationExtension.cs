@@ -8,25 +8,25 @@
         {
             migrationBuilder.AddColumn<string>(
                 name: "Email",
-                table: "InviteEmployeeVerifications",
+                table: "InviteEmployeeVerification",
                 type: "nvarchar(max)",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "GroupId",
-                table: "InviteEmployeeVerifications",
+                table: "InviteEmployeeVerification",
                 type: "nvarchar(max)",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "Position",
-                table: "InviteEmployeeVerifications",
+                table: "InviteEmployeeVerification",
                 type: "nvarchar(max)",
                 nullable: true);
 
             migrationBuilder.AddColumn<decimal>(
                 name: "Salary",
-                table: "InviteEmployeeVerifications",
+                table: "InviteEmployeeVerification",
                 type: "decimal(18,2)",
                 nullable: false,
                 defaultValue: 0m);
@@ -36,19 +36,19 @@
         {
             migrationBuilder.DropColumn(
                 name: "Email",
-                table: "InviteEmployeeVerifications");
+                table: "InviteEmployeeVerification");
 
             migrationBuilder.DropColumn(
                 name: "GroupId",
-                table: "InviteEmployeeVerifications");
+                table: "InviteEmployeeVerification");
 
             migrationBuilder.DropColumn(
                 name: "Position",
-                table: "InviteEmployeeVerifications");
+                table: "InviteEmployeeVerification");
 
             migrationBuilder.DropColumn(
                 name: "Salary",
-                table: "InviteEmployeeVerifications");
+                table: "InviteEmployeeVerification");
         }
     }
 }

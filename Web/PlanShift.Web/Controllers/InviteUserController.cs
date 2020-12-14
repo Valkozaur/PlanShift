@@ -59,7 +59,7 @@
 
         public async Task<IActionResult> AcceptInvitation(string id)
         {
-            var isInvitationValid = await this.inviteEmployeeVerificationsService.IsVerificationValidAsync(id);
+            var isInvitationValid = await this.inviteEmployeeVerificationsService.IsVerificationValid(id);
 
             if (!isInvitationValid)
             {
