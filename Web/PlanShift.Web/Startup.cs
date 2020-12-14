@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-
-namespace PlanShift.Web
+﻿namespace PlanShift.Web
 {
     using System;
     using System.Reflection;
@@ -8,7 +6,6 @@ namespace PlanShift.Web
     using Hangfire;
     using Hangfire.Dashboard;
     using Hangfire.SqlServer;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -31,7 +28,7 @@ namespace PlanShift.Web
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Services.Data.InvitationVerificationServices;
-    using PlanShift.Services.Data.ShiftApplication;
+    using PlanShift.Services.Data.ShiftApplicationServices;
     using PlanShift.Services.Data.ShiftChangeServices;
     using PlanShift.Services.Data.ShiftServices;
     using PlanShift.Services.Mapping;

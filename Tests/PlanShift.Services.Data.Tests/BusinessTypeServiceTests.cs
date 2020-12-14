@@ -2,42 +2,40 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Reflection;
     using System.Threading.Tasks;
 
-    using MockQueryable.Moq;
     using Moq;
+
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.BusinessTypeServices;
-    using PlanShift.Services.Mapping;
-    using PlanShift.Web.ViewModels;
+    using PlanShift.Services.Data.Tests.BaseTestClasses;
     using PlanShift.Web.ViewModels.Business;
+
     using Xunit;
 
-    public class BusinessTypeServiceTests : BaseEntityBaseTestClass
+    public class BusinessTypeServiceTests : BaseEntityBaseTestClass<BusinessType>
     {
         private const string TestBusinessTypeName = "Test";
 
-        private readonly Mock<IRepository<BusinessType>> repository;
+        private readonly Mock<IRepository<BusinessType>> Repository;
         private readonly List<BusinessType> fakeDb;
         private IBusinessTypeService businessTypeService;
 
         public BusinessTypeServiceTests()
         {
             this.fakeDb = new List<BusinessType>();
-            this.repository = new Mock<IRepository<BusinessType>>();
+            this.Repository = new Mock<IRepository<BusinessType>>();
         }
 
         [Fact]
         public async Task CreateBusinessTypeShouldWorkCorrectly()
         {
             // Arrange
-            this.SetMockedRepositoryCreateOperations(this.repository, this.fakeDb);
-            this.businessTypeService = new BusinessTypeService(this.repository.Object);
+            this.businessTypeService = new BusinessTypeService(this.GetMockedRepositoryWithCreateOperations(this.Repository, this.fakeDb));
 
             // Act
-            var id = await businessTypeService.CreateAsync(TestBusinessTypeName);
+            var id = await this.businessTypeService.CreateAsync(TestBusinessTypeName);
 
             // Assert
             Assert.Single(this.fakeDb);
@@ -52,12 +50,11 @@
             this.fakeDb.Add(new BusinessType() { Id = 0, Name = TestBusinessTypeName });
             this.fakeDb.Add(new BusinessType() { Id = 1, Name = TestBusinessTypeName + 1 });
             this.fakeDb.Add(new BusinessType() { Id = 2, Name = TestBusinessTypeName + 2 });
-            this.SetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb);
-
-            this.businessTypeService = new BusinessTypeService(this.repository.Object);
+  
+            this.businessTypeService = new BusinessTypeService(this.GetMockedRepositoryReturningAllAsNoTracking(this.Repository, this.fakeDb));
 
             // Act
-            var businessTypes = await businessTypeService.GetAllAsync<BusinessTypeDropDownViewModel>();
+            var businessTypes = await this.businessTypeService.GetAllAsync<BusinessTypeDropDownViewModel>();
 
             // Assert
             Assert.Equal(testBusinessTypesCount, businessTypes.Count());

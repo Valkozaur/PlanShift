@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
 
     using Moq;
+
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
     using PlanShift.Data.Models.Enumerations;
@@ -12,23 +13,25 @@
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.Enumerations;
     using PlanShift.Services.Data.GroupServices;
+    using PlanShift.Services.Data.Tests.BaseTestClasses;
     using PlanShift.Web.ViewModels.Group;
+
     using Xunit;
 
-    public class GroupServiceTests : DeletableEntityBaseTestClass
+    public class GroupServiceTests : DeletableEntityBaseTestClass<Group>
     {
         private const string Id = "Test";
         private const string Name = "Test";
         private const string BusinessId = "Test";
         private const decimal StandardSalary = 1000.10M;
 
-        private readonly Mock<IDeletableEntityRepository<Group>> repository;
+        private readonly Mock<IDeletableEntityRepository<Group>> Repository;
         private readonly List<Group> fakeDb;
         private GroupService groupService;
 
         public GroupServiceTests()
         {
-            this.repository = new Mock<IDeletableEntityRepository<Group>>();
+            this.Repository = new Mock<IDeletableEntityRepository<Group>>();
             this.fakeDb = new List<Group>();
         }
 
@@ -44,8 +47,7 @@
                     It.IsAny<string>()) == Task.FromResult<string>(null));
             var businessService = Mock.Of<IBusinessService>(bs => bs.GetOwnerIdAsync(It.IsAny<string>()) == Task.FromResult<string>(null));
 
-            this.SetMockedRepositoryCreateOperations(this.repository, this.fakeDb);
-            this.groupService = new GroupService(this.repository.Object, employeeGroupService, businessService);
+            this.groupService = new GroupService(this.GetMockedRepositoryWithCreateOperations(this.Repository, this.fakeDb), employeeGroupService, businessService);
 
             // Act
             var id = await this.groupService.CreateGroupAsync(BusinessId, Name, StandardSalary);
@@ -62,12 +64,12 @@
             var businessService = new Mock<IBusinessService>();
 
             this.fakeDb.Add(new Group() { Id = Id, BusinessId = BusinessId, Name = Name, StandardSalary = StandardSalary });
-            this.SetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb);
+            ;
 
-            this.groupService = new GroupService(this.repository.Object, employeeGroupService.Object, businessService.Object);
+            this.groupService = new GroupService(this.GetMockedRepositoryReturningAllAsNoTracking(this.Repository, this.fakeDb), employeeGroupService.Object, businessService.Object);
 
             // Act
-            var group = this.groupService.GetGroupAsync<GroupBasicInfoViewModel>(Id);
+            var group = await this.groupService.GetGroupAsync<GroupBasicInfoViewModel>(Id);
 
             // Assert
             Assert.NotNull(group);
@@ -95,9 +97,8 @@
             this.fakeDb.Add(group1);
             this.fakeDb.Add(group2);
             this.fakeDb.Add(group3);
-            this.SetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb);
 
-            this.groupService = new GroupService(this.repository.Object, employeeGroupService.Object, businessService.Object);
+            this.groupService = new GroupService(this.GetMockedRepositoryReturningAllAsNoTracking(this.Repository, this.fakeDb), employeeGroupService.Object, businessService.Object);
 
             // Act
             var groups = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(BusinessId, userId);
@@ -132,12 +133,11 @@
             this.fakeDb.Add(group1);
             this.fakeDb.Add(group2);
             this.fakeDb.Add(group3);
-            this.SetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb);
-
-            this.groupService = new GroupService(this.repository.Object, employeeGroupService.Object, businessService.Object);
+         
+            this.groupService = new GroupService(this.GetMockedRepositoryReturningAllAsNoTracking(this.Repository, this.fakeDb), employeeGroupService.Object, businessService.Object);
 
             // Act
-            var groups = 
+            var groups =
                 await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(BusinessId, userId, PendingActionsType.ShiftApplications);
 
             // Assert
@@ -170,9 +170,8 @@
             this.fakeDb.Add(group1);
             this.fakeDb.Add(group2);
             this.fakeDb.Add(group3);
-            this.SetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb);
 
-            this.groupService = new GroupService(this.repository.Object, employeeGroupService.Object, businessService.Object);
+            this.groupService = new GroupService(this.GetMockedRepositoryReturningAllAsNoTracking(this.Repository, this.fakeDb), employeeGroupService.Object, businessService.Object);
 
             // Act
             var groups =

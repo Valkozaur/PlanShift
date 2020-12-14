@@ -1,18 +1,19 @@
-﻿namespace PlanShift.Services.Data.ShiftApplication
+﻿namespace PlanShift.Services.Data.ShiftApplicationServices
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public interface IShiftApplicationService
     {
         Task<string> CreateShiftApplicationAsync(string shiftId, string employeeId);
 
-        Task<bool> HasEmployeeAppliedForShift(string shiftId, string employeeId);
+        Task<bool> HasEmployeeActiveApplicationForShiftAsync(string shiftId, string employeeId);
 
         Task ApproveShiftApplicationAsync(string id);
 
+        Task DeclineAllShiftApplicationsPerShiftAsync(string shiftId);
+
         Task<T> GetShiftApplicationById<T>(string id);
 
-        Task<int> GetCountByBusinessIdAsync(string businessId);
+        Task<int> GetCountOfPendingApplicationsByBusinessIdAsync(string businessId);
     }
 }

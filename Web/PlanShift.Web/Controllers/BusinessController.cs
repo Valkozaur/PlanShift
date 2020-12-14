@@ -9,7 +9,7 @@
     using PlanShift.Services.Data.BusinessServices;
     using PlanShift.Services.Data.BusinessTypeServices;
     using PlanShift.Services.Data.EmployeeGroupServices;
-    using PlanShift.Services.Data.ShiftApplication;
+    using PlanShift.Services.Data.ShiftApplicationServices;
     using PlanShift.Services.Data.ShiftChangeServices;
     using PlanShift.Web.Tools.ActionFilters;
     using PlanShift.Web.Tools.SessionExtension;
@@ -50,7 +50,7 @@
 
             if (isScheduleManagerOrAdmin)
             {
-                var applicationsCount = await this.shiftApplicationService.GetCountByBusinessIdAsync(businessId);
+                var applicationsCount = await this.shiftApplicationService.GetCountOfPendingApplicationsByBusinessIdAsync(businessId);
                 var shiftChangesCount = await this.shiftChangeService.GetCountByBusinessIdAsync(businessId);
 
                 viewModel.ShiftApplicationsCount = applicationsCount;

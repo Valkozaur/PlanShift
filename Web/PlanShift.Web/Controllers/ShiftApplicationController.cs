@@ -13,7 +13,7 @@
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.Enumerations;
     using PlanShift.Services.Data.GroupServices;
-    using PlanShift.Services.Data.ShiftApplication;
+    using PlanShift.Services.Data.ShiftApplicationServices;
     using PlanShift.Services.Data.ShiftServices;
     using PlanShift.Web.Tools.ActionFilters;
     using PlanShift.Web.Tools.SessionExtension;
@@ -65,7 +65,7 @@
                 return this.RedirectToAction("Index", "Business", new { GroupId = groupId });
             }
 
-            var hasEmployeeApplied = await this.shiftApplicationService.HasEmployeeAppliedForShift(shiftId, employeeId);
+            var hasEmployeeApplied = await this.shiftApplicationService.HasEmployeeActiveApplicationForShiftAsync(shiftId, employeeId);
             if (hasEmployeeApplied)
             {
                 this.TempData["Error"] = "You've applied for this shift already!";
@@ -89,6 +89,7 @@
             var employeeId = await this.employeeGroupService.GetEmployeeId(userId, shiftApplicationInfo.GroupId);
 
             await this.shiftService.ApproveShiftToEmployee(shiftApplicationInfo.ShiftId, shiftApplicationInfo.EmployeeId, employeeId);
+            await this.shiftApplicationService.DeclineAllShiftApplicationsPerShiftAsync(shiftApplicationInfo.ShiftId);
             await this.shiftApplicationService.ApproveShiftApplicationAsync(shiftApplicationId);
 
             return this.RedirectToAction(nameof(this.All), new { BusinessId = businessId, activeTabGroupId = shiftApplicationInfo.GroupId });

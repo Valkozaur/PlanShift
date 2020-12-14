@@ -1,17 +1,16 @@
-﻿using System.Security.Claims;
-using PlanShift.Services.Data.EmployeeGroupServices;
-using PlanShift.Web.Tools.SessionExtension;
-
-namespace PlanShift.Web.Hubs
+﻿namespace PlanShift.Web.Hubs
 {
     using System;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.SignalR;
     using PlanShift.Common;
+    using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Web.Tools.ActionFilters;
+    using PlanShift.Web.Tools.SessionExtension;
 
     [Authorize]
     public class TestChatHub : Hub<ITestChatHub>

@@ -7,7 +7,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using PlanShift.Common;
-    using PlanShift.Services.Data.ShiftApplication;
+    using PlanShift.Services.Data.ShiftApplicationServices;
     using PlanShift.Services.Data.ShiftChangeServices;
     using PlanShift.Services.Data.ShiftServices;
     using PlanShift.Web.Tools.SessionExtension;

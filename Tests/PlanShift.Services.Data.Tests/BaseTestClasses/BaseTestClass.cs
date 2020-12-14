@@ -1,6 +1,4 @@
-﻿using Moq;
-
-namespace PlanShift.Services.Data.Tests
+﻿namespace PlanShift.Services.Data.Tests.BaseTestClasses
 {
     using System.Reflection;
 
@@ -9,7 +7,7 @@ namespace PlanShift.Services.Data.Tests
 
     public abstract class BaseTestClass
     {
-        public BaseTestClass()
+        protected BaseTestClass()
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
         }

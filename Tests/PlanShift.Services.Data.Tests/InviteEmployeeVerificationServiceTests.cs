@@ -10,10 +10,11 @@
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.InvitationVerificationServices;
+    using PlanShift.Services.Data.Tests.BaseTestClasses;
     using PlanShift.Web.ViewModels.InviteEmployeeValidation;
     using Xunit;
 
-    public class InviteEmployeeVerificationServiceTests : BaseEntityBaseTestClass
+    public class InviteEmployeeVerificationServiceTests : BaseEntityBaseTestClass<InviteEmployeeVerification>
     {
         private const string GroupId = "Test";
         private const string Email = "Test";
@@ -34,10 +35,8 @@
         [Fact]
         public async Task CreateShiftVerificationAsyncShouldCreateEntityCorrectly()
         {
-            
-
             // Arrange
-            this.SetMockedRepositoryCreateOperations(this.repository, this.fakeDb);
+            this.GetMockedRepositoryWithCreateOperations(this.repository, this.fakeDb);
 
             var fakeList = new List<InviteEmployeeVerification>().AsQueryable().BuildMock();
             this.repository.Setup(r => r.All())
@@ -69,11 +68,7 @@
             };
             this.fakeDb.Add(invitation);
 
-            var queryableMock = this.fakeDb.AsQueryable().BuildMock();
-            this.repository.Setup(r => r.All())
-                .Returns(queryableMock.Object);
-
-            this.inviteEmployeeVerificationsService = new InviteEmployeeVerificationsService(this.repository.Object);
+            this.inviteEmployeeVerificationsService = new InviteEmployeeVerificationsService(this.GetMockedRepositoryAll(this.repository, this.fakeDb));
 
             // Act
             var isValid = await this.inviteEmployeeVerificationsService.IsVerificationValid(id);
@@ -112,11 +107,7 @@
             this.fakeDb.Add(invitation1);
             this.fakeDb.Add(invitation2);
 
-            var queryableMock = this.fakeDb.AsQueryable().BuildMock();
-            this.repository.Setup(r => r.All())
-                .Returns(queryableMock.Object);
-
-            this.inviteEmployeeVerificationsService = new InviteEmployeeVerificationsService(this.repository.Object);
+            this.inviteEmployeeVerificationsService = new InviteEmployeeVerificationsService(this.GetMockedRepositoryAll(this.repository, this.fakeDb));
 
             // Act
             var isValid = await this.inviteEmployeeVerificationsService.IsVerificationValid(id);
@@ -142,9 +133,7 @@
 
             this.fakeDb.Add(invitation);
 
-            this.SetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb);
-
-            this.inviteEmployeeVerificationsService = new InviteEmployeeVerificationsService(this.repository.Object);
+            this.inviteEmployeeVerificationsService = new InviteEmployeeVerificationsService(this.GetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb));
 
             // Act
             var inviteEmployeeVerification = await this.inviteEmployeeVerificationsService.GetVerificationAsync<InviteEmployeeVerificationInfoViewModel>(id);
@@ -175,9 +164,7 @@
 
             this.fakeDb.Add(invitation);
 
-            this.SetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb);
-
-            this.inviteEmployeeVerificationsService = new InviteEmployeeVerificationsService(this.repository.Object);
+            this.inviteEmployeeVerificationsService = new InviteEmployeeVerificationsService(this.GetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb));
 
             // Act
             var inviteEmployeeVerification = await this.inviteEmployeeVerificationsService.GetVerificationAsync<InviteEmployeeVerificationInfoViewModel>(fakeId);

@@ -38,6 +38,7 @@
     <ProjectReference Include="..\..\PlanShift.Common\PlanShift.Common.csproj" />
     <ProjectReference Include="..\..\Data\PlanShift.Data.Models\PlanShift.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\PlanShift.Data\PlanShift.Data.csproj" />
+    <ProjectReference Include="..\..\Services\PlanShift.Services.CronJobs\PlanShift.Services.CronJobs.csproj" />
     <ProjectReference Include="..\..\Services\PlanShift.Services.Data\PlanShift.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\PlanShift.Services.Mapping\PlanShift.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\PlanShift.Services.Messaging\PlanShift.Services.Messaging.csproj" />

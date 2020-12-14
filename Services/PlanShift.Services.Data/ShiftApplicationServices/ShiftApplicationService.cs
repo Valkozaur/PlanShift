@@ -1,7 +1,6 @@
-﻿namespace PlanShift.Services.Data.ShiftApplication
+﻿namespace PlanShift.Services.Data.ShiftApplicationServices
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -36,26 +35,44 @@
             return shiftApplication.Id;
         }
 
-        public async Task<bool> HasEmployeeAppliedForShift(string shiftId, string employeeId)
+        public async Task<bool> HasEmployeeActiveApplicationForShiftAsync(string shiftId, string employeeId)
         => await this.shiftApplicationRepository
             .AllAsNoTracking()
-            .AnyAsync(x => x.ShiftId == shiftId && x.EmployeeId == employeeId);
+            .AnyAsync(sa
+                => sa.ShiftId == shiftId &&
+                   sa.EmployeeId == employeeId &&
+                   sa.Status == ShiftApplicationStatus.Pending);
 
         public async Task ApproveShiftApplicationAsync(string id)
         {
+            var shiftApplication = await this.shiftApplicationRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (shiftApplication == null)
+            {
+                throw new ArgumentException("Shift application with this id does not exist!");
+            }
+
+            shiftApplication.Status = ShiftApplicationStatus.Approved;
+
+            await this.shiftApplicationRepository.SaveChangesAsync();
+        }
+
+        public async Task DeclineAllShiftApplicationsPerShiftAsync(string shiftId)
+        {
             var shiftApplications = await this.shiftApplicationRepository
                 .All()
-                .Where(x => x.Id == id)
-                .ToListAsync();
+                .Where(sa => sa.ShiftId == shiftId)
+                .ToArrayAsync();
+
+            if (shiftApplications.Length == 0)
+            {
+                throw new ArgumentException("There are no shift applications for this shift!");
+            }
 
             foreach (var shiftApplication in shiftApplications)
             {
-                if (shiftApplication.Id == id)
-                {
-                    shiftApplication.Status = ShiftApplicationStatus.Approved;
-                    continue;
-                }
-
                 shiftApplication.Status = ShiftApplicationStatus.Declined;
             }
 
@@ -69,9 +86,9 @@
                 .To<T>()
                 .FirstOrDefaultAsync();
 
-        public Task<int> GetCountByBusinessIdAsync(string businessId)
+        public Task<int> GetCountOfPendingApplicationsByBusinessIdAsync(string businessId)
             => this.shiftApplicationRepository
-            .All()
+            .AllAsNoTracking()
             .CountAsync(x
                 => x.Shift.Group.BusinessId == businessId
                 && x.Status == ShiftApplicationStatus.Pending);
