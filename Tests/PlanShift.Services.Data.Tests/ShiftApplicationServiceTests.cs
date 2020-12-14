@@ -18,30 +18,21 @@
         private const string ShiftId = "Test";
         private const string EmployeeId = "Test";
 
-        private readonly Mock<IRepository<ShiftApplication>> repository;
-        private readonly List<ShiftApplication> fakeDb;
-
         private IShiftApplicationService shiftApplicationService;
-
-        public ShiftApplicationServiceTests()
-        {
-            this.repository = new Mock<IRepository<ShiftApplication>>();
-            this.fakeDb = new List<ShiftApplication>();
-        }
 
         [Fact]
         public async Task CreateShiftApplicationAsyncCreateEntityIfGivenCorrectItems()
         {
             // Arrange
-            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryWithCreateOperations(this.repository, this.fakeDb));
+            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryWithCreateOperations());
 
             // Act
             var shiftApplicationId = await this.shiftApplicationService.CreateShiftApplicationAsync(ShiftId, EmployeeId);
 
             // Assert
             Assert.NotNull(this.shiftApplicationService);
-            Assert.Single(this.fakeDb);
-            Assert.Contains(this.fakeDb, application => application.EmployeeId == EmployeeId && application.ShiftId == ShiftId);
+            Assert.Single(this.FakeDb);
+            Assert.Contains(this.FakeDb, application => application.EmployeeId == EmployeeId && application.ShiftId == ShiftId);
         }
 
         [Fact]
@@ -56,9 +47,9 @@
                 Status = ShiftApplicationStatus.Pending,
             };
 
-            this.fakeDb.Add(shiftApplication);
+            this.FakeDb.Add(shiftApplication);
 
-            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb));
+            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
             var hasEmployeeApplied = await this.shiftApplicationService.HasEmployeeActiveApplicationForShiftAsync(ShiftId, EmployeeId);
@@ -81,9 +72,9 @@
                 Status = ShiftApplicationStatus.Pending,
             };
 
-            this.fakeDb.Add(shiftApplication);
+            this.FakeDb.Add(shiftApplication);
 
-            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb));
+            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
             var hasEmployeeApplied = await this.shiftApplicationService.HasEmployeeActiveApplicationForShiftAsync(ShiftId, fakeUserId);
@@ -104,9 +95,9 @@
                 Status = ShiftApplicationStatus.Unknown,
             };
 
-            this.fakeDb.Add(shiftApplication);
+            this.FakeDb.Add(shiftApplication);
 
-            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb));
+            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
             var hasEmployeeApplied = await this.shiftApplicationService.HasEmployeeActiveApplicationForShiftAsync(ShiftId, EmployeeId);
@@ -130,9 +121,9 @@
                 Status = ShiftApplicationStatus.Pending,
             };
 
-            this.fakeDb.Add(shiftApplication);
+            this.FakeDb.Add(shiftApplication);
 
-            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryAll(this.repository, this.fakeDb));
+            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryAll());
 
             // Act
             await this.shiftApplicationService.ApproveShiftApplicationAsync(id);
@@ -147,7 +138,7 @@
             const string id = "Test";
 
             // Arrange
-            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryAll(this.repository, this.fakeDb));
+            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryAll());
 
             // Act
             // Assert
@@ -169,9 +160,9 @@
                 Status = ShiftApplicationStatus.Pending,
             };
 
-            this.fakeDb.Add(shiftApplication);
+            this.FakeDb.Add(shiftApplication);
 
-            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryAll(this.repository, this.fakeDb));
+            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryAll());
 
             // Act
             await this.shiftApplicationService.DeclineAllShiftApplicationsPerShiftAsync(ShiftId);
@@ -194,9 +185,9 @@
                 Status = ShiftApplicationStatus.Pending,
             };
 
-            this.fakeDb.Add(shiftApplication);
+            this.FakeDb.Add(shiftApplication);
 
-            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryAll(this.repository, this.fakeDb));
+            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryAll());
 
             // Act
             // Assert
@@ -219,9 +210,9 @@
 
             };
 
-            this.fakeDb.Add(shiftApplication);
+            this.FakeDb.Add(shiftApplication);
 
-            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb));
+            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
             var model = await this.shiftApplicationService.GetShiftApplicationById<ShiftApplicationTestViewModel>(id);
@@ -247,9 +238,9 @@
                 Status = ShiftApplicationStatus.Pending,
             };
 
-            this.fakeDb.Add(shiftApplication);
+            this.FakeDb.Add(shiftApplication);
 
-            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb));
+            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
             var model = await this.shiftApplicationService.GetShiftApplicationById<ShiftApplicationTestViewModel>(fakeId);
@@ -288,10 +279,10 @@
                 Shift = shift,
             };
 
-            this.fakeDb.Add(shiftApplication);
-            this.fakeDb.Add(shiftApplication2);
+            this.FakeDb.Add(shiftApplication);
+            this.FakeDb.Add(shiftApplication2);
 
-            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb));
+            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
             var count = await this.shiftApplicationService.GetCountOfPendingApplicationsByBusinessIdAsync(businessId);
@@ -331,10 +322,10 @@
                 Shift = shift,
             };
 
-            this.fakeDb.Add(shiftApplication);
-            this.fakeDb.Add(shiftApplication2);
+            this.FakeDb.Add(shiftApplication);
+            this.FakeDb.Add(shiftApplication2);
 
-            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb));
+            this.shiftApplicationService = new ShiftApplicationService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
             var count = await this.shiftApplicationService.GetCountOfPendingApplicationsByBusinessIdAsync(fakeBusinessId);

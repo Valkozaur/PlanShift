@@ -19,10 +19,6 @@
 
         private IBusinessService businessService;
 
-        public BusinessServiceTests()
-        {
-        }
-
         [Fact]
         public async Task CreateBusinessAsyncShouldCreateNewBusinessInTheRepository()
         {

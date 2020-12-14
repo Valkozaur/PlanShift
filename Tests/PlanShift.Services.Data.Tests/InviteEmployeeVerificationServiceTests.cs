@@ -6,8 +6,7 @@
     using System.Threading.Tasks;
 
     using MockQueryable.Moq;
-    using Moq;
-    using PlanShift.Data.Common.Repositories;
+
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.InvitationVerificationServices;
     using PlanShift.Services.Data.Tests.BaseTestClasses;
@@ -21,35 +20,27 @@
         private const string Position = "Test";
         private const decimal Salary = 100M;
 
-        private readonly Mock<IRepository<InviteEmployeeVerification>> repository;
-        private readonly List<InviteEmployeeVerification> fakeDb;
         private InviteEmployeeVerificationsService inviteEmployeeVerificationsService;
-
-        public InviteEmployeeVerificationServiceTests()
-        {
-            this.repository = new Mock<IRepository<InviteEmployeeVerification>>();
-            this.fakeDb = new List<InviteEmployeeVerification>();
-        }
 
         // TODO: Mock the object we are testing method.
         [Fact]
         public async Task CreateShiftVerificationAsyncShouldCreateEntityCorrectly()
         {
             // Arrange
-            this.GetMockedRepositoryWithCreateOperations(this.repository, this.fakeDb);
+            this.GetMockedRepositoryWithCreateOperations();
 
             var fakeList = new List<InviteEmployeeVerification>().AsQueryable().BuildMock();
-            this.repository.Setup(r => r.All())
+            this.Repository.Setup(r => r.All())
                 .Returns(fakeList.Object);
 
-            this.inviteEmployeeVerificationsService = new InviteEmployeeVerificationsService(this.repository.Object);
+            this.inviteEmployeeVerificationsService = new InviteEmployeeVerificationsService(this.Repository.Object);
 
             // Act
             await this.inviteEmployeeVerificationsService.CreateShiftVerificationAsync(GroupId, Email, Position, Salary);
 
             // Assert
-            Assert.Single(this.fakeDb);
-            Assert.Contains(this.fakeDb, x => x.GroupId == GroupId && x.Email == Email);
+            Assert.Single(this.FakeDb);
+            Assert.Contains(this.FakeDb, x => x.GroupId == GroupId && x.Email == Email);
         }
 
         [Fact]
@@ -66,9 +57,9 @@
                 Position = Position,
                 Salary = Salary,
             };
-            this.fakeDb.Add(invitation);
+            this.FakeDb.Add(invitation);
 
-            this.inviteEmployeeVerificationsService = new InviteEmployeeVerificationsService(this.GetMockedRepositoryAll(this.repository, this.fakeDb));
+            this.inviteEmployeeVerificationsService = new InviteEmployeeVerificationsService(this.GetMockedRepositoryAll());
 
             // Act
             var isValid = await this.inviteEmployeeVerificationsService.IsVerificationValid(id);
@@ -104,10 +95,10 @@
                 CreatedOn = DateTime.UtcNow.AddDays(-5),
             };
 
-            this.fakeDb.Add(invitation1);
-            this.fakeDb.Add(invitation2);
+            this.FakeDb.Add(invitation1);
+            this.FakeDb.Add(invitation2);
 
-            this.inviteEmployeeVerificationsService = new InviteEmployeeVerificationsService(this.GetMockedRepositoryAll(this.repository, this.fakeDb));
+            this.inviteEmployeeVerificationsService = new InviteEmployeeVerificationsService(this.GetMockedRepositoryAll());
 
             // Act
             var isValid = await this.inviteEmployeeVerificationsService.IsVerificationValid(id);
@@ -131,9 +122,9 @@
                 Used = true,
             };
 
-            this.fakeDb.Add(invitation);
+            this.FakeDb.Add(invitation);
 
-            this.inviteEmployeeVerificationsService = new InviteEmployeeVerificationsService(this.GetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb));
+            this.inviteEmployeeVerificationsService = new InviteEmployeeVerificationsService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
             var inviteEmployeeVerification = await this.inviteEmployeeVerificationsService.GetVerificationAsync<InviteEmployeeVerificationInfoViewModel>(id);
@@ -162,9 +153,9 @@
                 Used = true,
             };
 
-            this.fakeDb.Add(invitation);
+            this.FakeDb.Add(invitation);
 
-            this.inviteEmployeeVerificationsService = new InviteEmployeeVerificationsService(this.GetMockedRepositoryReturningAllAsNoTracking(this.repository, this.fakeDb));
+            this.inviteEmployeeVerificationsService = new InviteEmployeeVerificationsService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
             var inviteEmployeeVerification = await this.inviteEmployeeVerificationsService.GetVerificationAsync<InviteEmployeeVerificationInfoViewModel>(fakeId);

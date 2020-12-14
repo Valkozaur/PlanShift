@@ -10,35 +10,45 @@
     public abstract class BaseEntityBaseTestClass<T> : BaseTestClass
         where T : class
     {
-        protected IRepository<T> GetMockedRepositoryWithCreateOperations(Mock<IRepository<T>> repository, List<T> fakeDb)
+        protected BaseEntityBaseTestClass()
         {
-            repository.Setup(r => r.AddAsync(It.IsAny<T>()))
+            this.Repository = new Mock<IRepository<T>>();
+            this.FakeDb = new List<T>();
+        }
+
+        protected Mock<IRepository<T>> Repository { get; set; }
+
+        protected List<T> FakeDb { get; set; }
+
+        protected IRepository<T> GetMockedRepositoryWithCreateOperations()
+        {
+            this.Repository.Setup(r => r.AddAsync(It.IsAny<T>()))
                 .Callback(delegate (T businessType)
                 {
-                    fakeDb.Add(businessType);
+                    this.FakeDb.Add(businessType);
                 });
-            repository.Setup(r => r.SaveChangesAsync());
+            this.Repository.Setup(r => r.SaveChangesAsync());
 
-            return repository.Object;
+            return this.Repository.Object;
         }
 
-        protected IRepository<T> GetMockedRepositoryReturningAllAsNoTracking(Mock<IRepository<T>> repository, List<T> fakeDb)
+        protected IRepository<T> GetMockedRepositoryReturningAllAsNoTracking()
         {
-            var mockQueryable = fakeDb.AsQueryable().BuildMock();
+            var mockQueryable = this.FakeDb.AsQueryable().BuildMock();
 
-            repository.Setup(r => r.AllAsNoTracking())
+            this.Repository.Setup(r => r.AllAsNoTracking())
                 .Returns(mockQueryable.Object);
 
-            return repository.Object;
+            return this.Repository.Object;
         }
 
-        protected IRepository<T> GetMockedRepositoryAll(Mock<IRepository<T>> repository, List<T> fakeDb)
+        protected IRepository<T> GetMockedRepositoryAll()
         {
-            var queryableMock = fakeDb.AsQueryable().BuildMock();
-            repository.Setup(r => r.All())
+            var queryableMock = this.FakeDb.AsQueryable().BuildMock();
+            this.Repository.Setup(r => r.All())
                 .Returns(queryableMock.Object);
 
-            return repository.Object;
+            return this.Repository.Object;
         }
     }
 }

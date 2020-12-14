@@ -1,13 +1,10 @@
 ﻿namespace PlanShift.Services.Data.Tests
 {
-    using System.Collections.Generic;
+
     using System.Linq;
     using System.Threading.Tasks;
-
-    using Moq;
-
-    using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
+
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.Tests.BaseTestClasses;
     using PlanShift.Web.ViewModels.EmployeeGroup;
@@ -22,29 +19,20 @@
         private const string GroupId = "Test";
         private const string BusinessId = "Test";
 
-
-        private readonly Mock<IDeletableEntityRepository<EmployeeGroup>> Repository;
-        private readonly List<EmployeeGroup> fakeDb;
         private IEmployeeGroupService employeeGroupService;
-
-        public EmployeeGroupTests()
-        {
-            this.Repository = new Mock<IDeletableEntityRepository<EmployeeGroup>>();
-            this.fakeDb = new List<EmployeeGroup>();
-        }
 
         [Fact]
         public async Task AddEmployeeToGroupAddsCorrectly()
         {
             // Arrange
-            this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryWithCreateOperations(this.Repository, this.fakeDb));
+            this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryWithCreateOperations());
 
             // Act
             var id = await this.employeeGroupService.AddEmployeeToGroupAsync(UserId, GroupId, Salary, Position);
 
             // Assert
             Assert.NotNull(id);
-            Assert.Single(this.fakeDb);
+            Assert.Single(this.FakeDb);
         }
 
         [Fact]
@@ -53,11 +41,11 @@
             const int numberOfFakeEmployees = 3;
 
             // Arrange
-            this.fakeDb.Add(new EmployeeGroup() { UserId = UserId, GroupId = GroupId, Salary = Salary, Position = Position });
-            this.fakeDb.Add(new EmployeeGroup() { UserId = UserId, GroupId = GroupId, Salary = Salary, Position = Position });
-            this.fakeDb.Add(new EmployeeGroup() { UserId = UserId, GroupId = GroupId, Salary = Salary, Position = Position });
+            this.FakeDb.Add(new EmployeeGroup() { UserId = UserId, GroupId = GroupId, Salary = Salary, Position = Position });
+            this.FakeDb.Add(new EmployeeGroup() { UserId = UserId, GroupId = GroupId, Salary = Salary, Position = Position });
+            this.FakeDb.Add(new EmployeeGroup() { UserId = UserId, GroupId = GroupId, Salary = Salary, Position = Position });
 
-            this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryReturningAllAsNoTracking(this.Repository, this.fakeDb));
+            this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Arrange
             var employees = await this.employeeGroupService.GetAllEmployeesFromGroup<EmployeeGroupIdViewModel>(GroupId);
@@ -70,7 +58,7 @@
         public async Task GetAllEmployeesFromGroupShouldReturnNothingIfThereAreNoEmployees()
         {
             // Arrange
-            this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryReturningAllAsNoTracking(this.Repository, this.fakeDb));
+            this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Arrange
             var employees = await this.employeeGroupService.GetAllEmployeesFromGroup<EmployeeGroupIdViewModel>(GroupId);
@@ -83,9 +71,9 @@
         public async Task IsEmployeeInGroupShouldReturnTrueIfEmployeeIsInGroup()
         {
             // Arrange
-            this.fakeDb.Add(new EmployeeGroup() { UserId = UserId, GroupId = GroupId, Salary = Salary, Position = Position });
+            this.FakeDb.Add(new EmployeeGroup() { UserId = UserId, GroupId = GroupId, Salary = Salary, Position = Position });
 
-            this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryReturningAllAsNoTracking(this.Repository, this.fakeDb));
+            this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
             var isEmployeeInGroup = await this.employeeGroupService.IsEmployeeInGroup(UserId, GroupId);
@@ -98,7 +86,7 @@
         public async Task IsEmployeeShouldReturnFalseIfEmplyoeeIsNotInTheGroup()
         {
             // Arrange
-            this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryReturningAllAsNoTracking(this.Repository, this.fakeDb));
+            this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
             var isEmployeeInGroup = await this.employeeGroupService.IsEmployeeInGroup(UserId, GroupId);
@@ -125,8 +113,8 @@
                 Group = group1,
             };
 
-            this.fakeDb.Add(employeeGroup);
-            this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryReturningAllAsNoTracking(this.Repository, this.fakeDb));
+            this.FakeDb.Add(employeeGroup);
+            this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
             var isInGroupWithNames = await this.employeeGroupService.IsEmployeeInGroupsWithNames(UserId, BusinessId, groupName1, groupName2);
@@ -155,8 +143,8 @@
                 Group = group1,
             };
 
-            this.fakeDb.Add(employeeGroup);
-            this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryReturningAllAsNoTracking(this.Repository, this.fakeDb));
+            this.FakeDb.Add(employeeGroup);
+            this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
             var isInGroupWithNames = await this.employeeGroupService.IsEmployeeInGroupsWithNames(UserId, BusinessId, groupName1, groupName2);
@@ -172,8 +160,8 @@
 
             // Arrange
 
-            this.fakeDb.Add(new EmployeeGroup() { Id = employeeId, UserId = UserId, GroupId = GroupId, Salary = Salary, Position = Position });
-            this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryReturningAllAsNoTracking(this.Repository, this.fakeDb));
+            this.FakeDb.Add(new EmployeeGroup() { Id = employeeId, UserId = UserId, GroupId = GroupId, Salary = Salary, Position = Position });
+            this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
             var getEmployeeId = await this.employeeGroupService.GetEmployeeId(UserId, GroupId);
@@ -186,7 +174,7 @@
         public async Task GetEmployeeIdShouldReturnNullIfSuchDoNotExist()
         {
             // Arrange
-            this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryReturningAllAsNoTracking(this.Repository, this.fakeDb));
+            this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
             var getEmployeeId = await this.employeeGroupService.GetEmployeeId(UserId, GroupId);
