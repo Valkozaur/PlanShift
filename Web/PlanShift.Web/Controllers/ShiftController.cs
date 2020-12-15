@@ -72,7 +72,7 @@
                 return this.View(input);
             }
 
-            await this.shiftService.CreateShift(managementId, input.GroupId, input.Start, input.End, input.Description, input.BonusPayment ?? 0);
+            await this.shiftService.CreateShiftAsync(managementId, input.GroupId, input.Start, input.End, input.Description, input.BonusPayment ?? 0);
 
             this.TempData["GroupId"] = input.GroupId;
             return this.RedirectToAction("Schedule", new { input.BusinessId });
@@ -81,7 +81,7 @@
         [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.ScheduleManagersGroupName } })]
         public IActionResult CreateFormViewComponent(string groupId)
         {
-            return this.ViewComponent("CreateShift", new { groupId });
+            return this.ViewComponent("CreateShiftAsync", new { groupId });
         }
     }
 }

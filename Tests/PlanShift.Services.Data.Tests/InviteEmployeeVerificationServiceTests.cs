@@ -13,14 +13,20 @@
     using PlanShift.Web.ViewModels.InviteEmployeeValidation;
     using Xunit;
 
-    public class InviteEmployeeVerificationServiceTests : BaseEntityBaseTestClassFixture<InviteEmployeeVerification>
+    public class InviteEmployeeVerificationServiceTests : BaseEntityBaseTestClass<InviteEmployeeVerification>, IClassFixture<AutoMapperFixture>
     {
         private const string GroupId = "Test";
         private const string Email = "Test";
         private const string Position = "Test";
         private const decimal Salary = 100M;
 
+        private readonly AutoMapperFixture autoMapperFixture;
         private InviteEmployeeVerificationsService inviteEmployeeVerificationsService;
+
+        public InviteEmployeeVerificationServiceTests(AutoMapperFixture autoMapperFixture)
+        {
+            this.autoMapperFixture = autoMapperFixture;
+        }
 
         // TODO: Mock the object we are testing method.
         [Fact]

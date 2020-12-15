@@ -2,13 +2,12 @@
 {
     using System.Reflection;
 
-    using PlanShift.Data.Common.Repositories;
     using PlanShift.Services.Mapping;
     using PlanShift.Web.ViewModels;
 
-    public abstract class BaseTestClassFixture
+    public class AutoMapperFixture
     {
-        protected BaseTestClassFixture()
+        public AutoMapperFixture()
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
         }

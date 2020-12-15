@@ -44,7 +44,7 @@
         public async Task<IActionResult> Apply(string shiftId)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var shiftInformation = await this.shiftService.GetShiftById<ShiftInfoViewModel>(shiftId);
+            var shiftInformation = await this.shiftService.GetShiftByIdAsync<ShiftInfoViewModel>(shiftId);
 
             var employeeGroupId = await this.employeeGroupService.GetEmployeeId(userId, shiftInformation.GroupId);
 
@@ -60,7 +60,7 @@
             }
 
             await this.shiftChangeService.CreateShiftChangeAsync(shiftId, shiftInformation.OriginalEmployeeId, employeeGroupId);
-            await this.shiftService.StatusChange(shiftId, ShiftStatus.Pending);
+            await this.shiftService.StatusChangeAsync(shiftId, ShiftStatus.Pending);
 
             return this.RedirectToAction("Index", "Business", new { GroupId = shiftInformation.GroupId });
         }
@@ -93,7 +93,7 @@
 
             var shiftChange = await this.shiftChangeService.GetShiftChangeById<ShiftChangeInfoViewModel>(shiftChangeId);
 
-            await this.shiftService.ApproveShiftToEmployee(shiftChange.ShiftId, shiftChange.PendingEmployeeId, manager);
+            await this.shiftService.ApproveShiftToEmployeeAsync(shiftChange.ShiftId, shiftChange.PendingEmployeeId, manager);
             await this.shiftChangeService.ApproveShiftChange(shiftChangeId, manager);
 
             return this.RedirectToAction(nameof(this.All), new { BusinessId = businessId, ActiveTabGroupId = groupId });

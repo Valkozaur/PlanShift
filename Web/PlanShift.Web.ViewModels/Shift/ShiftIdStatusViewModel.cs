@@ -4,14 +4,10 @@
     using PlanShift.Data.Models.Enumerations;
     using PlanShift.Services.Mapping;
 
-    public class ShiftTestViewModel : IMapFrom<Shift>
+    public class ShiftIdStatusViewModel : IMapFrom<Shift>
     {
-        public string Id { get; set; }
-
-        public string EmployeeId { get; set; }
-
         public string GroupId { get; set; }
 
-        public ShiftStatus ShiftStatus { get; set; }
+        public ShiftStatus Status { get; set; }
     }
 }

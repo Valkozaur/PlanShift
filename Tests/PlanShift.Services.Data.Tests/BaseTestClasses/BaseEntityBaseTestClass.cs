@@ -7,10 +7,10 @@
     using Moq;
     using PlanShift.Data.Common.Repositories;
 
-    public abstract class BaseEntityBaseTestClassFixture<T> : BaseTestClassFixture
+    public class BaseEntityBaseTestClass<T>
         where T : class
     {
-        protected BaseEntityBaseTestClassFixture()
+        protected BaseEntityBaseTestClass()
         {
             this.Repository = new Mock<IRepository<T>>();
             this.FakeDb = new List<T>();

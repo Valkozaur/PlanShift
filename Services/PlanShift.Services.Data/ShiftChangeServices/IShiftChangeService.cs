@@ -17,8 +17,6 @@
 
         Task ApproveShiftChange(string shiftChangeId, string managerId);
 
-        Task DeclineShiftChange(string shiftChangeId, string managerId);
-
         Task<int> GetCountByBusinessIdAsync(string businessId);
 
         Task<IEnumerable<T>> GetShiftChangesPerGroupAsync<T>(string groupId, ShiftApplicationStatus shiftApplicationStatus = ShiftApplicationStatus.Pending);

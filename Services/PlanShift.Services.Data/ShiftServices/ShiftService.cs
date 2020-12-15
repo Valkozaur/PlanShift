@@ -21,7 +21,7 @@
             this.shiftRepository = shiftRepository;
         }
 
-        public async Task<string> CreateShift(string shiftCreatorId, string groupId, DateTime start, DateTime end, string description, decimal bonusPayment = 0)
+        public async Task<string> CreateShiftAsync(string shiftCreatorId, string groupId, DateTime start, DateTime end, string description, decimal bonusPayment = 0)
         {
             var shift = new Shift()
             {
@@ -40,7 +40,7 @@
             return shift.Id;
         }
 
-        public async Task ApproveShiftToEmployee(string id, string employeeId, string managementId)
+        public async Task ApproveShiftToEmployeeAsync(string id, string employeeId, string managementId)
         {
             var shift = await this.shiftRepository.All().FirstOrDefaultAsync(x => x.Id == id);
 
@@ -55,7 +55,8 @@
 
             await this.shiftRepository.SaveChangesAsync();
         }
-        public async Task StatusChange(string id, ShiftStatus newStatus)
+
+        public async Task StatusChangeAsync(string id, ShiftStatus newStatus)
         {
             var shift = await this.shiftRepository.All().FirstOrDefaultAsync(x => x.Id == id);
 
@@ -72,14 +73,14 @@
         //    await this.shiftRepository.SaveChangesAsync();
         //}
 
-        public async Task<T> GetShiftById<T>(string id)
+        public async Task<T> GetShiftByIdAsync<T>(string id)
             => await this.shiftRepository
                 .AllAsNoTracking()
                 .Where(x => x.Id == id)
                 .To<T>()
                 .FirstOrDefaultAsync();
 
-        public async Task<ICollection<T>> GetAllShiftsByGroup<T>(string groupId)
+        public async Task<ICollection<T>> GetAllShiftsByGroupAsync<T>(string groupId)
             => await this.shiftRepository
                 .AllAsNoTracking()
                 .Where(x => x.GroupId == groupId)
@@ -87,21 +88,7 @@
                 .To<T>()
                 .ToArrayAsync();
 
-        public async Task<ShiftStatus> GetShiftStatus(string id)
-            => await this.shiftRepository
-                .AllAsNoTracking()
-                .Where(s => s.Id == id)
-                .Select(s => s.ShiftStatus)
-                .FirstOrDefaultAsync();
-
-        public async Task<string> GetGroupIdAsync(string shiftId)
-            => await this.shiftRepository
-                .All()
-                .Where(x => x.Id == shiftId)
-                .Select(x => x.GroupId)
-                .FirstOrDefaultAsync();
-
-        public async Task<IEnumerable<T>> GetPendingShiftsPerGroup<T>(string groupId)
+        public async Task<IEnumerable<T>> GetPendingShiftsPerGroupAsync<T>(string groupId)
             => await this.shiftRepository
                 .AllAsNoTracking()
                 .Where(s => s.GroupId == groupId
@@ -109,16 +96,17 @@
                 .To<T>()
                 .ToArrayAsync();
 
-        public async Task<IEnumerable<T>> GetUpcomingShiftForUser<T>(string businessId, string userId)
+        public async Task<IEnumerable<T>> GetUpcomingShiftForUserAsync<T>(string businessId, string userId)
             => await this.shiftRepository
                    .AllAsNoTracking()
                    .Where(s => s.Group.BusinessId == businessId
                                && s.Employee.UserId == userId
+                               && s.End > DateTime.UtcNow
                                && s.ShiftStatus == ShiftStatus.Approved)
                    .To<T>()
                    .ToArrayAsync();
 
-        public async Task<IEnumerable<T>> GetOpenShiftsAvailableForUser<T>(string businessId, string userId)
+        public async Task<IEnumerable<T>> GetOpenShiftsAvailableForUserAsync<T>(string businessId, string userId)
             => await this.shiftRepository
                 .AllAsNoTracking()
                 .Where(s => s.Group.BusinessId == businessId
@@ -128,7 +116,7 @@
                 .To<T>()
                 .ToArrayAsync();
 
-        public async Task<IEnumerable<T>> GetPendingShiftsPerUser<T>(string businessId, string userId)
+        public async Task<IEnumerable<T>> GetPendingShiftsPerUserAsync<T>(string businessId, string userId)
             => await this.shiftRepository
                 .AllAsNoTracking()
                 .Where(s => s.Group.BusinessId == businessId
@@ -137,7 +125,7 @@
                 .To<T>()
                 .ToArrayAsync();
 
-        public async Task<IEnumerable<T>> GetTakenShiftsPerUser<T>(string businessId, string userId)
+        public async Task<IEnumerable<T>> GetTakenShiftsPerUserAsync<T>(string businessId, string userId)
             => await this.shiftRepository
                 .AllAsNoTracking()
                 .Where(s => s.Group.BusinessId == businessId && s.ShiftStatus == ShiftStatus.Approved && s.EmployeeId != userId)

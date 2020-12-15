@@ -40,10 +40,10 @@
 
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            var upcomingShifts = await this.shiftService.GetUpcomingShiftForUser<ShiftCalendarViewModel>(businessId, userId);
-            var openShifts = await this.shiftService.GetOpenShiftsAvailableForUser<ShiftCalendarViewModel>(businessId, userId);
-            var swapRequests = await this.shiftService.GetPendingShiftsPerUser<ShiftCalendarViewModel>(businessId, userId);
-            var takenShifts = await this.shiftService.GetTakenShiftsPerUser<ShiftCalendarViewModel>(businessId, userId);
+            var upcomingShifts = await this.shiftService.GetUpcomingShiftForUserAsync<ShiftCalendarViewModel>(businessId, userId);
+            var openShifts = await this.shiftService.GetOpenShiftsAvailableForUserAsync<ShiftCalendarViewModel>(businessId, userId);
+            var swapRequests = await this.shiftService.GetPendingShiftsPerUserAsync<ShiftCalendarViewModel>(businessId, userId);
+            var takenShifts = await this.shiftService.GetTakenShiftsPerUserAsync<ShiftCalendarViewModel>(businessId, userId);
 
             foreach (var upcoming in upcomingShifts)
             {
@@ -87,7 +87,7 @@
         [HttpGet("GetGroupShifts")]
         public async Task<ActionResult> GetGroupShifts(string groupId)
         {
-            var shifts = await this.shiftService.GetAllShiftsByGroup<ShiftCalendarViewModel>(groupId);
+            var shifts = await this.shiftService.GetAllShiftsByGroupAsync<ShiftCalendarViewModel>(groupId);
 
             var jsonObject = new ShiftListViewModel()
             {

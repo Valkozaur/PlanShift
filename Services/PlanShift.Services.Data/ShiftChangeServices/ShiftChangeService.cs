@@ -79,16 +79,6 @@
             await this.shiftChangeRepository.SaveChangesAsync();
         }
 
-        public async Task DeclineShiftChange(string shiftChangeId, string managerId)
-        {
-            var shiftChange = await this.shiftChangeRepository.All().FirstOrDefaultAsync(x => x.Id == shiftChangeId);
-
-            shiftChange.ManagementId = managerId;
-            shiftChange.Shift.ShiftStatus = ShiftStatus.Approved;
-
-            await this.shiftChangeRepository.SaveChangesAsync();
-        }
-
         public Task<int> GetCountByBusinessIdAsync(string businessId)
             => this.shiftChangeRepository
                 .All()

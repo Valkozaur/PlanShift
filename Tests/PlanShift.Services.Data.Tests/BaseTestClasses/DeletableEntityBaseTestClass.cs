@@ -8,10 +8,10 @@
     using PlanShift.Data.Common.Models;
     using PlanShift.Data.Common.Repositories;
 
-    public abstract class DeletableEntityBaseTestClassFixture<T> : BaseTestClassFixture
+    public abstract class DeletableEntityBaseTestClass<T>
         where T : class, IDeletableEntity
     {
-        protected DeletableEntityBaseTestClassFixture()
+        protected DeletableEntityBaseTestClass()
         {
             this.Repository = new Mock<IDeletableEntityRepository<T>>();
             this.FakeDb = new List<T>();
@@ -19,7 +19,7 @@
 
         protected Mock<IDeletableEntityRepository<T>> Repository { get; set; }
 
-        protected List<T> FakeDb { get; }
+        protected List<T> FakeDb { get; set; }
 
         protected IDeletableEntityRepository<T> GetMockedRepositoryWithCreateOperations()
         {

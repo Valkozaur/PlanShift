@@ -11,12 +11,18 @@
 
     using Xunit;
 
-    public class ShiftApplicationServiceTests : BaseEntityBaseTestClassFixture<ShiftApplication>
+    public class ShiftApplicationServiceTests : BaseEntityBaseTestClass<ShiftApplication>, IClassFixture<AutoMapperFixture>
     {
         private const string ShiftId = "Test";
         private const string EmployeeId = "Test";
 
+        private readonly AutoMapperFixture autoMapperFixture;
         private IShiftApplicationService shiftApplicationService;
+
+        public ShiftApplicationServiceTests(AutoMapperFixture autoMapperFixture)
+        {
+            this.autoMapperFixture = autoMapperFixture;
+        }
 
         [Fact]
         public async Task CreateShiftApplicationAsyncCreateEntityIfGivenCorrectItems()

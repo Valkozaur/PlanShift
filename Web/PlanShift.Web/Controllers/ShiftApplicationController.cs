@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Web.Controllers
+﻿using PlanShift.Web.ViewModels.Shift;
+
+namespace PlanShift.Web.Controllers
 {
     using System.Linq;
     using System.Security.Claims;
@@ -47,9 +49,9 @@
         public async Task<IActionResult> Apply(string shiftId)
         {
             var userId = this.userManager.GetUserId(this.User);
-            var groupId = await this.shiftService.GetGroupIdAsync(shiftId);
+            var shiftInformation = await this.shiftService.GetShiftByIdAsync<ShiftIdStatusViewModel>(shiftId);
 
-            var employeeId = await this.employeeGroupService.GetEmployeeId(userId, groupId);
+            var employeeId = await this.employeeGroupService.GetEmployeeId(userId, shiftInformation.GroupId);
 
             if (employeeId == null)
             {
@@ -57,26 +59,24 @@
                 return this.RedirectToAction("Index", "Business");
             }
 
-            var shiftChange = await this.shiftService.GetShiftStatus(shiftId);
-
-            if (shiftChange == ShiftStatus.Approved)
+            if (shiftInformation.Status == ShiftStatus.Approved)
             {
                 this.TempData["Error"] = "Shift is already taken!";
-                return this.RedirectToAction("Index", "Business", new { GroupId = groupId });
+                return this.RedirectToAction("Index", "Business", new { GroupId = shiftInformation });
             }
 
             var hasEmployeeApplied = await this.shiftApplicationService.HasEmployeeActiveApplicationForShiftAsync(shiftId, employeeId);
             if (hasEmployeeApplied)
             {
                 this.TempData["Error"] = "You've applied for this shift already!";
-                return this.RedirectToAction("Index", "Business", new { GroupId = groupId });
+                return this.RedirectToAction("Index", "Business", new { GroupId = shiftInformation });
             }
 
             // TODO: Make the achievement system check here
             await this.shiftApplicationService.CreateShiftApplicationAsync(shiftId, employeeId);
-            await this.shiftService.StatusChange(shiftId, ShiftStatus.Pending);
+            await this.shiftService.StatusChangeAsync(shiftId, ShiftStatus.Pending);
             this.TempData["Success"] = "You've applied for the shift";
-            return this.RedirectToAction("Index", "Business", new { GroupId = groupId });
+            return this.RedirectToAction("Index", "Business", new { GroupId = shiftInformation });
         }
 
         [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.ScheduleManagersGroupName } })]
@@ -88,7 +88,7 @@
 
             var employeeId = await this.employeeGroupService.GetEmployeeId(userId, shiftApplicationInfo.GroupId);
 
-            await this.shiftService.ApproveShiftToEmployee(shiftApplicationInfo.ShiftId, shiftApplicationInfo.EmployeeId, employeeId);
+            await this.shiftService.ApproveShiftToEmployeeAsync(shiftApplicationInfo.ShiftId, shiftApplicationInfo.EmployeeId, employeeId);
             await this.shiftApplicationService.DeclineAllShiftApplicationsPerShiftAsync(shiftApplicationInfo.ShiftId);
             await this.shiftApplicationService.ApproveShiftApplicationAsync(shiftApplicationId);
 
