@@ -5,44 +5,45 @@
 
     using MockQueryable.Moq;
     using Moq;
+    using PlanShift.Data.Common.Models;
     using PlanShift.Data.Common.Repositories;
 
-    public abstract class BaseEntityBaseTestClass<T> : BaseTestClass
-        where T : class
+    public abstract class DeletableEntityBaseTestClassFixture<T> : BaseTestClassFixture
+        where T : class, IDeletableEntity
     {
-        protected BaseEntityBaseTestClass()
+        protected DeletableEntityBaseTestClassFixture()
         {
-            this.Repository = new Mock<IRepository<T>>();
+            this.Repository = new Mock<IDeletableEntityRepository<T>>();
             this.FakeDb = new List<T>();
         }
 
-        protected Mock<IRepository<T>> Repository { get; set; }
+        protected Mock<IDeletableEntityRepository<T>> Repository { get; set; }
 
-        protected List<T> FakeDb { get; set; }
+        protected List<T> FakeDb { get; }
 
-        protected IRepository<T> GetMockedRepositoryWithCreateOperations()
+        protected IDeletableEntityRepository<T> GetMockedRepositoryWithCreateOperations()
         {
             this.Repository.Setup(r => r.AddAsync(It.IsAny<T>()))
-                .Callback(delegate (T businessType)
+                .Callback(delegate (T entity)
                 {
-                    this.FakeDb.Add(businessType);
+                    this.FakeDb.Add(entity);
                 });
+
             this.Repository.Setup(r => r.SaveChangesAsync());
 
             return this.Repository.Object;
         }
 
-        protected IRepository<T> GetMockedRepositoryReturningAllAsNoTracking()
+        protected IDeletableEntityRepository<T> GetMockedRepositoryReturningAllAsNoTracking()
         {
             var mockQueryable = this.FakeDb.AsQueryable().BuildMock();
-
             this.Repository.Setup(r => r.AllAsNoTracking())
                 .Returns(mockQueryable.Object);
 
             return this.Repository.Object;
         }
 
-        protected IRepository<T> GetMockedRepositoryAll()
+        protected IDeletableEntityRepository<T> GetMockedRepositoryAll()
         {
             var queryableMock = this.FakeDb.AsQueryable().BuildMock();
             this.Repository.Setup(r => r.All())

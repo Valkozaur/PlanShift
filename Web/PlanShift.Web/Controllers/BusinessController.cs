@@ -14,6 +14,7 @@
     using PlanShift.Web.Tools.ActionFilters;
     using PlanShift.Web.Tools.SessionExtension;
     using PlanShift.Web.ViewModels.Business;
+    using PlanShift.Web.ViewModels.BusinessType;
 
     [Authorize]
     public class BusinessController : BaseController

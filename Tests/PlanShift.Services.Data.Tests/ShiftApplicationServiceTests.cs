@@ -1,19 +1,17 @@
 ﻿namespace PlanShift.Services.Data.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using Moq;
-    using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
     using PlanShift.Data.Models.Enumerations;
     using PlanShift.Services.Data.ShiftApplicationServices;
     using PlanShift.Services.Data.Tests.BaseTestClasses;
     using PlanShift.Web.ViewModels.ShiftApplication;
+
     using Xunit;
 
-    public class ShiftApplicationServiceTests : BaseEntityBaseTestClass<ShiftApplication>
+    public class ShiftApplicationServiceTests : BaseEntityBaseTestClassFixture<ShiftApplication>
     {
         private const string ShiftId = "Test";
         private const string EmployeeId = "Test";

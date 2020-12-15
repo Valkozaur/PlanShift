@@ -11,7 +11,7 @@
 
     using Xunit;
 
-    public class EmployeeGroupTests : DeletableEntityBaseTestClass<EmployeeGroup>
+    public class EmployeeGroupTests : DeletableEntityBaseTestClassFixture<EmployeeGroup>
     {
         private const decimal Salary = 1000.10M;
         private const string Position = "Test";

@@ -11,7 +11,7 @@
 
     using Xunit;
 
-    public class BusinessServiceTests : DeletableEntityBaseTestClass<Business>
+    public class BusinessServiceTests : DeletableEntityBaseTestClassFixture<Business>
     {
         private const string TestBusinessName = "Test";
         private const string TestUserId = "Test";
@@ -42,7 +42,7 @@
             this.businessService = new BusinessService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
-            var businessesForUser = await this.businessService.GetAllForUserAsync<BusinessInfoViewModel>(TestUserId);
+            var businessesForUser = await this.businessService.GetAllForUserAsync<BusinessTestViewModel>(TestUserId);
 
             // Assert
             Assert.Single(businessesForUser);
@@ -61,7 +61,7 @@
             this.businessService = new BusinessService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
-            var businessesForUser = await this.businessService.GetAllForUserAsync<BusinessInfoViewModel>(TestUserId, 2);
+            var businessesForUser = await this.businessService.GetAllForUserAsync<BusinessTestViewModel>(TestUserId, 2);
 
             // Assert
             Assert.Equal(countOfBusinesses, businessesForUser.Count());
@@ -80,7 +80,7 @@
             this.businessService = new BusinessService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
-            var businessesForUser = await this.businessService.GetAllForUserAsync<BusinessInfoViewModel>(fakeUserId, 2);
+            var businessesForUser = await this.businessService.GetAllForUserAsync<BusinessTestViewModel>(fakeUserId, 2);
 
             // Assert
             Assert.Empty(businessesForUser);
@@ -97,7 +97,7 @@
 
             this.businessService = new BusinessService(this.GetMockedRepositoryReturningAllAsNoTracking());
             // Act
-            var businesses = await this.businessService.GetBusinessAsync<BusinessInfoViewModel>(testBusinessId);
+            var businesses = await this.businessService.GetBusinessAsync<BusinessTestViewModel>(testBusinessId);
 
             // Assert
             Assert.Equal(testBusinessId, businesses.Id);
@@ -116,7 +116,7 @@
             this.businessService = new BusinessService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
-            var businesses = await this.businessService.GetBusinessAsync<BusinessInfoViewModel>(nonExistingBusinessId);
+            var businesses = await this.businessService.GetBusinessAsync<BusinessTestViewModel>(nonExistingBusinessId);
 
             // Assert
             Assert.Null(businesses);

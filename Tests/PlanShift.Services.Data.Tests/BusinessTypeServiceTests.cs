@@ -6,11 +6,10 @@
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.BusinessTypeServices;
     using PlanShift.Services.Data.Tests.BaseTestClasses;
-    using PlanShift.Web.ViewModels.Business;
-
+    using PlanShift.Web.ViewModels.BusinessType;
     using Xunit;
 
-    public class BusinessTypeServiceTests : BaseEntityBaseTestClass<BusinessType>
+    public class BusinessTypeServiceTests : BaseEntityBaseTestClassFixture<BusinessType>
     {
         private const string TestBusinessTypeName = "Test";
 
@@ -42,7 +41,7 @@
             this.businessTypeService = new BusinessTypeService(this.GetMockedRepositoryReturningAllAsNoTracking());
 
             // Act
-            var businessTypes = await this.businessTypeService.GetAllAsync<BusinessTypeDropDownViewModel>();
+            var businessTypes = await this.businessTypeService.GetAllAsync<BusinessTypeTestViewModel>();
 
             // Assert
             Assert.Equal(testBusinessTypesCount, businessTypes.Count());

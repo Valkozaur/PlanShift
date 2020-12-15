@@ -13,7 +13,7 @@
     using PlanShift.Web.ViewModels.InviteEmployeeValidation;
     using Xunit;
 
-    public class InviteEmployeeVerificationServiceTests : BaseEntityBaseTestClass<InviteEmployeeVerification>
+    public class InviteEmployeeVerificationServiceTests : BaseEntityBaseTestClassFixture<InviteEmployeeVerification>
     {
         private const string GroupId = "Test";
         private const string Email = "Test";

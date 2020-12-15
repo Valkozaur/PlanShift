@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using PlanShift.Web.ViewModels.BusinessType;
+
     public class BusinessRegisterInputModel
     {
         [Required]

@@ -10,7 +10,7 @@
     {
         Task<string> CreateShift(string shiftCreatorId, string groupId, DateTime start, DateTime end, string description, decimal bonusPayment = 0);
 
-        Task DeleteShift(string shiftId);
+        //Task DeleteShift(string shiftId);
 
         Task<T> GetShiftById<T>(string id);
 

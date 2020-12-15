@@ -18,7 +18,7 @@
 
     using Xunit;
 
-    public class GroupServiceTests : DeletableEntityBaseTestClass<Group>
+    public class GroupServiceTests : DeletableEntityBaseTestClassFixture<Group>
     {
         private const string Id = "Test";
         private const string Name = "Test";

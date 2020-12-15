@@ -1,4 +1,4 @@
-﻿namespace PlanShift.Web.ViewModels.Business
+﻿namespace PlanShift.Web.ViewModels.BusinessType
 {
     using PlanShift.Data.Models;
     using PlanShift.Services.Mapping;
