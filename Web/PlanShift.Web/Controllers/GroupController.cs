@@ -26,11 +26,11 @@
             this.businessService = businessService;
         }
 
-        [SessionValidation(GlobalConstants.BusinessSessionName)]
+        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
         [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.HrGroupName } })]
         public async Task<IActionResult> Create()
         {
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessIdSessionName);
 
             var business = await this.businessService.GetBusinessAsync<BusinessInfoViewModel>(businessId);
             var viewModel = new GroupInputModel()
@@ -43,11 +43,11 @@
         }
 
         [HttpPost]
-        [SessionValidation(GlobalConstants.BusinessSessionName)]
+        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
         [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.HrGroupName } })]
         public async Task<IActionResult> Create(GroupInputModel inputModel)
         {
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessIdSessionName);
 
             if (!this.ModelState.IsValid)
             {

@@ -3,9 +3,9 @@
 @model BusinessIndexViewModel;
 
 @section Styles{
-    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" asp-append-version="true"/>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" asp-append-version="true"/>
-    <link href="css/custom.css" rel="stylesheet" asp-append-version="true"/>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" asp-append-version="true" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" asp-append-version="true" />
+    <link href="css/custom.css" rel="stylesheet" asp-append-version="true" />
 }
 
 @if (!this.ViewData.ModelState.IsValid)
@@ -55,6 +55,8 @@ else if (this.TempData["Success"] != null)
     </div>
 }
 
+<div id='calendar'></div>
+
 <br />
 <div class="d-flex justify-content-center">
     <ul id="shiftEventsCount" class="list-group list-group-horizontal-sm col-sm-9">
@@ -76,7 +78,6 @@ else if (this.TempData["Success"] != null)
 
 
 <partial name="_FullCalendarModalPartial" />
-
 @section Scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" asp-append-version="true"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js" asp-append-version="true"></script>

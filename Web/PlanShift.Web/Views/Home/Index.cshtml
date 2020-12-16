@@ -1,4 +1,25 @@
-﻿<h1 class="text-lg-center">Build staff schedule fast with our App</h1>
-<br/>
-<img class="rounded mx-auto d-block" src="https://www.timetac.com/media/page/en-sp-overview.png?v=dudpk4ILssqAEgeL_a1HXQ" alt="PlanDayPlanner easy and effective" />
-<br/>
+﻿<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="text-center text-danger">Plan your work schedule, easy and effective!</h1>
+
+            <div class="space" id="space"></div>
+
+            <h3 class="text-center"> Login to see your schedules! </h3>
+            <div class="container text-center">
+                <a class="btn btn-lg btn-success justify-content-center mx-auto" asp-area="Identity" asp-page="/Account/Login">See your schedule!</a>
+            </div>
+
+            <div class="space" id="space"></div>
+
+            <h3 class="text-center"> Register a business! </h3>
+            <div class="container text-center">
+                <a class="btn btn-lg btn-primary" asp-controller="Business" asp-action="Register">Register Business!</a>
+            </div>
+
+        </div>
+        <div class="col-6">
+            <img src="~/pics/Front-page.png" alt="PlanDayPlanner easy and effective" />
+        </div>
+    </div>
+</div>

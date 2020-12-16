@@ -26,7 +26,7 @@
 
         Task<IEnumerable<T>> GetOpenShiftsAvailableForUserAsync<T>(string businessId, string userId);
 
-        Task<IEnumerable<T>> GetPendingShiftsPerUserAsync<T>(string businessId, string userId);
+        Task<IEnumerable<T>> GetUsersShiftsWithDeclaredSwapRequestsAsync<T>(string businessId, string userId);
 
         Task<IEnumerable<T>> GetTakenShiftsPerUserAsync<T>(string businessId, string userId);
     }

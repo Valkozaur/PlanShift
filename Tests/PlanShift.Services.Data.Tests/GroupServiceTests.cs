@@ -18,20 +18,14 @@
 
     using Xunit;
 
-    public class GroupServiceTests : DeletableEntityBaseTestClass<Group>, IClassFixture<AutoMapperFixture>
+    public class GroupServiceTests : DeletableEntityTestClass<Group>
     {
         private const string Id = "Test";
         private const string Name = "Test";
         private const string BusinessId = "Test";
         private const decimal StandardSalary = 1000.10M;
 
-        private readonly AutoMapperFixture autoMapperFixture;
         private GroupService groupService;
-
-        public GroupServiceTests(AutoMapperFixture autoMapperFixture)
-        {
-            this.autoMapperFixture = autoMapperFixture;
-        }
 
         [Fact]
         public async Task CreateGroupShouldWorkCorrectlyWhenGivenProperInformation()

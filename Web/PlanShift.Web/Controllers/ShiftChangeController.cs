@@ -7,6 +7,7 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
     using PlanShift.Common;
     using PlanShift.Data.Models.Enumerations;
     using PlanShift.Services.Data.EmployeeGroupServices;
@@ -16,7 +17,6 @@
     using PlanShift.Services.Data.ShiftServices;
     using PlanShift.Web.Tools.ActionFilters;
     using PlanShift.Web.Tools.SessionExtension;
-    using PlanShift.Web.ViewModels.EmployeeGroup;
     using PlanShift.Web.ViewModels.Group;
     using PlanShift.Web.ViewModels.Shift;
     using PlanShift.Web.ViewModels.ShiftChange;
@@ -71,7 +71,7 @@
 
             try
             {
-                await this.shiftChangeService.ProcessShiftChangeOriginalEmployeeStatus(userId, shiftChangeId, isAccepted);
+                await this.shiftChangeService.AcceptShiftChangeByOriginalEmployeeAsync(userId, shiftChangeId, isAccepted);
                 this.TempData["Success"] = "Shift swap action taken successfully!";
             }
             catch (Exception e)
@@ -82,26 +82,27 @@
             return this.RedirectToAction("Index", "Business");
         }
 
+        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
         [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.HrGroupName } })]
         public async Task<IActionResult> Approve(string shiftChangeId, string groupId)
         {
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessIdSessionName);
 
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var manager = await this.employeeGroupService.GetEmployeeId(userId, groupId);
 
-            var shiftChange = await this.shiftChangeService.GetShiftChangeById<ShiftChangeInfoViewModel>(shiftChangeId);
+            var shiftChange = await this.shiftChangeService.GetShiftChangeByIdAsync<ShiftChangeInfoViewModel>(shiftChangeId);
 
             await this.shiftService.ApproveShiftToEmployeeAsync(shiftChange.ShiftId, shiftChange.PendingEmployeeId, manager);
-            await this.shiftChangeService.ApproveShiftChange(shiftChangeId, manager);
+            await this.shiftChangeService.ApproveShiftChangeAsync(shiftChangeId, manager);
 
             return this.RedirectToAction(nameof(this.All), new { BusinessId = businessId, ActiveTabGroupId = groupId });
         }
 
         public async Task<IActionResult> ShiftSwapRequests(string shiftId)
         {
-            var shiftChanges = await this.shiftChangeService.GetShiftChangesPerShift<ShiftChangeUserViewModel>(shiftId);
+            var shiftChanges = await this.shiftChangeService.GetShiftChangesPerShiftAsync<ShiftChangeUserViewModel>(shiftId);
 
             var viewModel = new ShiftChangeListViewModel<ShiftChangeUserViewModel>()
             {
@@ -113,7 +114,7 @@
 
         public async Task<IActionResult> All(string activeTabGroupId)
         {
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessIdSessionName);
 
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 

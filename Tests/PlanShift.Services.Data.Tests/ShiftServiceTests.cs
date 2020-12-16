@@ -1,8 +1,7 @@
-﻿using System.Linq;
-
-namespace PlanShift.Services.Data.Tests
+﻿namespace PlanShift.Services.Data.Tests
 {
     using System;
+    using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
 
@@ -15,7 +14,7 @@ namespace PlanShift.Services.Data.Tests
     using PlanShift.Web.ViewModels.Shift;
     using Xunit;
 
-    public class ShiftServiceTests : DeletableEntityBaseTestClass<Shift>, IClassFixture<AutoMapperFixture>
+    public class ShiftServiceTests : DeletableEntityTestClass<Shift>
     {
         private const string ShiftCreatorId = "Test";
         private const string GroupId = "Test";
@@ -24,14 +23,10 @@ namespace PlanShift.Services.Data.Tests
 
         private readonly DateTime start;
         private readonly DateTime end;
-
-        private readonly AutoMapperFixture autoMapperFixture;
-
         private IShiftService shiftService;
 
-        public ShiftServiceTests(AutoMapperFixture autoMapperFixture)
+        public ShiftServiceTests()
         {
-            this.autoMapperFixture = autoMapperFixture;
             this.start = DateTime.UtcNow.AddDays(1);
             this.end = this.start.AddHours(8);
         }
@@ -567,7 +562,384 @@ namespace PlanShift.Services.Data.Tests
         [Fact]
         public async Task GetOpenShiftsAvailableForUserShouldReturnAllShiftsOpenForUserToApply()
         {
+            const int expectedCount = 2;
+            const string businessId = "Test";
+            const string userId = "Test";
 
+            // Arrange
+            var group = new Group { BusinessId = businessId };
+            var employee = new EmployeeGroup() { UserId = userId };
+            group.Employees.Add(employee);
+
+            var shift = new Shift()
+            {
+                Start = this.start,
+                End = this.end,
+                ShiftCreatorId = ShiftCreatorId,
+                GroupId = GroupId,
+                Description = Description,
+                BonusPayment = BonusPayment,
+                ShiftStatus = ShiftStatus.Open,
+                Group = group,
+            };
+
+            var shift2 = new Shift()
+            {
+                Start = this.start,
+                End = this.end,
+                ShiftCreatorId = ShiftCreatorId,
+                GroupId = GroupId,
+                Description = Description,
+                BonusPayment = BonusPayment,
+                ShiftStatus = ShiftStatus.Open,
+                Group = group,
+            };
+
+            this.FakeDb.Add(shift);
+            this.FakeDb.Add(shift2);
+
+            this.shiftService = new ShiftService(this.GetMockedRepositoryReturningAllAsNoTracking());
+
+            // Act
+            var availableShifts = await this.shiftService.GetOpenShiftsAvailableForUserAsync<ShiftTestViewModel>(businessId, userId);
+
+            // Assert
+            Assert.NotEmpty(availableShifts);
+            Assert.Equal(expectedCount, availableShifts.Count());
+        }
+
+        [Fact]
+        public async Task GetOpenShiftsAvailableForUserShouldReturnNoShiftIfShiftStatusAreNotOpen()
+        {
+            const string businessId = "Test";
+            const string userId = "Test";
+
+            // Arrange
+            var group = new Group { BusinessId = businessId };
+            var employee = new EmployeeGroup() { UserId = userId };
+            group.Employees.Add(employee);
+
+            var shift = new Shift()
+            {
+                Start = this.start,
+                End = this.end,
+                ShiftCreatorId = ShiftCreatorId,
+                GroupId = GroupId,
+                Description = Description,
+                BonusPayment = BonusPayment,
+                ShiftStatus = ShiftStatus.Pending,
+                Group = group,
+            };
+
+            var shift2 = new Shift()
+            {
+                Start = this.start,
+                End = this.end,
+                ShiftCreatorId = ShiftCreatorId,
+                GroupId = GroupId,
+                Description = Description,
+                BonusPayment = BonusPayment,
+                ShiftStatus = ShiftStatus.Pending,
+                Group = group,
+            };
+
+            this.FakeDb.Add(shift);
+            this.FakeDb.Add(shift2);
+
+            this.shiftService = new ShiftService(this.GetMockedRepositoryReturningAllAsNoTracking());
+
+            // Act
+            var availableShifts = await this.shiftService.GetOpenShiftsAvailableForUserAsync<ShiftTestViewModel>(businessId, userId);
+
+            // Assert
+            Assert.Empty(availableShifts);
+        }
+
+        [Fact]
+        public async Task GetOpenShiftsAvailableForUserShouldReturnNoShiftsIfEmployeeIsNotInGroup()
+        {
+            const string businessId = "Test";
+            const string userId = "Test";
+
+            // Arrange
+            var group = new Group { BusinessId = businessId };
+
+            var shift = new Shift()
+            {
+                Start = this.start,
+                End = this.end,
+                ShiftCreatorId = ShiftCreatorId,
+                GroupId = GroupId,
+                Description = Description,
+                BonusPayment = BonusPayment,
+                ShiftStatus = ShiftStatus.Open,
+                Group = group,
+            };
+
+            var shift2 = new Shift()
+            {
+                Start = this.start,
+                End = this.end,
+                ShiftCreatorId = ShiftCreatorId,
+                GroupId = GroupId,
+                Description = Description,
+                BonusPayment = BonusPayment,
+                ShiftStatus = ShiftStatus.Open,
+                Group = group,
+            };
+
+            this.FakeDb.Add(shift);
+            this.FakeDb.Add(shift2);
+
+            this.shiftService = new ShiftService(this.GetMockedRepositoryReturningAllAsNoTracking());
+
+            // Act
+            var availableShifts = await this.shiftService.GetOpenShiftsAvailableForUserAsync<ShiftTestViewModel>(businessId, userId);
+
+            // Assert
+            Assert.Empty(availableShifts);
+        }
+
+        [Fact]
+        public async Task GetUsersShiftsWithDeclaredSwapRequestsAsyncShouldReturnAllPendingShiftsIfEverythingIsCorrect()
+        {
+            const int expectedCount = 2;
+            const string businessId = "Test";
+            const string userId = "Test";
+
+            // Arrange
+            var group = new Group { BusinessId = businessId };
+            var shiftChange = new ShiftChange { OriginalEmployee = new EmployeeGroup { UserId = userId } };
+
+            var shift = new Shift()
+            {
+                Start = this.start,
+                End = this.end,
+                ShiftCreatorId = ShiftCreatorId,
+                GroupId = GroupId,
+                Description = Description,
+                BonusPayment = BonusPayment,
+                ShiftStatus = ShiftStatus.Pending,
+                Group = group,
+            };
+            shift.ShiftChanges.Add(shiftChange);
+
+            var shift2 = new Shift()
+            {
+                Start = this.start,
+                End = this.end,
+                ShiftCreatorId = ShiftCreatorId,
+                GroupId = GroupId,
+                Description = Description,
+                BonusPayment = BonusPayment,
+                ShiftStatus = ShiftStatus.Pending,
+                Group = group,
+            };
+            shift2.ShiftChanges.Add(shiftChange);
+
+            this.FakeDb.Add(shift);
+            this.FakeDb.Add(shift2);
+
+            this.shiftService = new ShiftService(this.GetMockedRepositoryReturningAllAsNoTracking());
+
+            // Act
+            var pendingShifts = await this.shiftService.GetUsersShiftsWithDeclaredSwapRequestsAsync<ShiftTestViewModel>(businessId, userId);
+
+            // Assert
+            Assert.NotEmpty(pendingShifts);
+            Assert.Equal(expectedCount, pendingShifts.Count());
+        }
+
+        [Fact]
+        public async Task GetUsersShiftsWithDeclaredSwapRequestsAsyncShouldNotReturnAnythingIfNoShiftChangePerUser()
+        {
+
+            const string businessId = "Test";
+            const string userId = "Test";
+            const string fakeUserId = "Fake";
+
+            // Arrange
+            var group = new Group { BusinessId = businessId };
+            var shiftChange = new ShiftChange { OriginalEmployee = new EmployeeGroup { UserId = fakeUserId } };
+
+            var shift = new Shift()
+            {
+                Start = this.start,
+                End = this.end,
+                ShiftCreatorId = ShiftCreatorId,
+                GroupId = GroupId,
+                Description = Description,
+                BonusPayment = BonusPayment,
+                ShiftStatus = ShiftStatus.Pending,
+                Group = group,
+            };
+            shift.ShiftChanges.Add(shiftChange);
+
+            var shift2 = new Shift()
+            {
+                Start = this.start,
+                End = this.end,
+                ShiftCreatorId = ShiftCreatorId,
+                GroupId = GroupId,
+                Description = Description,
+                BonusPayment = BonusPayment,
+                ShiftStatus = ShiftStatus.Pending,
+                Group = group,
+            };
+            shift2.ShiftChanges.Add(shiftChange);
+
+            this.FakeDb.Add(shift);
+            this.FakeDb.Add(shift2);
+
+            this.shiftService = new ShiftService(this.GetMockedRepositoryReturningAllAsNoTracking());
+
+            // Act
+            var pendingShifts = await this.shiftService.GetUsersShiftsWithDeclaredSwapRequestsAsync<ShiftTestViewModel>(businessId, userId);
+
+            // Assert
+            Assert.Empty(pendingShifts);
+        }
+
+        [Fact]
+        public async Task GetTakenShiftsPerUserAsyncShouldReturnAllShiftsEmployeeNotTheUser()
+        {
+            const int expectedCount = 2;
+            const string businessId = "Test";
+            const string userId = "Test";
+
+            // Arrange
+            var group = new Group { BusinessId = businessId };
+            var employeeGroup = new EmployeeGroup { UserId = "some other userId" };
+
+            var shift = new Shift()
+            {
+                Start = this.start,
+                End = this.end,
+                ShiftCreatorId = ShiftCreatorId,
+                GroupId = GroupId,
+                Description = Description,
+                BonusPayment = BonusPayment,
+                ShiftStatus = ShiftStatus.Approved,
+                Group = group,
+                Employee = employeeGroup,
+            };
+            var shift2 = new Shift()
+            {
+                Start = this.start,
+                End = this.end,
+                ShiftCreatorId = ShiftCreatorId,
+                GroupId = GroupId,
+                Description = Description,
+                BonusPayment = BonusPayment,
+                ShiftStatus = ShiftStatus.Approved,
+                Group = group,
+                Employee = employeeGroup,
+            };
+
+            this.FakeDb.Add(shift);
+            this.FakeDb.Add(shift2);
+
+            this.shiftService = new ShiftService(this.GetMockedRepositoryReturningAllAsNoTracking());
+
+            // Act
+            var pendingShifts = await this.shiftService.GetTakenShiftsPerUserAsync<ShiftTestViewModel>(businessId, userId);
+
+            // Assert
+            Assert.NotEmpty(pendingShifts);
+            Assert.Equal(expectedCount, pendingShifts.Count());
+        }
+
+        [Fact]
+        public async Task GetTakenShiftsPerUserAsyncShouldNotReturnIfUserIsEmployee()
+        {
+            const int expectedCount = 2;
+            const string businessId = "Test";
+            const string userId = "Test";
+
+            // Arrange
+            var group = new Group { BusinessId = businessId };
+            var employeeGroup = new EmployeeGroup { UserId = userId };
+
+            var shift = new Shift()
+            {
+                Start = this.start,
+                End = this.end,
+                ShiftCreatorId = ShiftCreatorId,
+                GroupId = GroupId,
+                Description = Description,
+                BonusPayment = BonusPayment,
+                ShiftStatus = ShiftStatus.Approved,
+                Group = group,
+                Employee = employeeGroup,
+            };
+            var shift2 = new Shift()
+            {
+                Start = this.start,
+                End = this.end,
+                ShiftCreatorId = ShiftCreatorId,
+                GroupId = GroupId,
+                Description = Description,
+                BonusPayment = BonusPayment,
+                ShiftStatus = ShiftStatus.Approved,
+                Group = group,
+                Employee = employeeGroup,
+            };
+
+            this.FakeDb.Add(shift);
+            this.FakeDb.Add(shift2);
+
+            this.shiftService = new ShiftService(this.GetMockedRepositoryReturningAllAsNoTracking());
+
+            // Act
+            var pendingShifts = await this.shiftService.GetTakenShiftsPerUserAsync<ShiftTestViewModel>(businessId, userId);
+
+            // Assert
+            Assert.Empty(pendingShifts);
+        }
+
+        [Fact]
+        public async Task GetTakenShiftsPerUserAsyncShouldNotReturnIfShiftsHasNoEmployee()
+        {
+            const int expectedCount = 2;
+            const string businessId = "Test";
+            const string userId = "Test";
+
+            // Arrange
+            var group = new Group { BusinessId = businessId };
+
+            var shift = new Shift()
+            {
+                Start = this.start,
+                End = this.end,
+                ShiftCreatorId = ShiftCreatorId,
+                GroupId = GroupId,
+                Description = Description,
+                BonusPayment = BonusPayment,
+                ShiftStatus = ShiftStatus.Pending,
+                Group = group,
+            };
+            var shift2 = new Shift()
+            {
+                Start = this.start,
+                End = this.end,
+                ShiftCreatorId = ShiftCreatorId,
+                GroupId = GroupId,
+                Description = Description,
+                BonusPayment = BonusPayment,
+                ShiftStatus = ShiftStatus.Pending,
+                Group = group,
+            };
+
+            this.FakeDb.Add(shift);
+            this.FakeDb.Add(shift2);
+
+            this.shiftService = new ShiftService(this.GetMockedRepositoryReturningAllAsNoTracking());
+
+            // Act
+            var pendingShifts = await this.shiftService.GetTakenShiftsPerUserAsync<ShiftTestViewModel>(businessId, userId);
+
+            // Assert
+            Assert.Empty(pendingShifts);
         }
     }
 }

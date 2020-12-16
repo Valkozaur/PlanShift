@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
     using PlanShift.Data.Models.Enumerations;
@@ -36,25 +37,7 @@
             return shiftChange.Id;
         }
 
-        public async Task<T> GetShiftChangeById<T>(string id)
-            => await this.shiftChangeRepository
-                .All()
-                .Where(x => x.Id == id)
-                .To<T>()
-                .FirstOrDefaultAsync();
-
-        public async Task<IEnumerable<T>> GetShiftChangesPerShift<T>(string shiftId)
-        {
-            return await this.shiftChangeRepository
-                .AllAsNoTracking()
-                .Where(sc => sc.ShiftId == shiftId && sc.Status == ShiftApplicationStatus.Pending)
-                .OrderBy(sc => sc.Shift.Group.Name)
-                .ThenByDescending(sc => sc.Shift.Start)
-                .To<T>()
-                .ToArrayAsync();
-        }
-
-        public async Task ProcessShiftChangeOriginalEmployeeStatus(string userId, string shiftChangeId, bool isAccepted)
+        public async Task AcceptShiftChangeByOriginalEmployeeAsync(string userId, string shiftChangeId, bool isAccepted)
         {
             var shiftChange = await this.shiftChangeRepository
                 .All()
@@ -69,7 +52,7 @@
             await this.shiftChangeRepository.SaveChangesAsync();
         }
 
-        public async Task ApproveShiftChange(string shiftChangeId, string managerId)
+        public async Task ApproveShiftChangeAsync(string shiftChangeId, string managerId)
         {
             var shiftChange = await this.shiftChangeRepository.All().FirstOrDefaultAsync(x => x.Id == shiftChangeId);
 
@@ -79,19 +62,35 @@
             await this.shiftChangeRepository.SaveChangesAsync();
         }
 
+        public async Task<T> GetShiftChangeByIdAsync<T>(string id)
+            => await this.shiftChangeRepository
+                .AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<T>> GetShiftChangesPerShiftAsync<T>(string shiftId)
+            => await this.shiftChangeRepository
+                .AllAsNoTracking()
+                .Where(sc => sc.ShiftId == shiftId && sc.Status == ShiftApplicationStatus.Pending)
+                .OrderBy(sc => sc.Shift.Group.Name)
+                .ThenByDescending(sc => sc.Shift.Start)
+                .To<T>()
+                .ToArrayAsync();
+
         public Task<int> GetCountByBusinessIdAsync(string businessId)
             => this.shiftChangeRepository
-                .All()
+                .AllAsNoTracking()
                 .CountAsync(x =>
                 x.Shift.Group.BusinessId == businessId
                 && x.Status == ShiftApplicationStatus.Pending
                 && x.IsApprovedByOriginalEmployee == true);
 
         public async Task<IEnumerable<T>> GetShiftChangesPerGroupAsync<T>(string groupId, ShiftApplicationStatus shiftApplicationStatus = ShiftApplicationStatus.Pending)
-        => await this.shiftChangeRepository
-            .AllAsNoTracking()
-            .Where(sc => sc.Shift.GroupId == groupId && sc.Status == shiftApplicationStatus && sc.IsApprovedByOriginalEmployee == true)
-            .To<T>()
-            .ToArrayAsync();
+            => await this.shiftChangeRepository
+                .AllAsNoTracking()
+                .Where(sc => sc.Shift.GroupId == groupId && sc.Status == shiftApplicationStatus && sc.IsApprovedByOriginalEmployee == true)
+                .To<T>()
+                .ToArrayAsync();
     }
 }

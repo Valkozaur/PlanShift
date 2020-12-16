@@ -9,13 +9,13 @@
     {
         Task<string> CreateShiftChangeAsync(string shiftId, string originalEmployeeId, string candidateEmployeeId);
 
-        Task<T> GetShiftChangeById<T>(string id);
+        Task AcceptShiftChangeByOriginalEmployeeAsync(string userId, string shiftChangeId, bool isAccepted);
 
-        Task<IEnumerable<T>> GetShiftChangesPerShift<T>(string shiftId);
+        Task ApproveShiftChangeAsync(string shiftChangeId, string managerId);
 
-        Task ProcessShiftChangeOriginalEmployeeStatus(string userId, string shiftChangeId, bool isAccepted);
+        Task<T> GetShiftChangeByIdAsync<T>(string id);
 
-        Task ApproveShiftChange(string shiftChangeId, string managerId);
+        Task<IEnumerable<T>> GetShiftChangesPerShiftAsync<T>(string shiftId);
 
         Task<int> GetCountByBusinessIdAsync(string businessId);
 

@@ -20,29 +20,23 @@
     public class CalendarController : BaseController
     {
         private readonly IShiftService shiftService;
-        private readonly IShiftChangeService shiftChangeService;
-        private readonly IShiftApplicationService shiftApplicationService;
 
         public CalendarController(
-            IShiftService shiftService,
-            IShiftChangeService shiftChangeService,
-            IShiftApplicationService shiftApplicationService)
+            IShiftService shiftService)
         {
             this.shiftService = shiftService;
-            this.shiftChangeService = shiftChangeService;
-            this.shiftApplicationService = shiftApplicationService;
         }
 
         [HttpGet]
         public async Task<ActionResult> Get()
         {
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessNameSessionName);
 
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var upcomingShifts = await this.shiftService.GetUpcomingShiftForUserAsync<ShiftCalendarViewModel>(businessId, userId);
             var openShifts = await this.shiftService.GetOpenShiftsAvailableForUserAsync<ShiftCalendarViewModel>(businessId, userId);
-            var swapRequests = await this.shiftService.GetPendingShiftsPerUserAsync<ShiftCalendarViewModel>(businessId, userId);
+            var swapRequests = await this.shiftService.GetUsersShiftsWithDeclaredSwapRequestsAsync<ShiftCalendarViewModel>(businessId, userId);
             var takenShifts = await this.shiftService.GetTakenShiftsPerUserAsync<ShiftCalendarViewModel>(businessId, userId);
 
             foreach (var upcoming in upcomingShifts)

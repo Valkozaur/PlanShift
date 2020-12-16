@@ -9,17 +9,11 @@
     using PlanShift.Web.ViewModels.BusinessType;
     using Xunit;
 
-    public class BusinessTypeServiceTests : BaseEntityBaseTestClass<BusinessType>, IClassFixture<AutoMapperFixture>
+    public class BusinessTypeServiceTests : BaseEntityTestClass<BusinessType>
     {
         private const string TestBusinessTypeName = "Test";
 
-        private readonly AutoMapperFixture autoMapperFixture;
         private IBusinessTypeService businessTypeService;
-
-        public BusinessTypeServiceTests(AutoMapperFixture autoMapperFixture)
-        {
-            this.autoMapperFixture = autoMapperFixture;
-        }
 
         [Fact]
         public async Task CreateBusinessTypeShouldWorkCorrectly()

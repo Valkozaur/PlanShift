@@ -10,7 +10,6 @@
 
         public string GroupId { get; set; }
 
-
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Shift, ShiftInfoViewModel>()

@@ -23,25 +23,22 @@
         private readonly IShiftService shiftService;
         private readonly IEmployeeGroupService employeeGroupService;
         private readonly IGroupService groupService;
-        private readonly UserManager<PlanShiftUser> userManager;
 
         public ShiftController(
             IShiftService shiftService,
             IEmployeeGroupService employeeGroupService,
-            IGroupService groupService,
-            UserManager<PlanShiftUser> userManager)
+            IGroupService groupService)
         {
             this.shiftService = shiftService;
             this.employeeGroupService = employeeGroupService;
             this.groupService = groupService;
-            this.userManager = userManager;
         }
 
-        [SessionValidation(GlobalConstants.BusinessSessionName)]
+        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
         [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.ScheduleManagersGroupName } })]
         public async Task<IActionResult> Schedule()
         {
-            var businessId = this.HttpContext.Session.GetString(GlobalConstants.BusinessSessionName);
+            var businessId = this.HttpContext.Session.GetString(GlobalConstants.BusinessIdSessionName);
 
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 

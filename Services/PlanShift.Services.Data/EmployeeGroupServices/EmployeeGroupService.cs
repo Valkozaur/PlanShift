@@ -46,6 +46,8 @@
                 .AllAsNoTracking()
                 .AnyAsync(x => x.UserId == userId && x.GroupId == groupId);
 
+
+        // TODO: CHECK THE QUERY THAT IT'S MADE
         public async Task<bool> IsEmployeeInGroupsWithNames(string userId, string businessId, params string[] groupName)
             => await this.employeeGroupRepository
                 .AllAsNoTracking()

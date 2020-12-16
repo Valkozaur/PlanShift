@@ -44,13 +44,5 @@
         "dist/jquery.validate.unobtrusive.min.js"
       ]
     }
-    //{
-    //  "library": "@fullcalendar/core@5.3.1",
-    //  "destination": "wwwroot/lib/full-calendar",
-    //  "files": [
-    //    "main.min.js",
-    //    "main.global.min.js"
-    //  ]
-    //}
   ]
 }

@@ -39,11 +39,11 @@
             this.employeeGroupService = employeeGroupService;
         }
 
-        [SessionValidation(GlobalConstants.BusinessSessionName)]
+        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
         public async Task<IActionResult> Index()
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessIdSessionName);
 
             var isScheduleManagerOrAdmin = await this.employeeGroupService.IsEmployeeInGroupsWithNames(userId, businessId, GlobalConstants.AdminsGroupName, GlobalConstants.ScheduleManagersGroupName);
 
@@ -87,9 +87,10 @@
 
             var businessId = await this.businessService.CreateBusinessAsync(userId, inputModel.Name, inputModel.BusinessTypeId);
 
-            if (string.IsNullOrEmpty(await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName)))
+            if (string.IsNullOrEmpty(await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessIdSessionName)))
             {
-                await this.HttpContext.Session.SetStringAsync(GlobalConstants.BusinessSessionName, businessId);
+                await this.HttpContext.Session.SetStringAsync(GlobalConstants.BusinessIdSessionName, businessId);
+                await this.HttpContext.Session.SetStringAsync(GlobalConstants.BusinessNameSessionName, inputModel.Name);
             }
 
             return this.RedirectToAction(nameof(this.Index));
@@ -111,8 +112,10 @@
         [HttpPost]
         public async Task<IActionResult> Pick(string businessId)
         {
-            await this.HttpContext.Session.SetStringAsync(GlobalConstants.BusinessSessionName, businessId);
-            var kur = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
+            var businessNameModel = await this.businessService.GetBusinessAsync<BusinessNameViewModel>(businessId);
+
+            await this.HttpContext.Session.SetStringAsync(GlobalConstants.BusinessIdSessionName, businessId);
+            await this.HttpContext.Session.SetStringAsync(GlobalConstants.BusinessNameSessionName, businessNameModel.Name);
 
             return this.RedirectToAction(nameof(this.Index));
         }

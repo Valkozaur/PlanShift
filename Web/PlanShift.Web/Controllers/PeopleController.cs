@@ -25,11 +25,11 @@
             this.employeeGroupService = employeeGroupService;
         }
 
-        [SessionValidation(GlobalConstants.BusinessSessionName)]
+        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
         public async Task<IActionResult> Index(string activeTabGroupId)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessIdSessionName);
 
             var groups = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupPeopleCountViewModel>(businessId, userId);
 
@@ -58,13 +58,6 @@
         public IActionResult SwitchToTabs(string activeTabGroupId)
         {
             return this.RedirectToAction(nameof(this.Index), new { ActiveTabGroupId = activeTabGroupId });
-        }
-
-        [HttpPost]
-        [Authorize]
-        public IActionResult Chat(string userId)
-        {
-            return this.View();
         }
     }
 }

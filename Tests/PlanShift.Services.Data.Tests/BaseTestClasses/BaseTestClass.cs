@@ -5,9 +5,9 @@
     using PlanShift.Services.Mapping;
     using PlanShift.Web.ViewModels;
 
-    public class AutoMapperFixture
+    public class BaseTestClass
     {
-        public AutoMapperFixture()
+        public BaseTestClass()
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
         }

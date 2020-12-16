@@ -1,6 +1,4 @@
-﻿using PlanShift.Web.ViewModels.Shift;
-
-namespace PlanShift.Web.Controllers
+﻿namespace PlanShift.Web.Controllers
 {
     using System.Linq;
     using System.Security.Claims;
@@ -21,6 +19,7 @@ namespace PlanShift.Web.Controllers
     using PlanShift.Web.Tools.SessionExtension;
     using PlanShift.Web.ViewModels.EmployeeGroup;
     using PlanShift.Web.ViewModels.Group;
+    using PlanShift.Web.ViewModels.Shift;
     using PlanShift.Web.ViewModels.ShiftApplication;
 
     [Authorize]
@@ -98,7 +97,7 @@ namespace PlanShift.Web.Controllers
         public async Task<IActionResult> All(string activeTabGroupId)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessSessionName);
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessNameSessionName);
 
             var groupsInBusiness = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(businessId, userId, PendingActionsType.ShiftApplications);
 

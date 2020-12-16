@@ -11,18 +11,12 @@
 
     using Xunit;
 
-    public class ShiftApplicationServiceTests : BaseEntityBaseTestClass<ShiftApplication>, IClassFixture<AutoMapperFixture>
+    public class ShiftApplicationServiceTests : BaseEntityTestClass<ShiftApplication>
     {
         private const string ShiftId = "Test";
         private const string EmployeeId = "Test";
 
-        private readonly AutoMapperFixture autoMapperFixture;
         private IShiftApplicationService shiftApplicationService;
-
-        public ShiftApplicationServiceTests(AutoMapperFixture autoMapperFixture)
-        {
-            this.autoMapperFixture = autoMapperFixture;
-        }
 
         [Fact]
         public async Task CreateShiftApplicationAsyncCreateEntityIfGivenCorrectItems()
@@ -211,7 +205,6 @@
                 EmployeeId = EmployeeId,
                 CreatedOn = DateTime.UtcNow,
                 Status = ShiftApplicationStatus.Pending,
-
             };
 
             this.FakeDb.Add(shiftApplication);

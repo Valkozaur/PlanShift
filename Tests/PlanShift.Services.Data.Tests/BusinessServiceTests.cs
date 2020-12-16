@@ -11,19 +11,13 @@
 
     using Xunit;
 
-    public class BusinessServiceTests : DeletableEntityBaseTestClass<Business>, IClassFixture<AutoMapperFixture>
+    public class BusinessServiceTests : DeletableEntityTestClass<Business>
     {
         private const string TestBusinessName = "Test";
         private const string TestUserId = "Test";
         private const int TestTypeId = 0;
 
-        private readonly AutoMapperFixture autoMapperFixture;
         private IBusinessService businessService;
-
-        public BusinessServiceTests(AutoMapperFixture autoMapperFixture)
-        {
-            this.autoMapperFixture = autoMapperFixture;
-        }
 
         [Fact]
         public async Task CreateBusinessAsyncShouldCreateNewBusinessInTheRepository()

@@ -11,7 +11,7 @@
 
     using Xunit;
 
-    public class EmployeeGroupTests : DeletableEntityBaseTestClass<EmployeeGroup>, IClassFixture<AutoMapperFixture>
+    public class EmployeeGroupTests : DeletableEntityTestClass<EmployeeGroup>
     {
         private const decimal Salary = 1000.10M;
         private const string Position = "Test";
@@ -19,13 +19,7 @@
         private const string GroupId = "Test";
         private const string BusinessId = "Test";
 
-        private readonly AutoMapperFixture autoMapperFixture;
         private IEmployeeGroupService employeeGroupService;
-
-        public EmployeeGroupTests(AutoMapperFixture autoMapperFixture)
-        {
-            this.autoMapperFixture = autoMapperFixture;
-        }
 
         [Fact]
         public async Task AddEmployeeToGroupAddsCorrectly()

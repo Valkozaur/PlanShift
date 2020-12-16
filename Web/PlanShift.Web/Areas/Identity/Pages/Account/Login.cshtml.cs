@@ -1,5 +1,6 @@
 ﻿namespace PlanShift.Web.Areas.Identity.Pages.Account
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
@@ -88,6 +89,16 @@
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("User logged in.");
+
+                    if (returnUrl != "/")
+                    {
+                        var routeValues = returnUrl.TrimStart('/').Split("/");
+                        var controller = routeValues[0];
+                        var action = routeValues[1];
+
+                        return this.RedirectToAction(action, controller, new { area = string.Empty });
+                    }
+
                     return this.RedirectToAction("Pick", "Business", new { area = string.Empty });
                 }
                 if (result.RequiresTwoFactor)

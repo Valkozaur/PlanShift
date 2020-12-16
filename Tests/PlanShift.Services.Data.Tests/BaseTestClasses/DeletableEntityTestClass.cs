@@ -8,10 +8,10 @@
     using PlanShift.Data.Common.Models;
     using PlanShift.Data.Common.Repositories;
 
-    public abstract class DeletableEntityBaseTestClass<T>
+    public abstract class DeletableEntityTestClass<T> : BaseTestClass
         where T : class, IDeletableEntity
     {
-        protected DeletableEntityBaseTestClass()
+        protected DeletableEntityTestClass()
         {
             this.Repository = new Mock<IDeletableEntityRepository<T>>();
             this.FakeDb = new List<T>();

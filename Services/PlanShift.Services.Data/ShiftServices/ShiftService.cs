@@ -116,7 +116,7 @@
                 .To<T>()
                 .ToArrayAsync();
 
-        public async Task<IEnumerable<T>> GetPendingShiftsPerUserAsync<T>(string businessId, string userId)
+        public async Task<IEnumerable<T>> GetUsersShiftsWithDeclaredSwapRequestsAsync<T>(string businessId, string userId)
             => await this.shiftRepository
                 .AllAsNoTracking()
                 .Where(s => s.Group.BusinessId == businessId
@@ -128,7 +128,9 @@
         public async Task<IEnumerable<T>> GetTakenShiftsPerUserAsync<T>(string businessId, string userId)
             => await this.shiftRepository
                 .AllAsNoTracking()
-                .Where(s => s.Group.BusinessId == businessId && s.ShiftStatus == ShiftStatus.Approved && s.EmployeeId != userId)
+                .Where(s => s.Group.BusinessId == businessId &&
+                            s.ShiftStatus == ShiftStatus.Approved &&
+                            s.Employee.UserId != userId)
                 .To<T>()
                 .ToArrayAsync();
     }
