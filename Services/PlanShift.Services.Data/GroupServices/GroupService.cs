@@ -82,6 +82,14 @@
                 .To<T>()
                 .FirstOrDefaultAsync();
 
+        public async Task<IEnumerable<T>> GetGroupWhichDoNotParticipateInTheEventByBusinessAsync<T>(string businessId, string eventId)
+            => await this.groupRepository
+                .AllAsNoTrackingWithDeleted()
+                .Where(g => g.BusinessId == businessId &&
+                            g.Events.All(eg => eg.EventId != eventId))
+                .To<T>()
+                .ToArrayAsync();
+
         public async Task<IEnumerable<T>> GetAllGroupByCurrentUserAndBusinessIdAsync<T>(string businessId, string userId, bool withOfficials = true, PendingActionsType pendingAction = PendingActionsType.Unknown)
         {
             var query = this.groupRepository

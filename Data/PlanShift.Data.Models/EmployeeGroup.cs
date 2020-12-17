@@ -20,6 +20,7 @@ namespace PlanShift.Data.Models
 
             this.ChangedShifts = new HashSet<ShiftChange>();
             this.TakenShifts = new HashSet<ShiftChange>();
+            this.EmployeeEvents = new HashSet<EmployeeEvents>();
         }
 
         [Required]
@@ -48,5 +49,7 @@ namespace PlanShift.Data.Models
         public virtual ICollection<ShiftChange> TakenShifts { get; set; }
 
         public virtual ICollection<ShiftChange> ManagedShifts { get; set; }
+
+        public virtual ICollection<EmployeeEvents> EmployeeEvents { get; set; }
     }
 }

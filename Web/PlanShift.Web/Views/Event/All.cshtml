@@ -1,0 +1,32 @@
+﻿@using PlanShift.Web.ViewModels.Events;
+@model EventListViewModel<EventBasicInfoViewModel>
+
+@{
+    this.ViewData["Title"] = "All events";
+}
+
+<a class="btn btn-primary" asp-controller="Event" asp-action="Create" >Create event</a>
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Event Name</th>
+        <th scope="col">Start</th>
+        <th scope="col">End</th>
+        <th scope="col">Info</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var currentEvent in this.Model.Events)
+    {
+        <tr>
+            <td>@currentEvent.Name</td>
+            <td>@currentEvent.Start.ToString("D")</td>
+            <td>@currentEvent.End.ToString("D")</td>
+            <td>
+                <a class="btn btn-info" asp-controller="Event" asp-action="Index" asp-route-id="@currentEvent.Id" >Information </a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

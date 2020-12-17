@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PlanShift.Data;
 
 namespace PlanShift.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201217195221_NewEntityEventAdded")]
+    partial class NewEntityEventAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,34 +209,6 @@ namespace PlanShift.Data.Migrations
                     b.ToTable("Businesses");
                 });
 
-            modelBuilder.Entity("PlanShift.Data.Models.BusinessPlaces", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("BusinessId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PlaceId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BusinessId");
-
-                    b.HasIndex("PlaceId");
-
-                    b.ToTable("BusinessPlaces");
-                });
-
             modelBuilder.Entity("PlanShift.Data.Models.BusinessType", b =>
                 {
                     b.Property<int>("Id")
@@ -348,10 +322,6 @@ namespace PlanShift.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("BusinessId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -360,9 +330,6 @@ namespace PlanShift.Data.Migrations
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("End")
                         .HasColumnType("datetime2");
@@ -374,19 +341,15 @@ namespace PlanShift.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PlaceId")
+                    b.Property<int?>("PlaceId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Start")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BusinessId");
 
                     b.HasIndex("CreatorId");
 
@@ -518,9 +481,7 @@ namespace PlanShift.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -853,27 +814,10 @@ namespace PlanShift.Data.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("PlanShift.Data.Models.BusinessPlaces", b =>
-                {
-                    b.HasOne("PlanShift.Data.Models.Business", "Business")
-                        .WithMany("Places")
-                        .HasForeignKey("BusinessId");
-
-                    b.HasOne("PlanShift.Data.Models.Place", "Place")
-                        .WithMany("BusinessPlaces")
-                        .HasForeignKey("PlaceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Business");
-
-                    b.Navigation("Place");
-                });
-
             modelBuilder.Entity("PlanShift.Data.Models.EmployeeEvents", b =>
                 {
                     b.HasOne("PlanShift.Data.Models.EmployeeGroup", "EmployeeGroup")
-                        .WithMany("EmployeeEvents")
+                        .WithMany()
                         .HasForeignKey("EmployeeGroupId");
 
                     b.HasOne("PlanShift.Data.Models.Event", "Event")
@@ -910,23 +854,13 @@ namespace PlanShift.Data.Migrations
 
             modelBuilder.Entity("PlanShift.Data.Models.Event", b =>
                 {
-                    b.HasOne("PlanShift.Data.Models.Business", "Business")
-                        .WithMany("Events")
-                        .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("PlanShift.Data.Models.EmployeeGroup", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatorId");
 
                     b.HasOne("PlanShift.Data.Models.Place", "Place")
                         .WithMany("Events")
-                        .HasForeignKey("PlaceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Business");
+                        .HasForeignKey("PlaceId");
 
                     b.Navigation("Creator");
 
@@ -955,7 +889,7 @@ namespace PlanShift.Data.Migrations
                         .HasForeignKey("EventId");
 
                     b.HasOne("PlanShift.Data.Models.Group", "Group")
-                        .WithMany("Events")
+                        .WithMany()
                         .HasForeignKey("GroupId");
 
                     b.Navigation("Event");
@@ -1046,11 +980,7 @@ namespace PlanShift.Data.Migrations
 
             modelBuilder.Entity("PlanShift.Data.Models.Business", b =>
                 {
-                    b.Navigation("Events");
-
                     b.Navigation("Groups");
-
-                    b.Navigation("Places");
                 });
 
             modelBuilder.Entity("PlanShift.Data.Models.BusinessType", b =>
@@ -1063,8 +993,6 @@ namespace PlanShift.Data.Migrations
                     b.Navigation("ChangedShifts");
 
                     b.Navigation("CreatedShifts");
-
-                    b.Navigation("EmployeeEvents");
 
                     b.Navigation("ManagedShifts");
 
@@ -1084,15 +1012,11 @@ namespace PlanShift.Data.Migrations
                 {
                     b.Navigation("Employees");
 
-                    b.Navigation("Events");
-
                     b.Navigation("Shifts");
                 });
 
             modelBuilder.Entity("PlanShift.Data.Models.Place", b =>
                 {
-                    b.Navigation("BusinessPlaces");
-
                     b.Navigation("Events");
                 });
 

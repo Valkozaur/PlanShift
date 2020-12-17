@@ -47,13 +47,13 @@
                 .AnyAsync(x => x.UserId == userId && x.GroupId == groupId);
 
         // TODO: CHECK THE QUERY THAT IT'S MADE
-        public async Task<bool> IsEmployeeInGroupsWithNames(string userId, string businessId, params string[] groupName)
+        public async Task<bool> IsEmployeeInGroupsWithNames(string userId, string businessId, params string[] groupNames)
             => await this.employeeGroupRepository
                 .AllAsNoTracking()
                 .AnyAsync(eg
                     => eg.UserId == userId &&
                        eg.Group.BusinessId == businessId &&
-                       groupName.Contains(eg.Group.Name));
+                       groupNames.Contains(eg.Group.Name));
 
         public async Task<string> GetEmployeeId(string userId, string groupId)
             => await this.employeeGroupRepository
@@ -61,5 +61,15 @@
                 .Where(x => x.UserId == userId && x.GroupId == groupId)
                 .Select(x => x.Id)
                 .FirstOrDefaultAsync();
+
+        public async Task<T> GetEmployeeIdByBusinessNameAndGroupNamesAsync<T>(string userId, string businessId, params string[] groupNames)
+        => await this.employeeGroupRepository
+            .AllAsNoTracking()
+            .Where(eg
+                 => eg.UserId == userId &&
+                    eg.Group.BusinessId == businessId &&
+                    groupNames.Contains(eg.Group.Name))
+            .To<T>()
+            .FirstOrDefaultAsync();
     }
 }

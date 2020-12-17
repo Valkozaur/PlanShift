@@ -59,7 +59,6 @@
             return this.RedirectToAction("Index", "People", new { GroupId = groupId });
         }
 
-        [Authorize]
         public async Task<IActionResult> GroupChat(string groupId)
         {
             var viewModel = await this.groupService.GetGroupAsync<GroupChatViewModel>(groupId);

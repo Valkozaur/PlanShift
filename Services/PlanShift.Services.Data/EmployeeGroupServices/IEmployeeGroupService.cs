@@ -11,8 +11,10 @@
 
         Task<bool> IsEmployeeInGroup(string userId, string groupId);
 
-        Task<bool> IsEmployeeInGroupsWithNames(string userId, string businessId, params string[] groupName);
+        Task<bool> IsEmployeeInGroupsWithNames(string userId, string businessId, params string[] groupNames);
 
         Task<string> GetEmployeeId(string userId, string groupId);
+
+        Task<T> GetEmployeeIdByBusinessNameAndGroupNamesAsync<T>(string userId, string businessId, params string[] groupNames);
     }
 }

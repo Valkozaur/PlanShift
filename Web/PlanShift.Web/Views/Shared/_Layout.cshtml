@@ -1,8 +1,22 @@
 ﻿@using PlanShift.Common
+@using PlanShift.Services.Data.EmployeeGroupServices
 @using PlanShift.Web.Tools.SessionExtension
+@using System.Security.Claims
+@inject IEmployeeGroupService emplyoeeGroupService;
 
-@{
+@{ 
     var sessionIsActive = false;
+
+    var businessId = await this.Context.Session.GetStringAsync(GlobalConstants.BusinessIdSessionName);
+
+    var isHrOrAdministrator = false;
+
+    if (businessId != null)
+    {
+        var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        isHrOrAdministrator = await this.emplyoeeGroupService.IsEmployeeInGroupsWithNames(userId, businessId, GlobalConstants.AdminsGroupName, GlobalConstants.HrGroupName);
+    }
 }
 
 <!DOCTYPE html>
@@ -24,27 +38,30 @@
                     @if (await this.ViewContext.HttpContext.Session.HasKeyAsync(GlobalConstants.BusinessIdSessionName))
                     {
                         sessionIsActive = true;
-                        <a class="navbar-brand" asp-area="" asp-controller="Business" asp-action="Index">@GlobalConstants.SystemName</a>
-                    }
-                    else
-                    {
-                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
-                    }
+        <a class="navbar-brand" asp-area="" asp-controller="Business" asp-action="Index">@GlobalConstants.SystemName</a> }
+    else
+    {
+<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>}
                 </li>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <li class="nav-item row">
-                        <a class="nav-link text-dark" asp-controller="Shift" asp-action="Schedule">Schedule</a>
-                        <a class="nav-link text-dark" asp-controller="People" asp-action="Index">People</a>
-                    </li>}
-                </ul>
+    <li class="nav-item row">
+        <a class="nav-link text-dark" asp-controller="People" asp-action="Index">People</a>
+        @if (isHrOrAdministrator)
+        {
+            <a class="nav-link text-dark" asp-controller="Shift" asp-action="Schedule">Schedule</a>
+            <a class="nav-link text-dark" asp-controller="Event" asp-action="All">Events</a>
+        }
+    </li>
+}
+            </ul>
             <ul class="nav navbar-nav flex-fill justify-content-center">
                 <li class="nav-item"><span class="nav-item text-danger">@await this.ViewContext.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessNameSessionName)</span></li>
             </ul>
-            
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                </div>
+
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <partial name="_LoginPartial" />
+            </div>
         </nav>
     </header>
 

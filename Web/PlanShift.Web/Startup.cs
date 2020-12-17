@@ -26,8 +26,10 @@
     using PlanShift.Services.Data.BusinessServices;
     using PlanShift.Services.Data.BusinessTypeServices;
     using PlanShift.Services.Data.EmployeeGroupServices;
+    using PlanShift.Services.Data.EventsServices;
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Services.Data.InvitationVerificationServices;
+    using PlanShift.Services.Data.PlacesServices;
     using PlanShift.Services.Data.ShiftApplicationServices;
     using PlanShift.Services.Data.ShiftChangeServices;
     using PlanShift.Services.Data.ShiftServices;
@@ -125,6 +127,8 @@
             services.AddTransient<IEmployeeGroupService, EmployeeGroupService>();
             services.AddTransient<IShiftApplicationService, ShiftApplicationService>();
             services.AddTransient<IInviteEmployeeVerificationsService, InviteEmployeeVerificationsService>();
+            services.AddTransient<IEventService, EventService>();
+            services.AddTransient<IPlaceService, PlaceService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

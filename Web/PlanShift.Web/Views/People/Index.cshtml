@@ -9,7 +9,7 @@
     <div class="row">
         @if (this.Model.IsInHrOrAdminRoleGroup)
         {
-            <a class="btn btn-primary" asp-controller="Group" asp-action="Create">Create Group</a>
+            <a class="btn btn-primary" asp-controller="Group" asp-action="Create">CreateAsyncAsync Group</a>
             <a class="btn btn-success" asp-controller="EmployeeGroup" asp-action="AddEmployeeToGroup" asp-route-groupId="@this.Model.ActiveTabGroupId">Add Employee</a>
         }
         <a class="btn btn-warning" asp-controller="Group" asp-action="GroupChat" asp-route-groupId="@this.Model.ActiveTabGroupId">Group chat</a>

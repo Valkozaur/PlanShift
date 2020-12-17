@@ -41,6 +41,12 @@
 
         public DbSet<InviteEmployeeVerification> InviteEmployeeVerifications { get; set; }
 
+        public DbSet<Event> Events { get; set; }
+
+        public DbSet<EmployeeEvents> EmployeeEvents { get; set; }
+
+        public DbSet<GroupEvents> GroupEvents { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

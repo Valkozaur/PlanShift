@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PlanShift.Data;
 
 namespace PlanShift.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201217200852_AddBusinessPlacesMappingTable")]
+    partial class AddBusinessPlacesMappingTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -348,10 +350,6 @@ namespace PlanShift.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("BusinessId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -360,9 +358,6 @@ namespace PlanShift.Data.Migrations
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("End")
                         .HasColumnType("datetime2");
@@ -378,15 +373,13 @@ namespace PlanShift.Data.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
-                    b.Property<int>("PlaceId")
+                    b.Property<int?>("PlaceId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Start")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BusinessId");
 
                     b.HasIndex("CreatorId");
 
@@ -860,7 +853,7 @@ namespace PlanShift.Data.Migrations
                         .HasForeignKey("BusinessId");
 
                     b.HasOne("PlanShift.Data.Models.Place", "Place")
-                        .WithMany("BusinessPlaces")
+                        .WithMany()
                         .HasForeignKey("PlaceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -910,23 +903,13 @@ namespace PlanShift.Data.Migrations
 
             modelBuilder.Entity("PlanShift.Data.Models.Event", b =>
                 {
-                    b.HasOne("PlanShift.Data.Models.Business", "Business")
-                        .WithMany("Events")
-                        .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("PlanShift.Data.Models.EmployeeGroup", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatorId");
 
                     b.HasOne("PlanShift.Data.Models.Place", "Place")
                         .WithMany("Events")
-                        .HasForeignKey("PlaceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Business");
+                        .HasForeignKey("PlaceId");
 
                     b.Navigation("Creator");
 
@@ -1046,8 +1029,6 @@ namespace PlanShift.Data.Migrations
 
             modelBuilder.Entity("PlanShift.Data.Models.Business", b =>
                 {
-                    b.Navigation("Events");
-
                     b.Navigation("Groups");
 
                     b.Navigation("Places");
@@ -1091,8 +1072,6 @@ namespace PlanShift.Data.Migrations
 
             modelBuilder.Entity("PlanShift.Data.Models.Place", b =>
                 {
-                    b.Navigation("BusinessPlaces");
-
                     b.Navigation("Events");
                 });
 

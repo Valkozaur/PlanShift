@@ -1,6 +1,4 @@
-﻿using PlanShift.Web.Tools.ActionFilters;
-
-namespace PlanShift.Web.Controllers
+﻿namespace PlanShift.Web.Controllers
 {
     using System.Linq;
     using System.Security.Claims;
@@ -12,6 +10,7 @@ namespace PlanShift.Web.Controllers
     using PlanShift.Services.Data.ShiftApplicationServices;
     using PlanShift.Services.Data.ShiftChangeServices;
     using PlanShift.Services.Data.ShiftServices;
+    using PlanShift.Web.Tools.ActionFilters;
     using PlanShift.Web.Tools.SessionExtension;
     using PlanShift.Web.ViewModels.Enumerations;
     using PlanShift.Web.ViewModels.Shift;

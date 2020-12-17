@@ -1,0 +1,22 @@
+﻿
+@{
+    this.ViewData["Title"] = this.Model.Name;
+}
+
+<div class="col-3"></div>
+<div class="col-4">
+    <h1>@Model.Name</h1>
+
+    <p>Creator: <span>@Model.EventInfo.CreatorUserFullName</span></p>
+    <p>Start: <span>@Model.EventInfo.Start</span></p>
+    <p>End: <span>@Model.EventInfo.End</span></p>
+    <p>Coming: <span>@Model.EventInfo.ParticipantsCount</span></p>
+    <p>Description</p>
+    <textarea>
+         @Model.Description
+    </textarea>
+    // SELECT EVENT!
+</div>
+<div class="col-3">
+
+</div>

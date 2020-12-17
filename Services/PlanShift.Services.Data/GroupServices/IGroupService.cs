@@ -19,6 +19,8 @@
 
         Task<T> GetGroupAsync<T>(string id);
 
+        Task<IEnumerable<T>> GetGroupWhichDoNotParticipateInTheEventByBusinessAsync<T>(string businessId, string eventId);
+
         Task<IEnumerable<T>> GetAllGroupByCurrentUserAndBusinessIdAsync<T>(string businessId, string userId, bool withOfficials = true,  PendingActionsType pendingAction = PendingActionsType.Unknown);
     }
 }

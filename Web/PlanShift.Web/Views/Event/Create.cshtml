@@ -1,0 +1,46 @@
+﻿@using PlanShift.Web.ViewModels.Events
+@model EventInputModel
+
+@{
+    ViewData["Title"] = "Create event";
+
+    var places = this.Model.Places.Select(x => new SelectListItem(x.Name, x.Id.ToString(), x.Id == this.Model.PlaceId));
+}
+
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Start" class="control-label"></label>
+        <input asp-for="Start" value="@DateTime.Today.ToString("s")" class="form-control" />
+        <span asp-validation-for="Start" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="End" class="control-label"></label>
+        <input asp-for="End" value="@DateTime.Today.ToString("s")" class="form-control" />
+        <span asp-validation-for="End" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PlaceId"></label>
+        <select asp-for="PlaceId" asp-items=" places" class="form-control"></select>
+        <span asp-validation-for="PlaceId" class="text-danger"></span>
+    </div>
+    <div>
+        <text>You can't find your place?</text>
+    </div>
+    <div>
+        <a asp-controller="Place" asp-action="Create" class="btn btn-primary btn-sm">Add place here</a>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="End" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Register" class="btn btn-primary" />
+    </div>
+</form>
