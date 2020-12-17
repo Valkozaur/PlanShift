@@ -102,7 +102,7 @@
             const string groupName2 = "Test1";
 
             // Arrange
-            var group1 = new Group(){ Id = GroupId, BusinessId = BusinessId, Name = groupName1 };
+            var group1 = new Group() { Id = GroupId, BusinessId = BusinessId, Name = groupName1 };
 
             var employeeGroup = new EmployeeGroup
             {

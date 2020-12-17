@@ -54,27 +54,26 @@
 
             if (employeeId == null)
             {
-                this.TempData["Error"] = "You are not participant of the group!";
+                this.ModelState.AddModelError("Error", "You are not participant of the group!");
                 return this.RedirectToAction("Index", "Business");
             }
 
             if (shiftInformation.Status == ShiftStatus.Approved)
             {
-                this.TempData["Error"] = "Shift is already taken!";
+                this.ModelState.AddModelError("Error", "Shift is already taken!");
                 return this.RedirectToAction("Index", "Business", new { GroupId = shiftInformation });
             }
 
             var hasEmployeeApplied = await this.shiftApplicationService.HasEmployeeActiveApplicationForShiftAsync(shiftId, employeeId);
             if (hasEmployeeApplied)
             {
-                this.TempData["Error"] = "You've applied for this shift already!";
+                this.ModelState.AddModelError("Error", "You've applied for this shift already!");
                 return this.RedirectToAction("Index", "Business", new { GroupId = shiftInformation });
             }
 
             // TODO: Make the achievement system check here
             await this.shiftApplicationService.CreateShiftApplicationAsync(shiftId, employeeId);
             await this.shiftService.StatusChangeAsync(shiftId, ShiftStatus.Pending);
-            this.TempData["Success"] = "You've applied for the shift";
             return this.RedirectToAction("Index", "Business", new { GroupId = shiftInformation });
         }
 
@@ -99,7 +98,7 @@
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessNameSessionName);
 
-            var groupsInBusiness = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(businessId, userId, PendingActionsType.ShiftApplications);
+            var groupsInBusiness = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(businessId, userId, true, PendingActionsType.ShiftApplications);
 
             var viewModel = new GroupListViewModel<GroupBasicInfoViewModel>()
             {

@@ -50,13 +50,13 @@
 
             if (employeeGroupId == null)
             {
-                this.TempData["Error"] = "You are not participant of the group!";
+                this.ModelState.AddModelError("Error", "You are not participant of the group!");
                 return this.RedirectToAction("Index", "Business");
             }
 
             if (employeeGroupId == shiftInformation.OriginalEmployeeId)
             {
-                this.TempData["Error"] = "You can't apply for a shift that is already yours!";
+                this.ModelState.AddModelError("Error", "You can't apply for a shift that is already yours!");
             }
 
             await this.shiftChangeService.CreateShiftChangeAsync(shiftId, shiftInformation.OriginalEmployeeId, employeeGroupId);
@@ -72,11 +72,10 @@
             try
             {
                 await this.shiftChangeService.AcceptShiftChangeByOriginalEmployeeAsync(userId, shiftChangeId, isAccepted);
-                this.TempData["Success"] = "Shift swap action taken successfully!";
             }
             catch (Exception e)
             {
-                this.TempData["Error"] = e.Message;
+                this.ModelState.AddModelError("Error", e.Message);
             }
 
             return this.RedirectToAction("Index", "Business");
@@ -118,7 +117,11 @@
 
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            var groupsInBusiness = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(businessId, userId, PendingActionsType.ShiftChanges);
+            var groupsInBusiness = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(
+                businessId,
+                userId, 
+                true,
+                PendingActionsType.ShiftChanges);
             var viewModel = new GroupListViewModel<GroupBasicInfoViewModel>()
             {
                 Groups = groupsInBusiness,

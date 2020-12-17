@@ -19,7 +19,7 @@
         private const string Email = "Test";
         private const string Position = "Test";
         private const decimal Salary = 100M;
-        
+
         private InviteEmployeeVerificationsService inviteEmployeeVerificationsService;
 
         // TODO: Mock the object we are testing method.

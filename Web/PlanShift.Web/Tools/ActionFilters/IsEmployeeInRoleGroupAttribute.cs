@@ -26,7 +26,7 @@
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var userId = context.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var businessId = await context.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessNameSessionName);
+            var businessId = await context.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessIdSessionName);
 
             var isEmployeeInRoleGroup = await this.employeeGroupService.IsEmployeeInGroupsWithNames(userId, businessId, this.roleGroupNames);
 

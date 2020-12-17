@@ -463,7 +463,6 @@
             var group = new Group { BusinessId = businessId };
             var employee = new EmployeeGroup() { UserId = userId };
 
-
             var shift = new Shift()
             {
                 Start = this.start,
@@ -495,7 +494,6 @@
             const string fakeBusinessId = "Fake";
             const string userId = "Test";
             var employee = new EmployeeGroup() { UserId = userId };
-
 
             // Arrange
             var group = new Group { BusinessId = businessId };

@@ -125,7 +125,7 @@
             this.FakeDb.Add(group1);
             this.FakeDb.Add(group2);
             this.FakeDb.Add(group3);
-         
+
             this.groupService = new GroupService(this.GetMockedRepositoryReturningAllAsNoTracking(), employeeGroupService.Object, businessService.Object);
 
             // Act

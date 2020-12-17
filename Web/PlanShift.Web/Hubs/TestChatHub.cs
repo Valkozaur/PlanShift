@@ -24,10 +24,6 @@
 
         private string Username => this.Context.User.Identity.Name;
 
-        public override async Task OnConnectedAsync()
-        {
-        }
-
         // public override async Task OnDisconnectedAsync(Exception ex)
         //    => await this.Clients.Group(this.groupName).UserLoggedOff(
         //        new

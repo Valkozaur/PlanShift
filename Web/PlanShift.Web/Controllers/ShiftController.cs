@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Web.Controllers
+﻿using System.Linq;
+
+namespace PlanShift.Web.Controllers
 {
     using System.Security.Claims;
     using System.Threading.Tasks;
@@ -42,13 +44,15 @@
 
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            var groups = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupAllViewModel>(businessId, userId);
+            var groups = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupAllViewModel>(businessId, userId, false);
 
             var viewModel = new CreateShiftInputModel()
             {
                 BusinessId = businessId,
                 Groups = groups,
             };
+
+            this.TempData["GroupId"] = groups.First().Id;
 
             return this.View(viewModel);
         }

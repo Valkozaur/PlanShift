@@ -4,7 +4,7 @@
         type: "GET",
         url: "/api/Calendar",
         success: function (data) {
-
+            
             console.log(data);
 
             if (data.upcomingShiftsCount != 0) {
@@ -56,6 +56,8 @@
     });
 
     function generateCalender(events) {
+        console.log(events);
+        console.log("hello from the calendar");
         $('#calender').fullCalendar('destroy');
         $('#calender').fullCalendar({
             contentHeight: 420,

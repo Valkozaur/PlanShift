@@ -82,11 +82,16 @@
                 .To<T>()
                 .FirstOrDefaultAsync();
 
-        public async Task<IEnumerable<T>> GetAllGroupByCurrentUserAndBusinessIdAsync<T>(string businessId, string userId, PendingActionsType pendingAction = PendingActionsType.Unknown)
+        public async Task<IEnumerable<T>> GetAllGroupByCurrentUserAndBusinessIdAsync<T>(string businessId, string userId, bool withOfficials = true, PendingActionsType pendingAction = PendingActionsType.Unknown)
         {
             var query = this.groupRepository
                 .AllAsNoTracking()
                 .Where(x => x.BusinessId == businessId && x.Employees.Any(e => e.UserId == userId));
+
+            if (!withOfficials)
+            {
+                query = query.Where(g => g.Name != GlobalConstants.AdminsGroupName && g.Name != GlobalConstants.HrGroupName && g.Name != GlobalConstants.ScheduleManagersGroupName);
+            }
 
             if (pendingAction == PendingActionsType.ShiftApplications)
             {

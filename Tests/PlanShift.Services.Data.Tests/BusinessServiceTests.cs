@@ -93,7 +93,7 @@
             const string testBusinessId = "Test";
 
             // Arrange
-            this.FakeDb.Add(new Business() { Id = testBusinessId,  Name = TestBusinessName, OwnerId = TestUserId, BusinessTypeId = TestTypeId });
+            this.FakeDb.Add(new Business() { Id = testBusinessId, Name = TestBusinessName, OwnerId = TestUserId, BusinessTypeId = TestTypeId });
 
             this.businessService = new BusinessService(this.GetMockedRepositoryReturningAllAsNoTracking());
             // Act
@@ -128,7 +128,7 @@
             const string testBusinessId = "Test";
 
             // Arrange
-            this.FakeDb.Add(new Business() { Id = testBusinessId,  Name = TestBusinessName, OwnerId = TestUserId, BusinessTypeId = TestTypeId });
+            this.FakeDb.Add(new Business() { Id = testBusinessId, Name = TestBusinessName, OwnerId = TestUserId, BusinessTypeId = TestTypeId });
 
             this.businessService = new BusinessService(this.GetMockedRepositoryReturningAllAsNoTracking());
 

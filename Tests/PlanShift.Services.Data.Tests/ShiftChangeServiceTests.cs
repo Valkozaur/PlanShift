@@ -64,7 +64,7 @@
         }
 
         [Fact]
-        public void  AcceptShiftChangeByOriginalEmployeeAsyncShouldThrowIfChangeIsAcceptedByDifferentEmployee()
+        public void AcceptShiftChangeByOriginalEmployeeAsyncShouldThrowIfChangeIsAcceptedByDifferentEmployee()
         {
             const string id = "Test";
             const string fakeOriginalEmployeeId = "Fake";
@@ -205,9 +205,9 @@
 
             // Arrange
             var group = new Group() { Name = groupName };
-            var shift = new Shift() { Start = DateTime.UtcNow, Group = group};
+            var shift = new Shift() { Start = DateTime.UtcNow, Group = group };
 
-        var shiftChange = new ShiftChange()
+            var shiftChange = new ShiftChange()
             {
                 Id = id,
                 ShiftId = ShiftId,
@@ -216,7 +216,7 @@
                 Status = ShiftApplicationStatus.Pending,
                 IsApprovedByOriginalEmployee = true,
                 Shift = shift,
-        };
+            };
             this.FakeDb.Add(shiftChange);
 
             this.shiftChangeService = new ShiftChangeService(this.GetMockedRepositoryReturningAllAsNoTracking());

@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Web.Controllers
+﻿using PlanShift.Web.Tools.ActionFilters;
+
+namespace PlanShift.Web.Controllers
 {
     using System.Linq;
     using System.Security.Claims;
@@ -28,9 +30,10 @@
         }
 
         [HttpGet]
+        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
         public async Task<ActionResult> Get()
         {
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessNameSessionName);
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessIdSessionName);
 
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -79,6 +82,7 @@
         }
 
         [HttpGet("GetGroupShifts")]
+        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
         public async Task<ActionResult> GetGroupShifts(string groupId)
         {
             var shifts = await this.shiftService.GetAllShiftsByGroupAsync<ShiftCalendarViewModel>(groupId);

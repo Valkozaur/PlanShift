@@ -56,7 +56,6 @@
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-
         public async Task OnGetAsync(string returnUrl = null, string validationId = null)
         {
             if (validationId != null)
@@ -80,6 +79,9 @@
                 var userFullName = string.Join(' ', this.Input.FirstName, this.Input.LastName);
 
                 var user = new PlanShiftUser { UserName = this.Input.Email, Email = this.Input.Email, FirstName = this.Input.FirstName, LastName = this.Input.LastName };
+
+                user.Claims.Add(new IdentityUserClaim<string> { ClaimType = "FullName", ClaimValue = userFullName });
+
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)
                 {
@@ -93,8 +95,11 @@
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: this.Request.Scheme);
 
-                    await this.emailSender.SendEmailAsync(this.Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    string htmlMessage = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.";
+                    await this.emailSender.SendEmailAsync(
+                        Input.Email,
+                        "Confirm your email",
+                        htmlMessage: htmlMessage);
 
                     if (!string.IsNullOrWhiteSpace(this.Input.ValidationId))
                     {
