@@ -10,7 +10,7 @@
 
         public const string BusinessNameSessionName = "BusinessName";
 
-        public const string EmailAddress = "planShift1@gmail.com";
+        public const string EmailAddress = "v.zaspam2@gmail.com";
 
         public const string AdminsGroupName = "Admins";
 

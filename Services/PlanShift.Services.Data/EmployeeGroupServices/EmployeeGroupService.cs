@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Services.Data.EmployeeGroupServices
+﻿using PlanShift.Common;
+
+namespace PlanShift.Services.Data.EmployeeGroupServices
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -61,7 +63,6 @@
                 .AllAsNoTracking()
                 .AnyAsync(x => x.UserId == userId && x.GroupId == groupId);
 
-        // TODO: CHECK THE QUERY THAT IT'S MADE
         public async Task<bool> IsEmployeeInGroupsWithNames(string userId, string businessId, params string[] groupName)
             => await this.employeeGroupRepository
                 .AllAsNoTracking()
@@ -69,6 +70,18 @@
                     => eg.UserId == userId &&
                        eg.Group.BusinessId == businessId &&
                        groupName.Contains(eg.Group.Name));
+
+        public async Task<string> GetFirstEmployeeIdFromAdministrationGroups(string userId, string businessId)
+            => await this.employeeGroupRepository
+                .AllAsNoTracking()
+                .Where(eg
+                    => eg.UserId == userId &&
+                       eg.Group.BusinessId == businessId &&
+                       eg.Group.Name == GlobalConstants.AdminsGroupName ||
+                       eg.Group.Name == GlobalConstants.HrGroupName ||
+                       eg.Group.Name == GlobalConstants.ScheduleManagersGroupName)
+                .Select(eg => eg.Id)
+                .FirstOrDefaultAsync();
 
         public async Task<string> GetEmployeeId(string userId, string groupId)
             => await this.employeeGroupRepository

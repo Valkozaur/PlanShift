@@ -15,6 +15,8 @@
 
         Task<bool> IsEmployeeInGroupsWithNames(string userId, string businessId, params string[] groupName);
 
+        Task<string> GetFirstEmployeeIdFromAdministrationGroups(string userId, string businessId);
+
         Task<string> GetEmployeeId(string userId, string groupId);
     }
 }

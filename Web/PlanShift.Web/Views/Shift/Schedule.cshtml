@@ -11,7 +11,7 @@
         <div class="col-2 btn-group-vertical">
             @foreach (var group in this.Model.Groups)
             {
-                <button id="@group.Id" type="button" class="btn btn-primary">
+                <button id="groupButton" type="button" class="btn btn-primary" value="@group.Id">
                     <span class="row justify-content-center text-capitalize">Group: @group.Name</span>
                     <span class="row justify-content-center text-capitalize">Users Count: @group.EmployeesCount</span>
                     <span class="row justify-content-center text-capitalize">Shifts Count: <span id="shiftCount"> @group.ShiftsCount</span></span>
@@ -43,23 +43,20 @@
     </script>
 
     <script>
-        $("body > main > div.container > div > div.col-2.btn-group-vertical > button").on("click",
+        $("#groupButton").on("click",
             function() {
-                var clickedGroup = $(this).attr("id");
+                var clickedGroup = $(this).val();
 
                 $("#createShiftBtn").val(clickedGroup);
                 $("#GroupId").val(clickedGroup);
 
                 var events = [];
 
-                $("#createShiftBtn").show();
-                $("#hideCreateShiftFormBtn").show();
-
                 $.ajax({
                     type: "GET",
                     url: `/api/Calendar/GetGroupShifts?groupId=${clickedGroup}`,
                     success: function(data) {
-                        $(`#${clickedGroup} > span > span`).text(` ${data.shiftCount}`);
+                        $(this).find("span > span").text(` ${data.shiftCount}`);
 
                         $.each(data.shifts,
                             function(i, v) {
@@ -114,7 +111,7 @@
                         omitZeroMinute: false,
                         meridiem: false
                     },
-                    eventClick: function (info) {
+                    eventClick: function(info) {
                         $('#myModal #groupName').text(info.event._def.extendedProps.groupName); //#groupName
                         $('#myModal #start').text(moment(info.event.start).format('LLL'));
                         if (info.event.end != null) {
@@ -138,13 +135,13 @@
         var clickedGroup = "@this.TempData["GroupId"]";
 
         if (clickedGroup != "") {
-            $(`#${clickedGroup}`).trigger("click");
+            $(`button[type="button"][value="${clickedGroup}"]`).trigger("clicked");
+            console.log("clicked");
             $("#createShiftForm").show();
         }
     </script>
 
     <script>
-        console.log('#createShiftBtn');
         $("#createShiftBtn").click(function() {
             $("#createShiftForm").show();
         })

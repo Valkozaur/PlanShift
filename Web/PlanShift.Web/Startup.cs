@@ -1,20 +1,25 @@
 ﻿namespace PlanShift.Web
 {
     using System;
+    using System.Diagnostics;
     using System.Reflection;
 
     using Hangfire;
     using Hangfire.Dashboard;
     using Hangfire.SqlServer;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Caching.SqlServer;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Options;
+
     using PlanShift.Common;
     using PlanShift.Data;
     using PlanShift.Data.Common;
@@ -76,6 +81,11 @@
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
 
+            //Create sqlCacheTable
+            this.CreateSqlCacheTable();
+
+            var options = services.BuildServiceProvider().GetRequiredService<IOptions<SqlServerCacheOptions>>();
+
             services.AddDistributedSqlServerCache(
                 options =>
                 {
@@ -126,6 +136,7 @@
             services.AddTransient<IEmployeeGroupService, EmployeeGroupService>();
             services.AddTransient<IShiftApplicationService, ShiftApplicationService>();
             services.AddTransient<IInviteEmployeeVerificationsService, InviteEmployeeVerificationsService>();
+            services.AddApplicationInsightsTelemetry(this.configuration["APPINSIGHTS_CONNECTIONSTRING"]);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -176,6 +187,28 @@
                         endpoints.MapRazorPages();
                         endpoints.MapHangfireDashboard();
                     });
+        }
+
+        private void CreateSqlCacheTable()
+        {
+            var process = new Process()
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "cmd.exe",
+                    Arguments = $"/c dotnet sql-cache create \"{this.configuration.GetConnectionString("DefaultConnection")}\" dbo ApplicationCache",
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = false,
+                    WindowStyle = ProcessWindowStyle.Normal,
+                    RedirectStandardInput = true,
+                    RedirectStandardError = true
+                }
+            };
+            process.Start();
+            string input = process.StandardError.ReadToEnd();
+            string result = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
         }
 
         private void SeedHangfireJobs(IRecurringJobManager recurringJobManager, ApplicationDbContext dbContext)

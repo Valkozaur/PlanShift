@@ -27,6 +27,34 @@
                 BusinessTypeId = typeId,
             };
 
+            var adminGroup = new Group()
+            {
+                Name = "Admins",
+                StandardSalary = 0,
+            };
+
+            adminGroup.Employees.Add(new EmployeeGroup() { UserId = ownerId, Position = "Owner", Salary = 0 });
+
+            var hrGroup = new Group()
+            {
+                Name = "HR Managers",
+                StandardSalary = 0,
+            };
+
+            hrGroup.Employees.Add(new EmployeeGroup() { UserId = ownerId, Position = "Owner", Salary = 0});
+
+            var scheduleGroup = new Group()
+            {
+                Name = "Schedule Managers",
+                StandardSalary = 0,
+            };
+
+            scheduleGroup.Employees.Add(new EmployeeGroup() { UserId = ownerId, Position = "Owner", Salary = 0});
+
+            business.Groups.Add(adminGroup);
+            business.Groups.Add(hrGroup);
+            business.Groups.Add(scheduleGroup);
+
             await this.businessRepository.AddAsync(business);
             await this.businessRepository.SaveChangesAsync();
 

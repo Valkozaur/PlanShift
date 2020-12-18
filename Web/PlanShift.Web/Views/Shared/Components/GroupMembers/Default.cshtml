@@ -5,6 +5,7 @@
     <thead>
     <tr>
         <th scope="col">Employee Name</th>
+        <th scope="col">Position</th>
     </tr>
     </thead>
     <tbody>
@@ -12,6 +13,7 @@
         {
             <tr>
                 <td>@employee.UserFullName</td>
+                <td>@employee.Position</td>
                 <td>
                     <form method="post" asp-controller="EmployeeGroup" asp-action="Remove">
                         <input type="hidden" name="id" value="@employee.Id"/>

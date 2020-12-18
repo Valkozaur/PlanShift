@@ -1,7 +1,4 @@
-﻿using PlanShift.Services.Data.BusinessServices;
-using PlanShift.Web.Tools.SessionExtension;
-
-namespace PlanShift.Web.Controllers
+﻿namespace PlanShift.Web.Controllers
 {
     using System.Threading.Tasks;
 
@@ -10,8 +7,10 @@ namespace PlanShift.Web.Controllers
     using Microsoft.AspNetCore.Mvc;
     using PlanShift.Common;
     using PlanShift.Data.Models;
+    using PlanShift.Services.Data.BusinessServices;
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Web.Tools.ActionFilters;
+    using PlanShift.Web.Tools.SessionExtension;
     using PlanShift.Web.ViewModels.EmployeeGroup;
 
     [Authorize]

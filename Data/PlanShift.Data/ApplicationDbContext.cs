@@ -37,8 +37,6 @@
 
         public DbSet<ShiftApplication> ShiftApplications { get; set; }
 
-        public DbSet<ShiftCalendar> ShiftsCalendar { get; set; }
-
         public DbSet<InviteEmployeeVerification> InviteEmployeeVerifications { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
@@ -80,6 +78,22 @@
             builder.Entity<PlanShiftUser>()
                 .Property(p => p.FullName)
                 .HasComputedColumnSql("[FirstName] + ' ' + [LastName]");
+
+            builder.Entity<EmployeeGroup>()
+                .Property(eg => eg.Salary)
+                .HasPrecision(19, 4);
+
+            builder.Entity<Shift>()
+                .Property(eg => eg.BonusPayment)
+                .HasPrecision(19, 4);
+
+            builder.Entity<Group>()
+                .Property(eg => eg.StandardSalary)
+                .HasPrecision(19, 4);
+
+            builder.Entity<InviteEmployeeVerification>()
+                .Property(eg => eg.Salary)
+                .HasPrecision(19, 4);
 
             var entityTypes = builder.Model.GetEntityTypes().ToList();
 

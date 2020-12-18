@@ -23,7 +23,6 @@ namespace PlanShift.Data.Models
         }
 
         [Required]
-        [Column("EmployeeId")]
         public string UserId { get; set; }
 
         public virtual PlanShiftUser User { get; set; }

@@ -39,9 +39,12 @@
         {
             var businessId = this.HttpContext.Session.GetString(GlobalConstants.BusinessIdSessionName);
 
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
             var groups = await this.groupService.GetAllGroupsByBusiness<GroupAllViewModel>(businessId, false);
+
+            if (groups.Count() == 0)
+            {
+                return this.View("NoAvailableGroups");
+            }
 
             var viewModel = new CreateShiftInputModel()
             {
@@ -56,12 +59,15 @@
 
         [HttpPost]
         [Authorize]
+        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
         [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.ScheduleManagersGroupName } })]
 
         public async Task<IActionResult> Schedule(CreateShiftInputModel input)
         {
+
+            var businessId = this.HttpContext.Session.GetString(GlobalConstants.BusinessIdSessionName);
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var managementId = await this.employeeGroupService.GetEmployeeId(userId, input.GroupId);
+            var managementId = await this.employeeGroupService.GetFirstEmployeeIdFromAdministrationGroups(userId, businessId);
 
             if (!this.ModelState.IsValid)
             {

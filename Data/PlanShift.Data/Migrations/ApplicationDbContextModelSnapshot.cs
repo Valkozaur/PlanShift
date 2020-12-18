@@ -17,7 +17,7 @@ namespace PlanShift.Data.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0");
+                .HasAnnotation("ProductVersion", "5.0.1");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
@@ -227,6 +227,9 @@ namespace PlanShift.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("BusinessTypes");
                 });
 
@@ -257,20 +260,21 @@ namespace PlanShift.Data.Migrations
                         .HasColumnType("nvarchar(60)");
 
                     b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(19, 4)
+                        .HasColumnType("decimal(19,4)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("EmployeeId");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GroupId");
 
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("GroupId", "UserId")
+                        .IsUnique();
 
                     b.ToTable("EmployeeGroups");
                 });
@@ -302,7 +306,8 @@ namespace PlanShift.Data.Migrations
                         .HasColumnType("nvarchar(120)");
 
                     b.Property<decimal?>("StandardSalary")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(19, 4)
+                        .HasColumnType("decimal(19,4)");
 
                     b.HasKey("Id");
 
@@ -339,14 +344,15 @@ namespace PlanShift.Data.Migrations
                         .HasColumnType("nvarchar(80)");
 
                     b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(19, 4)
+                        .HasColumnType("decimal(19,4)");
 
                     b.Property<bool>("Used")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
 
-                    b.ToTable("InviteEmployeeVerification");
+                    b.ToTable("InviteEmployeeVerifications");
                 });
 
             modelBuilder.Entity("PlanShift.Data.Models.PlanShiftUser", b =>
@@ -455,7 +461,8 @@ namespace PlanShift.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("BonusPayment")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(19, 4)
+                        .HasColumnType("decimal(19,4)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -541,23 +548,6 @@ namespace PlanShift.Data.Migrations
                     b.HasIndex("ShiftId");
 
                     b.ToTable("ShiftApplications");
-                });
-
-            modelBuilder.Entity("PlanShift.Data.Models.ShiftCalendar", b =>
-                {
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("End")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("GroupName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Start")
-                        .HasColumnType("datetime2");
-
-                    b.ToTable("ShiftsCalendar");
                 });
 
             modelBuilder.Entity("PlanShift.Data.Models.ShiftChange", b =>
