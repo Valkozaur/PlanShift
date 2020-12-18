@@ -23,7 +23,7 @@
         protected IRepository<T> GetMockedRepositoryWithCreateOperations()
         {
             this.Repository.Setup(r => r.AddAsync(It.IsAny<T>()))
-                .Callback(delegate (T businessType)
+                .Callback(delegate(T businessType)
                 {
                     this.FakeDb.Add(businessType);
                 });

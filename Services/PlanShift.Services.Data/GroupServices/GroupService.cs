@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+
     using PlanShift.Common;
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
@@ -45,36 +46,35 @@
             return group.Id;
         }
 
-        //public async Task<string> UpdateGroupAsync(
+        // public async Task<string> UpdateGroupAsync(
         //    string groupId,
         //    string name = null,
         //    string businessId = null,
         //    decimal? standardSalary = null)
-        //{
+        // {
         //    var group = await this.groupRepository.All().FirstOrDefaultAsync(x => x.Id == groupId);
 
-        //    if (group != null && (name != null || standardSalary != null))
+        // if (group != null && (name != null || standardSalary != null))
         //    {
         //        group.Name = name ?? group.Name;
         //        group.BusinessId = businessId;
         //        group.StandardSalary = standardSalary ?? group.StandardSalary;
         //    }
 
-        //    await this.groupRepository.SaveChangesAsync();
+        // await this.groupRepository.SaveChangesAsync();
         //    return group?.Id;
-        //}
+        // }
 
-        //public async Task DeleteGroupAsync(string id)
-        //{
+        // public async Task DeleteGroupAsync(string id)
+        // {
         //    var group = await this.groupRepository.All().FirstOrDefaultAsync(x => x.Id == id);
 
-        //    if (group != null)
+        // if (group != null)
         //    {
         //        this.groupRepository.Delete(group);
         //        await this.groupRepository.SaveChangesAsync();
         //    }
-        //}
-
+        // }
         public async Task<T> GetGroupAsync<T>(string id)
             => await this.groupRepository
                 .AllAsNoTracking()
@@ -100,6 +100,27 @@
             else if (pendingAction == PendingActionsType.ShiftChanges)
             {
                 query = query.Where(x => x.Shifts.Any(s => s.ShiftChanges.Count(sc => sc.Status == ShiftApplicationStatus.Pending) != 0));
+            }
+
+            return await query
+                .OrderByDescending(g
+                    => g.Name == GlobalConstants.AdminsGroupName
+                       || g.Name == GlobalConstants.HrGroupName
+                       || g.Name == GlobalConstants.ScheduleManagersGroupName)
+                .ThenByDescending(g => g.Employees.Count)
+                .To<T>()
+                .ToArrayAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetAllGroupsByBusiness<T>(string businessId, bool withOfficials = true)
+        {
+            var query = this.groupRepository
+                .AllAsNoTracking()
+                .Where(g => g.BusinessId == businessId);
+
+            if (!withOfficials)
+            {
+                query = query.Where(g => g.Name != GlobalConstants.AdminsGroupName && g.Name != GlobalConstants.HrGroupName && g.Name != GlobalConstants.ScheduleManagersGroupName);
             }
 
             return await query

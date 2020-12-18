@@ -1,21 +1,18 @@
-﻿using System.Linq;
-
-namespace PlanShift.Web.Controllers
+﻿namespace PlanShift.Web.Controllers
 {
+    using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+
     using PlanShift.Common;
-    using PlanShift.Data.Models;
     using PlanShift.Services.Data.EmployeeGroupServices;
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Services.Data.ShiftServices;
     using PlanShift.Web.Tools.ActionFilters;
-    using PlanShift.Web.ViewModels.EmployeeGroup;
     using PlanShift.Web.ViewModels.Group;
     using PlanShift.Web.ViewModels.Shift;
 
@@ -44,7 +41,7 @@ namespace PlanShift.Web.Controllers
 
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            var groups = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupAllViewModel>(businessId, userId, false);
+            var groups = await this.groupService.GetAllGroupsByBusiness<GroupAllViewModel>(businessId, false);
 
             var viewModel = new CreateShiftInputModel()
             {
@@ -68,7 +65,7 @@ namespace PlanShift.Web.Controllers
 
             if (!this.ModelState.IsValid)
             {
-                var groups = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupAllViewModel>(input.BusinessId, userId);
+                var groups = await this.groupService.GetAllGroupsByBusiness<GroupAllViewModel>(input.BusinessId, false);
                 input.Groups = groups;
                 return this.View(input);
             }
@@ -77,6 +74,14 @@ namespace PlanShift.Web.Controllers
 
             this.TempData["GroupId"] = input.GroupId;
             return this.RedirectToAction("Schedule", new { input.BusinessId });
+        }
+
+        [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.ScheduleManagersGroupName } })]
+        public async Task<IActionResult> Delete(string shiftId)
+        {
+            await this.shiftService.DeleteShift(shiftId);
+
+            return this.RedirectToAction(nameof(this.Schedule));
         }
 
         [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.ScheduleManagersGroupName } })]

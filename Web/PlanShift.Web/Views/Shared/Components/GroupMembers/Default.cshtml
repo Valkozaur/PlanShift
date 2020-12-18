@@ -12,6 +12,12 @@
         {
             <tr>
                 <td>@employee.UserFullName</td>
+                <td>
+                    <form method="post" asp-controller="EmployeeGroup" asp-action="Remove">
+                        <input type="hidden" name="id" value="@employee.Id"/>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

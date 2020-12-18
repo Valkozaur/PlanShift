@@ -1,7 +1,7 @@
 ﻿namespace PlanShift.Web.ViewModels.InviteEmployeeValidation
 {
-    using PlanShift.Services.Mapping;
     using PlanShift.Data.Models;
+    using PlanShift.Services.Mapping;
 
     public class InviteEmployeeVerificationInfoViewModel : InviteEmployeeVerificationEmailViewModel, IMapFrom<InviteEmployeeVerification>
     {

@@ -35,7 +35,6 @@ namespace PlanShift.Data.Models
         public string FullName { get; set; }
 
         // Audit info
-
         public DateTime CreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }

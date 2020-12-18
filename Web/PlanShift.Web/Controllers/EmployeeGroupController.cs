@@ -1,4 +1,7 @@
-﻿namespace PlanShift.Web.Controllers
+﻿using PlanShift.Services.Data.BusinessServices;
+using PlanShift.Web.Tools.SessionExtension;
+
+namespace PlanShift.Web.Controllers
 {
     using System.Threading.Tasks;
 
@@ -16,13 +19,16 @@
     {
         private readonly IEmployeeGroupService employeeGroupService;
         private readonly UserManager<PlanShiftUser> userManager;
+        private readonly IBusinessService businessService;
 
         public EmployeeGroupController(
             IEmployeeGroupService employeeGroupService,
-            UserManager<PlanShiftUser> userManager)
+            UserManager<PlanShiftUser> userManager,
+            IBusinessService businessService)
         {
             this.employeeGroupService = employeeGroupService;
             this.userManager = userManager;
+            this.businessService = businessService;
         }
 
         [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.HrGroupName } })]
@@ -40,7 +46,6 @@
         [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.HrGroupName } })]
         public async Task<IActionResult> AddEmployeeToGroup(EmployeeToGroupInvitationInputModel input)
         {
-
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
@@ -64,6 +69,26 @@
 
             await this.employeeGroupService.AddEmployeeToGroupAsync(userToAdd.Id, input.GroupId, input.Salary, input.Position);
             return this.RedirectToAction("Index", "People", new { ActiveTabGroupId = input.GroupId });
+        }
+
+        [HttpPost]
+        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
+        [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.HrGroupName } })]
+        public async Task<IActionResult> Remove(string id)
+        {
+            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessIdSessionName);
+            var isOwner = await this.businessService.IsEmployeeAnOwner(businessId, id);
+
+            if (isOwner)
+            {
+                this.ModelState.AddModelError("Error", "You cannot remove the business owner from the group!");
+                return this.RedirectToAction("Index", "People");
+
+            }
+
+            await this.employeeGroupService.RemoveFromGroupEmployeeAsync(id);
+
+            return this.RedirectToAction("Index", "People");
         }
     }
 }

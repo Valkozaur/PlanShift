@@ -29,13 +29,13 @@
     <button class="btn-lg btn-secondary" id="hideCreateShiftFormBtn" type="button">Hide</button>
 </div>
 
-<partial name="_FullCalendarModalPartial"/>
+<partial name="_DayCalendarModal" />
 
-<partial name="_CreateShiftFormPartial"/>
+<partial name="_CreateShiftFormPartial" />
 
 @section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" asp-append-version="true"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.4.0/main.min.js'></script>
-
     <script>
         $("#createShiftForm").hide();
         $("#createShiftBtn").hide();
@@ -64,6 +64,7 @@
                         $.each(data.shifts,
                             function(i, v) {
                                 events.push({
+                                    shiftId: v.id,
                                     groupName: v.groupName,
                                     description: v.description,
                                     start: v.start,
@@ -99,7 +100,7 @@
 
             var calendar = new FullCalendar.Calendar(calendarEl,
                 {
-                    timeZone: 'UTC',
+                    timeZone: 'local',
                     initialView: 'timeGridWeek',
                     headerToolbar: {
                         left: 'prev,next',
@@ -107,17 +108,34 @@
                         right: 'timeGridDay,timeGridWeek'
                     },
                     events: events,
-                    eventTimeFormat: { // like '14:30:00'
-                        hour: '2-digit',
+                    eventTimeFormat: {
+                        hour: 'numeric',
                         minute: '2-digit',
+                        omitZeroMinute: false,
                         meridiem: false
+                    },
+                    eventClick: function (info) {
+                        $('#myModal #groupName').text(info.event._def.extendedProps.groupName); //#groupName
+                        $('#myModal #start').text(moment(info.event.start).format('LLL'));
+                        if (info.event.end != null) {
+                            $('#myModal #end').text(moment(info.event.end).format('LLL'));
+                        }
+                        if (info.event.description != null) {
+                            $('#myModal #description').text(info.event.description);
+                        } else {
+                            $('#myModal #description').text('No description.');
+                        }
+                        console.log(info.event);
+                        $('#myModal #shiftId').val(info.event._def.extendedProps.shiftId);
+
+                        $('#myModal').modal();
                     },
                     slotEventOverlap: true,
                 });
             calendar.render();
         };
 
-        var clickedGroup = "@TempData["GroupId"]";
+        var clickedGroup = "@this.TempData["GroupId"]";
 
         if (clickedGroup != "") {
             $(`#${clickedGroup}`).trigger("click");

@@ -30,7 +30,6 @@
         //        {
         //            user = this.Username,
         //        });
-
         public async Task PostMessage(string message, string groupName)
             => await this.Clients.Group(groupName).MessageReceived(new Message() { User = this.Username, Text = message });
 
@@ -41,7 +40,6 @@
         //            isTyping,
         //            user = this.Username,
         //        });
-
         public async Task JoinGroup(string groupId)
         {
             var userId = this.Context.UserIdentifier;

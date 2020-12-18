@@ -1,7 +1,7 @@
 ﻿namespace PlanShift.Web.ViewModels.Business
 {
-    using PlanShift.Services.Mapping;
     using PlanShift.Data.Models;
+    using PlanShift.Services.Mapping;
 
     public class BusinessTestViewModel : IMapFrom<Business>
     {

@@ -1,0 +1,21 @@
+﻿<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><span id="groupName"></span></h4>
+            </div>
+            <div class="modal-body">
+                <p>Start: <span  id="start"></span></p>
+                <p>End: <span id="end"></span></p>
+                <p>Description: <span id="description">></span></p>
+            </div>
+            <div class="modal-footer">
+                <form method="post" asp-controller="Shift" asp-action="Delete">
+                    <input type="hidden" name="shiftId" id="shiftId" value=""/>
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

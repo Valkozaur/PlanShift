@@ -751,7 +751,6 @@
         [Fact]
         public async Task GetUsersShiftsWithDeclaredSwapRequestsAsyncShouldNotReturnAnythingIfNoShiftChangePerUser()
         {
-
             const string businessId = "Test";
             const string userId = "Test";
             const string fakeUserId = "Fake";
@@ -850,7 +849,6 @@
         [Fact]
         public async Task GetTakenShiftsPerUserAsyncShouldNotReturnIfUserIsEmployee()
         {
-            const int expectedCount = 2;
             const string businessId = "Test";
             const string userId = "Test";
 
@@ -898,7 +896,6 @@
         [Fact]
         public async Task GetTakenShiftsPerUserAsyncShouldNotReturnIfShiftsHasNoEmployee()
         {
-            const int expectedCount = 2;
             const string businessId = "Test";
             const string userId = "Test";
 

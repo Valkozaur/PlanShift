@@ -33,6 +33,15 @@
             return business.Id;
         }
 
+        public async Task<bool> IsEmployeeAnOwner(string businessId, string employeeId)
+            => await this.businessRepository
+                .AllAsNoTracking()
+                .AnyAsync(b => b.Id == businessId &&
+                               b.OwnerId == b.Groups
+                                   .SelectMany(g => g.Employees)
+                                   .FirstOrDefault(e => e.Id == employeeId)
+                                   .UserId);
+
         // public async Task<string> UpdateBusinessAsync(string businessId, string ownerId = null, string name = null, int? typeId = null)
         // {
         //    var business = await this.businessRepository.All().FirstOrDefaultAsync(x => x.Id == businessId);
@@ -48,7 +57,6 @@
 
         // return business?.Id;
         // }
-
         public async Task<IEnumerable<T>> GetAllForUserAsync<T>(string userId, int count = 0)
         {
             var query = this.businessRepository

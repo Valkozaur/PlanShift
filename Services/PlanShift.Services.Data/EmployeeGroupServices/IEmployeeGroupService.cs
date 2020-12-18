@@ -7,6 +7,8 @@
     {
         Task<string> AddEmployeeToGroupAsync(string userId, string groupId, decimal salary, string position);
 
+        Task RemoveFromGroupEmployeeAsync(string id);
+
         Task<IEnumerable<T>> GetAllEmployeesFromGroup<T>(string groupId);
 
         Task<bool> IsEmployeeInGroup(string userId, string groupId);

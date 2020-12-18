@@ -34,6 +34,21 @@
             return employeeGroup.Id;
         }
 
+        public async Task RemoveFromGroupEmployeeAsync(string id)
+        {
+            var employee = await this.employeeGroupRepository
+                .AllAsNoTracking()
+                .Where(eg => eg.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (employee != null)
+            {
+                this.employeeGroupRepository.Delete(employee);
+            }
+
+            await this.employeeGroupRepository.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<T>> GetAllEmployeesFromGroup<T>(string groupId)
             => await this.employeeGroupRepository
                 .AllAsNoTracking()

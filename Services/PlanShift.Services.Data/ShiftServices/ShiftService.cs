@@ -64,14 +64,14 @@
             await this.shiftRepository.SaveChangesAsync();
         }
 
-        //public async Task DeleteShift(string id)
-        //{
-        //    var shift = await this.shiftRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+        public async Task DeleteShift(string id)
+        {
+            var shift = await this.shiftRepository.All().FirstOrDefaultAsync(x => x.Id == id);
 
-        //    this.shiftRepository.Delete(shift);
+            this.shiftRepository.Delete(shift);
 
-        //    await this.shiftRepository.SaveChangesAsync();
-        //}
+            await this.shiftRepository.SaveChangesAsync();
+        }
 
         public async Task<T> GetShiftByIdAsync<T>(string id)
             => await this.shiftRepository
@@ -112,6 +112,7 @@
                 .Where(s => s.Group.BusinessId == businessId
                             && s.Group.Employees.Any(e => e.UserId == userId)
                             && s.ShiftStatus == ShiftStatus.Open)
+
                 // TODO: Add achievement check here
                 .To<T>()
                 .ToArrayAsync();

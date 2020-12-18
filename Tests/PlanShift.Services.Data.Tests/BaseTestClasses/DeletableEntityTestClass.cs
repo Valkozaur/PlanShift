@@ -24,7 +24,7 @@
         protected IDeletableEntityRepository<T> GetMockedRepositoryWithCreateOperations()
         {
             this.Repository.Setup(r => r.AddAsync(It.IsAny<T>()))
-                .Callback(delegate (T entity)
+                .Callback(delegate(T entity)
                 {
                     this.FakeDb.Add(entity);
                 });

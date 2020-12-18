@@ -56,7 +56,6 @@
             var businessService = new Mock<IBusinessService>();
 
             this.FakeDb.Add(new Group() { Id = Id, BusinessId = BusinessId, Name = Name, StandardSalary = StandardSalary });
-            ;
 
             this.groupService = new GroupService(this.GetMockedRepositoryReturningAllAsNoTracking(), employeeGroupService.Object, businessService.Object);
 
@@ -130,7 +129,7 @@
 
             // Act
             var groups =
-                await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(BusinessId, userId, PendingActionsType.ShiftApplications);
+                await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(BusinessId, userId, false, PendingActionsType.ShiftApplications);
 
             // Assert
             Assert.Single(groups);
@@ -167,7 +166,7 @@
 
             // Act
             var groups =
-                await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(BusinessId, userId, PendingActionsType.ShiftChanges);
+                await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupBasicInfoViewModel>(BusinessId, userId, false, PendingActionsType.ShiftChanges);
 
             // Assert
             Assert.Single(groups);

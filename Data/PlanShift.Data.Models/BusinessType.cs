@@ -7,7 +7,6 @@
 
     public class BusinessType : BaseModel<int>
     {
-
         public BusinessType()
         {
             this.Businesses = new HashSet<Business>();

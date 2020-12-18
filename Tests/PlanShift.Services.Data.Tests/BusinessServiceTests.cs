@@ -96,6 +96,7 @@
             this.FakeDb.Add(new Business() { Id = testBusinessId, Name = TestBusinessName, OwnerId = TestUserId, BusinessTypeId = TestTypeId });
 
             this.businessService = new BusinessService(this.GetMockedRepositoryReturningAllAsNoTracking());
+
             // Act
             var businesses = await this.businessService.GetBusinessAsync<BusinessTestViewModel>(testBusinessId);
 
@@ -110,7 +111,6 @@
             const string nonExistingBusinessId = "Test";
 
             // Arrange
-
             this.FakeDb.Add(new Business() { Name = TestBusinessName, OwnerId = TestUserId, BusinessTypeId = TestTypeId });
 
             this.businessService = new BusinessService(this.GetMockedRepositoryReturningAllAsNoTracking());

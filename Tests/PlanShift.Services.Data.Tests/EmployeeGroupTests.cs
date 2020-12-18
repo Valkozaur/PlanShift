@@ -1,8 +1,8 @@
 ﻿namespace PlanShift.Services.Data.Tests
 {
-
     using System.Linq;
     using System.Threading.Tasks;
+
     using PlanShift.Data.Models;
 
     using PlanShift.Services.Data.EmployeeGroupServices;
@@ -131,7 +131,6 @@
             const string groupName3 = "Test3";
 
             // Arrange
-
             var group1 = new Group() { Id = GroupId, BusinessId = BusinessId, Name = groupName3 };
 
             var employeeGroup = new EmployeeGroup
@@ -159,7 +158,6 @@
             const string employeeId = "Test";
 
             // Arrange
-
             this.FakeDb.Add(new EmployeeGroup() { Id = employeeId, UserId = UserId, GroupId = GroupId, Salary = Salary, Position = Position });
             this.employeeGroupService = new EmployeeGroupService(this.GetMockedRepositoryReturningAllAsNoTracking());
 

@@ -21,47 +21,23 @@
     }
 }
 
-@if (this.TempData["Error"] != null)
-{
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        @this.TempData["Error"];
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-}
-else if (this.TempData["Success"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        @this.TempData["Success"];
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-}
-
 @if (Model.IsScheduleManagerOrAdmin)
 {
-    <div class="row">
-        <div class="col-3">
-            <div class="card" style="width: 18rem;">
-                <h5 class="text-center">Pending Actions</h5>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a class="btn btn-outline-info float-right" asp-controller="ShiftChange" asp-action="All">@Model.ShiftChangesCount Swap requests</a></li>
-                    <li class="list-group-item"><a class="btn btn-outline-info float-right" asp-controller="ShiftApplication" asp-action="All">@Model.ShiftApplicationsCount Shifts requests</a></li>
-                </ul>
-            </div>
+<div class="row">
+    <div class="col-3">
+        <div class="card" style="width: 18rem;">
+            <h5 class="text-center">Pending Actions</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a class="btn btn-outline-info float-right" asp-controller="ShiftChange" asp-action="All">@Model.ShiftChangesCount Swap requests</a></li>
+                <li class="list-group-item"><a class="btn btn-outline-info float-right" asp-controller="ShiftApplication" asp-action="All">@Model.ShiftApplicationsCount Shifts requests</a></li>
+            </ul>
         </div>
     </div>
+
+</div>
 }
-<div class="container">
-<div class="row">
-    <div class="col-8">
-        <div id='calendar'></div>
-    </div>
-</div>
-</div>
-<br />
+
+<div class=".space"></div>
 <div class="d-flex justify-content-center">
     <ul id="shiftEventsCount" class="list-group list-group-horizontal-sm col-sm-9">
         <li id="upcomingShifts" class="list-group-item">
@@ -81,7 +57,7 @@ else if (this.TempData["Success"] != null)
 
 
 
-<partial name="_FullCalendarModalPartial" />
+<partial name="_MonthCalendarModalPartial" />
 @section Scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" asp-append-version="true"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js" asp-append-version="true"></script>
