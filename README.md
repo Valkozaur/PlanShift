@@ -1,8 +1,8 @@
-👓 Project Introduction
+#👓 Project Introduction
 
 PlanShift is my defense project for ASP.NET Core course at SoftUni (September-2020). The website's purvose is to help small to medium sized businesses, like restaurants and bars to manage their shifts in the organization.
 
-✏️ Overview
+### ✏️ Overview
 PlanShift is a website in which a user can create a profile and further create businesses, every business has it's owner and it's groups, but every user can participate in as many businesses and groups as he wants. 
 
 The business management is seperate in three administration groups, created with the creation of a business every person in this groups has certain powers in the website. 
@@ -25,7 +25,7 @@ If a user is not participating in the groups mentioned above, but any other one,
 There is also group chat integrated.
 
 
-🔨 Built With
+### 🔨 Built With
 - ASP.NET 5.0
 - ASP.NET view components
 - MSSQL Server
@@ -43,6 +43,8 @@ There is also group chat integrated.
 - MomentJS
 
 
-Deployed: https://planshift.azurewebsites.net/
+### Deployed: https://planshift.azurewebsites.net/
 - Azure MSSQL Server
 - Application Insights
+
+## DB Diagram
