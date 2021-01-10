@@ -1,4 +1,6 @@
-﻿namespace PlanShift.Data.Models
+﻿// ReSharper disable VirtualMemberCallInConstructor
+
+namespace PlanShift.Data.Models
 {
     using System;
     using System.Collections.Generic;
@@ -13,6 +15,7 @@
             this.Id = Guid.NewGuid().ToString();
 
             this.Groups = new HashSet<Group>();
+            this.Events = new HashSet<Event>();
         }
 
         [Required]
@@ -28,6 +31,8 @@
 
         public virtual PlanShiftUser Owner { get; set; }
 
-        public ICollection<Group> Groups { get; set; }
+        public virtual ICollection<Group> Groups { get; set; }
+
+        public virtual ICollection<Event> Events { get; set; }
     }
 }

@@ -7,5 +7,7 @@
         public int ShiftApplicationsCount { get; set; }
 
         public bool IsScheduleManagerOrAdmin { get; set; }
+
+        public string BusinessId { get; set; }
     }
 }

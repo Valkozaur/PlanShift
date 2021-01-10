@@ -46,7 +46,7 @@
         $("#groupButton").on("click",
             function() {
                 var clickedGroup = $(this).val();
-
+                console.log(2);
                 $("#createShiftBtn").val(clickedGroup);
                 $("#GroupId").val(clickedGroup);
 
@@ -142,11 +142,11 @@
     </script>
 
     <script>
-        $("#createShiftBtn").click(function() {
+        $("#createShiftBtn").click(function () {
             $("#createShiftForm").show();
         })
 
-        $("#hideCreateShiftFormBtn").click(function() {
+        $("#hideCreateShiftFormBtn").click(function () {
 
             $("#createShiftForm").hide();
         });

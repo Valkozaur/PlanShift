@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     using PlanShift.Common;
@@ -33,11 +32,11 @@
             this.groupService = groupService;
         }
 
-        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
+        [GetSessionInformation(GlobalConstants.BusinessIdSessionName)]
         [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.ScheduleManagersGroupName } })]
         public async Task<IActionResult> Schedule()
         {
-            var businessId = this.HttpContext.Session.GetString(GlobalConstants.BusinessIdSessionName);
+            var businessId = this.HttpContext.Items[GlobalConstants.BusinessIdSessionName].ToString();
 
             var groups = await this.groupService.GetAllGroupsByBusiness<GroupAllViewModel>(businessId, false);
 
@@ -59,13 +58,13 @@
 
         [HttpPost]
         [Authorize]
-        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
+        [GetSessionInformation(GlobalConstants.BusinessIdSessionName)]
         [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.ScheduleManagersGroupName } })]
 
         public async Task<IActionResult> Schedule(CreateShiftInputModel input)
         {
 
-            var businessId = this.HttpContext.Session.GetString(GlobalConstants.BusinessIdSessionName);
+            var businessId = this.HttpContext.Items[GlobalConstants.BusinessIdSessionName].ToString();
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var managementId = await this.employeeGroupService.GetFirstEmployeeIdFromAdministrationGroups(userId, businessId);
 
@@ -93,7 +92,7 @@
         [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.ScheduleManagersGroupName } })]
         public IActionResult CreateFormViewComponent(string groupId)
         {
-            return this.ViewComponent("CreateShiftAsync", new { groupId });
+            return this.ViewComponent("CreateShiftAsync", new { GroupId = groupId });
         }
     }
 }

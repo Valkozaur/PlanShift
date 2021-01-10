@@ -1,4 +1,5 @@
 ﻿@using PlanShift.Web.ViewModels.Group;
+@using Microsoft.CodeAnalysis
 @model GroupListViewModel<GroupPeopleCountViewModel>
 
 @{
@@ -9,23 +10,32 @@
 {
     foreach (var value in this.ViewData.ModelState.Values)
     {
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            @value.Errors[0];
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    @value.Errors[0];
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
     }
 }
 
 <div class="container">
     <div class="row">
-        @if (this.Model.IsInHrOrAdminRoleGroup)
-        {
-            <a class="btn btn-primary" asp-controller="Group" asp-action="Create">Create Group</a>
-            <a class="btn btn-success" asp-controller="EmployeeGroup" asp-action="AddEmployeeToGroup" asp-route-groupId="@this.Model.ActiveTabGroupId">Add Employee</a>
-        }
-        <a class="btn btn-warning" asp-controller="Group" asp-action="GroupChat" asp-route-groupId="@this.Model.ActiveTabGroupId">Group chat</a>
+        <div class="col-3">
+            <a class="btn btn-warning" asp-controller="Group" asp-action="GroupChat" asp-route-groupId="@this.Model.ActiveTabGroupId">Group chat</a>
+        </div>
+        <div class="col-4">
+
+        </div>
+
+        <div class="col-5">
+            @if (this.Model.IsInHrOrAdminRoleGroup)
+            {
+                <a class="btn btn-primary" asp-controller="Group" asp-action="Create">Create Group</a>
+                <a class="btn btn-success" asp-controller="EmployeeGroup" asp-action="AddEmployeeToGroup" asp-route-groupId="@this.Model.ActiveTabGroupId">Add Employee</a>
+                <a class="btn btn-danger" asp-controller="Group" asp-action="Delete" asp-route-groupId="@this.Model.ActiveTabGroupId">Delete group</a>
+            }
+        </div>
     </div>
 
 
@@ -35,23 +45,25 @@
                 <h5 class="text-center">Groups</h5>
                 @foreach (var group in this.Model.Groups)
                 {
-                    <a type="submit" class="btn btn-lg btn-outline-secondary w-100" asp-controller="People" asp-action="SwitchToTabs" asp-route-activeTabGroupId="@group.Id">
+                    <a type="button" class="btn btn-lg btn-outline-secondary w-100" id="groupButton" value="@group.Id" asp-controller="People" asp-action="SwitchToTabs" asp-route-activeTabGroupId="@group.Id">
                         <span class="float-left text-secondary">@group.Name</span><span class="float-right text-secondary numberCircle">@group.EmployeesCount</span>
                     </a>
                 }
 
                 @if (this.Model.SpecialGroups.Count() != 0)
                 {
-                    <br />
+                    <span class=".space"></span>
                     <h5 class="text-center">Managers Groups</h5>
+
+                    @foreach (var group in this.Model.SpecialGroups)
+                    {
+                        <a type="submit" class="btn btn-lg btn-light btn-outline-secondary w-100" asp-controller="People" asp-action="SwitchToTabs" asp-route-activeTabGroupId="@group.Id">
+                            <span class="float-left text-secondary">@group.Name</span><span class="float-right text-secondary numberCircle">@group.EmployeesCount</span>
+                        </a>
+                    }
                 }
 
-                @foreach (var group in this.Model.SpecialGroups)
-                {
-                    <a type="submit" class="btn btn-lg btn-light btn-outline-secondary w-100" asp-controller="People" asp-action="SwitchToTabs" asp-route-activeTabGroupId="@group.Id">
-                        <span class="float-left text-secondary">@group.Name</span><span class="float-right text-secondary numberCircle">@group.EmployeesCount</span>
-                    </a>
-                }
+
             </div>
         </div>
 

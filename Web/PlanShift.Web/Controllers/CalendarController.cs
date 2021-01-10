@@ -6,12 +6,8 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using PlanShift.Common;
-    using PlanShift.Services.Data.ShiftApplicationServices;
-    using PlanShift.Services.Data.ShiftChangeServices;
+
     using PlanShift.Services.Data.ShiftServices;
-    using PlanShift.Web.Tools.ActionFilters;
-    using PlanShift.Web.Tools.SessionExtension;
     using PlanShift.Web.ViewModels.Enumerations;
     using PlanShift.Web.ViewModels.Shift;
 
@@ -29,11 +25,8 @@
         }
 
         [HttpGet]
-        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
-        public async Task<ActionResult> Get()
+        public async Task<ActionResult> Get(string businessId)
         {
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessIdSessionName);
-
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var upcomingShifts = await this.shiftService.GetUpcomingShiftForUserAsync<ShiftCalendarViewModel>(businessId, userId);
@@ -81,7 +74,6 @@
         }
 
         [HttpGet("GetGroupShifts")]
-        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
         public async Task<ActionResult> GetGroupShifts(string groupId)
         {
             var shifts = await this.shiftService.GetAllShiftsByGroupAsync<ShiftCalendarViewModel>(groupId);

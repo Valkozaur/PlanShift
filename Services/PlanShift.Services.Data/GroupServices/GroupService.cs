@@ -1,11 +1,11 @@
 ﻿namespace PlanShift.Services.Data.GroupServices
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-
     using PlanShift.Common;
     using PlanShift.Data.Common.Repositories;
     using PlanShift.Data.Models;
@@ -44,6 +44,27 @@
             await this.employeeGroupService.AddEmployeeToGroupAsync(ownerId, group.Id, 0, "Owner");
 
             return group.Id;
+        }
+
+        public async Task DeleteGroupAsync(string id)
+        {
+            var group = await this.groupRepository.AllAsNoTracking()?.FirstOrDefaultAsync(g => g.Id == id);
+
+            if (group == null)
+            {
+                throw new ArgumentNullException("Group", "No group witht this id found!");
+            }
+
+            if (group.Name == GlobalConstants.AdminsGroupName ||
+                group.Name == GlobalConstants.ScheduleManagersGroupName ||
+                group.Name == GlobalConstants.HrGroupName)
+            {
+                throw new ArgumentException("You can not delete official groups!");
+
+            }
+
+            this.groupRepository.Delete(group);
+            await this.groupRepository.SaveChangesAsync();
         }
 
         // public async Task<string> UpdateGroupAsync(

@@ -5,9 +5,21 @@
 
             <div class="space" id="space"></div>
 
-            <h3 class="text-center"> Login to see your schedules! </h3>
+
             <div class="container text-center">
-                <a class="btn btn-lg btn-success justify-content-center mx-auto" asp-area="Identity" asp-page="/Account/Login">See your schedule!</a>
+                @if (this.User.Identity.IsAuthenticated)
+                {
+                    <h3 class="text-center">See your schedules! </h3>
+
+                    <a class="btn btn-lg btn-success justify-content-center mx-auto" asp-controller="Business" asp-action="Pick">See your schedule!</a>
+                }
+                else
+                {
+                    <h3 class="text-center"> Login to see your schedules! </h3>
+
+
+                    <a class="btn btn-lg btn-success justify-content-center mx-auto" asp-area="Identity" asp-page="/Account/Login">See your schedule!</a>
+                }
             </div>
 
             <div class="space" id="space"></div>

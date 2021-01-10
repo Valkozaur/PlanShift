@@ -1,16 +1,17 @@
 ﻿namespace PlanShift.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+
     using PlanShift.Common;
     using PlanShift.Data.Models;
     using PlanShift.Services.Data.BusinessServices;
     using PlanShift.Services.Data.GroupServices;
     using PlanShift.Web.Tools.ActionFilters;
-    using PlanShift.Web.Tools.SessionExtension;
     using PlanShift.Web.ViewModels.Business;
     using PlanShift.Web.ViewModels.Group;
 
@@ -26,13 +27,13 @@
             this.businessService = businessService;
         }
 
-        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
+        [GetSessionInformation(GlobalConstants.BusinessIdSessionName)]
         [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.HrGroupName } })]
         public async Task<IActionResult> Create()
         {
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessIdSessionName);
-
+            var businessId = this.HttpContext.Items[GlobalConstants.BusinessIdSessionName].ToString();
             var business = await this.businessService.GetBusinessAsync<BusinessInfoViewModel>(businessId);
+
             var viewModel = new GroupInputModel()
             {
                 BusinessName = business.Name,
@@ -43,11 +44,11 @@
         }
 
         [HttpPost]
-        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
+        [GetSessionInformation(GlobalConstants.BusinessIdSessionName)]
         [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.HrGroupName } })]
         public async Task<IActionResult> Create(GroupInputModel inputModel)
         {
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessIdSessionName);
+            var businessId = this.HttpContext.Items[GlobalConstants.BusinessIdSessionName].ToString();
 
             if (!this.ModelState.IsValid)
             {
@@ -65,6 +66,23 @@
             var viewModel = await this.groupService.GetGroupAsync<GroupChatViewModel>(groupId);
 
             return this.View(viewModel);
+        }
+
+        [Authorize]
+        [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.HrGroupName } })]
+        public async Task<IActionResult> Delete(string groupId)
+        {
+            try
+            {
+                await this.groupService.DeleteGroupAsync(groupId);
+            }
+            catch (Exception e)
+            {
+                this.ModelState.AddModelError("Error", e.Message);
+                return this.RedirectToAction("Index", "People", new { ActiveTabGroupId = groupId });
+            }
+
+            return this.RedirectToAction("Index", "People");
         }
     }
 }

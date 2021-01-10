@@ -25,11 +25,11 @@
             this.employeeGroupService = employeeGroupService;
         }
 
-        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
+        [GetSessionInformation(GlobalConstants.BusinessIdSessionName)]
         public async Task<IActionResult> Index(string activeTabGroupId)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessIdSessionName);
+            var businessId = this.HttpContext.Items[GlobalConstants.BusinessIdSessionName].ToString();
 
             var groups = await this.groupService.GetAllGroupByCurrentUserAndBusinessIdAsync<GroupPeopleCountViewModel>(businessId, userId);
 

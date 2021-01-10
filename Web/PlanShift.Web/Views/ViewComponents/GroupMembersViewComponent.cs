@@ -17,7 +17,7 @@
             this.employeeGroupService = employeeGroupService;
         }
 
-        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
+        [GetSessionInformation(GlobalConstants.BusinessIdSessionName)]
         public async Task<IViewComponentResult> InvokeAsync(string groupId)
         {
             var employees = await this.employeeGroupService.GetAllEmployeesFromGroup<EmployeeViewModel>(groupId);

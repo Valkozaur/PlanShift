@@ -81,12 +81,11 @@
             return this.RedirectToAction("Index", "Business");
         }
 
-        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
+        [GetSessionInformation(GlobalConstants.BusinessIdSessionName)]
         [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.HrGroupName } })]
         public async Task<IActionResult> Approve(string shiftChangeId, string groupId)
         {
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessIdSessionName);
-
+            var businessId = this.HttpContext.Items[GlobalConstants.BusinessIdSessionName].ToString();
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var manager = await this.employeeGroupService.GetEmployeeId(userId, groupId);

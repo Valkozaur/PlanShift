@@ -71,11 +71,11 @@
         }
 
         [HttpPost]
-        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
+        [GetSessionInformation(GlobalConstants.BusinessIdSessionName)]
         [TypeFilter(typeof(IsEmployeeInRoleGroupAttribute), Arguments = new object[] { new[] { GlobalConstants.AdminsGroupName, GlobalConstants.HrGroupName } })]
         public async Task<IActionResult> Remove(string id)
         {
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessIdSessionName);
+            var businessId = this.HttpContext.Items[GlobalConstants.BusinessIdSessionName].ToString();
             var isOwner = await this.businessService.IsEmployeeAnOwner(businessId, id);
 
             if (isOwner)

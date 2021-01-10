@@ -39,11 +39,11 @@
             this.employeeGroupService = employeeGroupService;
         }
 
-        [SessionValidation(GlobalConstants.BusinessIdSessionName)]
+        [GetSessionInformation(GlobalConstants.BusinessIdSessionName)]
         public async Task<IActionResult> Index()
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var businessId = await this.HttpContext.Session.GetStringAsync(GlobalConstants.BusinessIdSessionName);
+            var businessId = this.HttpContext.Items[GlobalConstants.BusinessIdSessionName].ToString();
 
             var isScheduleManagerOrAdmin = await this.employeeGroupService.IsEmployeeInGroupsWithNames(userId, businessId, GlobalConstants.AdminsGroupName, GlobalConstants.ScheduleManagersGroupName);
 
@@ -59,6 +59,7 @@
             }
 
             viewModel.IsScheduleManagerOrAdmin = isScheduleManagerOrAdmin;
+            viewModel.BusinessId = businessId;
 
             return this.View(viewModel);
         }
