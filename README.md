@@ -48,4 +48,7 @@ There is also group chat integrated.
 - Application Insights
 
 ## DB Diagram
-https://ibb.co/4t8b4d8
+
+    [image assetsSrc="https://ibb.co/4t8b4d8" /]
+
+
