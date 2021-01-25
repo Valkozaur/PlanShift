@@ -49,6 +49,6 @@ There is also group chat integrated.
 
 ## DB Diagram
 
-    [image assetsSrc="https://ibb.co/4t8b4d8" /]
+https://ibb.co/4t8b4d8
 
 
